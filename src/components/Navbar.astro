@@ -1,0 +1,183 @@
+---
+// Navbar.astro — Fixed top navbar with glassmorphism, mobile menu, language toggle, CTA
+---
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-18 lg:h-24">
+
+      <!-- ── Logo oficial (versión oscura: cobre sobre fondo transparente) ── -->
+      <a
+        href="#"
+        class="flex-shrink-0 group"
+        aria-label="ElectroLoop — Inicio"
+      >
+        <img
+          src="/logo-dark.png"
+          alt="ElectroLoop — Minería Urbana de Precisión"
+          class="h-12 lg:h-16 w-auto object-contain group-hover:opacity-90 transition-opacity"
+          width="360"
+          height="64"
+        />
+      </a>
+
+      <!-- ── Desktop Nav Links ── -->
+      <div class="hidden lg:flex items-center gap-6 xl:gap-8">
+        <a
+          href="#servicios"
+          class="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 relative group"
+          data-i18n="nav.services"
+        >
+          Servicios
+          <span class="absolute -bottom-1 left-0 h-px w-0 bg-copper transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a
+          href="#proceso"
+          class="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 relative group"
+          data-i18n="nav.process"
+        >
+          Proceso
+          <span class="absolute -bottom-1 left-0 h-px w-0 bg-copper transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a
+          href="#contacto"
+          class="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 relative group"
+          data-i18n="nav.contact"
+        >
+          Contacto
+          <span class="absolute -bottom-1 left-0 h-px w-0 bg-copper transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      </div>
+
+      <!-- ── Right: Language Toggle + CTA ── -->
+      <div class="hidden lg:flex items-center gap-3">
+        <!-- Language toggle -->
+        <button
+          id="lang-btn"
+          class="text-xs font-bold text-white/70 hover:text-white border border-white/20 hover:border-copper rounded-md px-2.5 py-1.5 transition-all duration-200"
+          aria-label="Toggle language"
+        >
+          EN
+        </button>
+
+        <!-- CTA button -->
+        <a
+          href="#contacto"
+          class="text-sm font-semibold text-white px-4 py-2.5 rounded-lg transition-all duration-200 hover:shadow-copper hover:-translate-y-0.5"
+          style="background-color: #B97333;"
+          data-i18n="nav.quote"
+        >
+          Cotizar
+        </a>
+      </div>
+
+      <!-- ── Mobile: hamburger ── -->
+      <div class="lg:hidden flex items-center gap-2">
+        <button
+          id="lang-btn-mobile"
+          class="text-xs font-bold text-white/70 hover:text-white border border-white/20 rounded-md px-2 py-1 transition-all duration-200"
+          aria-label="Toggle language"
+        >
+          EN
+        </button>
+        <button
+          id="hamburger"
+          class="p-2 flex flex-col gap-[6px] items-center justify-center"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Mobile Menu ── -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden bg-deep-blue/95 backdrop-blur-md border-t border-copper/20"
+    aria-hidden="true"
+  >
+    <div class="px-4 py-4 flex flex-col gap-1">
+      <a
+        href="#servicios"
+        class="mobile-nav-link text-sm font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-lg px-4 py-3 transition-all"
+        data-i18n="nav.services"
+      >Servicios</a>
+      <a
+        href="#proceso"
+        class="mobile-nav-link text-sm font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-lg px-4 py-3 transition-all"
+        data-i18n="nav.process"
+      >Proceso</a>
+      <a
+        href="#contacto"
+        class="mobile-nav-link text-sm font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-lg px-4 py-3 transition-all"
+        data-i18n="nav.contact"
+      >Contacto</a>
+      <div class="pt-2 pb-1">
+        <a
+          href="#contacto"
+          class="mobile-nav-link block text-center text-sm font-semibold text-white px-4 py-3 rounded-lg transition-all"
+          style="background-color: #B97333;"
+          data-i18n="nav.quote"
+        >Cotizar</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('hamburger-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+    });
+
+    // Close on link click
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('hamburger-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      });
+    });
+  }
+
+  // Language toggle (desktop + mobile)
+  function setupLangToggle(btnId: string) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const currentLang = localStorage.getItem('electroloop-lang') || 'es';
+      const newLang = currentLang === 'es' ? 'en' : 'es';
+      document.dispatchEvent(new CustomEvent('languagechange', { detail: newLang }));
+
+      // Update both buttons
+      ['lang-btn', 'lang-btn-mobile'].forEach((id) => {
+        const b = document.getElementById(id);
+        if (b) b.textContent = newLang === 'es' ? 'EN' : 'ES';
+      });
+    });
+  }
+
+  setupLangToggle('lang-btn');
+  setupLangToggle('lang-btn-mobile');
+
+  // Init button text from stored lang
+  const storedLang = localStorage.getItem('electroloop-lang') || 'es';
+  ['lang-btn', 'lang-btn-mobile'].forEach((id) => {
+    const btn = document.getElementById(id);
+    if (btn) btn.textContent = storedLang === 'es' ? 'EN' : 'ES';
+  });
+</script>

@@ -1,0 +1,163 @@
+---
+// About.astro — Mission, team, values section
+// <!-- Reemplazar con equipo real -->
+---
+
+<section id="nosotros" class="section-padding" style="background-color: #F4F4F4;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header -->
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-3" style="color: #B97333;">
+        Empresa
+      </span>
+      <h2
+        class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4"
+        style="color: #0B1B32; letter-spacing: -0.02em;"
+        data-i18n="about.title"
+      >Quiénes Somos</h2>
+      <p
+        class="text-base max-w-2xl mx-auto"
+        style="color: #8E9297;"
+        data-i18n="about.subtitle"
+      >Pioneros en minería urbana y economía circular en Chile</p>
+    </div>
+
+    <!-- Mission text -->
+    <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+      <p
+        class="text-lg leading-relaxed"
+        style="color: #0B1B32;"
+        data-i18n="about.description"
+      >
+        ElectroLoop nació de la convicción de que los residuos electrónicos son una mina urbana sin explotar.
+        Combinamos ingeniería de procesos, tecnología de trazabilidad y conocimiento regulatorio para transformar
+        los RAEE en recursos valiosos, contribuyendo activamente a la transición hacia una economía circular
+        en Chile y Latinoamérica.
+      </p>
+    </div>
+
+    <!-- Values row -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-5 mb-16">
+
+      <!-- Value 1: Tecnología -->
+      <div class="reveal stagger-1 flex flex-col items-center text-center gap-3 p-6 bg-white rounded-2xl shadow-sm">
+        <div
+          class="w-14 h-14 rounded-full flex items-center justify-center"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <svg class="w-7 h-7" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <rect x="7" y="7" width="10" height="10" rx="2"/>
+            <path d="M9 7V4M12 7V4M15 7V4M9 17v3M12 17v3M15 17v3M7 9H4M7 12H4M7 15H4M17 9h3M17 12h3M17 15h3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span
+          class="text-sm font-bold"
+          style="color: #0B1B32;"
+          data-i18n="about.values.0.name"
+        >Tecnología</span>
+      </div>
+
+      <!-- Value 2: Sostenibilidad -->
+      <div class="reveal stagger-2 flex flex-col items-center text-center gap-3 p-6 bg-white rounded-2xl shadow-sm">
+        <div
+          class="w-14 h-14 rounded-full flex items-center justify-center"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <svg class="w-7 h-7" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span
+          class="text-sm font-bold"
+          style="color: #0B1B32;"
+          data-i18n="about.values.1.name"
+        >Sostenibilidad</span>
+      </div>
+
+      <!-- Value 3: Trazabilidad -->
+      <div class="reveal stagger-3 flex flex-col items-center text-center gap-3 p-6 bg-white rounded-2xl shadow-sm">
+        <div
+          class="w-14 h-14 rounded-full flex items-center justify-center"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <svg class="w-7 h-7" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span
+          class="text-sm font-bold"
+          style="color: #0B1B32;"
+          data-i18n="about.values.2.name"
+        >Trazabilidad</span>
+      </div>
+
+      <!-- Value 4: Cumplimiento -->
+      <div class="reveal stagger-4 flex flex-col items-center text-center gap-3 p-6 bg-white rounded-2xl shadow-sm">
+        <div
+          class="w-14 h-14 rounded-full flex items-center justify-center"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <svg class="w-7 h-7" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M9 12l2 2 4-4M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span
+          class="text-sm font-bold"
+          style="color: #0B1B32;"
+          data-i18n="about.values.3.name"
+        >Cumplimiento</span>
+      </div>
+
+    </div>
+
+    <!-- Team Grid -->
+    <div>
+      <h3 class="text-xl font-bold text-center mb-8 reveal" style="color: #0B1B32;">Nuestro Equipo</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl mx-auto">
+
+        <!-- Team Member 1: Cristian Riffo -->
+        <div
+          class="reveal stagger-1 card-hover bg-white rounded-2xl p-7 text-center border border-transparent shadow-sm"
+        >
+          <div
+            class="w-16 h-16 rounded-full flex items-center justify-center text-xl font-black text-white mx-auto mb-4"
+            style="background: linear-gradient(135deg, #0B1B32, #1a3a60);"
+            aria-label="Avatar de Cristian Riffo"
+          >
+            CR
+          </div>
+          <h4
+            class="text-base font-bold"
+            style="color: #0B1B32;"
+            data-i18n="about.team.0.name"
+          >Cristian Riffo</h4>
+        </div>
+
+        <!-- Team Member 2: Nicolás Behar -->
+        <div
+          class="reveal stagger-2 card-hover bg-white rounded-2xl p-7 text-center border border-transparent shadow-sm"
+        >
+          <div
+            class="w-16 h-16 rounded-full flex items-center justify-center text-xl font-black text-white mx-auto mb-4"
+            style="background: linear-gradient(135deg, #0B1B32, #1a3a60);"
+            aria-label="Avatar de Nicolás Behar"
+          >
+            NB
+          </div>
+          <h4
+            class="text-base font-bold"
+            style="color: #0B1B32;"
+            data-i18n="about.team.1.name"
+          >Nicolás Behar</h4>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

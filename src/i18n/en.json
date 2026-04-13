@@ -1,0 +1,287 @@
+{
+  "lang": "en",
+  "nav": {
+    "services": "Services",
+    "process": "Process",
+    "impact": "Impact",
+    "sectors": "Sectors",
+    "about": "About",
+    "contact": "Contact",
+    "quote": "Get a Quote"
+  },
+  "hero": {
+    "title": "Precision Urban Mining",
+    "subtitle": "We are not just a pickup service. We are your strategic sustainability partner to turn electronic waste into measurable assets and friction-free REP compliance.",
+    "differentiator": "The only manager in Chile that shows you every step — from collection to recovered material.",
+    "claim2": "Infinite Resources",
+    "cta1": "See how it works",
+    "cta2": "Schedule your pickup",
+    "badge": "Authorized Manager — REP Law Chile"
+  },
+  "valueProps": {
+    "title": "Why ElectroLoop?",
+    "subtitle": "Not just another manager. The only WEEE-exclusive specialist with auditable traceability and certified data destruction in Chile.",
+    "cards": [
+      {
+        "title": "100% WEEE-focused",
+        "desc": "We don't manage generic industrial waste or operate as a division of another business. ElectroLoop exists exclusively for electronic recycling — and it shows in every process."
+      },
+      {
+        "title": "Certified data destruction",
+        "desc": "Secure erasure or physical media destruction. Individual certificate per serial number, valid for compliance audits and normative reporting."
+      },
+      {
+        "title": "Traceability you can audit",
+        "desc": "Not just a certificate at the end. Real-time digital tracking of every component, with downloadable reports ready for your REP audit or ESG report."
+      },
+      {
+        "title": "REP partner, not just vendor",
+        "desc": "We manage your full REP obligation: registration, reporting, and audits included. You focus on your business and we close the loop."
+      }
+    ],
+    "strip": {
+      "title": "Authorized Manager — Chile Ministry of the Environment",
+      "desc": "Compliant with REP Law N°20.920, Decree 148 on hazardous waste, and SEREMI Health authorizations.",
+      "cta": "View certifications →"
+    }
+  },
+  "chain": {
+    "badge": "Full transparency — what no one else shows you",
+    "title": "Your equipment arrives here. Here's what happens next.",
+    "subtitle": "While others hand you a certificate at the end, we show you every step of the journey. Total control from start to finish.",
+    "steps": [
+      { "title": "Pickup at your premises", "desc": "We coordinate collection at your facility with certified fleet, transport manifests, and a signed receipt. You get immediate confirmation.", "tag": "Receipt issued on pickup" },
+      { "title": "Certified reception & weighing", "desc": "Every WEEE item is weighed, photographed, and entered into our traceability system with a unique serial number. You receive an intake report within 24 hours.", "tag": "Intake report within 24h" },
+      { "title": "Certified data destruction", "desc": "Secure erasure or physical media destruction. Individual certificate per device with serial number, method, and date, valid for compliance audits.", "tag": "Certificate per device" },
+      { "title": "Dismantling & sorting", "desc": "Manual and mechanical separation of components: ferrous metals, copper, aluminum, circuit boards, plastics, and hazardous materials.", "tag": "Sorting by material type" },
+      { "title": "Material recovery", "desc": "Recovery of copper, gold, silver, palladium, aluminum, and engineering plastics. Materials re-enter the productive cycle as secondary raw materials.", "tag": "Materials return to the productive cycle" },
+      { "title": "Certificate in your inbox", "desc": "Digital certificate of final disposal, material recovery report, and environmental impact metrics (CO₂ avoided, kg recovered). Ready for your ESG report or REP audit.", "tag": "Valid for ESG and REP reporting" }
+    ],
+    "cta": {
+      "title": "Ready to see the process in action?",
+      "subtitle": "Schedule your first collection and receive your certificate within 5 business days.",
+      "button": "Schedule pickup"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Full WEEE management with certified data destruction, auditable traceability, and REP compliance — all in one partner.",
+    "items": [
+      {
+        "title": "Collection, Logistics & Data Destruction",
+        "desc": "Scheduled pickup at your facility with own fleet and certified manifests. Every device receives secure erasure or physical media destruction, with an individual certificate per serial number, valid for compliance audits.",
+        "cta": "Schedule a pickup"
+      },
+      {
+        "title": "Treatment & Recovery",
+        "desc": "Dismantling, sorting and processing of electronic waste with recovery of precious metals and reusable materials. Materials re-enter the productive cycle as secondary raw materials.",
+        "cta": "Learn more"
+      },
+      {
+        "title": "REP Management & Reporting",
+        "desc": "We manage your REP obligation as a producer: from registration in the registry to annual reports to the Ministry of Environment. We simplify your regulatory compliance.",
+        "cta": "Learn more"
+      }
+    ]
+  },
+  "process": {
+    "title": "How It Works",
+    "subtitle": "A transparent, certified process from start to finish",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Collection",
+        "desc": "We coordinate WEEE pickup at your facility with our own fleet and certified transport manifests."
+      },
+      {
+        "number": "02",
+        "title": "Classification",
+        "desc": "Reception, weighing and categorization of equipment by type, composition and condition at our facilities."
+      },
+      {
+        "number": "03",
+        "title": "Pre-treatment",
+        "desc": "Decontamination, safe extraction of hazardous components (batteries, refrigerants, screens) with certified protocols."
+      },
+      {
+        "number": "04",
+        "title": "Recovery",
+        "desc": "Separation and refining of precious metals and materials with value. Referral to specialized recyclers by material type."
+      },
+      {
+        "number": "05",
+        "title": "Certification",
+        "desc": "Issuance of final disposal certificates and auditable reports for REP compliance and sustainability programs."
+      }
+    ]
+  },
+  "impact": {
+    "title": "Our Impact",
+    "subtitle": "Numbers that back our commitment",
+    "stats": [
+      {
+        "value": "5000",
+        "prefix": "+",
+        "suffix": "",
+        "label": "Tons processed"
+      },
+      {
+        "value": "150",
+        "prefix": "+",
+        "suffix": "",
+        "label": "Active clients"
+      },
+      {
+        "value": "99.5",
+        "prefix": "",
+        "suffix": "%",
+        "label": "Guaranteed traceability"
+      },
+      {
+        "value": "12",
+        "prefix": "+",
+        "suffix": "",
+        "label": "Materials recovered"
+      }
+    ]
+  },
+  "sectors": {
+    "title": "Sectors That Trust Us",
+    "subtitle": "We serve organizations across multiple industries with tailored solutions",
+    "items": [
+      {
+        "name": "Mining",
+        "desc": "Management of tech equipment, sensors, servers and control systems in mining operations."
+      },
+      {
+        "name": "Energy",
+        "desc": "Collection and recovery of inverters, photovoltaic panels, batteries and substation equipment."
+      },
+      {
+        "name": "Government",
+        "desc": "REP compliance support for public agencies, municipalities and government institutions."
+      },
+      {
+        "name": "Retail",
+        "desc": "Mass collection programs for consumer electronics for retailers and producing brands."
+      },
+      {
+        "name": "Telecommunications",
+        "desc": "Recycling of network equipment, antennas, modems, cables and telecom hardware."
+      },
+      {
+        "name": "Manufacturing",
+        "desc": "Disposal of industrial electronic waste, decommissioned production lines and spare parts."
+      }
+    ]
+  },
+  "compliance": {
+    "title": "Regulatory Compliance",
+    "subtitle": "We operate within Chile's most rigorous regulatory framework",
+    "description": "REP Law (Law N° 20.920) establishes extended producer responsibility for the management of waste electrical and electronic equipment (WEEE). ElectroLoop is an Authorized Manager registered in the Ministry of Environment's Manager Registry, meeting all required technical, environmental and safety standards.",
+    "certifications": [
+      "Waste Manager Registry — Ministry of the Environment",
+      "Health Authorization — SEREMI de Salud",
+      "Prevention and Decontamination Plan",
+      "Environmental Management System ISO 14001",
+      "Traceability under Decree 148 (Hazardous Waste)"
+    ],
+    "badge": "Authorized Manager — Ministry of the Environment",
+    "cta": "Download our certificate"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Pioneers in urban mining and circular economy in Chile",
+    "description": "ElectroLoop was born from the conviction that electronic waste is an untapped urban mine. We combine process engineering, traceability technology and regulatory expertise to transform WEEE into valuable resources, actively contributing to the transition toward a circular economy in Chile and Latin America.",
+    "values": [
+      { "name": "Technology" },
+      { "name": "Sustainability" },
+      { "name": "Traceability" },
+      { "name": "Compliance" }
+    ],
+    "team": [
+      {
+        "name": "Cristian Riffo",
+        "role": ""
+      },
+      {
+        "name": "Nicolás Behar",
+        "role": ""
+      }
+    ]
+  },
+  "contact": {
+    "title": "Let's Talk",
+    "subtitle": "Tell us about your electronic waste management needs and we'll get back to you within 24 hours.",
+    "fields": {
+      "name": "Full name",
+      "email": "Email address",
+      "company": "Company / Organization",
+      "type": "Type of inquiry",
+      "message": "Message",
+      "send": "Send Message"
+    },
+    "types": [
+      "Service quote",
+      "REP compliance",
+      "General information",
+      "Other"
+    ],
+    "placeholders": {
+      "name": "Your name",
+      "email": "you@company.com",
+      "company": "Your company name",
+      "type": "Select an option",
+      "message": "Describe your need..."
+    },
+    "success": "Message sent! We'll contact you soon.",
+    "error": "There was an error. Please try again.",
+    "info": {
+      "email": "contacto@electroloop.cl",
+      "phone": "+56 2 2345 6789",
+      "address": "Barrio Industrial La Serena - Coquimbo, Chile"
+    }
+  },
+  "footer": {
+    "tagline": "Precision Urban Mining — Circular Economy for Chile",
+    "columns": {
+      "services": {
+        "title": "Services",
+        "links": [
+          "WEEE Collection",
+          "Treatment & Recovery",
+          "REP Management",
+          "Certification"
+        ]
+      },
+      "company": {
+        "title": "Company",
+        "links": [
+          "About Us",
+          "Process",
+          "Impact",
+          "Blog"
+        ]
+      },
+      "legal": {
+        "title": "Legal",
+        "links": [
+          "Privacy Policy",
+          "Terms of Use",
+          "REP Law",
+          "Certificates"
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "links": [
+          "contacto@electroloop.cl",
+          "+56 2 2345 6789",
+          "Santiago, Chile"
+        ]
+      }
+    },
+    "copyright": "© 2026 ElectroLoop SpA. All rights reserved.",
+    "legal": "Authorized WEEE Manager — REP Law Chile (N° 20.920)"
+  }
+}

@@ -1,0 +1,61 @@
+---
+// index.astro — Main landing page
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import ValueProps from '../components/ValueProps.astro';
+import Services from '../components/Services.astro';
+import Process from '../components/Process.astro';
+import ChainOfCustody from '../components/ChainOfCustody.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = 'ElectroLoop — Minería Urbana de Precisión | Gestor RAEE Chile';
+const pageDescription =
+  'ElectroLoop es el gestor autorizado de residuos electrónicos más avanzado de Chile. Recolección, tratamiento y valorización de RAEE con trazabilidad total bajo la Ley REP.';
+---
+
+<Layout title={pageTitle} description={pageDescription} lang="es">
+  <!-- Skip to content link for accessibility -->
+  <a
+    href="#inicio"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:text-white focus:font-bold"
+    style="background-color: #B97333;"
+  >
+    Saltar al contenido principal
+  </a>
+
+  <!-- Fixed Navbar -->
+  <Navbar />
+
+  <!-- Main content -->
+  <main id="main-content">
+    <!-- 1. Hero — Full viewport, circuit bg, animated headline -->
+    <Hero />
+
+    <!-- 2. Value Propositions — Why ElectroLoop? 4 cards -->
+    <ValueProps />
+
+    <!-- 3. Chain of Custody — DIFERENCIADOR CLAVE: ningún competidor chileno muestra esto -->
+    <ChainOfCustody />
+
+    <!-- 4. Services — 3 alternating service blocks -->
+    <Services />
+
+    <!-- 4. Process — 5-step timeline -->
+    <Process />
+
+    <!-- 5. Contact — Form + info + WhatsApp button -->
+    <Contact />
+  </main>
+
+  <!-- Footer -->
+  <Footer />
+</Layout>
+
+<style is:global>
+  /* Ensure the navbar has a transparent background before scrolling (no bg set by default) */
+  #navbar {
+    background: transparent;
+  }
+</style>

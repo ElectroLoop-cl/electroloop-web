@@ -1,0 +1,269 @@
+---
+// Sectors.astro — 6 sector cards with SVG icons, hover tooltip
+// <!-- Reemplazar íconos con logos reales -->
+---
+
+<section id="sectores" class="section-padding" style="background-color: #F4F4F4;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header -->
+    <div class="text-center mb-14 reveal">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-3" style="color: #B97333;">
+        Industrias
+      </span>
+      <h2
+        class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4"
+        style="color: #0B1B32; letter-spacing: -0.02em;"
+        data-i18n="sectors.title"
+      >Sectores que Confían en Nosotros</h2>
+      <p
+        class="text-base max-w-2xl mx-auto"
+        style="color: #8E9297;"
+        data-i18n="sectors.subtitle"
+      >Atendemos a organizaciones de múltiples industrias con soluciones a medida</p>
+    </div>
+
+    <!-- Sectors Grid — 3x2 desktop, 2x3 tablet, 1x6 mobile -->
+    <!-- Reemplazar íconos con logos reales -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- Sector 1: Minería -->
+      <div
+        class="sector-card card-hover relative bg-white rounded-2xl p-7 border border-transparent shadow-sm flex items-start gap-5 reveal stagger-1 cursor-default"
+        aria-label="Sector Minería"
+      >
+        <!-- Icon -->
+        <div
+          class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <!-- SVG: pickaxe / mining -->
+          <svg class="w-6 h-6" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M4.5 19.5l7-7m0 0l3.5-3.5M11.5 12.5l-1-1m4.5-1l4-4a2 2 0 00-2.828-2.828L12 8m4-4l-1.5 1.5M9 15l-4.5 4.5M3 21l1.5-1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="17" cy="7" r="3" stroke="#B97333" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <!-- Content -->
+        <div>
+          <h3
+            class="text-base font-bold mb-1.5"
+            style="color: #0B1B32;"
+            data-i18n="sectors.items.0.name"
+          >Minería</h3>
+          <p
+            class="text-sm leading-relaxed"
+            style="color: #8E9297;"
+            data-i18n="sectors.items.0.desc"
+          >Gestión de equipos tecnológicos, sensores, servidores y sistemas de control en operaciones mineras.</p>
+        </div>
+        <!-- Tooltip -->
+        <div
+          class="tooltip absolute -top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-white px-3 py-1.5 rounded-lg whitespace-nowrap"
+          style="background: #0B1B32; border: 1px solid rgba(185,115,51,0.3);"
+          role="tooltip"
+        >
+          Soluciones para operaciones mineras
+        </div>
+      </div>
+
+      <!-- Sector 2: Energía -->
+      <div
+        class="sector-card card-hover relative bg-white rounded-2xl p-7 border border-transparent shadow-sm flex items-start gap-5 reveal stagger-2 cursor-default"
+        aria-label="Sector Energía"
+      >
+        <div
+          class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <!-- SVG: lightning bolt -->
+          <svg class="w-6 h-6" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3
+            class="text-base font-bold mb-1.5"
+            style="color: #0B1B32;"
+            data-i18n="sectors.items.1.name"
+          >Energía</h3>
+          <p
+            class="text-sm leading-relaxed"
+            style="color: #8E9297;"
+            data-i18n="sectors.items.1.desc"
+          >Retiro y valorización de inversores, paneles fotovoltaicos, baterías y equipos de subestaciones.</p>
+        </div>
+        <div
+          class="tooltip absolute -top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-white px-3 py-1.5 rounded-lg whitespace-nowrap"
+          style="background: #0B1B32; border: 1px solid rgba(185,115,51,0.3);"
+          role="tooltip"
+        >
+          Para el sector energético
+        </div>
+      </div>
+
+      <!-- Sector 3: Gobierno -->
+      <div
+        class="sector-card card-hover relative bg-white rounded-2xl p-7 border border-transparent shadow-sm flex items-start gap-5 reveal stagger-3 cursor-default"
+        aria-label="Sector Gobierno"
+      >
+        <div
+          class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <!-- SVG: building/government -->
+          <svg class="w-6 h-6" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 10v11M12 10v11M16 10v11" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3
+            class="text-base font-bold mb-1.5"
+            style="color: #0B1B32;"
+            data-i18n="sectors.items.2.name"
+          >Gobierno</h3>
+          <p
+            class="text-sm leading-relaxed"
+            style="color: #8E9297;"
+            data-i18n="sectors.items.2.desc"
+          >Apoyo al cumplimiento REP para organismos públicos, municipios e instituciones del Estado.</p>
+        </div>
+        <div
+          class="tooltip absolute -top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-white px-3 py-1.5 rounded-lg whitespace-nowrap"
+          style="background: #0B1B32; border: 1px solid rgba(185,115,51,0.3);"
+          role="tooltip"
+        >
+          Sector público y gobierno
+        </div>
+      </div>
+
+      <!-- Sector 4: Retail -->
+      <div
+        class="sector-card card-hover relative bg-white rounded-2xl p-7 border border-transparent shadow-sm flex items-start gap-5 reveal stagger-4 cursor-default"
+        aria-label="Sector Retail"
+      >
+        <div
+          class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <!-- SVG: shopping bag -->
+          <svg class="w-6 h-6" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3
+            class="text-base font-bold mb-1.5"
+            style="color: #0B1B32;"
+            data-i18n="sectors.items.3.name"
+          >Retail</h3>
+          <p
+            class="text-sm leading-relaxed"
+            style="color: #8E9297;"
+            data-i18n="sectors.items.3.desc"
+          >Programas de recolección masiva de electrónicos de consumo para retailers y marcas productoras.</p>
+        </div>
+        <div
+          class="tooltip absolute -top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-white px-3 py-1.5 rounded-lg whitespace-nowrap"
+          style="background: #0B1B32; border: 1px solid rgba(185,115,51,0.3);"
+          role="tooltip"
+        >
+          Comercio y marcas productoras
+        </div>
+      </div>
+
+      <!-- Sector 5: Telecomunicaciones -->
+      <div
+        class="sector-card card-hover relative bg-white rounded-2xl p-7 border border-transparent shadow-sm flex items-start gap-5 reveal stagger-5 cursor-default"
+        aria-label="Sector Telecomunicaciones"
+      >
+        <div
+          class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <!-- SVG: signal/wifi tower -->
+          <svg class="w-6 h-6" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3
+            class="text-base font-bold mb-1.5"
+            style="color: #0B1B32;"
+            data-i18n="sectors.items.4.name"
+          >Telecomunicaciones</h3>
+          <p
+            class="text-sm leading-relaxed"
+            style="color: #8E9297;"
+            data-i18n="sectors.items.4.desc"
+          >Reciclaje de equipos de red, antenas, módem, cables y hardware de telecomunicaciones.</p>
+        </div>
+        <div
+          class="tooltip absolute -top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-white px-3 py-1.5 rounded-lg whitespace-nowrap"
+          style="background: #0B1B32; border: 1px solid rgba(185,115,51,0.3);"
+          role="tooltip"
+        >
+          Operadoras y proveedores
+        </div>
+      </div>
+
+      <!-- Sector 6: Manufactura -->
+      <div
+        class="sector-card card-hover relative bg-white rounded-2xl p-7 border border-transparent shadow-sm flex items-start gap-5 reveal stagger-6 cursor-default"
+        aria-label="Sector Manufactura"
+      >
+        <div
+          class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+          style="background: rgba(185,115,51,0.1);"
+          aria-hidden="true"
+        >
+          <!-- SVG: cog/gear -->
+          <svg class="w-6 h-6" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3
+            class="text-base font-bold mb-1.5"
+            style="color: #0B1B32;"
+            data-i18n="sectors.items.5.name"
+          >Manufactura</h3>
+          <p
+            class="text-sm leading-relaxed"
+            style="color: #8E9297;"
+            data-i18n="sectors.items.5.desc"
+          >Disposición de residuos electrónicos industriales, líneas de producción descartadas y repuestos.</p>
+        </div>
+        <div
+          class="tooltip absolute -top-10 left-1/2 -translate-x-1/2 text-xs font-medium text-white px-3 py-1.5 rounded-lg whitespace-nowrap"
+          style="background: #0B1B32; border: 1px solid rgba(185,115,51,0.3);"
+          role="tooltip"
+        >
+          Industria y fabricación
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA row -->
+    <div class="text-center mt-12 reveal">
+      <p class="text-sm mb-4" style="color: #8E9297;">¿No ves tu sector? Trabajamos con cualquier industria que genere RAEE.</p>
+      <a
+        href="#contacto"
+        class="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-lg text-white transition-all duration-200 hover:shadow-copper hover:-translate-y-0.5"
+        style="background-color: #B97333;"
+      >
+        Consultar disponibilidad
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>

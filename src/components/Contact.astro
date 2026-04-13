@@ -1,0 +1,285 @@
+---
+// Contact.astro — Contact form (Formspree) + info + WhatsApp floating button
+// <!-- PLACEHOLDER: Reemplazar XXXXXXXX con ID real de Formspree -->
+// <!-- PLACEHOLDER: Reemplazar número de WhatsApp -->
+---
+
+<section id="contacto" class="section-padding" style="background-color: #0B1B32;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header -->
+    <div class="text-center mb-14 reveal">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-3" style="color: #B97333;">
+        Contacto
+      </span>
+      <h2
+        class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4"
+        style="letter-spacing: -0.02em;"
+        data-i18n="contact.title"
+      >Conversemos</h2>
+      <p
+        class="text-base max-w-2xl mx-auto"
+        style="color: #8E9297;"
+        data-i18n="contact.subtitle"
+      >Cuéntanos sobre tu necesidad de gestión de residuos electrónicos y te contactaremos dentro de 24 horas.</p>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+      <!-- Left: Form -->
+      <div class="reveal-left">
+        <form
+          id="contact-form"
+          action="https://formspree.io/f/XXXXXXXX"
+          method="POST"
+          class="flex flex-col gap-5"
+          novalidate
+        >
+          <!-- PLACEHOLDER: Reemplazar XXXXXXXX con ID real de Formspree -->
+
+          <!-- Name -->
+          <div>
+            <label for="contact-name" class="form-label" data-i18n="contact.fields.name">
+              Nombre completo
+            </label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              class="form-input"
+              placeholder="Tu nombre"
+              required
+              autocomplete="name"
+              data-i18n-placeholder="contact.placeholders.name"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="contact-email" class="form-label" data-i18n="contact.fields.email">
+              Correo electrónico
+            </label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              class="form-input"
+              placeholder="tu@empresa.cl"
+              required
+              autocomplete="email"
+              data-i18n-placeholder="contact.placeholders.email"
+            />
+          </div>
+
+          <!-- Company -->
+          <div>
+            <label for="contact-company" class="form-label" data-i18n="contact.fields.company">
+              Empresa / Organización
+            </label>
+            <input
+              type="text"
+              id="contact-company"
+              name="company"
+              class="form-input"
+              placeholder="Nombre de tu empresa"
+              autocomplete="organization"
+              data-i18n-placeholder="contact.placeholders.company"
+            />
+          </div>
+
+          <!-- Type -->
+          <div>
+            <label for="contact-type" class="form-label" data-i18n="contact.fields.type">
+              Tipo de consulta
+            </label>
+            <select
+              id="contact-type"
+              name="type"
+              class="form-input"
+              required
+            >
+              <option value="" disabled selected data-i18n="contact.placeholders.type">Selecciona una opción</option>
+              <option value="quote" data-i18n="contact.types.0">Cotización de servicio</option>
+              <option value="rep" data-i18n="contact.types.1">Cumplimiento REP</option>
+              <option value="info" data-i18n="contact.types.2">Información general</option>
+              <option value="other" data-i18n="contact.types.3">Otro</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="contact-message" class="form-label" data-i18n="contact.fields.message">
+              Mensaje
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="4"
+              class="form-input resize-none"
+              placeholder="Describe tu necesidad..."
+              required
+              data-i18n-placeholder="contact.placeholders.message"
+            ></textarea>
+          </div>
+
+          <!-- Honeypot -->
+          <input type="text" name="_gotcha" style="display: none;" tabindex="-1" autocomplete="off" />
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            id="submit-btn"
+            class="group flex items-center justify-center gap-2 text-sm font-bold text-white px-8 py-4 rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-copper disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+            style="background-color: #B97333;"
+            data-i18n="contact.fields.send"
+          >
+            <svg
+              id="submit-spinner"
+              class="w-4 h-4 hidden animate-spin"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+            </svg>
+            <span id="submit-text">Enviar Mensaje</span>
+            <svg
+              class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+            </svg>
+          </button>
+
+          <!-- Success / Error messages -->
+          <div
+            id="form-success"
+            class="hidden flex items-center gap-3 p-4 rounded-xl"
+            style="background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);"
+            role="alert"
+            aria-live="polite"
+          >
+            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style="color: #22c55e;">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium" style="color: #22c55e;" data-i18n="contact.success">
+              ¡Mensaje enviado! Te contactaremos pronto.
+            </span>
+          </div>
+
+          <div
+            id="form-error"
+            class="hidden flex items-center gap-3 p-4 rounded-xl"
+            style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);"
+            role="alert"
+            aria-live="polite"
+          >
+            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style="color: #ef4444;">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-medium" style="color: #ef4444;" data-i18n="contact.error">
+              Hubo un error. Por favor intenta nuevamente.
+            </span>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Right: Contact info -->
+      <div class="reveal-right flex flex-col gap-8">
+
+        <!-- Intro text -->
+        <div>
+          <h3 class="text-xl font-bold text-white mb-3">Información de Contacto</h3>
+          <p class="text-sm leading-relaxed" style="color: #8E9297;">
+            Nuestro equipo de especialistas está disponible de lunes a viernes de 08:00 a 18:00 hrs.
+            Para consultas urgentes, utiliza WhatsApp.
+          </p>
+        </div>
+
+        <!-- Contact details -->
+        <div class="flex flex-col gap-5">
+
+          <!-- Email -->
+          <!-- PLACEHOLDER: Reemplazar con email real -->
+          <div class="flex items-start gap-4">
+            <div
+              class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+              style="background: rgba(185,115,51,0.15);"
+              aria-hidden="true"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs font-medium mb-0.5" style="color: #8E9297;">Email</div>
+              <a
+                href="mailto:contacto@electroloop.cl"
+                class="text-sm font-medium text-white hover:text-copper transition-colors"
+                data-i18n="contact.info.email"
+              >contacto@electroloop.cl</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  // Form submission with Formspree
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const submitSpinner = document.getElementById('submit-spinner');
+  const submitText = document.getElementById('submit-text');
+  const successMsg = document.getElementById('form-success');
+  const errorMsg = document.getElementById('form-error');
+
+  if (form && submitBtn) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Show spinner
+      if (submitSpinner) submitSpinner.classList.remove('hidden');
+      if (submitText) submitText.textContent = 'Enviando...';
+      submitBtn.disabled = true;
+
+      // Hide previous messages
+      successMsg?.classList.add('hidden');
+      errorMsg?.classList.add('hidden');
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          successMsg?.classList.remove('hidden');
+          form.reset();
+        } else {
+          errorMsg?.classList.remove('hidden');
+        }
+      } catch (_err) {
+        errorMsg?.classList.remove('hidden');
+      } finally {
+        if (submitSpinner) submitSpinner.classList.add('hidden');
+        const lang = localStorage.getItem('electroloop-lang') || 'es';
+        if (submitText) submitText.textContent = lang === 'es' ? 'Enviar Mensaje' : 'Send Message';
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>

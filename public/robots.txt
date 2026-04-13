@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://electroloop.cl/sitemap.xml
+
+# Disallow admin or private paths (none currently, placeholder)
+# Disallow: /admin/

@@ -1,0 +1,535 @@
+/* Tipografía principal: Arial / Helvetica (Manual de Marca ElectroLoop) — fuente de sistema, sin dependencia externa */
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   CSS Custom Properties — Brand Colors
+───────────────────────────────────────────── */
+:root {
+  --color-deep-blue: #0B1B32;
+  --color-copper: #B97333;
+  --color-copper-light: #D4894A;
+  --color-copper-dark: #9A5E28;
+  --color-steel: #8E9297;
+  --color-ceramic: #F4F4F4;
+  --color-white: #FFFFFF;
+  --color-footer-dark: #060D1A;
+
+  --font-sans: Arial, Helvetica, system-ui, sans-serif;
+  --font-size-base: 16px;
+
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.6s ease;
+  --border-radius-base: 8px;
+  --border-radius-lg: 16px;
+}
+
+/* ─────────────────────────────────────────────
+   Base Reset & Typography
+───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: var(--font-size-base);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-deep-blue);
+  background-color: var(--color-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+/* ─────────────────────────────────────────────
+   Animations: fadeInUp
+───────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes pulseCopperRing {
+  0%   { box-shadow: 0 0 0 0 rgba(185, 115, 51, 0.4); }
+  70%  { box-shadow: 0 0 0 12px rgba(185, 115, 51, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(185, 115, 51, 0); }
+}
+
+@keyframes circuitDash {
+  from { stroke-dashoffset: 800; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes lineExpand {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─────────────────────────────────────────────
+   Reveal (Scroll-Triggered) Utility Classes
+───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for sequential animation */
+.stagger-1  { transition-delay: 0.1s; }
+.stagger-2  { transition-delay: 0.2s; }
+.stagger-3  { transition-delay: 0.3s; }
+.stagger-4  { transition-delay: 0.4s; }
+.stagger-5  { transition-delay: 0.5s; }
+.stagger-6  { transition-delay: 0.6s; }
+
+/* ─────────────────────────────────────────────
+   Glassmorphism Utility
+───────────────────────────────────────────── */
+.glass {
+  background: rgba(11, 27, 50, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(185, 115, 51, 0.2);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ─────────────────────────────────────────────
+   Hero Circuit Pattern (CSS background)
+───────────────────────────────────────────── */
+.circuit-bg {
+  background-color: var(--color-deep-blue);
+  background-image:
+    linear-gradient(rgba(185, 115, 51, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(185, 115, 51, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at 20% 50%, rgba(185, 115, 51, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(11, 50, 80, 0.3) 0%, transparent 40%);
+  background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
+}
+
+.circuit-dots {
+  background-image: radial-gradient(circle, rgba(185, 115, 51, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ─────────────────────────────────────────────
+   Bounce Arrow animation
+───────────────────────────────────────────── */
+.bounce-arrow {
+  animation: bounceSlow 2s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────
+   Copper pulse ring for CTA buttons
+───────────────────────────────────────────── */
+.pulse-ring {
+  animation: pulseCopperRing 2s infinite;
+}
+
+/* ─────────────────────────────────────────────
+   Section utilities
+───────────────────────────────────────────── */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Counter animation state
+───────────────────────────────────────────── */
+.counter-value {
+  display: inline-block;
+}
+
+.counter-animated {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* ─────────────────────────────────────────────
+   Timeline — Process section
+───────────────────────────────────────────── */
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-copper) 0%, rgba(185, 115, 51, 0.3) 100%);
+  transform: translateY(-50%);
+  transition: width 1.5s ease;
+  width: 0%;
+}
+
+.timeline-line.visible {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────
+   Scrollbar (WebKit)
+───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-deep-blue);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-copper);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-copper-light);
+}
+
+/* ─────────────────────────────────────────────
+   Focus visible for accessibility
+───────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-copper);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─────────────────────────────────────────────
+   Gradient text utility
+───────────────────────────────────────────── */
+.text-gradient-copper {
+  background: linear-gradient(135deg, var(--color-copper) 0%, var(--color-copper-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────
+   WhatsApp button
+───────────────────────────────────────────── */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: bounceSlow 3s ease-in-out infinite;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+  animation: none;
+}
+
+/* ─────────────────────────────────────────────
+   Navbar transition
+───────────────────────────────────────────── */
+#navbar {
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+}
+
+#navbar.scrolled {
+  background: rgba(11, 27, 50, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(185, 115, 51, 0.25);
+}
+
+/* ─────────────────────────────────────────────
+   Mobile menu
+───────────────────────────────────────────── */
+#mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+#mobile-menu.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* Hamburger lines animation */
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-open .hamburger-line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-open .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-open .hamburger-line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ─────────────────────────────────────────────
+   Form styles
+───────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(185, 115, 51, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: rgba(142, 146, 151, 0.7);
+}
+
+.form-input:focus {
+  border-color: var(--color-copper);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(185, 115, 51, 0.15);
+}
+
+.form-input option {
+  background: var(--color-deep-blue);
+  color: white;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.375rem;
+}
+
+/* ─────────────────────────────────────────────
+   Card hover effects
+───────────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(185, 115, 51, 0.2);
+  border-color: var(--color-copper) !important;
+}
+
+/* ─────────────────────────────────────────────
+   Sector card tooltip
+───────────────────────────────────────────── */
+.sector-card .tooltip {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.sector-card:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────────
+   prefers-reduced-motion: disable animations
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal.visible,
+  .reveal-left,
+  .reveal-left.visible,
+  .reveal-right,
+  .reveal-right.visible,
+  .reveal-scale,
+  .reveal-scale.visible {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .bounce-arrow,
+  .whatsapp-btn {
+    animation: none;
+  }
+
+  .timeline-line {
+    width: 100%;
+    transition: none;
+  }
+}
