@@ -1,0 +1,158 @@
+---
+// Compliance.astro — Ley REP compliance section with badge and certifications
+---
+
+<section id="cumplimiento" class="section-padding bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header -->
+    <div class="text-center mb-14 reveal">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-3" style="color: #B97333;">
+        Regulación
+      </span>
+      <h2
+        class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4"
+        style="color: #0B1B32; letter-spacing: -0.02em;"
+        data-i18n="compliance.title"
+      >Cumplimiento Normativo</h2>
+      <p
+        class="text-base max-w-2xl mx-auto"
+        style="color: #8E9297;"
+        data-i18n="compliance.subtitle"
+      >Operamos dentro del marco regulatorio más exigente de Chile</p>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+      <!-- Left: Explanation -->
+      <div class="reveal-left">
+        <!-- Badge -->
+        <div
+          class="inline-flex items-center gap-3 px-5 py-3 rounded-xl mb-7"
+          style="background: rgba(185,115,51,0.08); border: 1.5px solid rgba(185,115,51,0.3);"
+        >
+          <div
+            class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+            style="background: #B97333;"
+            aria-hidden="true"
+          >
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <div>
+            <div
+              class="text-sm font-bold"
+              style="color: #0B1B32;"
+              data-i18n="compliance.badge"
+            >Gestor Autorizado — Ministerio del Medio Ambiente</div>
+            <div class="text-xs" style="color: #8E9297;">República de Chile</div>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-bold mb-4" style="color: #0B1B32;">¿Qué es la Ley REP?</h3>
+
+        <p
+          class="text-base leading-relaxed mb-6"
+          style="color: #8E9297;"
+          data-i18n="compliance.description"
+        >
+          La Ley REP (Ley N° 20.920) establece la responsabilidad extendida del productor para la gestión de residuos de aparatos eléctricos y electrónicos (RAEE). ElectroLoop es un Gestor Autorizado inscrito en el Registro de Gestores del Ministerio del Medio Ambiente de Chile, cumpliendo con todos los requisitos técnicos, ambientales y de seguridad exigidos.
+        </p>
+
+        <div
+          class="rounded-xl p-5 mb-7"
+          style="background: rgba(11,27,50,0.04); border: 1px solid rgba(11,27,50,0.08);"
+        >
+          <p class="text-sm font-medium mb-1" style="color: #0B1B32;">¿Eres productor o importador de equipos electrónicos?</p>
+          <p class="text-sm" style="color: #8E9297;">
+            La Ley REP te obliga a gestionar los residuos generados por los productos que pones en el mercado. ElectroLoop te ayuda a cumplir esta obligación de forma simple, trazable y documentada.
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <a
+          href="#"
+          class="inline-flex items-center gap-2.5 text-sm font-bold px-6 py-3 rounded-lg border-2 transition-all duration-200 hover:-translate-y-0.5"
+          style="color: #B97333; border-color: #B97333;"
+          data-i18n="compliance.cta"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Descarga nuestro certificado
+        </a>
+        <!-- PLACEHOLDER: Enlazar certificado real cuando esté disponible -->
+      </div>
+
+      <!-- Right: Certifications list -->
+      <div class="reveal-right">
+        <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">Autorizaciones y Certificaciones</h3>
+
+        <ul class="flex flex-col gap-4 mb-8">
+          {[
+            {
+              key: 'compliance.certifications.0',
+              text: 'Registro de Gestores de Residuos — Ministerio del Medio Ambiente',
+              icon: `<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"/>`
+            },
+            {
+              key: 'compliance.certifications.1',
+              text: 'Autorización Sanitaria — SEREMI de Salud',
+              icon: `<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"/>`
+            },
+            {
+              key: 'compliance.certifications.2',
+              text: 'Plan de Prevención y Descontaminación',
+              icon: `<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/>`
+            },
+            {
+              key: 'compliance.certifications.3',
+              text: 'Sistema de Gestión Ambiental ISO 14001',
+              icon: `<path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" stroke-linecap="round" stroke-linejoin="round"/>`
+            },
+            {
+              key: 'compliance.certifications.4',
+              text: 'Trazabilidad bajo Decreto 148 (Residuos Peligrosos)',
+              icon: `<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round"/>`
+            },
+          ].map((cert) => (
+            <li class="flex items-start gap-4">
+              <div
+                class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
+                style="background: rgba(185,115,51,0.1);"
+                aria-hidden="true"
+              >
+                <svg class="w-4.5 h-4.5" fill="none" stroke="#B97333" stroke-width="1.8" viewBox="0 0 24 24" set:html={cert.icon} />
+              </div>
+              <span
+                class="text-sm leading-relaxed pt-1.5"
+                style="color: #0B1B32;"
+                data-i18n={cert.key}
+              >{cert.text}</span>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Compliance callout box -->
+        <div
+          class="rounded-xl p-5 border"
+          style="background: linear-gradient(135deg, rgba(11,27,50,0.03), rgba(185,115,51,0.05)); border-color: rgba(185,115,51,0.2);"
+        >
+          <div class="flex items-center gap-2 mb-2">
+            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style="color: #B97333;">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm font-bold" style="color: #0B1B32;">Multas y sanciones REP</span>
+          </div>
+          <p class="text-xs leading-relaxed" style="color: #8E9297;">
+            El incumplimiento de las metas REP puede resultar en multas de hasta 10.000 UTA. ElectroLoop gestiona tu cumplimiento y mantiene la documentación en regla.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

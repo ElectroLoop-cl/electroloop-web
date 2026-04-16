@@ -1,0 +1,455 @@
+---
+import '../styles/global.css';
+import esTranslations from '../i18n/es.json';
+import enTranslations from '../i18n/en.json';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'Gestor RAEE Chile Autorizado | ElectroLoop — Ley REP & Reciclaje Electrónico',
+  description = 'ElectroLoop: gestor RAEE autorizado en Chile. Cumple la Ley REP con trazabilidad total. Recolección, tratamiento y valorización de residuos electrónicos para empresas. ✓ Certificado SMA.',
+  lang = 'es',
+  ogImage = '/og-image.jpg',
+} = Astro.props;
+
+const siteUrl = 'https://electroloop.cl';
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+  <meta name="keywords" content="gestor RAEE Chile, reciclaje electrónico empresas Chile, Ley REP Chile empresas, residuos electrónicos Chile, reciclaje computadores empresas, disposición RAEE, gestor autorizado RAEE, minería urbana, economía circular Chile" />
+  <meta name="author" content="ElectroLoop SpA" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={siteUrl} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="ElectroLoop" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={siteUrl} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+
+  <!-- Favicon — isotipo oficial ElectroLoop -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Tipografía: Arial / Helvetica (sistema) — sin dependencia externa, Manual de Marca ElectroLoop -->
+
+  <!-- Canonical -->
+  <link rel="canonical" href={siteUrl} />
+
+  <!-- Sitemap -->
+  <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+  <!-- Schema.org: Organization -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    "name": "ElectroLoop SpA",
+    "legalName": "ElectroLoop SpA",
+    "description": "Gestor RAEE autorizado en Chile. Recolección, tratamiento y valorización de residuos de aparatos eléctricos y electrónicos bajo la Ley REP.",
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/favicon.png`,
+      "width": 512,
+      "height": 512
+    },
+    "email": "contacto@electroloop.cl",
+    "telephone": "+56223456789",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Del Parque 4680",
+      "addressLocality": "Huechuraba",
+      "addressRegion": "Región Metropolitana",
+      "postalCode": "8580704",
+      "addressCountry": "CL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -33.3667,
+      "longitude": -70.6500
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Chile"
+    },
+    "foundingDate": "2021",
+    "sameAs": [
+      "https://www.linkedin.com/company/electroloop",
+      "https://twitter.com/electroloop_cl"
+    ],
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "Autorización de Operación",
+      "recognizedBy": {
+        "@type": "GovernmentOrganization",
+        "name": "Superintendencia del Medio Ambiente (SMA)",
+        "url": "https://www.sma.gob.cl"
+      }
+    }
+  })} />
+
+  <!-- Schema.org: LocalBusiness -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${siteUrl}/#localbusiness`,
+    "name": "ElectroLoop SpA",
+    "description": "Gestor autorizado de residuos de aparatos eléctricos y electrónicos (RAEE) en Chile. Minería urbana de precisión bajo la Ley REP N° 20.920.",
+    "url": siteUrl,
+    "email": "contacto@electroloop.cl",
+    "telephone": "+56223456789",
+    "priceRange": "$$",
+    "currenciesAccepted": "CLP",
+    "paymentAccepted": "Transferencia bancaria, Cheque",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Del Parque 4680",
+      "addressLocality": "Huechuraba",
+      "addressRegion": "Región Metropolitana",
+      "postalCode": "8580704",
+      "addressCountry": "CL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -33.3667,
+      "longitude": -70.6500
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      }
+    ],
+    "logo": `${siteUrl}/favicon.png`,
+    "image": `${siteUrl}/og-image.jpg`,
+    "sameAs": [
+      "https://www.linkedin.com/company/electroloop",
+      "https://twitter.com/electroloop_cl"
+    ]
+  })} />
+
+  <!-- Schema.org: Services -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${siteUrl}/#service-recoleccion`,
+        "name": "Recolección de Residuos Electrónicos RAEE",
+        "description": "Servicio de recolección y logística inversa de RAEE para empresas en Chile. Retiro en planta con cadena de custodia certificada bajo Ley REP.",
+        "provider": { "@id": `${siteUrl}/#organization` },
+        "areaServed": { "@type": "Country", "name": "Chile" },
+        "serviceType": "Recolección RAEE",
+        "category": "Gestión de Residuos",
+        "url": `${siteUrl}/#servicios`
+      },
+      {
+        "@type": "Service",
+        "@id": `${siteUrl}/#service-tratamiento`,
+        "name": "Tratamiento y Valorización de RAEE",
+        "description": "Desmantelamiento, clasificación y valorización de materiales recuperados de residuos electrónicos. Recuperación de metales preciosos y materiales reciclables.",
+        "provider": { "@id": `${siteUrl}/#organization` },
+        "areaServed": { "@type": "Country", "name": "Chile" },
+        "serviceType": "Tratamiento RAEE",
+        "category": "Reciclaje Industrial",
+        "url": `${siteUrl}/#servicios`
+      },
+      {
+        "@type": "Service",
+        "@id": `${siteUrl}/#service-cumplimiento`,
+        "name": "Cumplimiento Ley REP Chile para Empresas",
+        "description": "Asesoría y gestión integral de cumplimiento de la Ley REP (N° 20.920) para productores e importadores de aparatos eléctricos y electrónicos en Chile.",
+        "provider": { "@id": `${siteUrl}/#organization` },
+        "areaServed": { "@type": "Country", "name": "Chile" },
+        "serviceType": "Consultoría Ambiental REP",
+        "category": "Cumplimiento Regulatorio",
+        "url": `${siteUrl}/#servicios`
+      },
+      {
+        "@type": "Service",
+        "@id": `${siteUrl}/#service-trazabilidad`,
+        "name": "Trazabilidad y Certificados RAEE",
+        "description": "Emisión de certificados de destrucción y valorización de residuos electrónicos con trazabilidad total para cumplimiento regulatorio ante el SMA.",
+        "provider": { "@id": `${siteUrl}/#organization` },
+        "areaServed": { "@type": "Country", "name": "Chile" },
+        "serviceType": "Certificación RAEE",
+        "category": "Gestión Documental Ambiental",
+        "url": `${siteUrl}/#servicios`
+      }
+    ]
+  })} />
+
+  <!-- Schema.org: FAQPage -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué es un gestor RAEE autorizado en Chile?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Un gestor RAEE autorizado es una empresa certificada por la Superintendencia del Medio Ambiente (SMA) para recolectar, transportar, tratar y valorizar residuos de aparatos eléctricos y electrónicos (RAEE) de manera legal y segura bajo la Ley REP N° 20.920 de Chile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué es la Ley REP y cómo afecta a mi empresa en Chile?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La Ley REP (Responsabilidad Extendida del Productor, N° 20.920) obliga a los productores e importadores de aparatos eléctricos y electrónicos en Chile a hacerse responsables del reciclaje y disposición final de sus productos al terminar su vida útil. Las empresas deben cumplir metas anuales de recolección y valorización, o arriesgan multas del SMA."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué tipos de residuos electrónicos recibe ElectroLoop?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ElectroLoop recibe computadores, laptops, tablets, teléfonos móviles, impresoras, servidores, monitores, televisores, electrodomésticos, baterías, cables y cualquier aparato eléctrico o electrónico en desuso. Atendemos empresas de todos los tamaños en Chile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo solicitar la recolección de residuos electrónicos para mi empresa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para solicitar la recolección de RAEE para tu empresa, contacta a ElectroLoop a través del formulario en electroloop.cl o al correo contacto@electroloop.cl. Coordinamos el retiro en tus instalaciones con cadena de custodia certificada y emitimos todos los documentos legales requeridos."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿ElectroLoop entrega certificado de destrucción o valorización de RAEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. ElectroLoop emite certificados de valorización y destrucción de RAEE con trazabilidad total, válidos ante la Superintendencia del Medio Ambiente (SMA) y para auditorías internas de sostenibilidad corporativa."
+        }
+      }
+    ]
+  })} />
+
+  <!-- Translations injected as window globals -->
+  <script define:vars={{ esTranslations, enTranslations }}>
+    window.__i18n = {
+      es: esTranslations,
+      en: enTranslations,
+    };
+  </script>
+</head>
+
+<body class="bg-white font-sans text-deep-blue">
+  <slot />
+
+  <!-- ─── Scroll Reveal (IntersectionObserver) ─── -->
+  <script>
+    (function initReveal() {
+      const selectors = ['.reveal', '.reveal-left', '.reveal-right', '.reveal-scale'];
+      const allElements = document.querySelectorAll(selectors.join(','));
+
+      if (!allElements.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              // Don't unobserve — let it stay visible
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      allElements.forEach((el) => observer.observe(el));
+    })();
+  </script>
+
+  <!-- ─── Navbar Glassmorphism on Scroll ─── -->
+  <script>
+    (function initNavbar() {
+      const navbar = document.getElementById('navbar');
+      if (!navbar) return;
+
+      const handler = () => {
+        if (window.scrollY > 60) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      };
+
+      window.addEventListener('scroll', handler, { passive: true });
+      handler(); // run on load
+    })();
+  </script>
+
+  <!-- ─── Counter Animation ─── -->
+  <script>
+    (function initCounters() {
+      const counters = document.querySelectorAll<HTMLElement>('[data-counter]');
+      if (!counters.length) return;
+
+      function easeOutQuart(t: number): number {
+        return 1 - Math.pow(1 - t, 4);
+      }
+
+      function animateCounter(el: HTMLElement) {
+        const target = parseFloat(el.dataset.counter || '0');
+        const duration = 2000;
+        const startTime = performance.now();
+        const isDecimal = !Number.isInteger(target);
+
+        function update(currentTime: number) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = easeOutQuart(progress);
+          const current = target * easedProgress;
+
+          el.textContent = isDecimal
+            ? current.toFixed(1)
+            : Math.floor(current).toLocaleString('es-CL');
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = isDecimal
+              ? target.toFixed(1)
+              : target.toLocaleString('es-CL');
+          }
+        }
+
+        requestAnimationFrame(update);
+      }
+
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+              entry.target.classList.add('counted');
+              animateCounter(entry.target as HTMLElement);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      counters.forEach((counter) => counterObserver.observe(counter));
+    })();
+  </script>
+
+  <!-- ─── Language Toggle System ─── -->
+  <script>
+    (function initLanguage() {
+      type TranslationsMap = Record<string, unknown>;
+
+      function getNestedValue(obj: TranslationsMap, path: string): string | null {
+        const parts = path.split('.');
+        let current: unknown = obj;
+        for (const part of parts) {
+          if (current == null || typeof current !== 'object') return null;
+          current = (current as TranslationsMap)[part];
+        }
+        return typeof current === 'string' ? current : null;
+      }
+
+      function applyTranslations(lang: string) {
+        const i18n = (window as Window & { __i18n?: Record<string, TranslationsMap> }).__i18n;
+        if (!i18n) return;
+
+        const translations = i18n[lang];
+        if (!translations) return;
+
+        const elements = document.querySelectorAll<HTMLElement>('[data-i18n]');
+        elements.forEach((el) => {
+          const key = el.dataset.i18n;
+          if (!key) return;
+          const value = getNestedValue(translations, key);
+          if (value !== null) {
+            el.textContent = value;
+          }
+        });
+
+        // Update placeholder attributes
+        const placeholderEls = document.querySelectorAll<HTMLElement>('[data-i18n-placeholder]');
+        placeholderEls.forEach((el) => {
+          const key = el.dataset.i18nPlaceholder;
+          if (!key) return;
+          const value = getNestedValue(translations, key);
+          if (value !== null && el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+            (el as HTMLInputElement).placeholder = value;
+          }
+        });
+
+        // Update html lang attribute
+        document.documentElement.lang = lang;
+
+        // Update language toggle button text
+        const langBtn = document.getElementById('lang-btn');
+        if (langBtn) {
+          langBtn.textContent = lang === 'es' ? 'EN' : 'ES';
+        }
+      }
+
+      // Listen for language change events
+      document.addEventListener('languagechange', (e: Event) => {
+        const lang = (e as CustomEvent<string>).detail;
+        localStorage.setItem('electroloop-lang', lang);
+        applyTranslations(lang);
+      });
+
+      // On load, apply stored language
+      const storedLang = localStorage.getItem('electroloop-lang') || 'es';
+      if (storedLang !== 'es') {
+        applyTranslations(storedLang);
+      }
+    })();
+  </script>
+
+  <!-- ─── Timeline line animation ─── -->
+  <script>
+    (function initTimeline() {
+      const lines = document.querySelectorAll('.timeline-line');
+      if (!lines.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+
+      lines.forEach((line) => observer.observe(line));
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+---
+// Footer.astro — Full footer with columns, logo, social links, legal
+---
+
+<footer style="background-color: #060D1A;" aria-label="Pie de página">
+  <!-- Main footer content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+
+    <!-- Top row: Logo + tagline + social -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 pb-10 border-b" style="border-color: rgba(142,146,151,0.15);">
+
+      <!-- Logo column -->
+      <div class="lg:col-span-1">
+        <!-- Logo oficial versión oscura -->
+        <a href="#" class="inline-block mb-4 group" aria-label="ElectroLoop — Inicio">
+          <img
+            src="/logo-dark.png"
+            alt="ElectroLoop"
+            class="h-9 w-auto object-contain group-hover:opacity-90 transition-opacity"
+            width="260"
+            height="36"
+          />
+        </a>
+
+        <!-- Claims de marca según Manual: "Minería Urbana de Precisión" + "Recursos Infinitos" -->
+        <p class="text-sm font-semibold mb-1" style="color: #B97333;">Minería Urbana de Precisión</p>
+        <p class="text-sm" style="color: #8E9297;" data-i18n="footer.tagline">Recursos Infinitos. Economía Circular para Chile.</p>
+      </div>
+
+      <!-- Services column -->
+      <div>
+        <h4
+          class="text-sm font-bold text-white mb-4"
+          data-i18n="footer.columns.services.title"
+        >Servicios</h4>
+        <ul class="flex flex-col gap-2.5">
+          <li>
+            <a href="#servicios" class="text-sm transition-colors duration-200 hover:text-white" style="color: #8E9297;" data-i18n="footer.columns.services.links.0">Recolección de RAEE</a>
+          </li>
+          <li>
+            <a href="#servicios" class="text-sm transition-colors duration-200 hover:text-white" style="color: #8E9297;" data-i18n="footer.columns.services.links.1">Tratamiento y Valorización</a>
+          </li>
+          <li>
+            <a href="#servicios" class="text-sm transition-colors duration-200 hover:text-white" style="color: #8E9297;" data-i18n="footer.columns.services.links.2">Gestión REP</a>
+          </li>
+          <li>
+            <a href="#cumplimiento" class="text-sm transition-colors duration-200 hover:text-white" style="color: #8E9297;" data-i18n="footer.columns.services.links.3">Certificación</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact column -->
+      <div>
+        <h4
+          class="text-sm font-bold text-white mb-4"
+          data-i18n="footer.columns.contact.title"
+        >Contacto</h4>
+        <ul class="flex flex-col gap-2">
+          <li>
+            <a href="mailto:contacto@electroloop.cl" class="text-sm transition-colors duration-200 hover:text-white" style="color: #8E9297;" data-i18n="footer.columns.contact.links.0">
+              contacto@electroloop.cl
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</footer>

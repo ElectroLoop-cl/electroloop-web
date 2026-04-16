@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background circle: Deep Abyssal Blue -->
+  <circle cx="50" cy="50" r="50" fill="#0B1B32"/>
+  <!-- Subtle outer ring -->
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#B97333" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- "e" arc: large counterclockwise arc -->
+  <!-- center ~(45,50), radius 22 -->
+  <!-- gap at 0° right, ±25° → bottom (65,59), top (65,41) -->
+  <path d="M 65 59 A 22 22 0 1 0 65 41"
+        fill="none" stroke="#B97333" stroke-width="7.5" stroke-linecap="round"/>
+
+  <!-- "e" middle bar -->
+  <line x1="23" y1="50" x2="67" y2="50"
+        stroke="#B97333" stroke-width="7.5" stroke-linecap="round"/>
+
+  <!-- Loop arrow: quadratic bezier from top of gap → right → bottom of gap -->
+  <path d="M 65 41 Q 88 50 65 59"
+        fill="none" stroke="#B97333" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Arrowhead at (65,59) pointing along the curve tangent (down-left) -->
+  <path d="M 65 59 L 57 53" fill="none" stroke="#B97333" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 65 59 L 61 67" fill="none" stroke="#B97333" stroke-width="5" stroke-linecap="round"/>
+</svg>
