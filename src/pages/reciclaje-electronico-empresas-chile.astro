@@ -1,0 +1,284 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Reciclaje Electrónico para Empresas en Chile | ElectroLoop Gestor RAEE"
+  description="Servicio de reciclaje de equipos electrónicos para empresas en Chile. Retiro en tus instalaciones, certificado de valorización y cumplimiento Ley REP. Gestor RAEE autorizado."
+>
+
+  <header style="background: #0a1628; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+      <img src="/logo-light.png" alt="ElectroLoop" style="height: 36px;" />
+    </a>
+    <a href="/#contacto" style="background: #B97333; color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+      Solicitar retiro
+    </a>
+  </header>
+
+  <main style="max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; font-family: Arial, Helvetica, sans-serif; color: #1a1a2e; line-height: 1.75;">
+
+    <!-- Breadcrumb -->
+    <nav style="font-size: 13px; color: #666; margin-bottom: 32px;">
+      <a href="/" style="color: #B97333; text-decoration: none;">Inicio</a>
+      <span style="margin: 0 8px;">›</span>
+      <span>Reciclaje Electrónico Empresas Chile</span>
+    </nav>
+
+    <!-- Hero -->
+    <div style="background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%); border-radius: 16px; padding: 48px 40px; margin-bottom: 48px; color: white;">
+      <span style="background: #B97333; color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;">SERVICIO B2B CHILE</span>
+      <h1 style="font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin: 20px 0 16px; line-height: 1.2;">
+        Reciclaje de Equipos Electrónicos<br>para Empresas en Chile
+      </h1>
+      <p style="font-size: 18px; opacity: 0.9; margin: 0 0 28px; max-width: 580px;">
+        Retiro en tus instalaciones, destrucción certificada de datos y certificado de valorización para tu reporte ESG o auditoría REP.
+      </p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="/#contacto" style="background: #B97333; color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px;">
+          Solicitar retiro →
+        </a>
+        <a href="#como-funciona" style="background: rgba(255,255,255,0.15); color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px;">
+          Ver cómo funciona
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 56px;">
+      {[
+        { num: "+5.000", label: "Toneladas procesadas" },
+        { num: "+150", label: "Empresas activas" },
+        { num: "99,5%", label: "Trazabilidad garantizada" },
+        { num: "5 días", label: "Plazo certificado" },
+      ].map(s => (
+        <div style="background: #f0f4ff; border-radius: 12px; padding: 24px; text-align: center;">
+          <p style="font-size: 28px; font-weight: 800; color: #0a1628; margin: 0 0 4px;">{s.num}</p>
+          <p style="font-size: 13px; color: #555; margin: 0;">{s.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Qué reciclamos -->
+    <section style="margin-bottom: 56px;">
+      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
+        ¿Qué equipos retiramos?
+      </h2>
+      <p>Recibimos cualquier aparato eléctrico o electrónico en desuso, sin importar el estado en que se encuentre:</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 24px;">
+        {[
+          { icon: "💻", name: "Computadores y laptops" },
+          { icon: "🖥️", name: "Monitores y pantallas" },
+          { icon: "📱", name: "Teléfonos y tablets" },
+          { icon: "🖨️", name: "Impresoras y escáneres" },
+          { icon: "🖧",  name: "Servidores y networking" },
+          { icon: "📺", name: "Televisores" },
+          { icon: "🔋", name: "Baterías y UPS" },
+          { icon: "📷", name: "Cámaras y equipos AV" },
+          { icon: "⚡", name: "Cables y periféricos" },
+          { icon: "🏭", name: "Equipos industriales" },
+          { icon: "💡", name: "Luminarias LED/CFL" },
+          { icon: "🧊", name: "Electrodomésticos" },
+        ].map(item => (
+          <div style="background: #f9fafc; border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500;">
+            <span style="font-size: 24px;">{item.icon}</span>
+            {item.name}
+          </div>
+        ))}
+      </div>
+
+      <div style="background: #f0f4ff; border-left: 4px solid #B97333; border-radius: 8px; padding: 20px 24px; margin-top: 24px;">
+        <p style="margin: 0; color: #333;">¿No ves tu equipo en la lista? <strong>Igual lo retiramos.</strong> Contáctanos y te confirmamos en menos de 24 horas.</p>
+      </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section id="como-funciona" style="margin-bottom: 56px;">
+      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
+        Cómo funciona el servicio
+      </h2>
+      <p>Un proceso simple, certificado y sin burocracia para tu empresa:</p>
+
+      <div style="display: flex; flex-direction: column; gap: 0; margin-top: 32px;">
+        {[
+          {
+            num: "01",
+            title: "Solicita el retiro",
+            desc: "Completa el formulario o escríbenos. Te respondemos en menos de 24 horas hábiles con disponibilidad y presupuesto.",
+            tag: "Respuesta en 24h"
+          },
+          {
+            num: "02",
+            title: "Coordinamos la logística",
+            desc: "Definimos fecha, hora y punto de retiro. Nosotros vamos a tus instalaciones con flota propia — tú no tienes que transportar nada.",
+            tag: "Retiro en tus instalaciones"
+          },
+          {
+            num: "03",
+            title: "Retiro y acta firmada",
+            desc: "Nuestro equipo llega, carga los equipos y emite un acta de recepción firmada con detalle de lo retirado. Trazabilidad desde el primer minuto.",
+            tag: "Documentación inmediata"
+          },
+          {
+            num: "04",
+            title: "Tratamiento y valorización",
+            desc: "Los equipos son procesados en nuestras instalaciones: destrucción de datos, desmantelamiento y recuperación de materiales valiosos.",
+            tag: "Procesamiento certificado"
+          },
+          {
+            num: "05",
+            title: "Certificado en tu correo",
+            desc: "En máximo 5 días hábiles recibes el certificado de valorización con todos los datos legales. Listo para tu reporte ESG o auditoría REP.",
+            tag: "Certificado en 5 días hábiles"
+          },
+        ].map((item, i) => (
+          <div style={`display: flex; gap: 20px; padding: 28px 0; ${i < 4 ? 'border-bottom: 1px solid #eee;' : ''}`}>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0;">
+              <div style="background: #0a1628; color: white; font-size: 16px; font-weight: 800; border-radius: 10px; min-width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                {item.num}
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: 700; margin: 0 0 6px; color: #0a1628; font-size: 18px;">{item.title}</p>
+              <p style="margin: 0 0 10px; color: #555;">{item.desc}</p>
+              <span style="background: #e8f4e8; color: #2d7a2d; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">✓ {item.tag}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Por qué es importante -->
+    <section style="margin-bottom: 56px;">
+      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
+        ¿Por qué tu empresa no puede tirar los equipos a la basura?
+      </h2>
+      <p>Los residuos electrónicos contienen sustancias peligrosas como <strong>plomo, mercurio, cadmio y arsénico</strong>. Desecharlos en la basura común es ilegal en Chile bajo la Ley REP y puede generar:</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 28px;">
+        {[
+          { icon: "⚖️", title: "Multas SMA", desc: "Hasta 10.000 UTM por disposición inadecuada de RAEE." },
+          { icon: "🔓", title: "Riesgo de datos", desc: "Equipos con información sensible de clientes o trabajadores mal destruidos." },
+          { icon: "🌍", title: "Daño ambiental", desc: "Contaminación de suelos y aguas subterráneas por metales pesados." },
+          { icon: "📉", title: "Daño reputacional", desc: "Pérdida de licitaciones y clientes que exigen cumplimiento ESG." },
+        ].map(item => (
+          <div style="background: #fff8f0; border: 1px solid #ffe0c0; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; margin-bottom: 12px;">{item.icon}</div>
+            <p style="font-weight: 700; color: #0a1628; margin: 0 0 8px;">{item.title}</p>
+            <p style="color: #666; font-size: 14px; margin: 0;">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Sectores -->
+    <section style="margin-bottom: 56px;">
+      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
+        Sectores que atendemos
+      </h2>
+      <p>Trabajamos con empresas de todos los tamaños y rubros en Chile:</p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+        {[
+          "Minería", "Banca y Finanzas", "Retail", "Telecomunicaciones",
+          "Salud", "Educación", "Gobierno y Municipios", "Manufactura",
+          "Energía y Utilities", "Tecnología", "Logística", "Hotelería"
+        ].map(sector => (
+          <span style="background: #f0f4ff; color: #0a1628; padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500;">
+            {sector}
+          </span>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%); border-radius: 16px; padding: 48px 40px; text-align: center; margin-bottom: 56px; color: white;">
+      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 16px;">¿Tienes equipos electrónicos en desuso?</h2>
+      <p style="font-size: 17px; opacity: 0.9; margin: 0 auto 32px; max-width: 500px;">
+        Cuéntanos cuántos equipos tienes y te cotizamos el retiro. Sin costo, con certificado incluido.
+      </p>
+      <a href="/#contacto" style="background: #B97333; color: white; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 17px; display: inline-block;">
+        Solicitar cotización gratuita →
+      </a>
+    </section>
+
+    <!-- FAQ -->
+    <section style="margin-bottom: 40px;">
+      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
+        Preguntas Frecuentes
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        {[
+          {
+            q: "¿Cuánto cuesta el servicio de retiro de equipos electrónicos?",
+            a: "El costo depende del volumen, tipo de equipos y ubicación. Para muchas empresas con volúmenes medianos y grandes el servicio es sin costo adicional dado el valor de los materiales recuperados. Cotiza sin compromiso."
+          },
+          {
+            q: "¿En qué regiones de Chile operan?",
+            a: "Operamos principalmente en la Región Metropolitana con retiro en instalaciones. Para otras regiones coordinamos soluciones logísticas. Contáctanos para confirmar cobertura en tu ubicación."
+          },
+          {
+            q: "¿Qué pasa con la información que queda en los equipos?",
+            a: "Realizamos borrado seguro según estándar DoD 5220.22-M o destrucción física del soporte de almacenamiento. Emitimos certificado individual por dispositivo con número de serie, método utilizado y fecha."
+          },
+          {
+            q: "¿El certificado que emiten es válido para licitaciones y auditorías?",
+            a: "Sí. Nuestros certificados son emitidos por un gestor autorizado por la SMA y son válidos para auditorías internas, informes ESG, licitaciones públicas y cumplimiento de la Ley REP."
+          },
+          {
+            q: "¿Cuánto tiempo tarda el proceso desde el retiro hasta el certificado?",
+            a: "El acta de recepción se emite el mismo día del retiro. El certificado de valorización final llega a tu correo en máximo 5 días hábiles."
+          },
+        ].map(item => (
+          <details style="background: #f9fafc; border-radius: 12px; padding: 20px 24px; cursor: pointer;">
+            <summary style="font-weight: 700; color: #0a1628; font-size: 16px; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              {item.q}
+              <span style="color: #B97333; font-size: 20px; flex-shrink: 0; margin-left: 12px;">+</span>
+            </summary>
+            <p style="margin: 14px 0 0; color: #555; line-height: 1.7;">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="background: #0a1628; color: #aaa; text-align: center; padding: 32px 24px; font-size: 14px;">
+    <p style="margin: 0 0 8px;">
+      <a href="/" style="color: white; text-decoration: none; font-weight: 600;">ElectroLoop SpA</a>
+      — Gestor RAEE Autorizado Chile
+    </p>
+    <p style="margin: 0;">
+      <a href="/" style="color: #B97333; text-decoration: none;">← Volver al sitio principal</a>
+    </p>
+  </footer>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Reciclaje de Equipos Electrónicos para Empresas en Chile",
+    "description": "Servicio de recolección, tratamiento y valorización de residuos electrónicos para empresas en Chile. Retiro en instalaciones con certificado de valorización y destrucción de datos.",
+    "provider": {
+      "@type": "Organization",
+      "name": "ElectroLoop SpA",
+      "url": "https://electroloop.cl"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Chile"
+    },
+    "serviceType": "Reciclaje Electrónico Empresas",
+    "url": "https://electroloop.cl/reciclaje-electronico-empresas-chile",
+    "offers": {
+      "@type": "Offer",
+      "description": "Cotización gratuita para retiro de equipos electrónicos en empresas",
+      "price": "0",
+      "priceCurrency": "CLP",
+      "availability": "https://schema.org/InStock"
+    }
+  })} />
+
+</Layout>
