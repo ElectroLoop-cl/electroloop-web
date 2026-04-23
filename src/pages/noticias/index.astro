@@ -1,0 +1,90 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const articulos = [
+  {
+    slug: "decreto-raee-toma-de-razon",
+    titulo: "Toma de Razón del Decreto RAEE: comienzan a correr los plazos para las empresas",
+    resumen: "La Contraloría General de la República tomó razón del decreto que regula los residuos electrónicos bajo la Ley REP. Esto activa los plazos de cumplimiento para productores e importadores en Chile.",
+    fecha: "22 de abril de 2026",
+    categoria: "Regulación",
+    lectura: "4 min"
+  }
+];
+---
+
+<Layout
+  title="Noticias sobre RAEE y Ley REP en Chile | ElectroLoop"
+  description="Últimas noticias sobre residuos electrónicos, Ley REP y regulación RAEE en Chile. Mantente informado con ElectroLoop, gestor RAEE autorizado."
+>
+
+  <header style="background: #0a1628; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+      <img src="/logo-light.png" alt="ElectroLoop" style="height: 36px;" />
+    </a>
+    <a href="/#contacto" style="background: #B97333; color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+      Contactar
+    </a>
+  </header>
+
+  <main style="max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; font-family: Arial, Helvetica, sans-serif; color: #1a1a2e;">
+
+    <!-- Breadcrumb -->
+    <nav style="font-size: 13px; color: #666; margin-bottom: 32px;">
+      <a href="/" style="color: #B97333; text-decoration: none;">Inicio</a>
+      <span style="margin: 0 8px;">›</span>
+      <span>Noticias</span>
+    </nav>
+
+    <!-- Header -->
+    <div style="margin-bottom: 48px;">
+      <h1 style="font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #0a1628; margin: 0 0 16px; line-height: 1.2;">
+        Noticias RAEE y Ley REP
+      </h1>
+      <p style="font-size: 18px; color: #555; margin: 0; max-width: 600px; line-height: 1.7;">
+        Información actualizada sobre regulación de residuos electrónicos, novedades de la Ley REP y economía circular en Chile.
+      </p>
+    </div>
+
+    <!-- Lista de artículos -->
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      {articulos.map(art => (
+        <a
+          href={`/noticias/${art.slug}`}
+          style="display: block; background: #f9fafc; border: 1px solid #e8ecf0; border-radius: 16px; padding: 32px; text-decoration: none; color: inherit; transition: box-shadow 0.2s;"
+          onmouseover="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'"
+          onmouseout="this.style.boxShadow='none'"
+        >
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+            <span style="background: #e8f0fe; color: #0a1628; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+              {art.categoria}
+            </span>
+            <span style="color: #999; font-size: 13px;">{art.fecha}</span>
+            <span style="color: #999; font-size: 13px;">· {art.lectura} lectura</span>
+          </div>
+          <h2 style="font-size: 22px; font-weight: 700; color: #0a1628; margin: 0 0 12px; line-height: 1.3;">
+            {art.titulo}
+          </h2>
+          <p style="color: #555; margin: 0 0 20px; line-height: 1.7; font-size: 15px;">
+            {art.resumen}
+          </p>
+          <span style="color: #B97333; font-weight: 600; font-size: 14px;">
+            Leer artículo →
+          </span>
+        </a>
+      ))}
+    </div>
+
+  </main>
+
+  <footer style="background: #0a1628; color: #aaa; text-align: center; padding: 32px 24px; font-size: 14px;">
+    <p style="margin: 0 0 8px;">
+      <a href="/" style="color: white; text-decoration: none; font-weight: 600;">ElectroLoop SpA</a>
+      — Gestor RAEE Autorizado Chile
+    </p>
+    <p style="margin: 0;">
+      <a href="/" style="color: #B97333; text-decoration: none;">← Volver al sitio principal</a>
+    </p>
+  </footer>
+
+</Layout>
