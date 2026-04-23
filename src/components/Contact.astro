@@ -31,12 +31,15 @@
       <div class="reveal-left">
         <form
           id="contact-form"
-          action="https://formspree.io/f/XXXXXXXX"
+          name="contacto-electroloop"
           method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           class="flex flex-col gap-5"
           novalidate
         >
-          <!-- PLACEHOLDER: Reemplazar XXXXXXXX con ID real de Formspree -->
+          <input type="hidden" name="form-name" value="contacto-electroloop" />
+          <input type="hidden" name="subject" value="Nuevo contacto desde ElectroLoop.cl" />
 
           <!-- Name -->
           <div>
@@ -237,7 +240,7 @@
 
 
 <script>
-  // Form submission with Formspree
+  // Form submission with Netlify Forms
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
   const submitSpinner = document.getElementById('submit-spinner');
@@ -260,10 +263,10 @@
 
       try {
         const formData = new FormData(form);
-        const response = await fetch(form.action, {
+        const response = await fetch('/', {
           method: 'POST',
-          body: formData,
-          headers: { Accept: 'application/json' },
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData as any).toString(),
         });
 
         if (response.ok) {
