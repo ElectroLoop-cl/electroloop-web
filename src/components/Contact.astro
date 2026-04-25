@@ -249,16 +249,12 @@
           const type    = (formData.get('type')    as string) || '';
           const message = (formData.get('message') as string) || '';
 
-          // Llamar Google Apps Script para enviar autorespuesta
+          // Llamar Google Apps Script para enviar autorespuesta (GET evita problemas de redirect con no-cors)
           const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh-2gjyKcWzVJmrggnBAoZh44prH2WWtDsiCEnepM5K7SQlf9Z24iDktOJJ-lZexN5/exec';
           if (email && name) {
             try {
-              await fetch(APPS_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ email, name, company, type, message }).toString(),
-              });
+              const qs = new URLSearchParams({ email, name, company, type, message }).toString();
+              await fetch(`${APPS_SCRIPT_URL}?${qs}`, { mode: 'no-cors' });
             } catch (e) {
               console.warn('Autoresponse error:', e);
             }
