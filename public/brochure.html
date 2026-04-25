@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroLoop — Gestión RAEE certificada</title>
+  <style>
+    /* ── Reset y base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #D0D0D0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      padding: 32px 16px;
+    }
+
+    /* ── Variables de marca ── */
+    :root {
+      --azul:    #0B1B32;
+      --cobre:   #B97333;
+      --gris:    #8E9297;
+      --blanco:  #F4F4F4;
+      --texto:   #1A2535;
+    }
+
+    /* ── Página A4 ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      height: 297mm;
+      overflow: hidden;
+      background: #ffffff;
+      position: relative;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+
+    /* ── Tipografía global ── */
+    h1, h2, h3 { color: var(--azul); line-height: 1.2; }
+    p, li       { color: var(--texto); line-height: 1.55; }
+
+    /* ════════════════════════════════════
+       PÁGINA 1
+    ════════════════════════════════════ */
+    .p1-header {
+      background: var(--azul);
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .p1-header img {
+      height: 44px;
+      display: block;
+    }
+    .p1-header .tagline {
+      color: var(--blanco);
+      font-size: 10.5pt;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      text-align: right;
+      max-width: 240px;
+      line-height: 1.4;
+    }
+    .cobre-line {
+      height: 4px;
+      background: var(--cobre);
+    }
+
+    /* Hero */
+    .p1-hero {
+      background: #ffffff;
+      padding: 26px 28px 20px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .p1-hero h1 {
+      font-size: 19pt;
+      font-weight: 900;
+      color: var(--azul);
+      margin-bottom: 12px;
+      line-height: 1.18;
+    }
+    .p1-hero h1 span { color: var(--cobre); }
+    .p1-hero p {
+      font-size: 9.5pt;
+      color: #3a4a5c;
+      max-width: 680px;
+      line-height: 1.6;
+    }
+    .rep-badge {
+      display: inline-block;
+      background: var(--cobre);
+      color: #fff;
+      font-size: 8pt;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Servicios */
+    .p1-services {
+      padding: 20px 28px;
+      background: var(--blanco);
+    }
+    .p1-services h2 {
+      font-size: 12pt;
+      color: var(--azul);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .p1-services h2::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--cobre);
+    }
+    .services-grid {
+      display: flex;
+      gap: 14px;
+    }
+    .service-card {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #e0e4e8;
+      border-top: 3px solid var(--cobre);
+      border-radius: 4px;
+      padding: 16px 14px;
+    }
+    .service-card .svc-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 10px;
+      color: var(--cobre);
+    }
+    .service-card h3 {
+      font-size: 9.5pt;
+      color: var(--azul);
+      margin-bottom: 7px;
+      line-height: 1.3;
+    }
+    .service-card p {
+      font-size: 8.5pt;
+      color: #556070;
+      line-height: 1.55;
+    }
+
+    /* Por qué */
+    .p1-why {
+      padding: 18px 28px 22px;
+      background: #ffffff;
+    }
+    .p1-why h2 {
+      font-size: 12pt;
+      color: var(--azul);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .p1-why h2::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--cobre);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+    }
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .why-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--cobre);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .why-item p {
+      font-size: 9pt;
+      color: var(--texto);
+      line-height: 1.5;
+    }
+    .why-item strong {
+      display: block;
+      font-size: 9.5pt;
+      color: var(--azul);
+      margin-bottom: 2px;
+    }
+
+    /* ════════════════════════════════════
+       PÁGINA 2
+    ════════════════════════════════════ */
+    .page-2 { background: var(--blanco); }
+
+    .p2-header {
+      background: var(--azul);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .p2-header img { height: 36px; }
+    .p2-header .p2-title {
+      color: var(--cobre);
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Proceso */
+    .p2-process {
+      padding: 22px 28px 18px;
+      background: #ffffff;
+      border-bottom: 1px solid #e0e4e8;
+    }
+    .p2-process h2 {
+      font-size: 12pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .p2-process h2::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--cobre);
+    }
+
+    .timeline {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      position: relative;
+    }
+    .tl-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    /* Línea conectora */
+    .tl-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: calc(50% + 20px);
+      right: calc(-50% + 20px);
+      height: 2px;
+      background: var(--cobre);
+      z-index: 0;
+    }
+    .tl-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--azul);
+      color: #fff;
+      font-size: 13pt;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(11,27,50,0.3);
+    }
+    .tl-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--cobre);
+    }
+    .tl-label {
+      margin-top: 8px;
+      font-size: 8pt;
+      font-weight: 700;
+      color: var(--azul);
+      line-height: 1.3;
+      max-width: 80px;
+    }
+    .tl-sub {
+      font-size: 7.5pt;
+      color: var(--gris);
+      margin-top: 3px;
+      max-width: 80px;
+      line-height: 1.35;
+    }
+
+    /* Ley REP */
+    .p2-rep {
+      padding: 18px 28px;
+      background: var(--blanco);
+    }
+    .p2-rep h2 {
+      font-size: 12pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .p2-rep h2::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--cobre);
+    }
+    .rep-content {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .rep-law-badge {
+      background: var(--azul);
+      color: #fff;
+      border-radius: 6px;
+      padding: 14px 16px;
+      text-align: center;
+      flex-shrink: 0;
+      min-width: 90px;
+    }
+    .rep-law-badge .law-num {
+      font-size: 18pt;
+      font-weight: 900;
+      color: var(--cobre);
+      display: block;
+      line-height: 1;
+    }
+    .rep-law-badge .law-sub {
+      font-size: 7pt;
+      color: var(--blanco);
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+    .rep-text p {
+      font-size: 9pt;
+      color: #3a4a5c;
+      line-height: 1.65;
+    }
+
+    /* Casos de uso */
+    .p2-cases {
+      padding: 16px 28px 18px;
+      background: #ffffff;
+    }
+    .p2-cases h2 {
+      font-size: 12pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .p2-cases h2::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--cobre);
+    }
+    .cases-list {
+      display: flex;
+      gap: 14px;
+    }
+    .case-item {
+      flex: 1;
+      background: var(--blanco);
+      border-left: 3px solid var(--cobre);
+      padding: 12px 14px;
+      border-radius: 0 4px 4px 0;
+    }
+    .case-item h3 {
+      font-size: 9.5pt;
+      color: var(--azul);
+      margin-bottom: 6px;
+    }
+    .case-item p {
+      font-size: 8.5pt;
+      color: #556070;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .p2-footer {
+      background: var(--azul);
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .p2-footer img { height: 32px; }
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: flex-end;
+    }
+    .footer-contact span {
+      color: var(--blanco);
+      font-size: 8.5pt;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-contact span svg {
+      color: var(--cobre);
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+    .footer-contact a {
+      color: var(--cobre);
+      text-decoration: none;
+    }
+    .footer-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+      margin: 0 20px;
+    }
+    .footer-mid {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 0 20px;
+    }
+    .footer-mid span {
+      color: rgba(244,244,244,0.7);
+      font-size: 8pt;
+    }
+    .footer-mid strong {
+      color: var(--cobre);
+      font-size: 9pt;
+      display: block;
+    }
+
+    /* ════════════════════════════════════
+       MEDIA PRINT
+    ════════════════════════════════════ */
+    @media print {
+      @page { size: A4; margin: 0; }
+      body {
+        background: none;
+        padding: 0;
+        gap: 0;
+        display: block;
+      }
+      .page {
+        box-shadow: none;
+        width: 100%;
+        height: 100vh;
+        page-break-after: always;
+        break-after: page;
+      }
+      .page:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       PÁGINA 1 — PROPUESTA DE VALOR
+  ══════════════════════════════════════ -->
+  <div class="page page-1">
+
+    <!-- Header -->
+    <div class="p1-header">
+      <img src="/logo-light.png" alt="ElectroLoop">
+      <div class="tagline">Gestión RAEE certificada<br>de punta a punta</div>
+    </div>
+    <div class="cobre-line"></div>
+
+    <!-- Hero -->
+    <div class="p1-hero">
+      <div class="rep-badge">Ley REP · Residuos de Aparatos Eléctricos y Electrónicos</div>
+      <h1>¿Tus residuos electrónicos son<br>un <span>pasivo</span> o un <span>activo</span>?</h1>
+      <p>
+        La <strong>Ley N°20.920 de Responsabilidad Extendida del Productor</strong> obliga a empresas fabricantes,
+        importadoras y distribuidoras de aparatos eléctricos y electrónicos a gestionar sus residuos de
+        forma certificada. No cumplir implica multas, riesgo reputacional y pérdida de acceso a mercados
+        internacionales. <strong>ElectroLoop</strong> convierte esa obligación en una ventaja competitiva:
+        trazabilidad total, datos destruidos con certificación y reportería lista para el Ministerio del
+        Medio Ambiente, sin que tengas que preocuparte del proceso.
+      </p>
+    </div>
+
+    <!-- Servicios -->
+    <div class="p1-services">
+      <h2>¿Qué hacemos?</h2>
+      <div class="services-grid">
+
+        <!-- Servicio 1 -->
+        <div class="service-card">
+          <svg class="svc-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="14" width="28" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M29 20h4v6a2 2 0 0 1-2 2h-2V20z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <rect x="5" y="17" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M4 14V10a4 4 0 0 1 4-4h8l5 5v3" stroke="currentColor" stroke-width="2" fill="none"/>
+            <circle cx="8" cy="30" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="22" cy="30" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <h3>Recolección y Destrucción de Datos</h3>
+          <p>Retiro programado en tus instalaciones. Borrado o destrucción física certificada de todos los medios de almacenamiento, con acta de destrucción por cada equipo.</p>
+        </div>
+
+        <!-- Servicio 2 -->
+        <div class="service-card">
+          <svg class="svc-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 4C10.3 4 4 10.3 4 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M18 32c7.7 0 14-6.3 14-14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M4 18c0 2.8.8 5.4 2.2 7.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M32 18c0-2.8-.8-5.4-2.2-7.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <polyline points="4,11 4,18 11,18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="32,25 32,18 25,18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="18" cy="18" r="4" fill="currentColor" opacity="0.25"/>
+            <circle cx="18" cy="18" r="2" fill="currentColor"/>
+          </svg>
+          <h3>Tratamiento y Valorización</h3>
+          <p>Desmantelamiento técnico, clasificación de materiales y derivación a circuitos de reciclaje formal. Maximizamos el porcentaje de valorización de cada tonelada de RAEE.</p>
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="service-card">
+          <svg class="svc-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="3" width="20" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M11 10h10M11 15h10M11 20h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="26" cy="28" r="6" fill="currentColor" opacity="0.12"/>
+            <path d="M23 28l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Gestión REP y Reportería</h3>
+          <p>Acompañamiento en el registro de metas REP, generación de informes de cumplimiento y documentación lista para presentar ante el Ministerio del Medio Ambiente.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Por qué ElectroLoop -->
+    <div class="p1-why">
+      <h2>¿Por qué ElectroLoop?</h2>
+      <div class="why-grid">
+
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <p>
+            <strong>Trazabilidad auditable end-to-end</strong>
+            Cada equipo recibe un ID único. Puedes consultar su estado en tiempo real desde el retiro hasta el certificado final.
+          </p>
+        </div>
+
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <p>
+            <strong>Destrucción certificada de datos</strong>
+            Cumplimiento con norma NIST 800-88. Acta individual por equipo válida ante auditorías de seguridad y protección de datos personales.
+          </p>
+        </div>
+
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <p>
+            <strong>Reportería lista para el Ministerio</strong>
+            Generamos los informes en el formato exigido por la Ley REP. Cero retrabajo de tu parte para el cumplimiento regulatorio anual.
+          </p>
+        </div>
+
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <p>
+            <strong>Socio REP, no solo proveedor</strong>
+            Te asesoramos en el registro de metas, diseño del plan de gestión y mejora continua. Crecemos con tu programa de sostenibilidad.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /page-1 -->
+
+
+  <!-- ══════════════════════════════════════
+       PÁGINA 2 — PROCESO Y CONTACTO
+  ══════════════════════════════════════ -->
+  <div class="page page-2">
+
+    <!-- Header p2 -->
+    <div class="p2-header">
+      <img src="/logo-light.png" alt="ElectroLoop">
+      <span class="p2-title">Proceso &amp; Marco Legal</span>
+    </div>
+    <div class="cobre-line"></div>
+
+    <!-- Nuestro proceso -->
+    <div class="p2-process">
+      <h2>Nuestro Proceso</h2>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-num">
+            <!-- Icono camión -->
+            <svg class="tl-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="7" width="14" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M15 9h2.5L19 12v3h-4V9z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="5" cy="16" r="1.8" fill="currentColor"/>
+              <circle cx="13" cy="16" r="1.8" fill="currentColor"/>
+              <circle cx="17" cy="16" r="1.8" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="tl-label">Retiro</div>
+          <div class="tl-sub">Coordinación y retiro en tus instalaciones</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-num">
+            <!-- Icono clipboard -->
+            <svg class="tl-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="3" width="12" height="15" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7 3V2h6v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M7 8h6M7 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="tl-label">Recepción</div>
+          <div class="tl-sub">Inventario y asignación de ID único</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-num">
+            <!-- Icono shield lock -->
+            <svg class="tl-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 2L3 5v5c0 4.4 3 8.2 7 9 4-0.8 7-4.6 7-9V5L10 2z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="7" y="9" width="6" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/>
+              <circle cx="10" cy="9" r="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+          </div>
+          <div class="tl-label">Destrucción de Datos</div>
+          <div class="tl-sub">NIST 800-88. Acta por equipo</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-num">
+            <!-- Icono herramienta/desmantelamiento -->
+            <svg class="tl-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.5 2.5a3.5 3.5 0 0 1 0 7 3.4 3.4 0 0 1-1.5-.35L10 12l-1-1 3.85-3.85A3.5 3.5 0 0 1 14.5 2.5z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M3 17l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="4.5" cy="15.5" r="1.5" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="tl-label">Desmantelamiento</div>
+          <div class="tl-sub">Separación técnica de materiales</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-num">
+            <!-- Icono reciclaje -->
+            <svg class="tl-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 3C6.7 3 4 5.7 4 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M10 17c3.3 0 6-2.7 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M4 9c0 1.4.4 2.7 1.1 3.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M16 11c0-1.4-.4-2.7-1.1-3.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <polyline points="4,6 4,9 7,9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="16,14 16,11 13,11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="tl-label">Valorización</div>
+          <div class="tl-sub">Reciclaje formal, máximo recupero</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-num">
+            <!-- Icono certificado -->
+            <svg class="tl-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="2" width="14" height="16" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M6 7h8M6 10h8M6 13h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <circle cx="14.5" cy="14.5" r="3.5" fill="#B97333"/>
+              <path d="M13 14.5l1 1 2-2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="tl-label">Certificado</div>
+          <div class="tl-sub">Documentación para cumplimiento REP</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Ley REP -->
+    <div class="p2-rep">
+      <h2>Operamos bajo la Ley REP N°20.920</h2>
+      <div class="rep-content">
+        <div class="rep-law-badge">
+          <span class="law-num">20.920</span>
+          <span class="law-sub">Ley de Fomento<br>al Reciclaje<br>Chile</span>
+        </div>
+        <div class="rep-text">
+          <p>
+            La Ley de Responsabilidad Extendida del Productor establece metas obligatorias de recolección
+            y valorización para los productores de aparatos eléctricos y electrónicos en Chile. Incumplir
+            implica sanciones de la Superintendencia del Medio Ambiente y pérdida de acceso a licitaciones
+            públicas y mercados de exportación.<br><br>
+            <strong>ElectroLoop opera como gestor autorizado y sistema de gestión colectivo,</strong>
+            lo que significa que al contratarnos, tu empresa cumple de forma directa con las metas REP
+            sin necesidad de infraestructura propia. Gestionamos la relación con la autoridad, los reportes
+            periódicos y la trazabilidad de cada kilogramo de RAEE gestionado en tu nombre.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Casos de uso -->
+    <div class="p2-cases">
+      <h2>¿Quién se beneficia?</h2>
+      <div class="cases-list">
+
+        <div class="case-item">
+          <h3>Empresas con obligación REP</h3>
+          <p>Fabricantes, importadoras y distribuidoras de equipos eléctricos y electrónicos que deben cumplir metas anuales ante el Ministerio del Medio Ambiente.</p>
+        </div>
+
+        <div class="case-item">
+          <h3>Renovación tecnológica</h3>
+          <p>Organizaciones que actualizan su parque tecnológico y necesitan dar baja segura a computadores, servidores, impresoras y periféricos con destrucción de datos incluida.</p>
+        </div>
+
+        <div class="case-item">
+          <h3>Políticas ESG y sostenibilidad</h3>
+          <p>Empresas con compromisos de reporte ESG, certificaciones internacionales o metas de huella de carbono que requieren evidencia auditada de gestión responsable de residuos.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="p2-footer">
+      <img src="/logo-light.png" alt="ElectroLoop">
+      <div class="footer-divider"></div>
+      <div class="footer-mid">
+        <strong>Barrio Industrial</strong>
+        <span>La Serena — Coquimbo, Chile</span>
+      </div>
+      <div class="footer-contact">
+        <span>
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h9A1.5 1.5 0 0 1 13 3.5v7A1.5 1.5 0 0 1 11.5 12h-9A1.5 1.5 0 0 1 1 10.5v-7z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M1 4l6 4 6-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <a href="mailto:contacto@electroloop.cl">contacto@electroloop.cl</a>
+        </span>
+        <span>
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7" cy="7" r="5.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M7 1.5C7 1.5 5 4 5 7s2 5.5 2 5.5M7 1.5C7 1.5 9 4 9 7s-2 5.5-2 5.5M1.5 7h11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <a href="https://electroloop.cl">electroloop.cl</a>
+        </span>
+      </div>
+    </div>
+
+  </div><!-- /page-2 -->
+
+</body>
+</html>

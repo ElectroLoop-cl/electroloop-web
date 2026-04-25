@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectroLoop — Presentación Comercial 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --azul:  #0B1B32;
+    --cobre: #B97333;
+    --gris:  #8E9297;
+    --blanco: #F4F4F4;
+    --font: Arial, Helvetica, sans-serif;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: #111;
+    font-family: var(--font);
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── Deck container ───────────────────────────────────── */
+  #deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Slide wrapper — keeps 16:9 ───────────────────────── */
+  #stage {
+    position: relative;
+    width: min(100vw, calc(100vh * 16/9));
+    height: min(100vh, calc(100vw * 9/16));
+    overflow: hidden;
+    box-shadow: 0 8px 48px rgba(0,0,0,.6);
+  }
+
+  /* ── Individual slides ───────────────────────────────── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .45s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* helper: vertical + horizontal centering */
+  .center { align-items: center; justify-content: center; text-align: center; }
+
+  /* ── Typography scale (% of stage height via clamp) ─── */
+  .t-xl  { font-size: clamp(1.4rem, 4vw, 3.2rem); }
+  .t-lg  { font-size: clamp(1.1rem, 3vw, 2.4rem); }
+  .t-md  { font-size: clamp(.9rem,  2.2vw, 1.7rem); }
+  .t-sm  { font-size: clamp(.75rem, 1.6vw, 1.2rem); }
+  .t-xs  { font-size: clamp(.65rem, 1.2vw, .95rem); }
+
+  /* ── Controls ─────────────────────────────────────────── */
+  #controls {
+    position: fixed;
+    bottom: 1.4vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 100;
+    background: rgba(11,27,50,.72);
+    padding: .45rem 1.1rem;
+    border-radius: 2rem;
+    backdrop-filter: blur(6px);
+  }
+  .ctrl-btn {
+    background: none;
+    border: 1.5px solid var(--cobre);
+    color: var(--cobre);
+    border-radius: 50%;
+    width: 2.2rem; height: 2.2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, color .2s;
+  }
+  .ctrl-btn:hover { background: var(--cobre); color: #fff; }
+  #slide-counter { color: var(--blanco); font-size: .85rem; min-width: 3rem; text-align: center; }
+  #fs-btn {
+    background: none; border: 1.5px solid var(--gris);
+    color: var(--gris); border-radius: .4rem;
+    width: 2.2rem; height: 2.2rem;
+    cursor: pointer; font-size: .9rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .2s, color .2s;
+  }
+  #fs-btn:hover { border-color: var(--blanco); color: var(--blanco); }
+
+  /* progress dots */
+  #dots { display: flex; gap: .4rem; align-items: center; }
+  .dot {
+    width: .5rem; height: .5rem; border-radius: 50%;
+    background: var(--gris); opacity: .4;
+    transition: opacity .3s, background .3s;
+    cursor: pointer;
+  }
+  .dot.on { background: var(--cobre); opacity: 1; }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE STYLES
+  ══════════════════════════════════════════════════════ */
+
+  /* ── S1 PORTADA ─────────────────────────────────────── */
+  #s1 {
+    background: var(--azul);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  #s1 .circuit-bg {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  #s1 .logo-wrap { position: relative; z-index: 2; }
+  #s1 img.logo { width: clamp(160px, 28vw, 340px); margin-bottom: 2.5vh; }
+  #s1 .tagline {
+    color: var(--cobre);
+    font-weight: 700;
+    letter-spacing: .04em;
+    position: relative; z-index: 2;
+  }
+  #s1 .sub {
+    color: var(--gris);
+    margin-top: 1.4vh;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    position: relative; z-index: 2;
+  }
+  #s1 .cobre-line {
+    width: clamp(60px, 8vw, 120px); height: 3px;
+    background: var(--cobre);
+    margin: 2.2vh auto;
+    position: relative; z-index: 2;
+  }
+
+  /* ── S2 PROBLEMA ─────────────────────────────────────── */
+  #s2 {
+    background: var(--blanco);
+    padding: 5% 7%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #s2 .s2-title { color: var(--azul); font-weight: 800; line-height: 1.25; margin-bottom: 4vh; }
+  #s2 .s2-title span { color: var(--cobre); }
+  #s2 .blocks { display: flex; gap: 2%; flex: 1 1 auto; align-items: stretch; }
+  #s2 .block {
+    flex: 1;
+    border-top: 4px solid var(--cobre);
+    background: #fff;
+    border-radius: .5rem;
+    padding: 4% 5%;
+    box-shadow: 0 4px 18px rgba(11,27,50,.08);
+    display: flex; flex-direction: column; gap: 1.2vh;
+  }
+  #s2 .block .num {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 900; color: var(--cobre); line-height: 1;
+  }
+  #s2 .block p { color: var(--azul); line-height: 1.45; }
+
+  /* ── S3 QUIÉNES SOMOS ────────────────────────────────── */
+  #s3 {
+    background: var(--azul);
+    padding: 5% 8%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #s3 .s3-badge {
+    background: var(--cobre); color: #fff;
+    font-size: clamp(.6rem,1.2vw,.9rem);
+    font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: .3em .9em; border-radius: 2rem;
+    width: fit-content; margin-bottom: 1.8vh;
+  }
+  #s3 .s3-title { color: #fff; font-weight: 800; margin-bottom: 1.8vh; line-height: 1.25; }
+  #s3 .s3-intro { color: var(--gris); line-height: 1.6; max-width: 70%; margin-bottom: 4vh; }
+  #s3 .bullets { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5vh 3%; }
+  #s3 .bullet {
+    display: flex; align-items: flex-start; gap: 1vw;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(185,115,51,.3);
+    border-radius: .5rem;
+    padding: 2.5% 3%;
+  }
+  #s3 .bullet .icon { color: var(--cobre); flex-shrink: 0; margin-top: .1em; }
+  #s3 .bullet p { color: #fff; line-height: 1.4; }
+
+  /* ── S4 SERVICIOS ────────────────────────────────────── */
+  #s4 {
+    background: var(--blanco);
+    padding: 5% 7%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #s4 .s4-head { display: flex; align-items: baseline; gap: 1vw; margin-bottom: 4vh; }
+  #s4 .s4-head h2 { color: var(--azul); font-weight: 800; }
+  #s4 .s4-head span { color: var(--cobre); font-weight: 600; }
+  #s4 .cards { display: flex; gap: 2.5%; flex: 1 1 auto; align-items: stretch; }
+  #s4 .card {
+    flex: 1;
+    background: #fff;
+    border-radius: .75rem;
+    box-shadow: 0 6px 24px rgba(11,27,50,.1);
+    padding: 5% 4.5%;
+    display: flex; flex-direction: column; gap: 1.5vh;
+    border-bottom: 4px solid var(--cobre);
+    transition: transform .2s, box-shadow .2s;
+  }
+  #s4 .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(11,27,50,.15); }
+  #s4 .card .card-icon { color: var(--cobre); }
+  #s4 .card h3 { color: var(--azul); font-weight: 700; line-height: 1.3; }
+  #s4 .card p { color: #555; line-height: 1.5; }
+
+  /* ── S5 PROCESO ──────────────────────────────────────── */
+  #s5 {
+    background: var(--blanco);
+    padding: 5% 6%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #s5 .s5-title { color: var(--azul); font-weight: 800; margin-bottom: 1vh; text-align: center; }
+  #s5 .s5-sub { color: var(--gris); margin-bottom: 5vh; text-align: center; }
+  #s5 .timeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    gap: 0;
+  }
+  #s5 .step { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  #s5 .step .circle {
+    width: clamp(2.5rem,5vw,4rem); height: clamp(2.5rem,5vw,4rem);
+    border-radius: 50%;
+    background: var(--azul);
+    color: var(--cobre);
+    font-weight: 900;
+    font-size: clamp(.85rem,1.8vw,1.4rem);
+    display: flex; align-items: center; justify-content: center;
+    border: 3px solid var(--cobre);
+    z-index: 1;
+    position: relative;
+  }
+  #s5 .step .label {
+    margin-top: 1.2vh;
+    color: var(--azul);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    max-width: 8vw;
+  }
+  #s5 .connector {
+    flex: 1;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cobre) 0%, rgba(185,115,51,.3) 100%);
+    margin-top: clamp(1.25rem,2.5vw,2rem);
+    position: relative;
+  }
+  #s5 .connector::after {
+    content: '';
+    position: absolute; right: -1px; top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-left-color: var(--cobre);
+  }
+
+  /* ── S6 POR QUÉ ──────────────────────────────────────── */
+  #s6 {
+    background: var(--azul);
+    padding: 5% 7%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #s6 .s6-title { color: #fff; font-weight: 800; margin-bottom: 4vh; }
+  #s6 .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8vh 3%; }
+  #s6 .cmp-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: .6rem;
+    padding: 3% 3.5%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 2%;
+  }
+  #s6 .cmp-card .us { color: #fff; font-weight: 600; line-height: 1.35; }
+  #s6 .cmp-card .vs-badge {
+    background: var(--cobre); color: #fff;
+    font-size: clamp(.5rem,.9vw,.7rem); font-weight: 800;
+    padding: .25em .6em; border-radius: .25rem;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  #s6 .cmp-card .them { color: var(--gris); font-style: italic; line-height: 1.35; text-align: right; }
+
+  /* ── S7 LEGAL ─────────────────────────────────────────── */
+  #s7 {
+    background: #fff;
+    padding: 5% 8%;
+    flex-direction: column;
+    justify-content: center;
+    border: 5px solid var(--cobre);
+  }
+  #s7 .s7-pill {
+    background: rgba(185,115,51,.12); color: var(--cobre);
+    font-size: clamp(.6rem,1.1vw,.85rem); font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .35em 1em; border-radius: 2rem;
+    width: fit-content; margin-bottom: 1.5vh;
+    border: 1px solid var(--cobre);
+  }
+  #s7 .s7-title { color: var(--azul); font-weight: 800; margin-bottom: 2vh; line-height: 1.2; }
+  #s7 .s7-text { color: #444; line-height: 1.65; max-width: 78%; margin-bottom: 4vh; }
+  #s7 .guarantees { display: flex; flex-direction: column; gap: 1.5vh; }
+  #s7 .guar {
+    display: flex; align-items: flex-start; gap: 1.5vw;
+    background: var(--blanco);
+    border-left: 4px solid var(--cobre);
+    border-radius: 0 .4rem .4rem 0;
+    padding: 2% 3%;
+  }
+  #s7 .guar .tick { color: var(--cobre); font-size: clamp(1rem,2vw,1.5rem); flex-shrink: 0; margin-top: .05em; }
+  #s7 .guar p { color: var(--azul); font-weight: 600; line-height: 1.4; }
+
+  /* ── S8 CONTACTO ─────────────────────────────────────── */
+  #s8 {
+    background: var(--azul);
+    padding: 5% 8%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  #s8 .s8-title { color: #fff; font-weight: 900; margin-bottom: 1.5vh; letter-spacing: .02em; }
+  #s8 .s8-sub { color: var(--gris); line-height: 1.6; max-width: 60%; margin-bottom: 4vh; }
+  #s8 .contact-grid { display: flex; gap: 3vw; margin-bottom: 5vh; justify-content: center; }
+  #s8 .cinfo {
+    display: flex; align-items: center; gap: .8vw;
+    color: var(--blanco);
+  }
+  #s8 .cinfo .ci-icon { color: var(--cobre); flex-shrink: 0; }
+  #s8 .cinfo a { color: var(--blanco); text-decoration: none; }
+  #s8 .cinfo a:hover { color: var(--cobre); }
+  #s8 .cobre-line { width: 80px; height: 3px; background: var(--cobre); margin: 0 auto 4vh; }
+  #s8 img.logo { width: clamp(120px, 18vw, 220px); opacity: .9; }
+</style>
+</head>
+<body>
+
+<div id="deck">
+  <div id="stage">
+
+    <!-- ══ SLIDE 1 — PORTADA ══════════════════════════════ -->
+    <section class="slide active center" id="s1">
+      <!-- Circuit pattern SVG background -->
+      <svg class="circuit-bg" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg"
+           preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g stroke="#B97333" stroke-width="1" fill="none" opacity="0.18">
+          <!-- horizontal rails -->
+          <line x1="0" y1="150" x2="1600" y2="150"/>
+          <line x1="0" y1="450" x2="1600" y2="450"/>
+          <line x1="0" y1="750" x2="1600" y2="750"/>
+          <!-- vertical rails -->
+          <line x1="200" y1="0" x2="200" y2="900"/>
+          <line x1="600" y1="0" x2="600" y2="900"/>
+          <line x1="1000" y1="0" x2="1000" y2="900"/>
+          <line x1="1400" y1="0" x2="1400" y2="900"/>
+          <!-- connectors -->
+          <polyline points="200,150 260,150 260,90 340,90"/>
+          <polyline points="600,150 660,150 660,80 720,80"/>
+          <polyline points="1000,150 940,150 940,210 880,210"/>
+          <polyline points="1400,150 1340,150 1340,220 1280,220"/>
+          <polyline points="200,450 280,450 280,380 360,380"/>
+          <polyline points="600,450 540,450 540,530 460,530"/>
+          <polyline points="1000,450 1080,450 1080,510 1160,510"/>
+          <polyline points="200,750 280,750 280,680 360,680"/>
+          <polyline points="1000,750 920,750 920,820 840,820"/>
+          <polyline points="1400,750 1320,750 1320,680 1240,680"/>
+          <!-- nodes -->
+          <circle cx="200" cy="150" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="600" cy="150" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="1000" cy="150" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="1400" cy="150" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="200" cy="450" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="600" cy="450" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="1000" cy="450" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="1400" cy="450" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="200" cy="750" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="1000" cy="750" r="5" fill="#B97333" opacity="0.6"/>
+          <circle cx="1400" cy="750" r="5" fill="#B97333" opacity="0.6"/>
+          <!-- diagonal accents -->
+          <line x1="340" y1="90" x2="460" y2="90" opacity=".4"/>
+          <line x1="460" y1="90" x2="460" y2="150" opacity=".4"/>
+          <line x1="720" y1="80" x2="860" y2="80" opacity=".4"/>
+          <line x1="360" y1="380" x2="500" y2="380" opacity=".4"/>
+          <line x1="500" y1="380" x2="500" y2="450" opacity=".4"/>
+        </g>
+      </svg>
+
+      <div class="logo-wrap">
+        <img src="/logo-light.png" alt="ElectroLoop" class="logo">
+        <div class="tagline t-md">Gestión RAEE certificada de punta a punta</div>
+        <div class="cobre-line"></div>
+        <div class="sub t-xs">Presentación Comercial 2026</div>
+      </div>
+    </section>
+
+    <!-- ══ SLIDE 2 — EL PROBLEMA ══════════════════════════ -->
+    <section class="slide" id="s2">
+      <h2 class="s2-title t-lg">
+        La gestión de RAEE es una <span>obligación legal</span> —<br>¿la estás cumpliendo?
+      </h2>
+      <div class="blocks">
+        <div class="block">
+          <div class="num">01</div>
+          <p class="t-sm">La <strong>Ley REP N°20.920</strong> exige gestión certificada de residuos electrónicos a todos los productores e importadores.</p>
+        </div>
+        <div class="block">
+          <div class="num">02</div>
+          <p class="t-sm">Las multas por incumplimiento pueden <strong>superar las UF 10.000</strong> y generar responsabilidad directa de la empresa.</p>
+        </div>
+        <div class="block">
+          <div class="num">03</div>
+          <p class="t-sm">Sin <strong>trazabilidad auditable</strong>, tu empresa queda expuesta ante fiscalizaciones del Ministerio del Medio Ambiente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SLIDE 3 — QUIÉNES SOMOS ═══════════════════════ -->
+    <section class="slide" id="s3">
+      <div class="s3-badge t-xs">Quiénes somos</div>
+      <h2 class="s3-title t-lg">ElectroLoop: tu socio estratégico<br>en gestión RAEE</h2>
+      <p class="s3-intro t-sm">
+        Somos una empresa chilena especializada exclusivamente en la gestión integral de Residuos de Aparatos Eléctricos y Electrónicos (RAEE). Trabajamos junto a nuestros clientes como socios estratégicos, entregando no solo un servicio, sino la certeza de cumplimiento normativo completo.
+      </p>
+      <div class="bullets">
+        <div class="bullet">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <p class="t-sm"><strong>100% enfocados en RAEE</strong> — no somos gestores genéricos</p>
+        </div>
+        <div class="bullet">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <p class="t-sm"><strong>Destrucción certificada de datos</strong> — certificado individual por dispositivo</p>
+        </div>
+        <div class="bullet">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <p class="t-sm"><strong>Trazabilidad auditable</strong> por equipo y número de serie</p>
+        </div>
+        <div class="bullet">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <p class="t-sm"><strong>Socio REP</strong>, no solo proveedor de servicio puntual</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SLIDE 4 — SERVICIOS ════════════════════════════ -->
+    <section class="slide" id="s4">
+      <div class="s4-head">
+        <h2 class="t-lg">Nuestros Servicios</h2>
+        <span class="t-sm">— soluciones integrales RAEE</span>
+      </div>
+      <div class="cards">
+        <!-- Card 1 -->
+        <div class="card">
+          <svg class="card-icon" width="clamp(28px,4vw,48px)" height="clamp(28px,4vw,48px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13" rx="1"/>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+          <h3 class="t-sm">Recolección, Logística y Destrucción de Datos</h3>
+          <p class="t-xs">Retiro en sitio con cadena de custodia documentada, transporte seguro y destrucción de datos certificada por dispositivo con número de serie.</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="card">
+          <svg class="card-icon" width="clamp(28px,4vw,48px)" height="clamp(28px,4vw,48px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          <h3 class="t-sm">Tratamiento y Valorización</h3>
+          <p class="t-xs">Desmantelamiento técnico, separación de materiales y valorización máxima de fracciones recuperables, reduciendo impacto ambiental y maximizando recuperación de valor.</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="card">
+          <svg class="card-icon" width="clamp(28px,4vw,48px)" height="clamp(28px,4vw,48px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <h3 class="t-sm">Gestión REP y Reportería</h3>
+          <p class="t-xs">Apoyo integral en obligaciones REP: declaración de toneladas gestionadas, reportes listos para el Ministerio del Medio Ambiente y seguimiento de metas anuales.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SLIDE 5 — PROCESO ══════════════════════════════ -->
+    <section class="slide" id="s5">
+      <h2 class="s5-title t-lg">Tu equipo llega aquí — esto pasa después</h2>
+      <p class="s5-sub t-sm">Cadena de custodia completa y documentada en cada paso</p>
+      <div class="timeline">
+        <div class="step">
+          <div class="circle t-sm">1</div>
+          <div class="label t-xs">Retiro en Sitio</div>
+        </div>
+        <div class="connector"></div>
+        <div class="step">
+          <div class="circle t-sm">2</div>
+          <div class="label t-xs">Recepción e Inventario</div>
+        </div>
+        <div class="connector"></div>
+        <div class="step">
+          <div class="circle t-sm">3</div>
+          <div class="label t-xs">Destrucción de Datos</div>
+        </div>
+        <div class="connector"></div>
+        <div class="step">
+          <div class="circle t-sm">4</div>
+          <div class="label t-xs">Desmantelamiento</div>
+        </div>
+        <div class="connector"></div>
+        <div class="step">
+          <div class="circle t-sm">5</div>
+          <div class="label t-xs">Valorización</div>
+        </div>
+        <div class="connector"></div>
+        <div class="step">
+          <div class="circle t-sm">6</div>
+          <div class="label t-xs">Certificado Final</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SLIDE 6 — POR QUÉ ══════════════════════════════ -->
+    <section class="slide" id="s6">
+      <h2 class="s6-title t-lg">¿Por qué elegirnos?</h2>
+      <div class="compare">
+        <div class="cmp-card">
+          <div class="us t-xs">Especialización <strong>exclusiva en RAEE</strong></div>
+          <div class="vs-badge">VS</div>
+          <div class="them t-xs">Gestores genéricos de residuos</div>
+        </div>
+        <div class="cmp-card">
+          <div class="us t-xs">Certificado por dispositivo <strong>con N° serie</strong></div>
+          <div class="vs-badge">VS</div>
+          <div class="them t-xs">Certificado genérico al final del proceso</div>
+        </div>
+        <div class="cmp-card">
+          <div class="us t-xs">Reportería <strong>lista para el Ministerio</strong></div>
+          <div class="vs-badge">VS</div>
+          <div class="them t-xs">Datos crudos sin procesar ni validar</div>
+        </div>
+        <div class="cmp-card">
+          <div class="us t-xs"><strong>Cadena de custodia visible</strong> en tiempo real</div>
+          <div class="vs-badge">VS</div>
+          <div class="them t-xs">Proceso opaco sin trazabilidad</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SLIDE 7 — LEGAL ════════════════════════════════ -->
+    <section class="slide" id="s7">
+      <div class="s7-pill t-xs">Marco Regulatorio</div>
+      <h2 class="s7-title t-lg">Operamos bajo la Ley REP N°20.920</h2>
+      <p class="s7-text t-sm">
+        La Ley de Responsabilidad Extendida del Productor (REP) establece que quienes introducen aparatos eléctricos y electrónicos al mercado chileno deben hacerse cargo de su gestión al final de vida útil. ElectroLoop está inscrito como gestor autorizado y actúa como aliado estratégico para que tu empresa cumpla sus metas de recolección y valorización.
+      </p>
+      <div class="guarantees">
+        <div class="guar">
+          <div class="tick">✔</div>
+          <p class="t-sm">Inscripción vigente en el Registro de Gestores de Residuos del Ministerio del Medio Ambiente de Chile.</p>
+        </div>
+        <div class="guar">
+          <div class="tick">✔</div>
+          <p class="t-sm">Cumplimiento de metas REP certificado con declaración de toneladas gestionadas por fracción de material.</p>
+        </div>
+        <div class="guar">
+          <div class="tick">✔</div>
+          <p class="t-sm">Documentación de respaldo lista para auditorías de la Superintendencia del Medio Ambiente (SMA).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SLIDE 8 — CONTACTO ═════════════════════════════ -->
+    <section class="slide" id="s8">
+      <h2 class="s8-title t-xl">Conversemos</h2>
+      <p class="s8-sub t-sm">Cuéntanos tu necesidad y te contactaremos en los próximos días hábiles con una propuesta a medida para tu empresa.</p>
+      <div class="contact-grid">
+        <div class="cinfo t-sm">
+          <svg class="ci-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:contacto@electroloop.cl">contacto@electroloop.cl</a>
+        </div>
+        <div class="cinfo t-sm">
+          <svg class="ci-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <a href="https://electroloop.cl" target="_blank">electroloop.cl</a>
+        </div>
+        <div class="cinfo t-sm">
+          <svg class="ci-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Santiago, Chile</span>
+        </div>
+      </div>
+      <div class="cobre-line"></div>
+      <img src="/logo-light.png" alt="ElectroLoop" class="logo">
+    </section>
+
+  </div><!-- /stage -->
+</div><!-- /deck -->
+
+<!-- ── Controls ── -->
+<div id="controls">
+  <button class="ctrl-btn" id="prev-btn" title="Anterior (←)">&#8592;</button>
+  <div id="dots"></div>
+  <span id="slide-counter">1 / 8</span>
+  <button class="ctrl-btn" id="next-btn" title="Siguiente (→)">&#8594;</button>
+  <button id="fs-btn" title="Pantalla completa">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+  </button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+
+  const counter = document.getElementById('slide-counter');
+  const dotsEl  = document.getElementById('dots');
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.setAttribute('aria-label', 'Ir al slide ' + (i + 1));
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    if (n < 0 || n >= total) return;
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('on');
+    current = n;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('on');
+    counter.textContent = (current + 1) + ' / ' + total;
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('next-btn').addEventListener('click', () => goTo(current + 1));
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    else if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+    else if (e.key === 'Escape' && document.fullscreenElement) document.exitFullscreen();
+  });
+
+  // Click on slide to advance
+  document.getElementById('stage').addEventListener('click', e => {
+    if (e.target.closest('#controls')) return;
+    goTo(current + 1);
+  });
+
+  // Fullscreen
+  document.getElementById('fs-btn').addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  // Touch swipe
+  let touchX = null;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+    touchX = null;
+  }, { passive: true });
+</script>
+</body>
+</html>
