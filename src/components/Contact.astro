@@ -237,17 +237,23 @@
           const email = formData.get('email') as string;
           const name = formData.get('name') as string;
 
-          // Call the autoresponse function
-          if (email && name) {
+          // Call Google Apps Script to send autoresponse email
+          const APPS_SCRIPT_URL = 'REEMPLAZAR_CON_URL_APPS_SCRIPT';
+          if (email && name && APPS_SCRIPT_URL !== 'REEMPLAZAR_CON_URL_APPS_SCRIPT') {
             try {
-              await fetch('/.netlify/functions/send-autoresponse', {
+              const company = formData.get('company') as string || '';
+              const type = formData.get('type') as string || '';
+              const message = formData.get('message') as string || '';
+              const params = new URLSearchParams({ email, name, company, type, message });
+              await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, name }),
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params.toString(),
               });
             } catch (e) {
-              console.warn('Autoresponse function error:', e);
-              // Don't show error to user - form was still submitted successfully
+              console.warn('Autoresponse error:', e);
+              // No mostramos error al usuario — el formulario ya se envió OK
             }
           }
 
