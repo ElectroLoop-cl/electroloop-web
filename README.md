@@ -1,6 +1,6 @@
 # ElectroLoop Web
 
-Landing page for **ElectroLoop** — Minería Urbana de Precisión. Built with Astro 4, Tailwind CSS 3, and TypeScript.
+Landing page for **ElectroLoop** — Gestión RAEE certificada de punta a punta. Built with Astro 4, Tailwind CSS 3, and TypeScript.
 
 ## Tech Stack
 

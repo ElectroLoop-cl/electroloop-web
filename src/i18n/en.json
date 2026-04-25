@@ -10,7 +10,7 @@
     "quote": "Get a Quote"
   },
   "hero": {
-    "title": "Precision Urban Mining",
+    "title": "End-to-End Certified WEEE Management",
     "subtitle": "We are not just a pickup service. We are your strategic sustainability partner to turn electronic waste into measurable assets and friction-free REP compliance.",
     "differentiator": "The only manager in Chile that shows you every step — from collection to recovered material.",
     "claim2": "Infinite Resources",
@@ -191,7 +191,7 @@
   },
   "about": {
     "title": "About Us",
-    "subtitle": "Pioneers in urban mining and circular economy in Chile",
+    "subtitle": "Integral and certified management of electronic waste in Chile",
     "description": "ElectroLoop was born from the conviction that electronic waste is an untapped urban mine. We combine process engineering, traceability technology and regulatory expertise to transform WEEE into valuable resources, actively contributing to the transition toward a circular economy in Chile and Latin America.",
     "values": [
       { "name": "Technology" },
@@ -243,7 +243,7 @@
     }
   },
   "footer": {
-    "tagline": "Precision Urban Mining — Circular Economy for Chile",
+    "tagline": "End-to-End Certified WEEE Management — Circular Economy for Chile",
     "columns": {
       "services": {
         "title": "Services",

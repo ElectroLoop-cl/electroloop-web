@@ -10,7 +10,7 @@
     "quote": "Cotizar"
   },
   "hero": {
-    "title": "Minería Urbana de Precisión",
+    "title": "Gestión RAEE certificada de punta a punta",
     "subtitle": "No somos solo un gestor de retiro. Somos tu socio estratégico para convertir residuos electrónicos en activos medibles y cumplimiento REP sin fricción.",
     "differentiator": "El único gestor en Chile que te muestra cada paso — desde el retiro hasta el material recuperado.",
     "claim2": "Recursos Infinitos",
@@ -191,7 +191,7 @@
   },
   "about": {
     "title": "Quiénes Somos",
-    "subtitle": "Pioneros en minería urbana y economía circular en Chile",
+    "subtitle": "Gestión integral y certificada de residuos electrónicos en Chile",
     "description": "ElectroLoop nació de la convicción de que los residuos electrónicos son una mina urbana sin explotar. Combinamos ingeniería de procesos, tecnología de trazabilidad y conocimiento regulatorio para transformar los RAEE en recursos valiosos, contribuyendo activamente a la transición hacia una economía circular en Chile y Latinoamérica.",
     "values": [
       { "name": "Tecnología" },
@@ -243,7 +243,7 @@
     }
   },
   "footer": {
-    "tagline": "Minería Urbana de Precisión — Economía Circular para Chile",
+    "tagline": "Gestión RAEE certificada de punta a punta — Economía Circular para Chile",
     "columns": {
       "services": {
         "title": "Servicios",
