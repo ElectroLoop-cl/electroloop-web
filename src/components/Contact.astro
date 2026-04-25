@@ -238,7 +238,7 @@
           const name = formData.get('name') as string;
 
           // Call Google Apps Script to send autoresponse email
-          const APPS_SCRIPT_URL = 'REEMPLAZAR_CON_URL_APPS_SCRIPT';
+          const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh-2gjyKcWzVJmrggnBAoZh44prH2WWtDsiCEnepM5K7SQlf9Z24iDktOJJ-lZexN5/exec';
           if (email && name && APPS_SCRIPT_URL !== 'REEMPLAZAR_CON_URL_APPS_SCRIPT') {
             try {
               const company = formData.get('company') as string || '';
