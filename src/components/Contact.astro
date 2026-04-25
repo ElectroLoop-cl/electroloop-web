@@ -250,7 +250,7 @@
           const message = (formData.get('message') as string) || '';
 
           // Llamar Google Apps Script para enviar autorespuesta (GET evita problemas de redirect con no-cors)
-          const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh-2gjyKcWzVJmrggnBAoZh44prH2WWtDsiCEnepM5K7SQlf9Z24iDktOJJ-lZexN5/exec';
+          const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwyKlrt8hG7hN_jAmFBhAj2SXIz8ZGxoqxB_OpijU-JOvbFZAuYTTa2pxRqeIt37FUEvw/exec';
           if (email && name) {
             try {
               const qs = new URLSearchParams({ email, name, company, type, message }).toString();
