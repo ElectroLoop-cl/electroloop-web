@@ -226,43 +226,52 @@
 
       try {
         const formData = new FormData(form);
+
+        // Encode form data explicitly (más confiable que URLSearchParams(formData))
+        const encoded: string[] = [];
+        formData.forEach((value, key) => {
+          encoded.push(encodeURIComponent(key) + '=' + encodeURIComponent(value.toString()));
+        });
+
         const response = await fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formData as any).toString(),
+          body: encoded.join('&'),
         });
 
-        if (response.ok) {
-          // Extract email and name to send autoresponse
-          const email = formData.get('email') as string;
-          const name = formData.get('name') as string;
+        // Netlify puede devolver redirect (3xx) o 200 — cualquier cosa < 400 es éxito
+        const netlifyOk = response.status < 400;
 
-          // Call Google Apps Script to send autoresponse email
+        if (netlifyOk) {
+          const email   = (formData.get('email')   as string) || '';
+          const name    = (formData.get('name')    as string) || '';
+          const company = (formData.get('company') as string) || '';
+          const type    = (formData.get('type')    as string) || '';
+          const message = (formData.get('message') as string) || '';
+
+          // Llamar Google Apps Script para enviar autorespuesta
           const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh-2gjyKcWzVJmrggnBAoZh44prH2WWtDsiCEnepM5K7SQlf9Z24iDktOJJ-lZexN5/exec';
-          if (email && name && APPS_SCRIPT_URL !== 'REEMPLAZAR_CON_URL_APPS_SCRIPT') {
+          if (email && name) {
             try {
-              const company = formData.get('company') as string || '';
-              const type = formData.get('type') as string || '';
-              const message = formData.get('message') as string || '';
-              const params = new URLSearchParams({ email, name, company, type, message });
               await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString(),
+                body: new URLSearchParams({ email, name, company, type, message }).toString(),
               });
             } catch (e) {
               console.warn('Autoresponse error:', e);
-              // No mostramos error al usuario — el formulario ya se envió OK
             }
           }
 
           successMsg?.classList.remove('hidden');
           form.reset();
         } else {
+          console.error('Netlify form error, status:', response.status);
           errorMsg?.classList.remove('hidden');
         }
       } catch (_err) {
+        console.error('Form submit error:', _err);
         errorMsg?.classList.remove('hidden');
       } finally {
         if (submitSpinner) submitSpinner.classList.add('hidden');
