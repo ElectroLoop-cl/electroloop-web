@@ -233,6 +233,24 @@
         });
 
         if (response.ok) {
+          // Extract email and name to send autoresponse
+          const email = formData.get('email') as string;
+          const name = formData.get('name') as string;
+
+          // Call the autoresponse function
+          if (email && name) {
+            try {
+              await fetch('/.netlify/functions/send-autoresponse', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, name }),
+              });
+            } catch (e) {
+              console.warn('Autoresponse function error:', e);
+              // Don't show error to user - form was still submitted successfully
+            }
+          }
+
           successMsg?.classList.remove('hidden');
           form.reset();
         } else {
