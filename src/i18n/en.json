@@ -65,7 +65,7 @@
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Full WEEE management with certified data destruction, auditable traceability, and REP compliance — all in one partner.",
+    "subtitle": "We simplify your WEEE REP compliance, providing reports ready for the Ministry of Environment and helping you meet your recovery goals.",
     "items": [
       {
         "title": "Collection, Logistics & Data Destruction",
@@ -96,12 +96,12 @@
       {
         "number": "02",
         "title": "Classification",
-        "desc": "Reception, weighing and categorization of equipment by type, composition and condition at our facilities."
+        "desc": "Reception, weighing and categorization of equipment by type, composition and condition."
       },
       {
         "number": "03",
         "title": "Pre-treatment",
-        "desc": "Decontamination, safe extraction of hazardous components (batteries, refrigerants, screens) with certified protocols."
+        "desc": "Decontamination, safe extraction of hazardous components (batteries, refrigerants, screens)."
       },
       {
         "number": "04",
@@ -212,7 +212,7 @@
   },
   "contact": {
     "title": "Let's Talk",
-    "subtitle": "Tell us about your electronic waste management needs and we'll get back to you within 24 hours.",
+    "subtitle": "Tell us about your electronic waste management needs and we'll get back to you in the coming days.",
     "fields": {
       "name": "Full name",
       "email": "Email address",
@@ -250,8 +250,7 @@
         "links": [
           "WEEE Collection",
           "Treatment & Recovery",
-          "REP Management",
-          "Certification"
+          "REP Management"
         ]
       },
       "company": {

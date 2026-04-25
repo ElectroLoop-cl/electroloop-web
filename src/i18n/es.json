@@ -65,7 +65,7 @@
   },
   "services": {
     "title": "Nuestros Servicios",
-    "subtitle": "Gestión integral de RAEE con destrucción de datos certificada, trazabilidad auditable y cumplimiento REP — todo en un solo socio.",
+    "subtitle": "Simplificamos tu cumplimiento REP de RAEEs, te entregamos reportería lista para cumplir con el Ministerio de Medioambiente y cumplir con tus metas de recuperación.",
     "items": [
       {
         "title": "Recolección, Logística y Destrucción de Datos",
@@ -96,12 +96,12 @@
       {
         "number": "02",
         "title": "Clasificación",
-        "desc": "Recepción, pesaje y categorización de equipos según tipo, composición y estado en nuestras instalaciones."
+        "desc": "Recepción, pesaje y categorización de equipos según tipo, composición y estado."
       },
       {
         "number": "03",
         "title": "Pre-tratamiento",
-        "desc": "Descontaminación, extracción segura de componentes peligrosos (pilas, baterías, refrigerantes, pantallas) con protocolos certificados."
+        "desc": "Descontaminación, extracción segura de componentes peligrosos (pilas, baterías, refrigerantes, pantallas)."
       },
       {
         "number": "04",
@@ -212,7 +212,7 @@
   },
   "contact": {
     "title": "Conversemos",
-    "subtitle": "Cuéntanos sobre tu necesidad de gestión de residuos electrónicos y te contactaremos dentro de 24 horas.",
+    "subtitle": "Cuéntanos sobre tu necesidad de gestión de residuos electrónicos y te contactaremos en los próximos días.",
     "fields": {
       "name": "Nombre completo",
       "email": "Correo electrónico",
@@ -250,8 +250,7 @@
         "links": [
           "Recolección de RAEE",
           "Tratamiento y Valorización",
-          "Gestión REP",
-          "Certificación"
+          "Gestión REP"
         ]
       },
       "company": {
