@@ -31,10 +31,17 @@
       <div class="reveal-left">
         <form
           id="contact-form"
+          name="contacto-electroloop"
           method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           class="flex flex-col gap-5"
           novalidate
         >
+          <input type="hidden" name="form-name" value="contacto-electroloop" />
+          <p class="hidden">
+            <label>No llenar: <input name="bot-field" /></label>
+          </p>
 
           <!-- Name -->
           <div>
@@ -220,20 +227,40 @@
       try {
         const formData = new FormData(form);
 
-        // POST a Web3Forms — maneja autorespuesta + notificación automáticamente
-        const formDataWithKey = new FormData(form);
-        formDataWithKey.append('access_key', 'fab09e51-77d4-415e-9cc6-28741e5d4696');
-
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: formDataWithKey,
+        // 1. POST a Netlify Forms (captura submission + envía notificación a contacto@)
+        const encoded: string[] = [];
+        formData.forEach((value, key) => {
+          encoded.push(encodeURIComponent(key) + '=' + encodeURIComponent(value.toString()));
         });
 
-        if (response.ok) {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encoded.join('&'),
+        });
+
+        if (response.status < 400) {
+          // 2. Llamar Netlify Function para enviar autorespuesta vía Gmail SMTP
+          const email = (formData.get('email') as string) || '';
+          const name  = (formData.get('name')  as string) || '';
+
+          if (email && name) {
+            try {
+              await fetch('/.netlify/functions/send-autoresponse', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, name }),
+              });
+            } catch (e) {
+              console.warn('Autoresponse error:', e);
+              // No mostramos error al usuario — el form ya fue capturado por Netlify
+            }
+          }
+
           successMsg?.classList.remove('hidden');
           form.reset();
         } else {
-          console.error('Formspree error, status:', response.status);
+          console.error('Netlify form error, status:', response.status);
           errorMsg?.classList.remove('hidden');
         }
       } catch (_err) {
