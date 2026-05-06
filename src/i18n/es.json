@@ -269,6 +269,65 @@
       "address": "Barrio Industrial La Serena - Coquimbo, Chile"
     }
   },
+  "calculator": {
+    "title": "Calculadora REP",
+    "subtitle": "Estima tu obligación REP según tu rol en la cadena de gestión de RAEE",
+    "flows": {
+      "1": "Generador RAEE",
+      "2": "Productor",
+      "3": "Gestor RAEE",
+      "4": "Consultoría Personalizada"
+    },
+    "flow1": {
+      "label": "Generador RAEE",
+      "description": "¿Eres una empresa que genera residuos electrónicos? Calcula tu meta anual según equipos descartados.",
+      "fields": {
+        "pc": "Computadores descartados",
+        "monitor": "Monitores descartados",
+        "printer": "Impresoras descartadas",
+        "other": "Otros equipos"
+      },
+      "result": "Meta anual estimada",
+      "unit": "toneladas"
+    },
+    "flow2": {
+      "label": "Productor",
+      "description": "¿Produces electrónicos? Calcula tu meta REP según volumen y categoría de producto.",
+      "fields": {
+        "volume": "Volumen de ventas anual",
+        "category": "Categoría de producto"
+      },
+      "result": "Meta REP estimada"
+    },
+    "flow3": {
+      "label": "Gestor RAEE",
+      "description": "¿Eres un gestor? Proyecta tu capacidad anual según procesamiento mensual.",
+      "fields": {
+        "monthly": "Toneladas procesadas mensualmente",
+        "months": "Meses operativos al año"
+      },
+      "result": "Proyección anual",
+      "unit": "toneladas/año"
+    },
+    "flow4": {
+      "label": "Consultoría Personalizada",
+      "description": "¿Situación compleja? Cuéntanos más y te ofreceremos análisis personalizado.",
+      "fields": {
+        "description": "Describe tu situación"
+      },
+      "result": "Análisis personalizado solicitado"
+    },
+    "commonFields": {
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "nameRequired": "Campo requerido",
+      "emailRequired": "Email válido requerido"
+    },
+    "download": "⬇️ Descargar PDF",
+    "send": "📧 Enviar por Email",
+    "success": "¡Éxito! Tu reporte ha sido generado. Revisa tu correo.",
+    "error": "Hubo un error. Por favor intenta nuevamente."
+  },
   "footer": {
     "tagline": "Integrador RAEE con partners certificados — Economía Circular para Chile",
     "columns": {

@@ -269,6 +269,65 @@
       "address": "Barrio Industrial La Serena - Coquimbo, Chile"
     }
   },
+  "calculator": {
+    "title": "REP Calculator",
+    "subtitle": "Estimate your REP obligation based on your role in the WEEE management chain",
+    "flows": {
+      "1": "WEEE Generator",
+      "2": "Producer",
+      "3": "WEEE Manager",
+      "4": "Custom Consulting"
+    },
+    "flow1": {
+      "label": "WEEE Generator",
+      "description": "Are you a company that generates electronic waste? Calculate your annual target based on discarded equipment.",
+      "fields": {
+        "pc": "Computers discarded",
+        "monitor": "Monitors discarded",
+        "printer": "Printers discarded",
+        "other": "Other equipment"
+      },
+      "result": "Estimated annual target",
+      "unit": "tons"
+    },
+    "flow2": {
+      "label": "Producer",
+      "description": "Do you produce electronics? Calculate your REP target based on sales volume and product category.",
+      "fields": {
+        "volume": "Annual sales volume",
+        "category": "Product category"
+      },
+      "result": "Estimated REP target"
+    },
+    "flow3": {
+      "label": "WEEE Manager",
+      "description": "Are you a manager? Project your annual capacity based on monthly processing.",
+      "fields": {
+        "monthly": "Tons processed monthly",
+        "months": "Operating months per year"
+      },
+      "result": "Annual projection",
+      "unit": "tons/year"
+    },
+    "flow4": {
+      "label": "Custom Consulting",
+      "description": "Complex situation? Tell us more and we'll provide custom analysis.",
+      "fields": {
+        "description": "Describe your situation"
+      },
+      "result": "Custom analysis requested"
+    },
+    "commonFields": {
+      "name": "Full name",
+      "email": "Email address",
+      "nameRequired": "Required field",
+      "emailRequired": "Valid email required"
+    },
+    "download": "⬇️ Download PDF",
+    "send": "📧 Send via Email",
+    "success": "Success! Your report has been generated. Check your email.",
+    "error": "There was an error. Please try again."
+  },
   "footer": {
     "tagline": "WEEE Integrator with certified partners — Circular Economy for Chile",
     "columns": {

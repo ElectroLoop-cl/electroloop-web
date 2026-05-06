@@ -1,0 +1,511 @@
+---
+// REPCalculator.astro — Interactive REP calculator with 4 flows
+// Generates PDFs and sends emails with results
+---
+
+<section id="calculadora-rep" class="section-padding" style="background-color: #F4F4F4;">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header -->
+    <div class="text-center mb-14 reveal">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-3" style="color: #B97333;">
+        Herramienta
+      </span>
+      <h2
+        class="text-3xl sm:text-4xl lg:text-5xl font-black font-display mb-4"
+        style="color: #0B1B32; letter-spacing: -0.02em;"
+        data-i18n="calculator.title"
+      >Calculadora de Metas REP</h2>
+      <p
+        class="text-base max-w-2xl mx-auto"
+        style="color: #8E9297;"
+        data-i18n="calculator.subtitle"
+      >Calcula tu meta REP anual, genera reportes y recibe resultados por email</p>
+    </div>
+
+    <!-- Flow Selection -->
+    <div class="flex flex-col sm:flex-row gap-4 mb-12 justify-center">
+      <button
+        type="button"
+        class="flow-btn px-6 py-3 rounded-lg font-bold text-sm transition-all duration-200"
+        data-flow="1"
+        style="background-color: #B97333; color: white;"
+        data-i18n="calculator.flows.1"
+      >
+        🏪 Generador RAEE
+      </button>
+      <button
+        type="button"
+        class="flow-btn px-6 py-3 rounded-lg font-bold text-sm transition-all duration-200 border-2"
+        data-flow="2"
+        style="border-color: #B97333; color: #B97333;"
+        data-i18n="calculator.flows.2"
+      >
+        🏭 Productor
+      </button>
+      <button
+        type="button"
+        class="flow-btn px-6 py-3 rounded-lg font-bold text-sm transition-all duration-200 border-2"
+        data-flow="3"
+        style="border-color: #B97333; color: #B97333;"
+        data-i18n="calculator.flows.3"
+      >
+        ♻️ Gestor RAEE
+      </button>
+      <button
+        type="button"
+        class="flow-btn px-6 py-3 rounded-lg font-bold text-sm transition-all duration-200 border-2"
+        data-flow="4"
+        style="border-color: #B97333; color: #B97333;"
+        data-i18n="calculator.flows.4"
+      >
+        📊 Consultoría
+      </button>
+    </div>
+
+    <!-- Calculator Form Container -->
+    <div
+      class="bg-white rounded-2xl p-8 shadow-lg border border-transparent reveal"
+      style="border-color: rgba(185,115,51,0.2);"
+    >
+      <form id="rep-calculator-form" class="flex flex-col gap-6">
+
+        <!-- Flow 1: Generador RAEE -->
+        <div id="flow-1" class="flow-content hidden">
+          <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">
+            Flujo 1: Generador RAEE
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                PCs y Computadoras (unidades)
+              </label>
+              <input
+                type="number"
+                name="flow1-pc"
+                min="0"
+                placeholder="0"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Monitores (unidades)
+              </label>
+              <input
+                type="number"
+                name="flow1-monitor"
+                min="0"
+                placeholder="0"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Impresoras (unidades)
+              </label>
+              <input
+                type="number"
+                name="flow1-printer"
+                min="0"
+                placeholder="0"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Otros Equipos (unidades)
+              </label>
+              <input
+                type="number"
+                name="flow1-other"
+                min="0"
+                placeholder="0"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg" style="background: rgba(185,115,51,0.05); border: 1px solid rgba(185,115,51,0.2);">
+            <p style="color: #8E9297;" class="text-sm mb-2">Meta anual estimada:</p>
+            <p style="color: #0B1B32;" class="text-2xl font-bold">
+              <span id="flow1-result">0</span> toneladas
+            </p>
+          </div>
+        </div>
+
+        <!-- Flow 2: Productor -->
+        <div id="flow-2" class="flow-content hidden">
+          <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">
+            Flujo 2: Productor
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Volumen anual de ventas (unidades)
+              </label>
+              <input
+                type="number"
+                name="flow2-volume"
+                min="0"
+                placeholder="0"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Categoría de equipos
+              </label>
+              <select
+                name="flow2-category"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              >
+                <option value="">Selecciona categoría</option>
+                <option value="1">Computadoras</option>
+                <option value="2">Telecomunicaciones</option>
+                <option value="3">Aparatos de consumo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg" style="background: rgba(185,115,51,0.05); border: 1px solid rgba(185,115,51,0.2);">
+            <p style="color: #8E9297;" class="text-sm mb-2">Meta REP estimada:</p>
+            <p style="color: #0B1B32;" class="text-2xl font-bold">
+              <span id="flow2-result">0</span>% de recolección anual
+            </p>
+          </div>
+        </div>
+
+        <!-- Flow 3: Gestor RAEE -->
+        <div id="flow-3" class="flow-content hidden">
+          <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">
+            Flujo 3: Gestor RAEE
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Toneladas procesadas mensualmente
+              </label>
+              <input
+                type="number"
+                name="flow3-monthly"
+                min="0"
+                step="0.1"
+                placeholder="0"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Meses operativos al año
+              </label>
+              <input
+                type="number"
+                name="flow3-months"
+                min="1"
+                max="12"
+                value="12"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg" style="background: rgba(185,115,51,0.05); border: 1px solid rgba(185,115,51,0.2);">
+            <p style="color: #8E9297;" class="text-sm mb-2">Proyección anual:</p>
+            <p style="color: #0B1B32;" class="text-2xl font-bold">
+              <span id="flow3-result">0</span> toneladas/año
+            </p>
+          </div>
+        </div>
+
+        <!-- Flow 4: Consultoría -->
+        <div id="flow-4" class="flow-content hidden">
+          <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">
+            Flujo 4: Consultoría Personalizada
+          </h3>
+
+          <div class="grid grid-cols-1 gap-6 mb-6">
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Descripción de tu caso (opcional)
+              </label>
+              <textarea
+                name="flow4-description"
+                rows="4"
+                placeholder="Cuéntanos sobre tu organización..."
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32; resize: vertical;"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg" style="background: rgba(185,115,51,0.05); border: 1px solid rgba(185,115,51,0.2);">
+            <p style="color: #8E9297;" class="text-sm mb-2">Resultado:</p>
+            <p style="color: #0B1B32;" class="text-xl font-bold">
+              Análisis personalizado
+            </p>
+            <p style="color: #8E9297;" class="text-sm mt-2">
+              Recibirás un reporte estratégico en tu email
+            </p>
+          </div>
+        </div>
+
+        <!-- Common Fields -->
+        <div class="border-t pt-6" style="border-color: rgba(185,115,51,0.2);">
+          <h4 class="font-bold mb-4" style="color: #0B1B32;">Para enviar tu reporte:</h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Tu nombre
+              </label>
+              <input
+                type="text"
+                name="calc-name"
+                required
+                placeholder="Nombre"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+            <div>
+              <label class="form-label" style="color: #0B1B32;">
+                Tu email
+              </label>
+              <input
+                type="email"
+                name="calc-email"
+                required
+                placeholder="tu@email.com"
+                class="form-input"
+                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
+              />
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <button
+              type="button"
+              id="download-pdf"
+              class="btn-primary flex-1 px-6 py-3 rounded-lg font-bold text-sm text-white"
+              style="background-color: #B97333;"
+              data-i18n="calculator.download"
+            >
+              ⬇️ Descargar PDF
+            </button>
+            <button
+              type="submit"
+              id="send-email"
+              class="btn-primary flex-1 px-6 py-3 rounded-lg font-bold text-sm text-white"
+              style="background-color: #B97333;"
+              data-i18n="calculator.send"
+            >
+              📧 Enviar por Email
+            </button>
+          </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div
+          id="calc-success"
+          class="hidden flex items-center gap-3 p-4 rounded-xl"
+          style="background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);"
+          role="alert"
+        >
+          <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style="color: #22c55e;">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-sm font-medium" style="color: #22c55e;" data-i18n="calculator.success">
+            ¡Reporte enviado! Revisa tu email.
+          </span>
+        </div>
+
+        <div
+          id="calc-error"
+          class="hidden flex items-center gap-3 p-4 rounded-xl"
+          style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);"
+          role="alert"
+        >
+          <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style="color: #ef4444;">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-sm font-medium" style="color: #ef4444;" data-i18n="calculator.error">
+            Hubo un error. Por favor intenta nuevamente.
+          </span>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Flow selection
+  document.querySelectorAll('.flow-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const flow = this.dataset.flow;
+
+      // Update button styles
+      document.querySelectorAll('.flow-btn').forEach(b => {
+        b.style.backgroundColor = 'transparent';
+        b.style.color = '#B97333';
+        b.style.borderColor = '#B97333';
+      });
+      this.style.backgroundColor = '#B97333';
+      this.style.color = 'white';
+      this.style.borderColor = '#B97333';
+
+      // Show/hide flow content
+      document.querySelectorAll('.flow-content').forEach(fc => fc.classList.add('hidden'));
+      document.getElementById(`flow-${flow}`).classList.remove('hidden');
+    });
+  });
+
+  // Set first flow as default
+  const firstBtn = document.querySelector('[data-flow="1"]');
+  firstBtn?.click();
+
+  // Real-time calculations
+  document.querySelectorAll('input[name^="flow1"], input[name^="flow2"], input[name^="flow3"]').forEach(input => {
+    input.addEventListener('input', function() {
+      const flow = this.name.split('-')[0];
+
+      if (flow === 'flow1') {
+        const pc = parseFloat(document.querySelector('input[name="flow1-pc"]')?.value || 0);
+        const monitor = parseFloat(document.querySelector('input[name="flow1-monitor"]')?.value || 0);
+        const printer = parseFloat(document.querySelector('input[name="flow1-printer"]')?.value || 0);
+        const other = parseFloat(document.querySelector('input[name="flow1-other"]')?.value || 0);
+
+        const total = (pc * 0.025 + monitor * 0.015 + printer * 0.020 + other * 0.010);
+        document.getElementById('flow1-result').textContent = total.toFixed(2);
+      }
+
+      if (flow === 'flow2') {
+        const volume = parseFloat(document.querySelector('input[name="flow2-volume"]')?.value || 0);
+        const category = document.querySelector('select[name="flow2-category"]')?.value || '1';
+        const percentages = { '1': 0.5, '2': 0.4, '3': 0.45 };
+
+        const result = (volume * (percentages[category] || 0.5));
+        document.getElementById('flow2-result').textContent = (percentages[category] * 100).toFixed(0);
+      }
+
+      if (flow === 'flow3') {
+        const monthly = parseFloat(document.querySelector('input[name="flow3-monthly"]')?.value || 0);
+        const months = parseFloat(document.querySelector('input[name="flow3-months"]')?.value || 12);
+
+        const annual = monthly * months;
+        document.getElementById('flow3-result').textContent = annual.toFixed(2);
+      }
+    });
+  });
+
+  // Form submission
+  document.getElementById('rep-calculator-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    try {
+      // Send to Netlify Function
+      const response = await fetch('/.netlify/functions/send-calculator-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        document.getElementById('calc-success').classList.remove('hidden');
+        document.getElementById('calc-error').classList.add('hidden');
+        setTimeout(() => {
+          document.getElementById('calc-success').classList.add('hidden');
+        }, 5000);
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (err) {
+      document.getElementById('calc-error').classList.remove('hidden');
+      document.getElementById('calc-success').classList.add('hidden');
+    }
+  });
+
+  // PDF Download
+  document.getElementById('download-pdf')?.addEventListener('click', async function() {
+    const name = document.querySelector('input[name="calc-name"]')?.value;
+    const email = document.querySelector('input[name="calc-email"]')?.value;
+
+    if (!name || !email) {
+      alert('Por favor completa nombre y email');
+      return;
+    }
+
+    const formData = new FormData(document.getElementById('rep-calculator-form'));
+    const data = Object.fromEntries(formData);
+    data.downloadOnly = true;
+
+    try {
+      const response = await fetch('/.netlify/functions/generate-pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `REP-Report-${new Date().toISOString().split('T')[0]}.pdf`;
+        a.click();
+      }
+    } catch (err) {
+      alert('Error generando PDF');
+    }
+  });
+</script>
+
+<style>
+  .flow-content {
+    animation: fadeInUp 0.3s ease;
+  }
+
+  .flow-content.hidden {
+    display: none;
+  }
+
+  input[type="number"],
+  input[type="email"],
+  input[type="text"],
+  select,
+  textarea {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #B97333 !important;
+    box-shadow: 0 0 0 3px rgba(185, 115, 51, 0.1);
+  }
+
+  .flow-btn {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .flow-btn:hover:not([style*="background-color: rgb(185, 115, 51)"]) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(185, 115, 51, 0.2);
+  }
+</style>
