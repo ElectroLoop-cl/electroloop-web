@@ -59,6 +59,17 @@ const siteUrl = 'https://electroloop.cl';
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
 
+  <!-- ETAPA 3.3: Performance Optimization Hints -->
+  <!-- Preload critical resources -->
+  <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" crossorigin />
+
+  <!-- DNS prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+
+  <!-- Prefetch next page resources -->
+  <link rel="prefetch" href="/noticias/index.html" />
+
   <!-- Tipografía: Arial / Helvetica (sistema) — sin dependencia externa, Manual de Marca ElectroLoop -->
 
   <!-- Canonical -->
