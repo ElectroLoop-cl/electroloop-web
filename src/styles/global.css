@@ -1,4 +1,5 @@
-/* Tipografía principal: Arial / Helvetica (Manual de Marca ElectroLoop) — fuente de sistema, sin dependencia externa */
+/* ETAPA 3: Premium Typography — Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap');
 
 /* Tailwind directives */
 @tailwind base;
@@ -18,7 +19,8 @@
   --color-white: #FFFFFF;
   --color-footer-dark: #060D1A;
 
-  --font-sans: Arial, Helvetica, system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Poppins', system-ui, -apple-system, sans-serif;
   --font-size-base: 16px;
 
   --transition-base: 0.3s ease;
@@ -51,14 +53,21 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.3px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
+
+/* Heading hierarchy with Poppins */
+h1 { font-size: 3rem; font-weight: 900; }
+h2 { font-size: 2.25rem; font-weight: 800; }
+h3 { font-size: 1.5rem; font-weight: 700; }
+h4 { font-size: 1.25rem; font-weight: 600; }
 
 a {
   color: inherit;

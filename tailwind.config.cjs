@@ -13,11 +13,25 @@ module.exports = {
         'footer-dark': '#060D1A',
       },
       fontFamily: {
-        // Manual de Marca: tipografía principal Arial / Helvetica
-        sans: ['Arial', 'Helvetica', 'system-ui', 'sans-serif'],
+        // ETAPA 3: Premium typography
+        // Body: Inter (legible, modern, professional)
+        // Headings: Poppins (bold, distinctive, tech-forward)
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
       },
       fontSize: {
-        base: '16px',
+        // Typography scale: improved hierarchy
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '3.5rem' }],
+        '6xl': ['3.75rem', { lineHeight: '4rem' }],
+        '7xl': ['4.5rem', { lineHeight: '5rem' }],
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.6s ease forwards',
