@@ -11,7 +11,7 @@
   },
   "hero": {
     "title": "La gestión RAEE que la macrozona norte va a necesitar",
-    "subtitle": "Un solo punto de contacto, responsabilidad de servicio integral. Operamos con partners certificados mientras construimos capacidad propia. Inicio operativo julio 2026.",
+    "subtitle": "Un solo punto de contacto, responsabilidad de servicio integral. Operamos con partners certificados mientras construimos capacidad propia. Inicio operativo agosto 2026.",
     "differentiator": "Coordinamos la gestión completa de tus residuos electrónicos con red de gestores certificados, cumplimiento REP y trazabilidad documentada.",
     "claim2": "Recursos Infinitos",
     "cta1": "Ver cómo funciona",
@@ -40,7 +40,7 @@
       }
     ],
     "strip": {
-      "title": "En vía hacia la autorización — Julio 2026",
+      "title": "En vía hacia la autorización — Agosto 2026",
       "desc": "Estructuramos nuestras operaciones para cumplir con Ley REP N°20.920, Decreto 148 y autorizaciones sanitarias. Operamos actualmente con partners certificados.",
       "cta": "Conoce nuestro roadmap →"
     }
@@ -59,7 +59,7 @@
     ],
     "cta": {
       "title": "¿Listo para iniciar gestión de tus RAEE?",
-      "subtitle": "Pre-regístrate como cliente ancla. Iniciamos operaciones julio 2026.",
+      "subtitle": "Pre-regístrate como cliente ancla. Iniciamos operaciones agosto 2026.",
       "button": "Pre-registrarme como cliente ancla"
     }
   },
@@ -114,6 +114,33 @@
         "desc": "Emisión de certificados de disposición final y reportes auditables para cumplimiento REP y programas de sustentabilidad."
       }
     ]
+  },
+  "status": {
+    "title": "Roadmap Regulatorio",
+    "subtitle": "Trazabilidad completa de nuestro progreso hacia la autorización agosto 2026",
+    "phases": [
+      {
+        "tag": "Q3 2026 — Ahora",
+        "title": "Estructuración Legal & Operativa",
+        "desc": "Preparando documentación regulatoria, validando partners certificados, estructurando sistemas de trazabilidad digital."
+      },
+      {
+        "tag": "Agosto 2026",
+        "title": "Operaciones Piloto",
+        "desc": "Lanzamiento operativo con clientes ancla (productores, generadores III-IV región). Retiros certificados con partners."
+      },
+      {
+        "tag": "2027+",
+        "title": "Internalización & Expansión",
+        "desc": "Capacidad propia (destrucción de datos, desmantelamiento). Expansión a macrozona norte completa."
+      }
+    ],
+    "info": "Operamos con partners certificados durante la fase de autorización. La trazabilidad digital garantiza cumplimiento REP desde el día uno.",
+    "cta": {
+      "prefix": "¿Eres productor o generador de RAEE?",
+      "suffix": " Pre-regístrate ahora como cliente ancla y asegura tu lugar en el lanzamiento.",
+      "button": "Pre-registrarme como cliente ancla"
+    }
   },
   "impact": {
     "title": "Nuestro Impacto",
@@ -178,7 +205,7 @@
   "compliance": {
     "title": "Cumplimiento Normativo",
     "subtitle": "Estructurado para operar conforme a la normativa REP y regulaciones ambientales",
-    "description": "La Ley REP (Ley N° 20.920) establece la responsabilidad extendida del productor para la gestión de RAEE. ElectroLoop es un integrador que opera con partners certificados y se estructura para cumplir con todos los requisitos técnicos, ambientales y de seguridad. Inicio operativo julio 2026.",
+    "description": "La Ley REP (Ley N° 20.920) establece la responsabilidad extendida del productor para la gestión de RAEE. ElectroLoop es un integrador que opera con partners certificados y se estructura para cumplir con todos los requisitos técnicos, ambientales y de seguridad. Inicio operativo agosto 2026.",
     "certifications": [
       "Estructuración para Registro de Gestores — Ministerio del Medio Ambiente",
       "Conformidad con requisitos SEREMI de Salud (en vía)",
@@ -186,7 +213,7 @@
       "Trazabilidad digital conforme a Decreto 148",
       "Sistemas de auditoría y reportería REP-compatible"
     ],
-    "badge": "Integrador RAEE — En autorización",
+    "badge": "Integrador RAEE — En autorización, agosto 2026",
     "cta": "Conoce nuestro roadmap regulatorio →"
   },
   "about": {
@@ -276,11 +303,11 @@
         "links": [
           "contacto@electroloop.cl",
           "+56 51 2345 6789",
-          "La Serena, Chile"
+          "La Serena, Coquimbo"
         ]
       }
     },
     "copyright": "© 2026 ElectroLoop SpA. Todos los derechos reservados.",
-    "legal": "Integrador RAEE — Operaciones inician julio 2026 — Ley REP Chile (N° 20.920)"
+    "legal": "Integrador RAEE — Operaciones inician agosto 2026 — Ley REP Chile (N° 20.920)"
   }
 }

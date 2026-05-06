@@ -1,0 +1,245 @@
+---
+// Status.astro — Roadmap + Regulatory authorization timeline
+// Q3 2026 (Now) → Operations launch August 2026
+---
+
+<section id="estado" class="section-padding" style="background-color: #0B1B32;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header -->
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-3" style="color: #B97333;">
+        Estado de Electroloop
+      </span>
+      <h2
+        class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4"
+        style="letter-spacing: -0.02em;"
+        data-i18n="status.title"
+      >Roadmap Regulatorio</h2>
+      <p
+        class="text-base max-w-2xl mx-auto"
+        style="color: #8E9297;"
+        data-i18n="status.subtitle"
+      >Trazabilidad completa de nuestro progreso hacia la autorización agosto 2026</p>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
+
+      <!-- Left: Timeline/Phases -->
+      <div class="reveal-left">
+        <h3 class="text-xl font-bold mb-8 text-white" style="letter-spacing: -0.01em;">Fases de Estructuración</h3>
+
+        <!-- Phase cards -->
+        <div class="flex flex-col gap-5">
+          <!-- Phase 1: Now -->
+          <div class="relative pl-8 pb-8 border-l-2" style="border-color: rgba(185,115,51,0.3);">
+            <div
+              class="absolute left-0 top-0 w-6 h-6 rounded-full -translate-x-3.5 flex items-center justify-center"
+              style="background: #B97333;"
+            >
+              <div class="w-2 h-2 rounded-full bg-white"></div>
+            </div>
+
+            <div class="flex items-center gap-2 mb-2">
+              <span
+                class="inline-block text-xs font-bold px-2.5 py-1 rounded-full text-white"
+                style="background: #B97333;"
+                data-i18n="status.phases.0.tag"
+              >Q3 2026 — Ahora</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2" data-i18n="status.phases.0.title">
+              Estructuración Legal & Operativa
+            </h4>
+            <p class="text-sm leading-relaxed" style="color: #8E9297;" data-i18n="status.phases.0.desc">
+              Preparando documentación regulatoria, validando partners certificados, estructurando sistemas de trazabilidad digital.
+            </p>
+          </div>
+
+          <!-- Phase 2: Q3 Late -->
+          <div class="relative pl-8 pb-8 border-l-2" style="border-color: rgba(185,115,51,0.2);">
+            <div
+              class="absolute left-0 top-0 w-6 h-6 rounded-full -translate-x-3.5 flex items-center justify-center"
+              style="background: rgba(185,115,51,0.4);"
+            >
+              <div class="w-2 h-2 rounded-full" style="background: rgba(185,115,51,0.6);"></div>
+            </div>
+
+            <div class="flex items-center gap-2 mb-2">
+              <span
+                class="inline-block text-xs font-bold px-2.5 py-1 rounded-full"
+                style="background: rgba(185,115,51,0.2); color: #B97333;"
+                data-i18n="status.phases.1.tag"
+              >Agosto 2026</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2" data-i18n="status.phases.1.title">
+              Operaciones Piloto
+            </h4>
+            <p class="text-sm leading-relaxed" style="color: #8E9297;" data-i18n="status.phases.1.desc">
+              Lanzamiento operativo con clientes ancla (productores, generadores III-IV región). Retiros certificados con partners.
+            </p>
+          </div>
+
+          <!-- Phase 3: Future -->
+          <div class="relative pl-8" style="border-left: 2px solid rgba(185,115,51,0.1);">
+            <div
+              class="absolute left-0 top-0 w-6 h-6 rounded-full -translate-x-3.5 flex items-center justify-center"
+              style="background: rgba(185,115,51,0.2);"
+            >
+              <div class="w-2 h-2 rounded-full" style="background: rgba(185,115,51,0.4);"></div>
+            </div>
+
+            <div class="flex items-center gap-2 mb-2">
+              <span
+                class="inline-block text-xs font-bold px-2.5 py-1 rounded-full"
+                style="background: rgba(185,115,51,0.15); color: #8E9297;"
+                data-i18n="status.phases.2.tag"
+              >2027+</span>
+            </div>
+            <h4 class="text-base font-bold text-white mb-2" style="color: #8E9297;" data-i18n="status.phases.2.title">
+              Internalización & Expansión
+            </h4>
+            <p class="text-sm leading-relaxed" style="color: #8E9297;" data-i18n="status.phases.2.desc">
+              Capacidad propia (destrucción de datos, desmantelamiento). Expansión a macrozona norte completa.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Regulatory Checklist -->
+      <div class="reveal-right">
+        <h3 class="text-xl font-bold mb-8 text-white" style="letter-spacing: -0.01em;">Autoridades & Plazos</h3>
+
+        <!-- Checklist table -->
+        <div class="space-y-3">
+          {[
+            {
+              authority: 'Ministerio del Medio Ambiente',
+              requirement: 'Registro de Gestor RAEE',
+              status: 'in-progress',
+              statusLabel: 'En estructuración',
+              timeline: 'Agosto 2026'
+            },
+            {
+              authority: 'SEREMI de Salud (Regional)',
+              requirement: 'Autorización Sanitaria',
+              status: 'in-progress',
+              statusLabel: 'En trámite',
+              timeline: 'Agosto 2026'
+            },
+            {
+              authority: 'Autoridades Ambientales',
+              requirement: 'Cumplimiento Decreto 148',
+              status: 'in-progress',
+              statusLabel: 'En preparación',
+              timeline: 'Agosto 2026'
+            },
+            {
+              authority: 'Partners Certificados',
+              requirement: 'Validación de operadores',
+              status: 'completed',
+              statusLabel: 'Validado',
+              timeline: 'Q3 2026'
+            },
+            {
+              authority: 'Sistema Interno',
+              requirement: 'Trazabilidad digital',
+              status: 'completed',
+              statusLabel: 'Operativo',
+              timeline: 'Q3 2026'
+            }
+          ].map((item) => (
+            <div
+              class="flex items-start gap-4 p-4 rounded-xl border"
+              style={
+                item.status === 'completed'
+                  ? 'background: rgba(34,197,94,0.05); border-color: rgba(34,197,94,0.2);'
+                  : 'background: rgba(185,115,51,0.05); border-color: rgba(185,115,51,0.2);'
+              }
+            >
+              <!-- Icon -->
+              <div
+                class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
+                style={
+                  item.status === 'completed'
+                    ? 'background: rgba(34,197,94,0.2);'
+                    : 'background: rgba(185,115,51,0.2);'
+                }
+                aria-hidden="true"
+              >
+                {item.status === 'completed' ? (
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" style="color: #22c55e;">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                ) : (
+                  <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #B97333;">
+                    <circle cx="12" cy="12" r="1" fill="currentColor"/>
+                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none" opacity="0.6"/>
+                  </svg>
+                )}
+              </div>
+
+              <!-- Content -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <p class="text-sm font-bold text-white">{item.authority}</p>
+                  <span
+                    class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0 whitespace-nowrap"
+                    style={
+                      item.status === 'completed'
+                        ? 'background: rgba(34,197,94,0.15); color: #22c55e;'
+                        : 'background: rgba(185,115,51,0.15); color: #B97333;'
+                    }
+                  >
+                    {item.statusLabel}
+                  </span>
+                </div>
+                <p class="text-xs mb-1.5" style="color: #8E9297;">{item.requirement}</p>
+                <p class="text-xs font-medium" style="color: #8E9297;">📅 {item.timeline}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Info box -->
+        <div
+          class="mt-6 p-4 rounded-xl border"
+          style="background: rgba(185,115,51,0.05); border-color: rgba(185,115,51,0.2);"
+        >
+          <div class="flex items-start gap-2">
+            <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" style="color: #B97333;">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            </svg>
+            <p class="text-xs leading-relaxed" style="color: #8E9297;" data-i18n="status.info">
+              Operamos con partners certificados durante la fase de autorización. La trazabilidad digital garantiza cumplimiento REP desde el día uno.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom CTA -->
+    <div
+      class="text-center p-8 rounded-xl reveal"
+      style="background: linear-gradient(135deg, rgba(185,115,51,0.08), rgba(185,115,51,0.04)); border: 1px solid rgba(185,115,51,0.15);"
+    >
+      <p class="text-sm mb-4" style="color: #8E9297;">
+        <strong data-i18n="status.cta.prefix">¿Eres productor o generador de RAEE?</strong>
+        <span data-i18n="status.cta.suffix"> Pre-regístrate ahora como cliente ancla y asegura tu lugar en el lanzamiento.</span>
+      </p>
+      <a
+        href="#contacto"
+        class="inline-flex items-center gap-2 text-sm font-bold px-8 py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5 text-white"
+        style="background-color: #B97333;"
+        data-i18n="status.cta.button"
+      >
+        Pre-registrarme como cliente ancla
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>
