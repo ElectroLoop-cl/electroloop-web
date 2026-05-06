@@ -350,9 +350,26 @@ button {
 }
 
 /* ─────────────────────────────────────────────
-   Gradient text utility
+   Typography utility classes
 ───────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-sans);
+}
+
 .text-gradient-copper {
+  background: linear-gradient(135deg, var(--color-copper) 0%, var(--color-copper-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient text with Poppins (display) */
+.text-gradient-display {
+  font-family: var(--font-display);
   background: linear-gradient(135deg, var(--color-copper) 0%, var(--color-copper-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
