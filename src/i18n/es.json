@@ -10,21 +10,21 @@
     "quote": "Cotizar"
   },
   "hero": {
-    "title": "Gestión RAEE certificada de punta a punta",
-    "subtitle": "No somos solo un gestor de retiro. Somos tu socio estratégico para convertir residuos electrónicos en activos medibles y cumplimiento REP sin fricción.",
-    "differentiator": "El único gestor en Chile que te muestra cada paso — desde el retiro hasta el material recuperado.",
+    "title": "La gestión RAEE que la macrozona norte va a necesitar",
+    "subtitle": "Un solo punto de contacto, responsabilidad de servicio integral. Operamos con partners certificados mientras construimos capacidad propia. Inicio operativo julio 2026.",
+    "differentiator": "Coordinamos la gestión completa de tus residuos electrónicos con red de gestores certificados, cumplimiento REP y trazabilidad documentada.",
     "claim2": "Recursos Infinitos",
     "cta1": "Ver cómo funciona",
-    "cta2": "Agenda tu retiro ahora",
-    "badge": "Gestor Autorizado — Ley REP Chile"
+    "cta2": "Pre-registrarme como cliente ancla",
+    "badge": "Integrador RAEE — Ley REP Chile"
   },
   "valueProps": {
     "title": "¿Por qué ElectroLoop?",
-    "subtitle": "No somos un gestor más. Somos el único especialista exclusivo en RAEE con trazabilidad auditable y destrucción de datos certificada en Chile.",
+    "subtitle": "Somos un integrador de gestión RAEE que coordina partners certificados para ofrecerte una solución completa: retiro, trazabilidad documentada y cumplimiento REP sin fricciones.",
     "cards": [
       {
         "title": "100% enfocados en RAEE",
-        "desc": "No gestionamos residuos industriales genéricos ni somos una división de otro negocio. ElectroLoop existe exclusivamente para el reciclaje electrónico — eso se nota en cada proceso."
+        "desc": "Dedicados exclusivamente a residuos electrónicos. Coordinamos partners especializados en cada etapa: retiro logístico, tratamiento certificado, valorización de materiales y reporte REP."
       },
       {
         "title": "Destrucción de datos certificada",
@@ -40,46 +40,46 @@
       }
     ],
     "strip": {
-      "title": "Gestor Autorizado — Ministerio del Medio Ambiente de Chile",
-      "desc": "Cumplimos con Ley REP N°20.920, Decreto 148 de residuos peligrosos y autorizaciones SEREMI de Salud.",
-      "cta": "Ver certificaciones →"
+      "title": "En vía hacia la autorización — Julio 2026",
+      "desc": "Estructuramos nuestras operaciones para cumplir con Ley REP N°20.920, Decreto 148 y autorizaciones sanitarias. Operamos actualmente con partners certificados.",
+      "cta": "Conoce nuestro roadmap →"
     }
   },
   "chain": {
-    "badge": "Transparencia total — lo que nadie más te muestra",
-    "title": "Tu equipo llega aquí. Esto pasa después.",
-    "subtitle": "Mientras otros te entregan un certificado al final, nosotros te mostramos cada paso del recorrido. Control total de principio a fin.",
+    "badge": "Proceso integrado — Con partners certificados",
+    "title": "Tu retiro llega. Esto pasa después.",
+    "subtitle": "Te mostramos cada paso del proceso con partners certificados. Seguimiento digital, reportes descargables y certificación válida para REP y ESG.",
     "steps": [
-      { "title": "Retiro en tus instalaciones", "desc": "Coordinamos el retiro en tu empresa con flota certificada, manifiestos de transporte y acta de recepción firmada. Tú recibes confirmación inmediata.", "tag": "Acta de recepción emitida" },
-      { "title": "Recepción y pesaje certificado", "desc": "Cada RAEE es pesado, fotografiado e ingresado a nuestro sistema de trazabilidad con número de serie único. Recibes reporte de ingreso dentro de 24 horas.", "tag": "Reporte de ingreso en 24h" },
+      { "title": "Retiro en tus instalaciones", "desc": "Coordinamos el retiro con partners logísticos certificados, manifiestos de transporte y acta de recepción firmada. Confirmación dentro de 48 horas.", "tag": "Acta de recepción emitida" },
+      { "title": "Recepción y pesaje certificado", "desc": "Cada RAEE es pesado, fotografiado e ingresado a nuestro sistema de trazabilidad con número de serie único. Reporte digital en 3-5 días hábiles.", "tag": "Reporte digital de ingreso" },
       { "title": "Destrucción certificada de datos", "desc": "Borrado seguro o destrucción física del soporte de almacenamiento. Certificado individual por dispositivo con número de serie, método y fecha, válido para auditorías de cumplimiento normativo.", "tag": "Certificado por dispositivo" },
       { "title": "Desmantelamiento y clasificación", "desc": "Separación manual y mecánica de componentes: metales ferrosos, cobre, aluminio, tarjetas electrónicas, plásticos y materiales peligrosos.", "tag": "Clasificación por tipo de material" },
       { "title": "Valorización de materiales", "desc": "Recuperación de cobre, oro, plata, paladio, aluminio y plásticos de ingeniería. Los materiales regresan al ciclo productivo como materia prima secundaria.", "tag": "Materiales regresan al ciclo productivo" },
-      { "title": "Certificado en tu correo", "desc": "Certificado digital de disposición final, reporte de materiales recuperados y métricas de impacto ambiental (CO₂ evitado, kg valorizados). Listo para tu reporte ESG o auditoría REP.", "tag": "Válido para reporte ESG y REP" }
+      { "title": "Certificado en tu correo", "desc": "Certificado digital de disposición final, reporte de materiales recuperados y métricas de impacto ambiental (CO₂ evitado, kg valorizados). Válido para reporte ESG y auditoría REP.", "tag": "Certificado digital + reporte" }
     ],
     "cta": {
-      "title": "¿Listo para ver el proceso en acción?",
-      "subtitle": "Agenda tu primera recolección y recibe tu certificado dentro de 5 días hábiles.",
-      "button": "Agenda tu retiro"
+      "title": "¿Listo para iniciar gestión de tus RAEE?",
+      "subtitle": "Pre-regístrate como cliente ancla. Iniciamos operaciones julio 2026.",
+      "button": "Pre-registrarme como cliente ancla"
     }
   },
   "services": {
     "title": "Nuestros Servicios",
-    "subtitle": "Simplificamos tu cumplimiento REP de RAEEs, te entregamos reportería lista para cumplir con el Ministerio de Medioambiente y cumplir con tus metas de recuperación.",
+    "subtitle": "Simplificamos tu cumplimiento REP de RAEEs coordinando partners certificados, generando reportería lista para el Ministerio del Medio Ambiente.",
     "items": [
       {
         "title": "Recolección, Logística y Destrucción de Datos",
-        "desc": "Retiro programado en tu empresa con flota propia y manifiestos certificados. Cada dispositivo recibe borrado seguro o destrucción física del soporte, con certificado individual por número de serie, válido para auditorías de cumplimiento normativo.",
-        "cta": "Agenda un retiro"
+        "desc": "Coordinamos retiro con partners logísticos certificados y manifiestos de transporte. Destrucción segura de datos o física del soporte con certificado individual por número de serie, válido para auditorías de cumplimiento normativo.",
+        "cta": "Pre-registrarme"
       },
       {
         "title": "Tratamiento y Valorización",
-        "desc": "Desmantelamiento, clasificación y procesamiento de residuos electrónicos con recuperación de metales preciosos y materiales reutilizables. Los materiales regresan al ciclo productivo como materia prima secundaria.",
+        "desc": "Con partners especializados: desmantelamiento, clasificación y procesamiento de residuos electrónicos. Recuperación de metales preciosos y materiales con valor que regresan al ciclo productivo como materia prima secundaria.",
         "cta": "Más información"
       },
       {
         "title": "Gestión REP y Reportería",
-        "desc": "Administramos tu obligación REP como productor: desde la inscripción en el registro hasta los informes anuales al Ministerio del Medio Ambiente. Simplificamos tu cumplimiento normativo.",
+        "desc": "Te acompañamos en tu obligación REP como productor: desde inscripción en registro hasta informes al Ministerio del Medio Ambiente. Reportería lista para auditorías y ESG.",
         "cta": "Más información"
       }
     ]
@@ -177,17 +177,17 @@
   },
   "compliance": {
     "title": "Cumplimiento Normativo",
-    "subtitle": "Operamos dentro del marco regulatorio más exigente de Chile",
-    "description": "La Ley REP (Ley N° 20.920) establece la responsabilidad extendida del productor para la gestión de residuos de aparatos eléctricos y electrónicos (RAEE). ElectroLoop es un Gestor Autorizado inscrito en el Registro de Gestores del Ministerio del Medio Ambiente de Chile, cumpliendo con todos los requisitos técnicos, ambientales y de seguridad exigidos.",
+    "subtitle": "Estructurado para operar conforme a la normativa REP y regulaciones ambientales",
+    "description": "La Ley REP (Ley N° 20.920) establece la responsabilidad extendida del productor para la gestión de RAEE. ElectroLoop es un integrador que opera con partners certificados y se estructura para cumplir con todos los requisitos técnicos, ambientales y de seguridad. Inicio operativo julio 2026.",
     "certifications": [
-      "Registro de Gestores de Residuos — Ministerio del Medio Ambiente",
-      "Autorización Sanitaria — SEREMI de Salud",
-      "Plan de Prevención y Descontaminación",
-      "Sistema de Gestión Ambiental ISO 14001",
-      "Trazabilidad bajo Decreto 148 (Residuos Peligrosos)"
+      "Estructuración para Registro de Gestores — Ministerio del Medio Ambiente",
+      "Conformidad con requisitos SEREMI de Salud (en vía)",
+      "Partners con certificación ambiental verificada",
+      "Trazabilidad digital conforme a Decreto 148",
+      "Sistemas de auditoría y reportería REP-compatible"
     ],
-    "badge": "Gestor Autorizado — Ministerio del Medio Ambiente",
-    "cta": "Descarga nuestro certificado"
+    "badge": "Integrador RAEE — En autorización",
+    "cta": "Conoce nuestro roadmap regulatorio →"
   },
   "about": {
     "title": "Quiénes Somos",
@@ -243,7 +243,7 @@
     }
   },
   "footer": {
-    "tagline": "Gestión RAEE certificada de punta a punta — Economía Circular para Chile",
+    "tagline": "Integrador RAEE con partners certificados — Economía Circular para Chile",
     "columns": {
       "services": {
         "title": "Servicios",
@@ -275,12 +275,12 @@
         "title": "Contacto",
         "links": [
           "contacto@electroloop.cl",
-          "+56 2 2345 6789",
-          "Santiago, Chile"
+          "+56 51 2345 6789",
+          "La Serena, Chile"
         ]
       }
     },
     "copyright": "© 2026 ElectroLoop SpA. Todos los derechos reservados.",
-    "legal": "Gestor Autorizado de RAEEs — Ley REP Chile (N° 20.920)"
+    "legal": "Integrador RAEE — Operaciones inician julio 2026 — Ley REP Chile (N° 20.920)"
   }
 }

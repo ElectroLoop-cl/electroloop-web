@@ -11,8 +11,8 @@ export interface Props {
 }
 
 const {
-  title = 'Gestor RAEE Chile Autorizado | ElectroLoop — Ley REP & Reciclaje Electrónico',
-  description = 'ElectroLoop: gestor RAEE autorizado en Chile. Cumple la Ley REP con trazabilidad total. Recolección, tratamiento y valorización de residuos electrónicos para empresas. ✓ Certificado SMA.',
+  title = 'Gestión RAEE integral con partners certificados | ElectroLoop',
+  description = 'ElectroLoop: gestor RAEE integrador con red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos. Inicio operativo julio 2026. Pre-registro de clientes ancla abierto.',
   lang = 'es',
   ogImage = '/og-image.jpg',
 } = Astro.props;
@@ -35,7 +35,7 @@ const siteUrl = 'https://electroloop.cl';
   <title>{title}</title>
   <meta name="title" content={title} />
   <meta name="description" content={description} />
-  <meta name="keywords" content="gestor RAEE Chile, reciclaje electrónico empresas Chile, Ley REP Chile empresas, residuos electrónicos Chile, reciclaje computadores empresas, disposición RAEE, gestor autorizado RAEE, economía circular Chile" />
+  <meta name="keywords" content="gestión RAEE Chile, partners certificados, reciclaje electrónico empresas, Ley REP, residuos electrónicos, gestor RAEE, economía circular, pre-operativo 2026" />
   <meta name="author" content="ElectroLoop SpA" />
   <meta name="robots" content="index, follow" />
 
@@ -74,7 +74,7 @@ const siteUrl = 'https://electroloop.cl';
     "@id": `${siteUrl}/#organization`,
     "name": "ElectroLoop SpA",
     "legalName": "ElectroLoop SpA",
-    "description": "Gestor RAEE autorizado en Chile. Recolección, tratamiento y valorización de residuos de aparatos eléctricos y electrónicos bajo la Ley REP.",
+    "description": "Gestor RAEE integrador con red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos. Inicio operativo julio 2026.",
     "url": siteUrl,
     "logo": {
       "@type": "ImageObject",
@@ -86,10 +86,10 @@ const siteUrl = 'https://electroloop.cl';
     "telephone": "+56223456789",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Av. Del Parque 4680",
-      "addressLocality": "Huechuraba",
-      "addressRegion": "Región Metropolitana",
-      "postalCode": "8580704",
+      "streetAddress": "La Serena",
+      "addressLocality": "La Serena",
+      "addressRegion": "Región de Coquimbo",
+      "postalCode": "1700000",
       "addressCountry": "CL"
     },
     "geo": {
@@ -105,16 +105,7 @@ const siteUrl = 'https://electroloop.cl';
     "sameAs": [
       "https://www.linkedin.com/company/electroloop",
       "https://twitter.com/electroloop_cl"
-    ],
-    "hasCredential": {
-      "@type": "EducationalOccupationalCredential",
-      "credentialCategory": "Autorización de Operación",
-      "recognizedBy": {
-        "@type": "GovernmentOrganization",
-        "name": "Superintendencia del Medio Ambiente (SMA)",
-        "url": "https://www.sma.gob.cl"
-      }
-    }
+    ]
   })} />
 
   <!-- Schema.org: LocalBusiness -->
@@ -123,7 +114,7 @@ const siteUrl = 'https://electroloop.cl';
     "@type": "LocalBusiness",
     "@id": `${siteUrl}/#localbusiness`,
     "name": "ElectroLoop SpA",
-    "description": "Gestor autorizado de residuos de aparatos eléctricos y electrónicos (RAEE) en Chile. Gestión integral y certificada de punta a punta bajo la Ley REP N° 20.920.",
+    "description": "Gestor RAEE integrador con partners certificados. Gestión integral de residuos electrónicos con red de especialistas. Cumplimiento Ley REP N° 20.920.",
     "url": siteUrl,
     "email": "contacto@electroloop.cl",
     "telephone": "+56223456789",
@@ -132,10 +123,10 @@ const siteUrl = 'https://electroloop.cl';
     "paymentAccepted": "Transferencia bancaria, Cheque",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Av. Del Parque 4680",
-      "addressLocality": "Huechuraba",
-      "addressRegion": "Región Metropolitana",
-      "postalCode": "8580704",
+      "streetAddress": "La Serena",
+      "addressLocality": "La Serena",
+      "addressRegion": "Región de Coquimbo",
+      "postalCode": "1700000",
       "addressCountry": "CL"
     },
     "geo": {
@@ -167,7 +158,7 @@ const siteUrl = 'https://electroloop.cl';
         "@type": "Service",
         "@id": `${siteUrl}/#service-recoleccion`,
         "name": "Recolección de Residuos Electrónicos RAEE",
-        "description": "Servicio de recolección y logística inversa de RAEE para empresas en Chile. Retiro en planta con cadena de custodia certificada bajo Ley REP.",
+        "description": "Servicio de recolección y logística inversa de RAEE para empresas en Chile. Retiro en planta con cadena de custodia documentada bajo Ley REP.",
         "provider": { "@id": `${siteUrl}/#organization` },
         "areaServed": { "@type": "Country", "name": "Chile" },
         "serviceType": "Recolección RAEE",
@@ -217,10 +208,10 @@ const siteUrl = 'https://electroloop.cl';
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "¿Qué es un gestor RAEE autorizado en Chile?",
+        "name": "¿Qué es un gestor RAEE en Chile?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Un gestor RAEE autorizado es una empresa certificada por la Superintendencia del Medio Ambiente (SMA) para recolectar, transportar, tratar y valorizar residuos de aparatos eléctricos y electrónicos (RAEE) de manera legal y segura bajo la Ley REP N° 20.920 de Chile."
+          "text": "Un gestor RAEE es una empresa que recolecta, transporta, trata y valoriza residuos de aparatos eléctricos y electrónicos (RAEE) de manera legal y segura bajo la Ley REP N° 20.920 de Chile. ElectroLoop opera con partners certificados por la Superintendencia del Medio Ambiente (SMA)."
         }
       },
       {
@@ -244,15 +235,15 @@ const siteUrl = 'https://electroloop.cl';
         "name": "¿Cómo solicitar la recolección de residuos electrónicos para mi empresa?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Para solicitar la recolección de RAEE para tu empresa, contacta a ElectroLoop a través del formulario en electroloop.cl o al correo contacto@electroloop.cl. Coordinamos el retiro en tus instalaciones con cadena de custodia certificada y emitimos todos los documentos legales requeridos."
+          "text": "Para solicitar la recolección de RAEE para tu empresa, contacta a ElectroLoop a través del formulario en electroloop.cl o al correo contacto@electroloop.cl. Coordinamos el retiro en tus instalaciones con cadena de custodia documentada y emitimos todos los documentos legales requeridos."
         }
       },
       {
         "@type": "Question",
-        "name": "¿ElectroLoop entrega certificado de destrucción o valorización de RAEE?",
+        "name": "¿ElectroLoop entrega certificado de disposición final de RAEE?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sí. ElectroLoop emite certificados de valorización y destrucción de RAEE con trazabilidad total, válidos ante la Superintendencia del Medio Ambiente (SMA) y para auditorías internas de sostenibilidad corporativa."
+          "text": "Sí. ElectroLoop emite certificados de disposición final y reportes de valorización de RAEE con trazabilidad documentada, válidos para cumplimiento de la Ley REP y auditorías internas de sostenibilidad corporativa."
         }
       }
     ]
