@@ -1,511 +1,710 @@
 ---
-// REPCalculator.astro — Interactive REP calculator with 4 flows
-// Generates PDFs and sends emails with results
+// REPCalculator.astro — Calculadora de Obligaciones REP RAEE
+// Basado en DS N°22 de 2025 (Diario Oficial 7 de mayo de 2026)
+// Metas: Año 1 = 2028 (24 meses tras publicación)
 ---
 
-<section id="calculadora-rep" class="section-padding" style="background-color: #F4F4F4;">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="calculadora" class="section-padding" style="background-color: #F4F4F4;">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Section Header -->
-    <div class="text-center mb-14 reveal">
+    <!-- Header -->
+    <div class="text-center mb-10 reveal">
       <span class="inline-block text-xs font-bold tracking-widest uppercase mb-3" style="color: #B97333;">
-        Herramienta
+        Calculadora REP
       </span>
       <h2
         class="text-3xl sm:text-4xl lg:text-5xl font-black font-display mb-4"
         style="color: #0B1B32; letter-spacing: -0.02em;"
-        data-i18n="calculator.title"
-      >Calculadora de Metas REP</h2>
-      <p
-        class="text-base max-w-2xl mx-auto"
-        style="color: #8E9297;"
-        data-i18n="calculator.subtitle"
-      >Calcula tu meta REP anual, genera reportes y recibe resultados por email</p>
+      >¿Cuánto debes reciclar?</h2>
+      <p class="text-base max-w-2xl mx-auto" style="color: #8E9297;">
+        Basado en el Decreto Supremo N°22 de 2025. Calcula tus toneladas a valorizar y estimación de costos REP para los próximos 10 años.
+      </p>
     </div>
 
-    <!-- Flow Selection -->
-    <div class="flex flex-col sm:flex-row gap-4 mb-12 justify-center">
-      <button
-        type="button"
-        class="flow-btn px-6 py-3 rounded-lg font-bold text-sm transition-all duration-200"
-        data-flow="1"
-        style="background-color: #B97333; color: white;"
-        data-i18n="calculator.flows.1"
-      >
-        🏪 Generador RAEE
-      </button>
-      <button
-        type="button"
-        class="flow-btn px-6 py-3 rounded-lg font-bold text-sm transition-all duration-200 border-2"
-        data-flow="2"
-        style="border-color: #B97333; color: #B97333;"
-        data-i18n="calculator.flows.2"
-      >
-        🏭 Productor
-      </button>
-      <button
-        type="button"
-        class="flow-btn px-6 py-3 rounded-lg font-bold text-sm transition-all duration-200 border-2"
-        data-flow="3"
-        style="border-color: #B97333; color: #B97333;"
-        data-i18n="calculator.flows.3"
-      >
-        ♻️ Gestor RAEE
-      </button>
-      <button
-        type="button"
-        class="flow-btn px-6 py-3 rounded-lg font-bold text-sm transition-all duration-200 border-2"
-        data-flow="4"
-        style="border-color: #B97333; color: #B97333;"
-        data-i18n="calculator.flows.4"
-      >
-        📊 Consultoría
-      </button>
-    </div>
+    <!-- Calculator Card -->
+    <div id="rep-calculator" class="rounded-2xl overflow-hidden shadow-lg reveal" style="background-color: #0B1B32;">
 
-    <!-- Calculator Form Container -->
-    <div
-      class="bg-white rounded-2xl p-8 shadow-lg border border-transparent reveal"
-      style="border-color: rgba(185,115,51,0.2);"
-    >
-      <form id="rep-calculator-form" class="flex flex-col gap-6">
+      <!-- Progress bar -->
+      <div class="h-1" style="background-color: rgba(255,255,255,0.05);">
+        <div id="rep-progress" class="h-full transition-all duration-500 ease-out" style="background-color: #B97333; width: 25%;"></div>
+      </div>
 
-        <!-- Flow 1: Generador RAEE -->
-        <div id="flow-1" class="flow-content hidden">
-          <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">
-            Flujo 1: Generador RAEE
-          </h3>
+      <!-- Step indicator -->
+      <div class="flex items-center justify-between px-6 sm:px-8 py-4 border-b" style="border-color: rgba(255,255,255,0.08);">
+        <span id="rep-step-label" class="text-xs font-bold uppercase tracking-widest" style="color: #B97333;">Paso 1 de 4</span>
+        <div class="flex items-center gap-2">
+          <div class="rep-dot active" data-dot="1"></div>
+          <div class="rep-dot" data-dot="2"></div>
+          <div class="rep-dot" data-dot="3"></div>
+          <div class="rep-dot" data-dot="4"></div>
+        </div>
+      </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                PCs y Computadoras (unidades)
-              </label>
-              <input
-                type="number"
-                name="flow1-pc"
-                min="0"
-                placeholder="0"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
-            </div>
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Monitores (unidades)
-              </label>
-              <input
-                type="number"
-                name="flow1-monitor"
-                min="0"
-                placeholder="0"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
-            </div>
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Impresoras (unidades)
-              </label>
-              <input
-                type="number"
-                name="flow1-printer"
-                min="0"
-                placeholder="0"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
-            </div>
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Otros Equipos (unidades)
-              </label>
-              <input
-                type="number"
-                name="flow1-other"
-                min="0"
-                placeholder="0"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
-            </div>
-          </div>
+      <!-- ════════════════════════════════════════════
+           PASO 1 — ¿Eres productor bajo la Ley REP?
+           ════════════════════════════════════════════ -->
+      <div id="rep-s1" class="p-6 sm:p-8">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">¿Tu empresa es productora bajo la Ley REP?</h3>
+        <p class="text-sm mb-6" style="color: #8E9297;">
+          Eres <strong class="text-white">productor</strong> si al menos <strong class="text-white">una</strong> de estas condiciones aplica:
+        </p>
 
-          <div class="p-4 rounded-lg" style="background: rgba(185,115,51,0.05); border: 1px solid rgba(185,115,51,0.2);">
-            <p style="color: #8E9297;" class="text-sm mb-2">Meta anual estimada:</p>
-            <p style="color: #0B1B32;" class="text-2xl font-bold">
-              <span id="flow1-result">0</span> toneladas
-            </p>
+        <div class="flex flex-col gap-3 mb-6">
+          <label class="rep-cond-label flex items-start gap-4 p-4 rounded-xl cursor-pointer border transition-all duration-200" style="border-color: rgba(255,255,255,0.1);" for="rep-c1">
+            <input type="checkbox" id="rep-c1" class="mt-0.5 w-4 h-4 flex-shrink-0 accent-orange-500">
+            <div>
+              <p class="text-sm font-semibold text-white">Primer distribuidor en Chile</p>
+              <p class="text-xs mt-0.5" style="color: #8E9297;">Fabricas, importas o eres el primer distribuidor que introduce el producto al mercado nacional</p>
+            </div>
+          </label>
+
+          <label class="rep-cond-label flex items-start gap-4 p-4 rounded-xl cursor-pointer border transition-all duration-200" style="border-color: rgba(255,255,255,0.1);" for="rep-c2">
+            <input type="checkbox" id="rep-c2" class="mt-0.5 w-4 h-4 flex-shrink-0 accent-orange-500">
+            <div>
+              <p class="text-sm font-semibold text-white">Marca propia</p>
+              <p class="text-xs mt-0.5" style="color: #8E9297;">Vendes bajo tu propia marca productos adquiridos de terceros</p>
+            </div>
+          </label>
+
+          <label class="rep-cond-label flex items-start gap-4 p-4 rounded-xl cursor-pointer border transition-all duration-200" style="border-color: rgba(255,255,255,0.1);" for="rep-c3">
+            <input type="checkbox" id="rep-c3" class="mt-0.5 w-4 h-4 flex-shrink-0 accent-orange-500">
+            <div>
+              <p class="text-sm font-semibold text-white">Importación para uso profesional</p>
+              <p class="text-xs mt-0.5" style="color: #8E9297;">Importas pilas o AEE para uso propio vinculado a tu giro comercial (no para reventa)</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- Microempresa -->
+        <div class="mb-6 p-4 rounded-xl" style="background: rgba(185,115,51,0.08); border: 1px solid rgba(185,115,51,0.2);">
+          <p class="text-sm font-semibold text-white mb-1">¿Calificas como microempresa? <span class="font-normal text-xs" style="color: #8E9297;">(Ley N°20.416: ventas anuales ≤ 2.400 UF)</span></p>
+          <div class="flex flex-wrap gap-4 mt-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="rep-micro" value="yes" class="w-4 h-4 accent-orange-500">
+              <span class="text-sm text-white">Sí</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="rep-micro" value="no" class="w-4 h-4 accent-orange-500" checked>
+              <span class="text-sm text-white">No</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="rep-micro" value="unknown" class="w-4 h-4 accent-orange-500">
+              <span class="text-sm text-white">No estoy seguro</span>
+            </label>
           </div>
         </div>
 
-        <!-- Flow 2: Productor -->
-        <div id="flow-2" class="flow-content hidden">
-          <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">
-            Flujo 2: Productor
-          </h3>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Volumen anual de ventas (unidades)
-              </label>
-              <input
-                type="number"
-                name="flow2-volume"
-                min="0"
-                placeholder="0"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
-            </div>
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Categoría de equipos
-              </label>
-              <select
-                name="flow2-category"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              >
-                <option value="">Selecciona categoría</option>
-                <option value="1">Computadoras</option>
-                <option value="2">Telecomunicaciones</option>
-                <option value="3">Aparatos de consumo</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="p-4 rounded-lg" style="background: rgba(185,115,51,0.05); border: 1px solid rgba(185,115,51,0.2);">
-            <p style="color: #8E9297;" class="text-sm mb-2">Meta REP estimada:</p>
-            <p style="color: #0B1B32;" class="text-2xl font-bold">
-              <span id="flow2-result">0</span>% de recolección anual
-            </p>
-          </div>
+        <div id="rep-msg-noproducer" class="hidden mb-4 p-4 rounded-xl text-sm" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: #8E9297;">
+          💡 Si no aplica ninguna condición, tu empresa probablemente no es productora REP. Sin embargo, como generador de RAEE industrial debes entregarlos a un gestor autorizado. <strong class="text-white">ElectroLoop puede ayudarte igual.</strong>
+        </div>
+        <div id="rep-msg-micro" class="hidden mb-4 p-4 rounded-xl text-sm" style="background: rgba(185,115,51,0.08); border: 1px solid rgba(185,115,51,0.15); color: #B97333;">
+          ℹ️ <strong>Microempresa:</strong> <span class="text-white">Estás eximida de metas de recolección, pero debes reportar anualmente al Ministerio del Medio Ambiente. De todas formas debes gestionar tus RAEE correctamente.</span>
         </div>
 
-        <!-- Flow 3: Gestor RAEE -->
-        <div id="flow-3" class="flow-content hidden">
-          <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">
-            Flujo 3: Gestor RAEE
-          </h3>
+        <div class="flex justify-end pt-2">
+          <button id="rep-next-1" class="rep-btn-primary px-6 py-3 rounded-xl font-bold text-sm text-white">
+            Continuar →
+          </button>
+        </div>
+      </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Toneladas procesadas mensualmente
-              </label>
-              <input
-                type="number"
-                name="flow3-monthly"
-                min="0"
-                step="0.1"
-                placeholder="0"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
+      <!-- ════════════════════════════════════════════
+           PASO 2 — Selecciona categorías RAEE
+           ════════════════════════════════════════════ -->
+      <div id="rep-s2" class="p-6 sm:p-8 hidden">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">¿Qué productos introduces al mercado?</h3>
+        <p class="text-sm mb-6" style="color: #8E9297;">
+          El DS N°22 de 2025 define 4 categorías de productos prioritarios. Selecciona las que corresponden a tu empresa:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+
+          <!-- AIT -->
+          <label class="rep-cat-card flex flex-col gap-3 p-5 rounded-xl cursor-pointer border transition-all duration-200" style="border-color: rgba(255,255,255,0.1);" data-cat="ait" for="rep-cat-ait">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" id="rep-cat-ait" value="ait" class="rep-cat-cb w-4 h-4 accent-orange-500">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(185,115,51,0.15);">
+                <svg class="w-4 h-4" fill="none" stroke="#B97333" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                </svg>
+              </div>
+              <span class="font-bold text-white text-sm">AIT</span>
             </div>
             <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Meses operativos al año
-              </label>
-              <input
-                type="number"
-                name="flow3-months"
-                min="1"
-                max="12"
-                value="12"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
+              <p class="text-xs font-semibold text-white">Aparatos de Intercambio de Temperatura</p>
+              <p class="text-xs mt-1" style="color: #8E9297;">Refrigeradores, aire acondicionado, cámaras frías, radiadores con refrigerante</p>
             </div>
-          </div>
+            <span class="text-xs px-2 py-0.5 rounded-full self-start" style="background: rgba(185,115,51,0.15); color: #B97333;">Meta general + Meta específica AIT</span>
+          </label>
 
-          <div class="p-4 rounded-lg" style="background: rgba(185,115,51,0.05); border: 1px solid rgba(185,115,51,0.2);">
-            <p style="color: #8E9297;" class="text-sm mb-2">Proyección anual:</p>
-            <p style="color: #0B1B32;" class="text-2xl font-bold">
-              <span id="flow3-result">0</span> toneladas/año
-            </p>
-          </div>
-        </div>
-
-        <!-- Flow 4: Consultoría -->
-        <div id="flow-4" class="flow-content hidden">
-          <h3 class="text-xl font-bold mb-6" style="color: #0B1B32;">
-            Flujo 4: Consultoría Personalizada
-          </h3>
-
-          <div class="grid grid-cols-1 gap-6 mb-6">
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Descripción de tu caso (opcional)
-              </label>
-              <textarea
-                name="flow4-description"
-                rows="4"
-                placeholder="Cuéntanos sobre tu organización..."
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32; resize: vertical;"
-              ></textarea>
-            </div>
-          </div>
-
-          <div class="p-4 rounded-lg" style="background: rgba(185,115,51,0.05); border: 1px solid rgba(185,115,51,0.2);">
-            <p style="color: #8E9297;" class="text-sm mb-2">Resultado:</p>
-            <p style="color: #0B1B32;" class="text-xl font-bold">
-              Análisis personalizado
-            </p>
-            <p style="color: #8E9297;" class="text-sm mt-2">
-              Recibirás un reporte estratégico en tu email
-            </p>
-          </div>
-        </div>
-
-        <!-- Common Fields -->
-        <div class="border-t pt-6" style="border-color: rgba(185,115,51,0.2);">
-          <h4 class="font-bold mb-4" style="color: #0B1B32;">Para enviar tu reporte:</h4>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Tu nombre
-              </label>
-              <input
-                type="text"
-                name="calc-name"
-                required
-                placeholder="Nombre"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
+          <!-- PFV -->
+          <label class="rep-cat-card flex flex-col gap-3 p-5 rounded-xl cursor-pointer border transition-all duration-200" style="border-color: rgba(255,255,255,0.1);" data-cat="pfv" for="rep-cat-pfv">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" id="rep-cat-pfv" value="pfv" class="rep-cat-cb w-4 h-4 accent-orange-500">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(185,115,51,0.15);">
+                <svg class="w-4 h-4" fill="none" stroke="#B97333" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+              </div>
+              <span class="font-bold text-white text-sm">PFV</span>
             </div>
             <div>
-              <label class="form-label" style="color: #0B1B32;">
-                Tu email
-              </label>
-              <input
-                type="email"
-                name="calc-email"
-                required
-                placeholder="tu@email.com"
-                class="form-input"
-                style="background: white; border: 1px solid rgba(185,115,51,0.3); color: #0B1B32;"
-              />
+              <p class="text-xs font-semibold text-white">Paneles Fotovoltaicos</p>
+              <p class="text-xs mt-1" style="color: #8E9297;">Paneles solares con superficie mayor a 0,25 m². Metas independientes de los otros AEE</p>
             </div>
+            <span class="text-xs px-2 py-0.5 rounded-full self-start" style="background: rgba(185,115,51,0.15); color: #B97333;">Meta específica PFV exclusiva</span>
+          </label>
+
+          <!-- Otros AEE -->
+          <label class="rep-cat-card flex flex-col gap-3 p-5 rounded-xl cursor-pointer border transition-all duration-200" style="border-color: rgba(255,255,255,0.1);" data-cat="otros" for="rep-cat-otros">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" id="rep-cat-otros" value="otros" class="rep-cat-cb w-4 h-4 accent-orange-500">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(185,115,51,0.15);">
+                <svg class="w-4 h-4" fill="none" stroke="#B97333" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+                </svg>
+              </div>
+              <span class="font-bold text-white text-sm">Otros AEE</span>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-white">Otros Aparatos Eléctricos y Electrónicos</p>
+              <p class="text-xs mt-1" style="color: #8E9297;">Computadores, celulares, TV, electrodomésticos, equipos de telecomunicaciones, impresoras, etc.</p>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded-full self-start" style="background: rgba(185,115,51,0.15); color: #B97333;">Meta general</span>
+          </label>
+
+          <!-- Pilas -->
+          <label class="rep-cat-card flex flex-col gap-3 p-5 rounded-xl cursor-pointer border transition-all duration-200" style="border-color: rgba(255,255,255,0.1);" data-cat="pilas" for="rep-cat-pilas">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" id="rep-cat-pilas" value="pilas" class="rep-cat-cb w-4 h-4 accent-orange-500">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(185,115,51,0.15);">
+                <svg class="w-4 h-4" fill="none" stroke="#B97333" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 20H7a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2zM9 10h6M9 14h4m3-10v2m0 12v2"/>
+                </svg>
+              </div>
+              <span class="font-bold text-white text-sm">Pilas</span>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-white">Pilas y Baterías</p>
+              <p class="text-xs mt-1" style="color: #8E9297;">Fuentes de energía química &lt; 5 kg. Excluye baterías de plomo-ácido (autos, UPS)</p>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded-full self-start" style="background: rgba(185,115,51,0.15); color: #B97333;">Meta general</span>
+          </label>
+        </div>
+
+        <div id="rep-err-cat" class="hidden mb-4 p-3 rounded-lg text-sm" style="background: rgba(239,68,68,0.1); color: #fca5a5;">
+          Selecciona al menos una categoría para continuar.
+        </div>
+
+        <div class="flex justify-between pt-2">
+          <button id="rep-back-2" class="rep-btn-secondary px-6 py-3 rounded-xl font-bold text-sm">← Volver</button>
+          <button id="rep-next-2" class="rep-btn-primary px-6 py-3 rounded-xl font-bold text-sm text-white">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════
+           PASO 3 — Ingresa volumen por categoría
+           ════════════════════════════════════════════ -->
+      <div id="rep-s3" class="p-6 sm:p-8 hidden">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">¿Cuánto pusiste en el mercado el año anterior?</h3>
+        <p class="text-sm mb-2" style="color: #8E9297;">
+          Ingresa las <strong class="text-white">toneladas introducidas al mercado en el año anterior</strong> para cada categoría seleccionada.
+        </p>
+        <div class="mb-5 p-3 rounded-lg text-xs" style="background: rgba(255,255,255,0.04); color: #8E9297;">
+          💡 La meta se calcula como porcentaje sobre el promedio de toneladas puestas en mercado en los años previos. Esta calculadora usa el año anterior como base referencial.
+        </div>
+
+        <div id="rep-vol-inputs" class="flex flex-col gap-5 mb-6">
+          <!-- Generado dinámicamente -->
+        </div>
+
+        <div id="rep-err-vol" class="hidden mb-4 p-3 rounded-lg text-sm" style="background: rgba(239,68,68,0.1); color: #fca5a5;">
+          Ingresa el volumen en al menos una categoría para continuar.
+        </div>
+
+        <div class="flex justify-between pt-2">
+          <button id="rep-back-3" class="rep-btn-secondary px-6 py-3 rounded-xl font-bold text-sm">← Volver</button>
+          <button id="rep-next-3" class="rep-btn-primary px-6 py-3 rounded-xl font-bold text-sm text-white">Calcular obligaciones REP →</button>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════
+           PASO 4 — Resultados
+           ════════════════════════════════════════════ -->
+      <div id="rep-s4" class="p-6 sm:p-8 hidden">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">Tus obligaciones REP estimadas</h3>
+        <p class="text-sm mb-6" style="color: #8E9297;">
+          DS N°22 de 2025 — Metas vigentes desde el <strong class="text-white">Año 1 = 2028</strong> (24 meses tras publicación)
+        </p>
+
+        <div id="rep-results" class="flex flex-col gap-8 mb-6"></div>
+
+        <!-- Estimación de costos -->
+        <div class="p-5 rounded-xl mb-4" style="background: rgba(185,115,51,0.08); border: 1px solid rgba(185,115,51,0.2);">
+          <h4 class="font-bold text-white mb-4 text-sm">💰 Estimación referencial de costos de cumplimiento</h4>
+          <div id="rep-costs" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+          <p class="text-xs mt-4" style="color: #8E9297;">
+            * Precios estimados de gestión RAEE en Chile (USD/ton): Otros AEE ~280 · AIT ~400 · PFV ~180 · Pilas ~500. Costos reales dependen de volumen, tipo y condición del material.
+          </p>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="p-4 rounded-xl mb-6" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);">
+          <p class="text-xs" style="color: #8E9297;">
+            ⚠️ <strong class="text-white">Nota legal:</strong> Esta herramienta es orientativa. No constituye asesoría legal ni reemplaza la consulta al Ministerio del Medio Ambiente. Para la declaración oficial usa el RETC (Ventanilla Única).
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="p-6 sm:p-8 rounded-2xl text-center" style="background: linear-gradient(135deg, #1A2E4A 0%, #0B1B32 100%); border: 1px solid rgba(185,115,51,0.25);">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4 text-xs font-bold" style="background: rgba(185,115,51,0.15); color: #B97333;">
+            Tu socio REP con partners certificados
           </div>
-
-          <div class="flex gap-4">
-            <button
-              type="button"
-              id="download-pdf"
-              class="btn-primary flex-1 px-6 py-3 rounded-lg font-bold text-sm text-white"
-              style="background-color: #B97333;"
-              data-i18n="calculator.download"
-            >
-              ⬇️ Descargar PDF
-            </button>
-            <button
-              type="submit"
-              id="send-email"
-              class="btn-primary flex-1 px-6 py-3 rounded-lg font-bold text-sm text-white"
-              style="background-color: #B97333;"
-              data-i18n="calculator.send"
-            >
-              📧 Enviar por Email
-            </button>
-          </div>
+          <h4 class="text-lg sm:text-xl font-bold text-white mb-2">¿Necesitas ayuda para cumplir tu meta REP?</h4>
+          <p class="text-sm mb-5 max-w-md mx-auto" style="color: #8E9297;">
+            ElectroLoop coordina la gestión de tus RAEE: recolección, trazabilidad digital y reportes listos para el Ministerio del Medio Ambiente.
+          </p>
+          <a href="#contacto" class="inline-block px-8 py-3 rounded-xl font-bold text-white text-sm transition-all duration-200 hover:opacity-90" style="background-color: #B97333;">
+            Solicitar cotización →
+          </a>
         </div>
 
-        <!-- Status Messages -->
-        <div
-          id="calc-success"
-          class="hidden flex items-center gap-3 p-4 rounded-xl"
-          style="background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);"
-          role="alert"
-        >
-          <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style="color: #22c55e;">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-sm font-medium" style="color: #22c55e;" data-i18n="calculator.success">
-            ¡Reporte enviado! Revisa tu email.
-          </span>
+        <div class="flex justify-center mt-6">
+          <button id="rep-restart" class="px-4 py-2 text-xs font-medium rounded-lg border transition-all duration-200 hover:opacity-80" style="color: #8E9297; border-color: rgba(255,255,255,0.1);">
+            ↺ Hacer otro cálculo
+          </button>
         </div>
+      </div>
 
-        <div
-          id="calc-error"
-          class="hidden flex items-center gap-3 p-4 rounded-xl"
-          style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);"
-          role="alert"
-        >
-          <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style="color: #ef4444;">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-sm font-medium" style="color: #ef4444;" data-i18n="calculator.error">
-            Hubo un error. Por favor intenta nuevamente.
-          </span>
-        </div>
-
-      </form>
-    </div>
-
+    </div><!-- /rep-calculator -->
   </div>
 </section>
 
-<script>
-  // Flow selection
-  document.querySelectorAll('.flow-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const flow = this.dataset.flow;
-
-      // Update button styles
-      document.querySelectorAll('.flow-btn').forEach(b => {
-        b.style.backgroundColor = 'transparent';
-        b.style.color = '#B97333';
-        b.style.borderColor = '#B97333';
-      });
-      this.style.backgroundColor = '#B97333';
-      this.style.color = 'white';
-      this.style.borderColor = '#B97333';
-
-      // Show/hide flow content
-      document.querySelectorAll('.flow-content').forEach(fc => fc.classList.add('hidden'));
-      document.getElementById(`flow-${flow}`).classList.remove('hidden');
-    });
-  });
-
-  // Set first flow as default
-  const firstBtn = document.querySelector('[data-flow="1"]');
-  firstBtn?.click();
-
-  // Real-time calculations
-  document.querySelectorAll('input[name^="flow1"], input[name^="flow2"], input[name^="flow3"]').forEach(input => {
-    input.addEventListener('input', function() {
-      const flow = this.name.split('-')[0];
-
-      if (flow === 'flow1') {
-        const pc = parseFloat(document.querySelector('input[name="flow1-pc"]')?.value || 0);
-        const monitor = parseFloat(document.querySelector('input[name="flow1-monitor"]')?.value || 0);
-        const printer = parseFloat(document.querySelector('input[name="flow1-printer"]')?.value || 0);
-        const other = parseFloat(document.querySelector('input[name="flow1-other"]')?.value || 0);
-
-        const total = (pc * 0.025 + monitor * 0.015 + printer * 0.020 + other * 0.010);
-        document.getElementById('flow1-result').textContent = total.toFixed(2);
-      }
-
-      if (flow === 'flow2') {
-        const volume = parseFloat(document.querySelector('input[name="flow2-volume"]')?.value || 0);
-        const category = document.querySelector('select[name="flow2-category"]')?.value || '1';
-        const percentages = { '1': 0.5, '2': 0.4, '3': 0.45 };
-
-        const result = (volume * (percentages[category] || 0.5));
-        document.getElementById('flow2-result').textContent = (percentages[category] * 100).toFixed(0);
-      }
-
-      if (flow === 'flow3') {
-        const monthly = parseFloat(document.querySelector('input[name="flow3-monthly"]')?.value || 0);
-        const months = parseFloat(document.querySelector('input[name="flow3-months"]')?.value || 12);
-
-        const annual = monthly * months;
-        document.getElementById('flow3-result').textContent = annual.toFixed(2);
-      }
-    });
-  });
-
-  // Form submission
-  document.getElementById('rep-calculator-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-
-    try {
-      // Send to Netlify Function
-      const response = await fetch('/.netlify/functions/send-calculator-report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        document.getElementById('calc-success').classList.remove('hidden');
-        document.getElementById('calc-error').classList.add('hidden');
-        setTimeout(() => {
-          document.getElementById('calc-success').classList.add('hidden');
-        }, 5000);
-      } else {
-        throw new Error('Server error');
-      }
-    } catch (err) {
-      document.getElementById('calc-error').classList.remove('hidden');
-      document.getElementById('calc-success').classList.add('hidden');
-    }
-  });
-
-  // PDF Download
-  document.getElementById('download-pdf')?.addEventListener('click', async function() {
-    const name = document.querySelector('input[name="calc-name"]')?.value;
-    const email = document.querySelector('input[name="calc-email"]')?.value;
-
-    if (!name || !email) {
-      alert('Por favor completa nombre y email');
-      return;
-    }
-
-    const formData = new FormData(document.getElementById('rep-calculator-form'));
-    const data = Object.fromEntries(formData);
-    data.downloadOnly = true;
-
-    try {
-      const response = await fetch('/.netlify/functions/generate-pdf', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `REP-Report-${new Date().toISOString().split('T')[0]}.pdf`;
-        a.click();
-      }
-    } catch (err) {
-      alert('Error generando PDF');
-    }
-  });
-</script>
-
 <style>
-  .flow-content {
-    animation: fadeInUp 0.3s ease;
+  .rep-btn-primary {
+    background-color: #B97333;
+    transition: opacity 0.2s, transform 0.1s;
   }
+  .rep-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .rep-btn-primary:active { transform: translateY(0); }
 
-  .flow-content.hidden {
-    display: none;
+  .rep-btn-secondary {
+    color: #8E9297;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: transparent;
+    transition: border-color 0.2s, color 0.2s;
   }
+  .rep-btn-secondary:hover { border-color: rgba(255,255,255,0.3); color: white; }
 
-  input[type="number"],
-  input[type="email"],
-  input[type="text"],
-  select,
-  textarea {
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  .rep-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    transition: background 0.3s;
   }
+  .rep-dot.active { background: #B97333; }
+  .rep-dot.done   { background: rgba(185,115,51,0.45); }
 
-  input:focus,
-  select:focus,
-  textarea:focus {
+  .rep-cond-label { transition: border-color 0.2s, background 0.2s; }
+  .rep-cond-label.checked {
     border-color: #B97333 !important;
-    box-shadow: 0 0 0 3px rgba(185, 115, 51, 0.1);
+    background: rgba(185,115,51,0.07) !important;
   }
 
-  .flow-btn {
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .rep-cat-card { transition: border-color 0.2s, background 0.2s; }
+  .rep-cat-card.selected {
+    border-color: #B97333 !important;
+    background: rgba(185,115,51,0.08) !important;
   }
 
-  .flow-btn:hover:not([style*="background-color: rgb(185, 115, 51)"]) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(185, 115, 51, 0.2);
+  .rep-vol-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: white;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none;
+    -moz-appearance: textfield;
   }
+  .rep-vol-input:focus { border-color: #B97333; box-shadow: 0 0 0 3px rgba(185,115,51,0.15); }
+  .rep-vol-input::placeholder { color: rgba(255,255,255,0.25); }
+  .rep-vol-input::-webkit-outer-spin-button,
+  .rep-vol-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  .rep-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  .rep-table th {
+    background: rgba(255,255,255,0.04);
+    padding: 10px 12px;
+    text-align: left;
+    color: #8E9297;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    white-space: nowrap;
+  }
+  .rep-table td {
+    padding: 9px 12px;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .rep-table tr:last-child td { border-bottom: none; }
+  .rep-table tr.rep-row-nometa td { color: rgba(142,146,151,0.6); }
+  .rep-table tr.rep-row-first td { background: rgba(185,115,51,0.06); }
+  .rep-accent { color: #B97333; font-weight: 700; }
 </style>
+
+<script>
+(function () {
+  // ═══════════════════════════════════════════════════
+  // DATOS DEL DECRETO DS N°22 DE 2025
+  // ═══════════════════════════════════════════════════
+
+  const FIRST_YEAR = 2028; // Año 1 de vigencia (24 meses tras pub. mayo 2026)
+
+  // Meta general: Pilas + AIT + Otros AEE. Años 1-10.
+  const META_GEN = [3, 5, 8, 12, 16, 20, 24, 30, 37, 45];
+
+  // Meta específica AIT (adicional a meta general). Años 1-10.
+  // Años 1-2: sin meta (0). Año 9-10+: 30%.
+  const META_AIT_ESP = [0, 0, 6, 9, 13, 17, 21, 25, 30, 30];
+
+  // Meta específica PFV (única meta para PFV). Años 1-10.
+  // Años 1-2: sin meta (0). Año 10+: 50%.
+  const META_PFV = [0, 0, 10, 14, 18, 22, 28, 34, 42, 50];
+
+  // Costo estimado por tonelada gestionada (USD)
+  const COSTO_TON = { ait: 400, pfv: 180, otros: 280, pilas: 500 };
+
+  const CAT_NOMBRE = {
+    ait:   'AIT – Intercambio de Temperatura',
+    pfv:   'PFV – Paneles Fotovoltaicos',
+    otros: 'Otros AEE',
+    pilas: 'Pilas'
+  };
+
+  const CAT_AYUDA = {
+    ait:   'Ej: 100 refrigeradores ≈ 5 ton  |  50 equipos AC ≈ 1,5 ton',
+    pfv:   'Ej: 100 paneles (~20 kg c/u) ≈ 2 ton',
+    otros: 'Ej: 100 laptops ≈ 0,25 ton  |  100 TV 55" ≈ 0,8 ton  |  100 PC escritorio ≈ 0,5 ton',
+    pilas: 'Ej: 10.000 pilas AA ≈ 0,23 ton  |  1.000 pilas 9V ≈ 0,045 ton'
+  };
+
+  // ═══════════════════════════════════════════════════
+  // ESTADO
+  // ═══════════════════════════════════════════════════
+  let pasoActual = 1;
+  let catsSeleccionadas = [];
+  let volumenes = {};
+
+  // ═══════════════════════════════════════════════════
+  // UTILIDADES
+  // ═══════════════════════════════════════════════════
+  const q  = id => document.getElementById(id);
+  const qs = sel => document.querySelector(sel);
+  const show = el => el && el.classList.remove('hidden');
+  const hide = el => el && el.classList.add('hidden');
+
+  function fmt2(n)  { return n.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function fmtInt(n){ return Math.round(n).toLocaleString('es-CL'); }
+
+  // ═══════════════════════════════════════════════════
+  // NAVEGACIÓN ENTRE PASOS
+  // ═══════════════════════════════════════════════════
+  function irA(n) {
+    [1,2,3,4].forEach(i => {
+      const el = q('rep-s' + i);
+      if (el) (i === n ? show(el) : hide(el));
+    });
+
+    const pct = { 1:'25%', 2:'50%', 3:'75%', 4:'100%' };
+    const pb = q('rep-progress');
+    const sl = q('rep-step-label');
+    if (pb) pb.style.width = pct[n] || '25%';
+    if (sl) sl.textContent = 'Paso ' + n + ' de 4';
+
+    document.querySelectorAll('.rep-dot').forEach(d => {
+      const di = +d.dataset.dot;
+      d.classList.remove('active', 'done');
+      if (di === n) d.classList.add('active');
+      else if (di < n) d.classList.add('done');
+    });
+
+    pasoActual = n;
+    const calc = q('rep-calculator');
+    if (calc) calc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ═══════════════════════════════════════════════════
+  // PASO 1
+  // ═══════════════════════════════════════════════════
+  function actualizarPaso1() {
+    const c1 = q('rep-c1'), c2 = q('rep-c2'), c3 = q('rep-c3');
+    const hayMarcado = (c1 && c1.checked) || (c2 && c2.checked) || (c3 && c3.checked);
+    const micro = qs('input[name="rep-micro"]:checked');
+    const esMicro = micro && micro.value === 'yes';
+
+    [c1,c2,c3].forEach(cb => {
+      if (!cb) return;
+      const lbl = cb.closest('.rep-cond-label');
+      if (lbl) cb.checked ? lbl.classList.add('checked') : lbl.classList.remove('checked');
+    });
+
+    hayMarcado ? hide(q('rep-msg-noproducer')) : show(q('rep-msg-noproducer'));
+    esMicro    ? show(q('rep-msg-micro'))      : hide(q('rep-msg-micro'));
+  }
+
+  ['rep-c1','rep-c2','rep-c3'].forEach(id => {
+    const el = q(id);
+    if (el) el.addEventListener('change', actualizarPaso1);
+  });
+  document.querySelectorAll('input[name="rep-micro"]').forEach(r =>
+    r.addEventListener('change', actualizarPaso1)
+  );
+
+  const btn1 = q('rep-next-1');
+  if (btn1) btn1.addEventListener('click', () => irA(2));
+
+  // ═══════════════════════════════════════════════════
+  // PASO 2
+  // ═══════════════════════════════════════════════════
+  document.querySelectorAll('.rep-cat-cb').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const card = cb.closest('.rep-cat-card');
+      if (card) cb.checked ? card.classList.add('selected') : card.classList.remove('selected');
+    });
+  });
+
+  const back2 = q('rep-back-2');
+  if (back2) back2.addEventListener('click', () => irA(1));
+
+  const next2 = q('rep-next-2');
+  if (next2) next2.addEventListener('click', () => {
+    catsSeleccionadas = Array.from(document.querySelectorAll('.rep-cat-cb:checked')).map(c => c.value);
+    const errCat = q('rep-err-cat');
+    if (catsSeleccionadas.length === 0) { show(errCat); return; }
+    hide(errCat);
+    construirInputsVolumen();
+    irA(3);
+  });
+
+  // ═══════════════════════════════════════════════════
+  // PASO 3
+  // ═══════════════════════════════════════════════════
+  function construirInputsVolumen() {
+    const cont = q('rep-vol-inputs');
+    if (!cont) return;
+    cont.innerHTML = '';
+    catsSeleccionadas.forEach(cat => {
+      const d = document.createElement('div');
+      d.innerHTML = `
+        <label class="block mb-2 text-sm font-semibold text-white">${CAT_NOMBRE[cat]}</label>
+        <div class="flex items-center gap-3">
+          <input type="number" id="rep-vol-${cat}" class="rep-vol-input" min="0" step="0.01" placeholder="0,00">
+          <span class="text-sm whitespace-nowrap" style="color:#8E9297;">ton / año</span>
+        </div>
+        <p class="text-xs mt-1.5" style="color:rgba(142,146,151,0.65);">${CAT_AYUDA[cat]}</p>
+      `;
+      cont.appendChild(d);
+    });
+  }
+
+  const back3 = q('rep-back-3');
+  if (back3) back3.addEventListener('click', () => irA(2));
+
+  const next3 = q('rep-next-3');
+  if (next3) next3.addEventListener('click', () => {
+    volumenes = {};
+    let hayAlguno = false;
+    catsSeleccionadas.forEach(cat => {
+      const inp = document.getElementById('rep-vol-' + cat);
+      const v   = inp ? (parseFloat(inp.value) || 0) : 0;
+      volumenes[cat] = v;
+      if (v > 0) hayAlguno = true;
+    });
+    const errVol = q('rep-err-vol');
+    if (!hayAlguno) { show(errVol); return; }
+    hide(errVol);
+    construirResultados();
+    irA(4);
+  });
+
+  // ═══════════════════════════════════════════════════
+  // PASO 4 — Resultados
+  // ═══════════════════════════════════════════════════
+  function construirResultados() {
+    construirTablas();
+    construirCostos();
+  }
+
+  function construirTablas() {
+    const cont = q('rep-results');
+    if (!cont) return;
+    cont.innerHTML = '';
+
+    const hasPFV     = catsSeleccionadas.includes('pfv');
+    const hasAIT     = catsSeleccionadas.includes('ait');
+    const catsGral   = catsSeleccionadas.filter(c => c !== 'pfv');
+    const tonGralTot = catsGral.reduce((s, c) => s + (volumenes[c] || 0), 0);
+    const tonAIT     = volumenes['ait']  || 0;
+    const tonPFV     = volumenes['pfv']  || 0;
+
+    // ── Tabla Meta General + Meta Específica AIT ──────
+    if (catsGral.length > 0 && tonGralTot > 0) {
+      const nombresGral = catsGral.map(c => CAT_NOMBRE[c]).join(' + ');
+      let html = `
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color:#B97333;">
+            📊 Meta General${hasAIT ? ' + Meta Específica AIT' : ''}
+          </p>
+          <p class="text-sm font-semibold text-white mb-1">${nombresGral}</p>
+          <p class="text-xs mb-3" style="color:#8E9297;">
+            Volumen base: <strong class="text-white">${fmt2(tonGralTot)} ton/año</strong>
+            ${hasAIT && tonAIT > 0 ? ` · del cual AIT: <strong class="text-white">${fmt2(tonAIT)} ton</strong>` : ''}
+          </p>
+          <div class="overflow-x-auto rounded-xl" style="background:rgba(255,255,255,0.03);">
+            <table class="rep-table">
+              <thead>
+                <tr>
+                  <th>Año</th>
+                  <th>Calendario</th>
+                  <th>Meta general</th>
+                  <th>Ton. a valorizar</th>
+                  ${hasAIT ? '<th>Meta esp. AIT</th><th>Mín. AIT</th>' : ''}
+                </tr>
+              </thead>
+              <tbody>
+      `;
+
+      for (let y = 1; y <= 10; y++) {
+        const mg   = META_GEN[y - 1];
+        const tg   = tonGralTot * mg / 100;
+        const ma   = hasAIT ? META_AIT_ESP[y - 1] : 0;
+        const ta   = tonAIT * ma / 100;
+        const cal  = FIRST_YEAR + y - 1;
+        const cls  = y === 1 ? 'rep-row-first' : '';
+
+        html += `
+          <tr class="${cls}">
+            <td><strong>${y >= 10 ? '10+' : y}</strong></td>
+            <td style="color:#8E9297;">${cal}${y >= 10 ? '+' : ''}</td>
+            <td><span class="rep-accent">${mg}%</span></td>
+            <td><strong>${fmt2(tg)}</strong> ton</td>
+            ${hasAIT ? `
+              <td>${ma > 0 ? `<span class="rep-accent">${ma}%</span>` : '<span style="color:#8E9297">—</span>'}</td>
+              <td>${ma > 0 ? `<strong>${fmt2(ta)}</strong> ton` : '—'}</td>
+            ` : ''}
+          </tr>
+        `;
+      }
+      html += '</tbody></table></div></div>';
+      cont.insertAdjacentHTML('beforeend', html);
+    }
+
+    // ── Tabla Meta PFV ────────────────────────────────
+    if (hasPFV && tonPFV > 0) {
+      let html = `
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color:#B97333;">🌞 Meta Específica PFV</p>
+          <p class="text-sm font-semibold text-white mb-1">${CAT_NOMBRE['pfv']}</p>
+          <p class="text-xs mb-3" style="color:#8E9297;">
+            Volumen base: <strong class="text-white">${fmt2(tonPFV)} ton/año</strong>
+            · Los productores de PFV no están sujetos a la meta general, solo a esta meta específica
+          </p>
+          <div class="overflow-x-auto rounded-xl" style="background:rgba(255,255,255,0.03);">
+            <table class="rep-table">
+              <thead>
+                <tr>
+                  <th>Año</th>
+                  <th>Calendario</th>
+                  <th>Meta específica PFV</th>
+                  <th>Ton. a valorizar</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+
+      for (let y = 1; y <= 10; y++) {
+        const mp  = META_PFV[y - 1];
+        const tp  = tonPFV * mp / 100;
+        const cal = FIRST_YEAR + y - 1;
+        const cls = y === 3 ? 'rep-row-first' : (mp === 0 ? 'rep-row-nometa' : '');
+
+        html += `
+          <tr class="${cls}">
+            <td><strong>${y >= 10 ? '10+' : y}</strong></td>
+            <td style="color:#8E9297;">${cal}${y >= 10 ? '+' : ''}</td>
+            <td>${mp > 0 ? `<span class="rep-accent">${mp}%</span>` : '<span style="color:#8E9297">Sin meta</span>'}</td>
+            <td>${mp > 0 ? `<strong>${fmt2(tp)}</strong> ton` : '—'}</td>
+          </tr>
+        `;
+      }
+      html += '</tbody></table></div></div>';
+      cont.insertAdjacentHTML('beforeend', html);
+    }
+  }
+
+  function construirCostos() {
+    const cont = q('rep-costs');
+    if (!cont) return;
+
+    const ANOS_MUESTRA = [1, 3, 5, 10];
+    let html = '';
+
+    ANOS_MUESTRA.forEach(y => {
+      let tonTotal  = 0;
+      let costoTotal = 0;
+
+      catsSeleccionadas.forEach(cat => {
+        const ton  = volumenes[cat] || 0;
+        const meta = cat === 'pfv' ? META_PFV[y - 1] : META_GEN[y - 1];
+        const tonR = ton * meta / 100;
+        tonTotal  += tonR;
+        costoTotal += tonR * COSTO_TON[cat];
+      });
+
+      const cal   = FIRST_YEAR + y - 1;
+      const hayM  = tonTotal > 0;
+
+      html += `
+        <div class="text-center p-4 rounded-xl" style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);">
+          <div class="text-xs mb-2 font-medium" style="color:#8E9297;">
+            Año ${y >= 10 ? '10+' : y}<br>(${cal}${y >= 10 ? '+' : ''})
+          </div>
+          <div class="font-bold text-white text-sm">${hayM ? fmt2(tonTotal) + ' ton' : '—'}</div>
+          <div class="text-xs mt-1 font-semibold" style="color:#B97333;">
+            ${hayM ? '~USD ' + fmtInt(costoTotal) : 'Sin meta'}
+          </div>
+        </div>
+      `;
+    });
+
+    cont.innerHTML = html;
+  }
+
+  // ── Reiniciar ────────────────────────────────────────
+  const restart = q('rep-restart');
+  if (restart) restart.addEventListener('click', () => {
+    ['rep-c1','rep-c2','rep-c3'].forEach(id => {
+      const el = q(id); if (el) el.checked = false;
+    });
+    const radioNo = qs('input[name="rep-micro"][value="no"]');
+    if (radioNo) radioNo.checked = true;
+
+    document.querySelectorAll('.rep-cat-cb').forEach(cb => {
+      cb.checked = false;
+      cb.closest('.rep-cat-card')?.classList.remove('selected');
+    });
+    document.querySelectorAll('.rep-cond-label').forEach(l => l.classList.remove('checked'));
+
+    hide(q('rep-msg-noproducer'));
+    hide(q('rep-msg-micro'));
+
+    catsSeleccionadas = [];
+    volumenes = {};
+    irA(1);
+  });
+
+})();
+</script>
