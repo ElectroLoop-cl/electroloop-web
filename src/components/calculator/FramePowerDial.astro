@@ -1,5 +1,8 @@
 ---
-// Frame 4: El Dial de Poder (iOS-style carousel wheel selector)
+// Frame 4: El Dial de Poder — iOS-style carousel wheel selector
+// VALORES: 0 a 50,000 en pasos de 500 (101 items)
+// ITEM HEIGHT: 56px fijo | CONTAINER: 280px | PADDING: 112px c/u
+// selectedIndex = Math.round(scrollTop / 56)
 ---
 
 <div class="space-y-8">
@@ -7,191 +10,218 @@
     <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
       ¿Cuántas unidades vendes al año?
     </h2>
-    <p class="text-slate-400">Usa el selector para definir tu volumen anual</p>
+    <p class="text-slate-400">Desliza para definir tu volumen anual</p>
   </div>
 
   <!-- Power Dial Container -->
-  <div class="flex flex-col items-center justify-center space-y-8">
-    <!-- Level Indicator (Color based on value) -->
-    <div class="flex items-center justify-center gap-4">
-      <div class="text-center space-y-2">
-        <div id="level-label" class="text-lg font-semibold text-slate-300">Pyme</div>
-        <div id="level-color" class="w-12 h-12 rounded-full bg-green-500/20 border-2 border-green-500 flex items-center justify-center">
-          <div class="w-8 h-8 rounded-full bg-green-500"></div>
-        </div>
+  <div class="flex flex-col items-center justify-center space-y-6">
+
+    <!-- Level Indicator -->
+    <div id="level-badge" class="flex items-center gap-3 px-5 py-2 rounded-full border-2 border-green-500 bg-green-500/10 transition-all duration-300">
+      <div id="level-dot" class="w-3 h-3 rounded-full bg-green-500 transition-all duration-300"></div>
+      <span id="level-label" class="text-base font-bold text-green-400 transition-all duration-300">Pyme</span>
+      <span id="level-range" class="text-xs text-slate-400">1 – 500 unid.</span>
+    </div>
+
+    <!-- Wheel Container -->
+    <div class="relative w-48" style="height: 280px;">
+
+      <!-- Top fade overlay -->
+      <div class="absolute inset-x-0 top-0 h-20 z-10 pointer-events-none"
+           style="background: linear-gradient(to bottom, rgba(15,23,42,1) 0%, transparent 100%)"></div>
+
+      <!-- Bottom fade overlay -->
+      <div class="absolute inset-x-0 bottom-0 h-20 z-10 pointer-events-none"
+           style="background: linear-gradient(to top, rgba(15,23,42,1) 0%, transparent 100%)"></div>
+
+      <!-- Center selection highlight -->
+      <div class="absolute inset-x-0 z-10 pointer-events-none" style="top: 112px; height: 56px;">
+        <div class="w-full h-full border-t-2 border-b-2 border-amber-500 bg-amber-500/5"></div>
+      </div>
+
+      <!-- Scrollable wheel -->
+      <div
+        id="power-wheel"
+        class="absolute inset-0 overflow-y-scroll"
+        style="scroll-snap-type: y mandatory; scrollbar-width: none; -ms-overflow-style: none;"
+      >
+        <!-- Top spacer (centers first item) -->
+        <div style="height: 112px; flex-shrink: 0;"></div>
+
+        <!-- Items: 0, 500, 1000, ..., 50000 (101 items) -->
+        {Array.from({ length: 101 }, (_, i) => i * 500).map((val) => (
+          <div
+            class="wheel-item flex items-center justify-center font-semibold text-slate-400 transition-all duration-150"
+            data-value={val}
+            style="height: 56px; scroll-snap-align: center; flex-shrink: 0;"
+          >
+            {val === 0 ? '— selecciona —' : val.toLocaleString('es-CL') + ' unid.'}
+          </div>
+        ))}
+
+        <!-- Bottom spacer (centers last item) -->
+        <div style="height: 112px; flex-shrink: 0;"></div>
       </div>
     </div>
 
-    <!-- iOS-style Carousel Wheel -->
-    <div class="relative w-full max-w-sm">
-      <div class="flex justify-center items-center">
-        <div class="overflow-hidden h-64 w-32 rounded-lg border-2 border-amber-500/30">
-          <div
-            id="carousel-wheel"
-            class="
-              scroll-smooth flex flex-col items-center
-              overflow-y-scroll snap-y snap-mandatory
-              [scrollbar-width:none] [-ms-overflow-style:none]
-              space-y-2 py-24
-            "
-            style="scroll-behavior: smooth;"
-          >
-            {Array.from({ length: 100 }, (_, i) => {
-              const value = (i - 40) * 500; // 0 to 50000 in steps of 500
-              return (
-                <div
-                  class="snap-center h-12 flex items-center justify-center flex-shrink-0 text-slate-300 font-semibold text-sm"
-                  data-value={value}
-                >
-                  {value.toLocaleString()} unid.
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <!-- Center pointer indicator -->
-        <div class="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 flex justify-center pointer-events-none">
-          <div class="w-32 h-12 border-t-2 border-b-2 border-amber-500"></div>
-        </div>
-      </div>
-
-      <!-- Value Display -->
-      <div class="text-center mt-6 space-y-2">
-        <p class="text-4xl font-bold text-amber-400" id="current-value">0</p>
-        <p class="text-sm text-slate-400">unidades anuales</p>
-      </div>
+    <!-- Value display -->
+    <div class="text-center">
+      <p class="text-5xl font-bold text-amber-400 tabular-nums" id="current-value">0</p>
+      <p class="text-sm text-slate-400 mt-1">unidades anuales</p>
     </div>
 
     <!-- Quick preset buttons -->
-    <div class="grid grid-cols-3 gap-3 w-full max-w-sm">
-      {[100, 1000, 5000].map((preset) => (
+    <div class="grid grid-cols-3 gap-3 w-full max-w-xs">
+      {[
+        { label: '100', value: 100 },
+        { label: '1.000', value: 1000 },
+        { label: '5.000', value: 5000 }
+      ].map((p) => (
         <button
-          onclick={`window.setWheelValue(${preset})`}
-          class="px-3 py-2 rounded border border-slate-600 text-sm text-slate-300 hover:border-amber-500 hover:bg-amber-500/10 transition-colors"
+          type="button"
+          onclick={`window.setDialValue(${p.value})`}
+          class="px-3 py-2 rounded-lg border border-slate-600 text-sm text-slate-300 hover:border-amber-500 hover:bg-amber-500/10 active:scale-95 transition-all"
         >
-          {preset.toLocaleString()}
+          {p.label}
         </button>
       ))}
     </div>
   </div>
 
   <!-- Action Buttons -->
-  <div class="flex gap-4 pt-8">
+  <div class="flex gap-4 pt-4">
     <button
+      type="button"
       onclick="window.navigateFrame(3)"
       class="flex-1 px-4 py-3 border border-slate-600 text-slate-300 font-semibold rounded-lg hover:bg-slate-800 transition-colors"
     >
       Atrás
     </button>
     <button
+      type="button"
       id="btn-next-dial"
       onclick="window.navigateFrame(5)"
       disabled
-      class="
-        flex-1 px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg
-        hover:bg-amber-600 disabled:bg-slate-700 disabled:text-slate-500
-        disabled:cursor-not-allowed transition-colors
-      "
+      class="flex-1 px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed transition-colors"
     >
       Siguiente
     </button>
   </div>
 </div>
 
-<script>
-  const wheel = document.getElementById('carousel-wheel');
-  const currentValueDisplay = document.getElementById('current-value');
-  const levelLabel = document.getElementById('level-label');
-  const levelColor = document.getElementById('level-color');
-  const nextBtn = document.getElementById('btn-next-dial');
-
-  // Scroll to center on init
-  function initWheel() {
-    if (wheel) {
-      const centerChild = wheel.children[40]; // middle item (index 40 = 0 value)
-      centerChild?.scrollIntoView({ behavior: 'auto', block: 'center' });
-    }
-  }
-
-  // Update on scroll
-  function updateWheelValue() {
-    if (!wheel) return;
-
-    const items = wheel.querySelectorAll('div[data-value]');
-    let closestItem = items[0];
-    let closestDistance = Infinity;
-
-    const wheelRect = wheel.getBoundingClientRect();
-    const centerY = wheelRect.top + wheelRect.height / 2;
-
-    items.forEach((item) => {
-      const itemRect = item.getBoundingClientRect();
-      const itemCenter = itemRect.top + itemRect.height / 2;
-      const distance = Math.abs(itemCenter - centerY);
-
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestItem = item;
-      }
-    });
-
-    const value = parseInt(closestItem.getAttribute('data-value') || '0');
-    window.calculatorState.annualUnits = value;
-
-    if (currentValueDisplay) currentValueDisplay.textContent = value.toLocaleString();
-
-    // Update level
-    let level = 'pyme';
-    let color = 'green';
-    if (value > 5000) {
-      level = 'Corporate';
-      color = 'red';
-    } else if (value > 500) {
-      level = 'Industrial';
-      color = 'orange';
-    }
-
-    window.calculatorState.userLevel = level.toLowerCase();
-    if (levelLabel) levelLabel.textContent = level;
-    if (levelColor) {
-      levelColor.className = `w-12 h-12 rounded-full bg-${color}-500/20 border-2 border-${color}-500 flex items-center justify-center`;
-      levelColor.innerHTML = `<div class="w-8 h-8 rounded-full bg-${color}-500"></div>`;
-    }
-
-    if (value > 0 && nextBtn) {
-      nextBtn.disabled = false;
-    }
-  }
-
-  if (wheel) {
-    wheel.addEventListener('scroll', updateWheelValue, { passive: true });
-    wheel.addEventListener('scrollend', () => {
-      // Snap to nearest
-      updateWheelValue();
-    });
-  }
-
-  window.setWheelValue = (value: number) => {
-    if (!wheel) return;
-    const items = wheel.querySelectorAll('div[data-value]');
-    items.forEach((item) => {
-      if (parseInt(item.getAttribute('data-value') || '0') === value) {
-        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  };
-
-  // Initialize
-  setTimeout(initWheel, 100);
-</script>
-
 <style>
-  #carousel-wheel::-webkit-scrollbar {
-    display: none;
-  }
+  #power-wheel::-webkit-scrollbar { display: none; }
 
-  #carousel-wheel {
-    -webkit-appearance: none;
+  .wheel-item { user-select: none; }
+
+  /* center item gets full brightness */
+  .wheel-item.selected {
+    color: #fb923c;
+    font-size: 1.125rem;
   }
 </style>
+
+<script>
+  (function initPowerDial() {
+    const ITEM_H = 56;       // px — must match style above
+    const STEP   = 500;      // value step
+    const MAX_I  = 100;      // last index (value = 50000)
+
+    const wheel     = document.getElementById('power-wheel');
+    const valEl     = document.getElementById('current-value');
+    const labelEl   = document.getElementById('level-label');
+    const dotEl     = document.getElementById('level-dot');
+    const badgeEl   = document.getElementById('level-badge');
+    const rangeEl   = document.getElementById('level-range');
+    const nextBtn   = document.getElementById('btn-next-dial');
+
+    if (!wheel) return;
+
+    /* ── helpers ───────────────────────────────────────── */
+    function indexFromScroll() {
+      return Math.round(wheel.scrollTop / ITEM_H);
+    }
+
+    function valueFromIndex(idx) {
+      return Math.max(0, Math.min(MAX_I, idx)) * STEP;
+    }
+
+    function scrollToIndex(idx, animated) {
+      wheel.scrollTo({
+        top: idx * ITEM_H,
+        behavior: animated ? 'smooth' : 'instant'
+      });
+    }
+
+    function applyLevel(val) {
+      let label, color, tw, range;
+      if (val > 5000) {
+        label = 'Corporate'; color = '#f87171'; tw = 'red';   range = '5.001+ unid.';
+      } else if (val > 500) {
+        label = 'Industrial'; color = '#fb923c'; tw = 'orange'; range = '501 – 5.000 unid.';
+      } else {
+        label = 'Pyme';       color = '#4ade80'; tw = 'green';  range = '1 – 500 unid.';
+      }
+
+      if (labelEl) { labelEl.textContent = label; labelEl.style.color = color; }
+      if (dotEl)   { dotEl.style.backgroundColor = color; }
+      if (rangeEl) { rangeEl.textContent = range; }
+      if (badgeEl) {
+        badgeEl.style.borderColor = color;
+        badgeEl.style.backgroundColor = color.replace(')', ', 0.1)').replace('rgb', 'rgba').replace('#', '') || '';
+      }
+    }
+
+    function updateSelected() {
+      const idx = indexFromScroll();
+      const val = valueFromIndex(idx);
+
+      // update state
+      if (window.calculatorState) {
+        window.calculatorState.annualUnits = val;
+        window.calculatorState.userLevel = val > 5000 ? 'corporate' : val > 500 ? 'industrial' : 'pyme';
+      }
+
+      // update display
+      if (valEl) valEl.textContent = val > 0 ? val.toLocaleString('es-CL') : '0';
+
+      // update level badge
+      applyLevel(val);
+
+      // highlight center item
+      wheel.querySelectorAll('.wheel-item').forEach((el, i) => {
+        el.classList.toggle('selected', i === idx);
+      });
+
+      // enable next if value > 0
+      if (nextBtn) nextBtn.disabled = val === 0;
+    }
+
+    /* ── scroll listener ────────────────────────────────── */
+    let scrollTimer;
+    wheel.addEventListener('scroll', function () {
+      clearTimeout(scrollTimer);
+      updateSelected();
+      // snap after 150ms of inactivity
+      scrollTimer = setTimeout(function () {
+        scrollToIndex(indexFromScroll(), true);
+        updateSelected();
+      }, 150);
+    }, { passive: true });
+
+    /* ── preset setter ──────────────────────────────────── */
+    window.setDialValue = function (value) {
+      var idx = Math.round(value / STEP);
+      idx = Math.max(0, Math.min(MAX_I, idx));
+      scrollToIndex(idx, true);
+      setTimeout(updateSelected, 350);
+    };
+
+    /* ── init: scroll to 0 instantly ───────────────────── */
+    requestAnimationFrame(function () {
+      scrollToIndex(0, false);
+      updateSelected();
+    });
+
+  })();
+</script>
