@@ -1,0 +1,127 @@
+---
+// Frame 5: Animación de Procesamiento (Radar + Neon Progress)
+---
+
+<div class="space-y-8 py-12">
+  <!-- Processing Animation Container -->
+  <div class="flex flex-col items-center justify-center space-y-8">
+    <!-- Radar Animation -->
+    <div class="relative w-48 h-48 rounded-full border-2 border-amber-500/30">
+      <!-- Concentric circles -->
+      <div class="absolute inset-0 rounded-full border border-amber-500/20"></div>
+      <div class="absolute inset-6 rounded-full border border-amber-500/10"></div>
+
+      <!-- Animated radar sweep -->
+      <div
+        class="
+          absolute inset-0 rounded-full
+          after:absolute after:inset-0 after:rounded-full
+          after:bg-gradient-to-r after:from-amber-500/50 after:to-transparent
+          after:animate-spin
+          after:[animation-duration:4s]
+        "
+      ></div>
+
+      <!-- Center dot -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-4 h-4 rounded-full bg-amber-500"></div>
+      </div>
+    </div>
+
+    <!-- Status Messages (Sequential) -->
+    <div class="text-center space-y-3 h-12">
+      <div id="status-message" class="text-lg text-slate-300 font-semibold">
+        Consultando metas del Decreto Supremo...
+      </div>
+    </div>
+
+    <!-- Progress Bar (Neon) -->
+    <div class="w-full max-w-md space-y-3">
+      <div class="relative h-2 w-full bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+        <div
+          id="progress-fill"
+          class="
+            h-full bg-gradient-to-r from-amber-400 to-orange-500
+            rounded-full transition-all duration-300
+            animate-pulse
+            shadow-[0_0_10px_rgba(251,146,60,0.6)]
+          "
+          style="width: 0%"
+        ></div>
+      </div>
+      <div class="flex justify-between text-xs text-slate-400">
+        <span>Procesando</span>
+        <span id="progress-percent">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden next button (shown after animation) -->
+  <button
+    id="btn-next-processing"
+    onclick="window.navigateFrame(6)"
+    class="
+      hidden px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg
+      hover:bg-amber-600 transition-colors w-full max-w-md mx-auto
+    "
+  >
+    Ver Resultados
+  </button>
+</div>
+
+<script>
+  const statusEl = document.getElementById('status-message');
+  const progressFill = document.getElementById('progress-fill');
+  const progressPercent = document.getElementById('progress-percent');
+  const nextBtn = document.getElementById('btn-next-processing');
+
+  const messages = [
+    'Consultando metas del Decreto Supremo...',
+    'Calculando toneladas de POM (Put on Market)...',
+    'Proyectando metas de recolección al 2030...'
+  ];
+
+  let currentMessage = 0;
+  let progress = 0;
+  const animationDuration = 4500; // 4.5 seconds
+  const messageChanges = [1500, 3000]; // at 1.5s and 3s
+
+  const startTime = Date.now();
+
+  const animateProgress = () => {
+    const elapsed = Date.now() - startTime;
+    progress = Math.min((elapsed / animationDuration) * 100, 100);
+
+    if (progressFill) progressFill.style.width = progress + '%';
+    if (progressPercent) progressPercent.textContent = Math.round(progress) + '%';
+
+    // Change message at intervals
+    const messageIndex = messageChanges.filter((t) => elapsed >= t).length;
+    if (messageIndex !== currentMessage && messageIndex < messages.length) {
+      currentMessage = messageIndex;
+      if (statusEl) statusEl.textContent = messages[messageIndex];
+    }
+
+    if (progress < 100) {
+      requestAnimationFrame(animateProgress);
+    } else {
+      // Animation complete
+      if (statusEl) statusEl.textContent = '✅ ¡Hoja de ruta lista!';
+      if (nextBtn) nextBtn.classList.remove('hidden');
+    }
+  };
+
+  requestAnimationFrame(animateProgress);
+</script>
+
+<style>
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 4s linear infinite;
+  }
+</style>

@@ -1,0 +1,197 @@
+---
+// Frame 4: El Dial de Poder (iOS-style carousel wheel selector)
+---
+
+<div class="space-y-8">
+  <div class="text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
+      ¿Cuántas unidades vendes al año?
+    </h2>
+    <p class="text-slate-400">Usa el selector para definir tu volumen anual</p>
+  </div>
+
+  <!-- Power Dial Container -->
+  <div class="flex flex-col items-center justify-center space-y-8">
+    <!-- Level Indicator (Color based on value) -->
+    <div class="flex items-center justify-center gap-4">
+      <div class="text-center space-y-2">
+        <div id="level-label" class="text-lg font-semibold text-slate-300">Pyme</div>
+        <div id="level-color" class="w-12 h-12 rounded-full bg-green-500/20 border-2 border-green-500 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-full bg-green-500"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- iOS-style Carousel Wheel -->
+    <div class="relative w-full max-w-sm">
+      <div class="flex justify-center items-center">
+        <div class="overflow-hidden h-64 w-32 rounded-lg border-2 border-amber-500/30">
+          <div
+            id="carousel-wheel"
+            class="
+              scroll-smooth flex flex-col items-center
+              overflow-y-scroll snap-y snap-mandatory
+              [scrollbar-width:none] [-ms-overflow-style:none]
+              space-y-2 py-24
+            "
+            style="scroll-behavior: smooth;"
+          >
+            {Array.from({ length: 100 }, (_, i) => {
+              const value = (i - 40) * 500; // 0 to 50000 in steps of 500
+              return (
+                <div
+                  class="snap-center h-12 flex items-center justify-center flex-shrink-0 text-slate-300 font-semibold text-sm"
+                  data-value={value}
+                >
+                  {value.toLocaleString()} unid.
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <!-- Center pointer indicator -->
+        <div class="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 flex justify-center pointer-events-none">
+          <div class="w-32 h-12 border-t-2 border-b-2 border-amber-500"></div>
+        </div>
+      </div>
+
+      <!-- Value Display -->
+      <div class="text-center mt-6 space-y-2">
+        <p class="text-4xl font-bold text-amber-400" id="current-value">0</p>
+        <p class="text-sm text-slate-400">unidades anuales</p>
+      </div>
+    </div>
+
+    <!-- Quick preset buttons -->
+    <div class="grid grid-cols-3 gap-3 w-full max-w-sm">
+      {[100, 1000, 5000].map((preset) => (
+        <button
+          onclick={`window.setWheelValue(${preset})`}
+          class="px-3 py-2 rounded border border-slate-600 text-sm text-slate-300 hover:border-amber-500 hover:bg-amber-500/10 transition-colors"
+        >
+          {preset.toLocaleString()}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex gap-4 pt-8">
+    <button
+      onclick="window.navigateFrame(3)"
+      class="flex-1 px-4 py-3 border border-slate-600 text-slate-300 font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+    >
+      Atrás
+    </button>
+    <button
+      id="btn-next-dial"
+      onclick="window.navigateFrame(5)"
+      disabled
+      class="
+        flex-1 px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg
+        hover:bg-amber-600 disabled:bg-slate-700 disabled:text-slate-500
+        disabled:cursor-not-allowed transition-colors
+      "
+    >
+      Siguiente
+    </button>
+  </div>
+</div>
+
+<script>
+  const wheel = document.getElementById('carousel-wheel');
+  const currentValueDisplay = document.getElementById('current-value');
+  const levelLabel = document.getElementById('level-label');
+  const levelColor = document.getElementById('level-color');
+  const nextBtn = document.getElementById('btn-next-dial');
+
+  // Scroll to center on init
+  function initWheel() {
+    if (wheel) {
+      const centerChild = wheel.children[40]; // middle item (index 40 = 0 value)
+      centerChild?.scrollIntoView({ behavior: 'auto', block: 'center' });
+    }
+  }
+
+  // Update on scroll
+  function updateWheelValue() {
+    if (!wheel) return;
+
+    const items = wheel.querySelectorAll('div[data-value]');
+    let closestItem = items[0];
+    let closestDistance = Infinity;
+
+    const wheelRect = wheel.getBoundingClientRect();
+    const centerY = wheelRect.top + wheelRect.height / 2;
+
+    items.forEach((item) => {
+      const itemRect = item.getBoundingClientRect();
+      const itemCenter = itemRect.top + itemRect.height / 2;
+      const distance = Math.abs(itemCenter - centerY);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestItem = item;
+      }
+    });
+
+    const value = parseInt(closestItem.getAttribute('data-value') || '0');
+    window.calculatorState.annualUnits = value;
+
+    if (currentValueDisplay) currentValueDisplay.textContent = value.toLocaleString();
+
+    // Update level
+    let level = 'pyme';
+    let color = 'green';
+    if (value > 5000) {
+      level = 'Corporate';
+      color = 'red';
+    } else if (value > 500) {
+      level = 'Industrial';
+      color = 'orange';
+    }
+
+    window.calculatorState.userLevel = level.toLowerCase();
+    if (levelLabel) levelLabel.textContent = level;
+    if (levelColor) {
+      levelColor.className = `w-12 h-12 rounded-full bg-${color}-500/20 border-2 border-${color}-500 flex items-center justify-center`;
+      levelColor.innerHTML = `<div class="w-8 h-8 rounded-full bg-${color}-500"></div>`;
+    }
+
+    if (value > 0 && nextBtn) {
+      nextBtn.disabled = false;
+    }
+  }
+
+  if (wheel) {
+    wheel.addEventListener('scroll', updateWheelValue, { passive: true });
+    wheel.addEventListener('scrollend', () => {
+      // Snap to nearest
+      updateWheelValue();
+    });
+  }
+
+  window.setWheelValue = (value: number) => {
+    if (!wheel) return;
+    const items = wheel.querySelectorAll('div[data-value]');
+    items.forEach((item) => {
+      if (parseInt(item.getAttribute('data-value') || '0') === value) {
+        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  };
+
+  // Initialize
+  setTimeout(initWheel, 100);
+</script>
+
+<style>
+  #carousel-wheel::-webkit-scrollbar {
+    display: none;
+  }
+
+  #carousel-wheel {
+    -webkit-appearance: none;
+  }
+</style>

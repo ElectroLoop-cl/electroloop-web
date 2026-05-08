@@ -1,0 +1,117 @@
+---
+// Frame 3: Ubicación Estratégica (Mapa interactivo Chile)
+---
+
+<div class="space-y-8">
+  <div class="text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
+      ¿Dónde está tu operación?
+    </h2>
+    <p class="text-slate-400">Selecciona tu región para personalizar costos logísticos</p>
+  </div>
+
+  <!-- Region Selection (Simplified) -->
+  <div class="space-y-4">
+    <p class="text-sm text-slate-400 font-semibold">MACROZONA NORTE (Foco inicial)</p>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {[
+        { id: 'region-3', name: 'Región III (Atacama)', communes: ['Copiapó', 'Caldera', 'Tierra Amarilla', 'Diego de Almagro'] },
+        { id: 'region-4', name: 'Región IV (Coquimbo)', communes: ['La Serena', 'Coquimbo', 'Ovalle', 'Región III'] }
+      ].map((region) => (
+        <button
+          type="button"
+          onclick={`document.getElementById('${region.id}').click()`}
+          class="
+            group relative p-4 rounded-lg border-2 border-slate-700
+            bg-gradient-to-br from-slate-800 to-slate-900
+            hover:border-amber-500/50 transition-all duration-300
+            has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10
+            text-left cursor-pointer
+          "
+        >
+          <input
+            type="radio"
+            name="region"
+            id={region.id}
+            value={region.id}
+            class="hidden"
+            onchange={`window.onRegionChange?.('${region.id}')`}
+          />
+          
+          <div class="space-y-2">
+            <span class="font-semibold text-white text-lg">{region.name}</span>
+            <p class="text-xs text-slate-400">{region.communes.join(', ')}</p>
+          </div>
+
+          <!-- Radio indicator -->
+          <div class="absolute top-3 right-3 w-5 h-5 border-2 border-slate-600 rounded-full group-hover:border-amber-500 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500 transition-all" />
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Comuna Selection (Conditional) -->
+  <div id="commune-selector" class="space-y-4 hidden">
+    <p class="text-sm text-slate-400 font-semibold">SELECCIONA Comuna</p>
+    <div id="communes-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex gap-4 pt-8">
+    <button
+      onclick="window.navigateFrame(2)"
+      class="flex-1 px-4 py-3 border border-slate-600 text-slate-300 font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+    >
+      Atrás
+    </button>
+    <button
+      id="btn-next-location"
+      onclick="window.navigateFrame(4)"
+      disabled
+      class="
+        flex-1 px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg
+        hover:bg-amber-600 disabled:bg-slate-700 disabled:text-slate-500
+        disabled:cursor-not-allowed transition-colors
+      "
+    >
+      Siguiente
+    </button>
+  </div>
+</div>
+
+<script>
+  const regionCommunes = {
+    'region-3': ['Copiapó', 'Caldera', 'Tierra Amarilla', 'Diego de Almagro', 'Chañaral', 'Los Vilos'],
+    'region-4': ['La Serena', 'Coquimbo', 'Ovalle', 'Andacollo', 'Coquimbo', 'La Higuera', 'Paioa']
+  };
+
+  window.onRegionChange = (regionId: string) => {
+    window.calculatorState.selectedRegion = regionId;
+    
+    const communes = regionCommunes[regionId as keyof typeof regionCommunes] || [];
+    const selector = document.getElementById('commune-selector');
+    const grid = document.getElementById('communes-grid');
+    
+    if (selector && grid) {
+      grid.innerHTML = '';
+      communes.forEach((commune: string) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `p-2 rounded border border-slate-600 text-sm text-slate-300 hover:border-amber-500 hover:bg-amber-500/10 transition-all cursor-pointer`;
+        btn.textContent = commune;
+        btn.onclick = () => {
+          window.calculatorState.selectedCommune = commune;
+          const nextBtn = document.getElementById('btn-next-location');
+          if (nextBtn) nextBtn.disabled = false;
+          // Update UI
+          grid.querySelectorAll('button').forEach(b => b.classList.remove('border-amber-500', 'bg-amber-500/10'));
+          btn.classList.add('border-amber-500', 'bg-amber-500/10');
+        };
+        grid.appendChild(btn);
+      });
+      
+      selector.classList.remove('hidden');
+    }
+  };
+</script>

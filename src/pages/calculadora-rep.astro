@@ -1,0 +1,162 @@
+---
+// calculadora-rep.astro — Gamified REP Calculator Sub-Page
+import Layout from '../layouts/Layout.astro';
+import FrameHero from '../components/calculator/FrameHero.astro';
+import FrameCategories from '../components/calculator/FrameCategories.astro';
+import FrameLocation from '../components/calculator/FrameLocation.astro';
+import FramePowerDial from '../components/calculator/FramePowerDial.astro';
+import FrameProcessing from '../components/calculator/FrameProcessing.astro';
+import FrameGating from '../components/calculator/FrameGating.astro';
+import FrameResults from '../components/calculator/FrameResults.astro';
+
+const pageTitle = 'Calculadora Ley REP | ElectroLoop — Estima tu cumplimiento';
+const pageDescription =
+  'Calcula tu cumplimiento de la Ley REP en menos de 1 minuto. Obtén tu hoja de ruta personalizada, metas anuales y costos estimados. 100% gratuito.';
+---
+
+<Layout title={pageTitle} description={pageDescription} lang="es">
+  <main id="calculadora-rep" class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <!-- Frame Navigation (Progress indicator) -->
+    <div class="fixed top-0 left-0 right-0 z-40 bg-slate-900/80 backdrop-blur border-b border-slate-700">
+      <div class="max-w-5xl mx-auto px-4 py-3">
+        <div class="flex gap-1">
+          {[1, 2, 3, 4, 5, 6, 7].map((frame) => (
+            <div 
+              id={`progress-${frame}`}
+              class={`flex-1 h-1 rounded-full transition-all duration-300 ${
+                frame === 1 ? 'bg-amber-500' : 'bg-slate-700'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Frame Container -->
+    <div class="pt-16 min-h-screen flex items-center justify-center px-4">
+      <div class="w-full max-w-4xl">
+        <!-- Frame 1: Hero -->
+        <div id="frame-1" class="frame-container active">
+          <FrameHero />
+        </div>
+
+        <!-- Frame 2: Categories -->
+        <div id="frame-2" class="frame-container hidden">
+          <FrameCategories />
+        </div>
+
+        <!-- Frame 3: Location -->
+        <div id="frame-3" class="frame-container hidden">
+          <FrameLocation />
+        </div>
+
+        <!-- Frame 4: Power Dial -->
+        <div id="frame-4" class="frame-container hidden">
+          <FramePowerDial />
+        </div>
+
+        <!-- Frame 5: Processing -->
+        <div id="frame-5" class="frame-container hidden">
+          <FrameProcessing />
+        </div>
+
+        <!-- Frame 6: Gating (Lead Capture) -->
+        <div id="frame-6" class="frame-container hidden">
+          <FrameGating />
+        </div>
+
+        <!-- Frame 7: Results -->
+        <div id="frame-7" class="frame-container hidden">
+          <FrameResults />
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  .frame-container {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .frame-container.active {
+    display: block;
+  }
+
+  .frame-container:not(.active) {
+    display: none;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Neon glow effect */
+  .neon-glow {
+    box-shadow: 0 0 10px rgba(251, 146, 60, 0.5), 0 0 20px rgba(251, 146, 60, 0.3);
+  }
+
+  /* Carousel wheel styles */
+  .carousel-wheel {
+    perspective: 1000px;
+  }
+
+  .carousel-wheel-item {
+    scroll-snap-align: center;
+  }
+</style>
+
+<script>
+  // Calculator state management
+  const state = {
+    currentFrame: 1,
+    selectedCategories: [],
+    annualUnits: 0,
+    selectedRegion: null,
+    selectedCommune: null,
+    userLevel: 'pyme',
+    estimatedTons: 0,
+    transportCost: 0,
+    totalEstimate: 0,
+    userEmail: '',
+    userAcceptTerms: false,
+  };
+
+  // Frame navigation
+  window.navigateFrame = (frameNumber) => {
+    // Hide all frames
+    document.querySelectorAll('.frame-container').forEach(frame => {
+      frame.classList.remove('active');
+    });
+
+    // Show new frame
+    const newFrame = document.getElementById(`frame-${frameNumber}`);
+    if (newFrame) {
+      newFrame.classList.add('active');
+    }
+
+    // Update progress bar
+    document.querySelectorAll('[id^="progress-"]').forEach((bar, idx) => {
+      if (idx + 1 <= frameNumber) {
+        bar.classList.remove('bg-slate-700');
+        bar.classList.add('bg-amber-500');
+      } else {
+        bar.classList.remove('bg-amber-500');
+        bar.classList.add('bg-slate-700');
+      }
+    });
+
+    state.currentFrame = frameNumber;
+    console.log(`Frame ${frameNumber} - State:`, state);
+  };
+
+  // Export state for child components
+  (window as any).calculatorState = state;
+</script>

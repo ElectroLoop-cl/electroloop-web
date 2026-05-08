@@ -1,0 +1,149 @@
+---
+// Frame 7: Resultados y Descarga (Dashboard)
+---
+
+<div class="space-y-8">
+  <div class="text-center space-y-4 mb-8">
+    <div class="text-5xl animate-bounce">✅</div>
+    <h2 class="text-3xl md:text-4xl font-bold text-white">
+      ¡Listo!
+    </h2>
+    <p class="text-slate-400">
+      Tu informe está preparado y enviado a <span id="result-email" class="text-amber-400 font-semibold">tu correo</span>
+    </p>
+  </div>
+
+  <!-- Results Dashboard -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- Estimated Tons -->
+    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-slate-700 p-6 space-y-2">
+      <p class="text-sm text-slate-400 font-semibold">Toneladas Estimadas</p>
+      <p class="text-4xl font-bold text-white" id="result-tons">0</p>
+      <p class="text-xs text-slate-500">basado en tu volumen</p>
+    </div>
+
+    <!-- Annual REP Meta -->
+    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-slate-700 p-6 space-y-2">
+      <p class="text-sm text-slate-400 font-semibold">Meta REP 2025</p>
+      <p class="text-4xl font-bold text-amber-400" id="result-meta">0%</p>
+      <p class="text-xs text-slate-500">de recolección requerida</p>
+    </div>
+
+    <!-- Transport Cost (Placeholder) -->
+    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-slate-700 p-6 space-y-2">
+      <p class="text-sm text-slate-400 font-semibold">Costo Transporte</p>
+      <p class="text-4xl font-bold text-orange-400" id="result-transport">---</p>
+      <p class="text-xs text-slate-500">disponible próximamente</p>
+    </div>
+  </div>
+
+  <!-- Detailed Breakdown -->
+  <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-6 space-y-4">
+    <h3 class="text-lg font-semibold text-white">Resumen de tu Informe</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div>
+        <p class="text-slate-400">Categorías seleccionadas</p>
+        <p id="result-categories" class="text-white font-semibold mt-1">-</p>
+      </div>
+      <div>
+        <p class="text-slate-400">Región</p>
+        <p id="result-region" class="text-white font-semibold mt-1">-</p>
+      </div>
+      <div>
+        <p class="text-slate-400">Volumen Anual</p>
+        <p id="result-volume" class="text-white font-semibold mt-1">-</p>
+      </div>
+      <div>
+        <p class="text-slate-400">Nivel</p>
+        <p id="result-level" class="text-white font-semibold mt-1">-</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-lg border border-amber-500/30 p-6 space-y-4">
+    <div class="space-y-2">
+      <h3 class="text-lg font-semibold text-white">
+        ¿Quieres una consultoría personalizada?
+      </h3>
+      <p class="text-slate-400">
+        Nuestro equipo puede ayudarte a implementar tu hoja de ruta de cumplimiento REP.
+      </p>
+    </div>
+
+    <a
+      href="https://wa.me/56912345678?text=Hola%20ElectroLoop%21%20Necesito%20asesoría%20en%20REP"
+      target="_blank"
+      class="
+        inline-block px-6 py-3 bg-green-500 text-white font-semibold rounded-lg
+        hover:bg-green-600 transition-colors
+      "
+    >
+      💬 Contactar por WhatsApp
+    </a>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex gap-4 pt-8 flex-col sm:flex-row">
+    <button
+      onclick="window.location.href = 'https://electroloop.cl'"
+      class="flex-1 px-4 py-3 border border-slate-600 text-slate-300 font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+    >
+      Volver al inicio
+    </button>
+    <button
+      id="btn-download-pdf"
+      onclick="window.downloadPDF()"
+      class="
+        flex-1 px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg
+        hover:bg-amber-600 transition-colors
+        flex items-center justify-center gap-2
+      "
+    >
+      <span>📥 Descargar PDF</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Helper function to set text safely
+  function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  // Populate results from state
+  setText('result-email', window.calculatorState.userEmail || 'tu correo');
+  setText('result-categories', window.calculatorState.selectedCategories.join(', ') || '-');
+  const regionText = window.calculatorState.selectedRegion
+    ? window.calculatorState.selectedRegion.replace('region-', 'Región ')
+    : '-';
+  setText('result-region', regionText);
+  setText('result-volume', (window.calculatorState.annualUnits || 0).toLocaleString() + ' unidades');
+  setText('result-level', (window.calculatorState.userLevel || 'pyme').toUpperCase());
+
+  // Calculate estimated tons (placeholder calculation)
+  const estimatedTons = (window.calculatorState.annualUnits || 0) * 0.015; // dummy: 15g per unit
+  setText('result-tons', estimatedTons.toFixed(2));
+
+  // Meta (placeholder: 15% first year)
+  setText('result-meta', '15%');
+
+  window.downloadPDF = () => {
+    // In production: Call API to generate + download PDF
+    alert('PDF descargado: REP_Informe_' + new Date().getTime() + '.pdf');
+    console.log('Downloading PDF with state:', window.calculatorState);
+  };
+</script>
+
+<style>
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-bounce {
+    animation: bounce 1s infinite;
+  }
+</style>
