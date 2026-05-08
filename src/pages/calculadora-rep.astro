@@ -16,6 +16,16 @@ const pageDescription =
 
 <Layout title={pageTitle} description={pageDescription} lang="es">
   <main id="calculadora-rep" class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <!-- Beta Banner -->
+    <div class="fixed top-16 left-0 right-0 z-50 bg-yellow-900/40 border-b border-yellow-700/60 backdrop-blur">
+      <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-3">
+        <span class="text-yellow-400 text-lg">⚙️</span>
+        <p class="text-sm text-yellow-300 font-medium">
+          <strong>En construcción:</strong> Esta calculadora está en fase beta. Los cálculos finales y tabla de costos se completarán pronto.
+        </p>
+      </div>
+    </div>
+
     <!-- Frame Navigation (Progress indicator) -->
     <div class="fixed top-0 left-0 right-0 z-40 bg-slate-900/80 backdrop-blur border-b border-slate-700">
       <div class="max-w-5xl mx-auto px-4 py-3">
@@ -33,7 +43,7 @@ const pageDescription =
     </div>
 
     <!-- Frame Container -->
-    <div class="pt-16 min-h-screen flex items-center justify-center px-4">
+    <div class="pt-32 min-h-screen flex items-center justify-center px-4">
       <div class="w-full max-w-4xl">
         <!-- Frame 1: Hero -->
         <div id="frame-1" class="frame-container active">

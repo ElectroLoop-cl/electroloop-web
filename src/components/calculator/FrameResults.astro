@@ -123,9 +123,30 @@
   setText('result-volume', (window.calculatorState.annualUnits || 0).toLocaleString() + ' unidades');
   setText('result-level', (window.calculatorState.userLevel || 'pyme').toUpperCase());
 
-  // Calculate estimated tons (placeholder calculation)
-  const estimatedTons = (window.calculatorState.annualUnits || 0) * 0.015; // dummy: 15g per unit
-  setText('result-tons', estimatedTons.toFixed(2));
+  // Calculate estimated tons based on categories
+  // Weight per unit in kg (averaged across category ranges)
+  const CATEGORY_WEIGHTS = {
+    'temp': 30,      // Refrigerators: 20-50 kg
+    'monitors': 6,   // TVs/Monitors: 4-8 kg
+    'lamps': 0.3,    // Lamps: 0.1-0.5 kg
+    'large': 40,     // Washers/Cookers: 30-50 kg
+    'small': 1.5,    // Mobile/Tools: 0.5-2.5 kg
+    'panels': 20,    // Solar Panels: 15-25 kg
+    'batteries': 0.2, // Batteries: 0.05-0.4 kg
+    'other': 5       // Other: estimate
+  };
+
+  const units = window.calculatorState.annualUnits || 0;
+  const categories = window.calculatorState.selectedCategories || [];
+
+  let totalKg = 0;
+  categories.forEach(cat => {
+    const weight = CATEGORY_WEIGHTS[cat] || 5;
+    totalKg += units * weight;
+  });
+
+  const totalTons = totalKg / 1000;
+  setText('result-tons', totalTons > 0 ? totalTons.toFixed(2) : '0.00');
 
   // Meta (placeholder: 15% first year)
   setText('result-meta', '15%');
