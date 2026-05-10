@@ -59,7 +59,7 @@
   <!-- Hidden next button (shown after animation) -->
   <button
     id="btn-next-processing"
-    onclick="window.navigateFrame(6)"
+    onclick="window.navigateFrame(7)"
     class="
       hidden px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg
       hover:bg-amber-600 transition-colors w-full max-w-md mx-auto
@@ -86,32 +86,42 @@
   const animationDuration = 4500; // 4.5 seconds
   const messageChanges = [1500, 3000]; // at 1.5s and 3s
 
-  const startTime = Date.now();
+  function startAnimation() {
+    const startTime = Date.now();
+    let currentMsg = 0;
+    let prog = 0;
 
-  const animateProgress = () => {
-    const elapsed = Date.now() - startTime;
-    progress = Math.min((elapsed / animationDuration) * 100, 100);
+    const animateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      prog = Math.min((elapsed / animationDuration) * 100, 100);
 
-    if (progressFill) progressFill.style.width = progress + '%';
-    if (progressPercent) progressPercent.textContent = Math.round(progress) + '%';
+      if (progressFill) progressFill.style.width = prog + '%';
+      if (progressPercent) progressPercent.textContent = Math.round(prog) + '%';
 
-    // Change message at intervals
-    const messageIndex = messageChanges.filter((t) => elapsed >= t).length;
-    if (messageIndex !== currentMessage && messageIndex < messages.length) {
-      currentMessage = messageIndex;
-      if (statusEl) statusEl.textContent = messages[messageIndex];
-    }
+      // Change message at intervals
+      const messageIndex = messageChanges.filter((t) => elapsed >= t).length;
+      if (messageIndex !== currentMsg && messageIndex < messages.length) {
+        currentMsg = messageIndex;
+        if (statusEl) statusEl.textContent = messages[messageIndex];
+      }
 
-    if (progress < 100) {
-      requestAnimationFrame(animateProgress);
-    } else {
-      // Animation complete
-      if (statusEl) statusEl.textContent = '✅ ¡Hoja de ruta lista!';
-      if (nextBtn) nextBtn.classList.remove('hidden');
-    }
-  };
+      if (prog < 100) {
+        requestAnimationFrame(animateProgress);
+      } else {
+        // Animation complete
+        if (statusEl) statusEl.textContent = '✅ ¡Hoja de ruta lista!';
+        if (nextBtn) nextBtn.classList.remove('hidden');
+      }
+    };
 
-  requestAnimationFrame(animateProgress);
+    requestAnimationFrame(animateProgress);
+  }
+
+  // Start animation immediately
+  startAnimation();
+
+  // Also expose for re-initialization when frame is navigated to
+  window.initProcessing = startAnimation;
 </script>
 
 <style>

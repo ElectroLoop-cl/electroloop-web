@@ -17,10 +17,10 @@
   <div class="flex flex-col items-center justify-center space-y-6">
 
     <!-- Level Indicator -->
-    <div id="level-badge" class="flex items-center gap-3 px-5 py-2 rounded-full border-2 border-green-500 bg-green-500/10 transition-all duration-300">
-      <div id="level-dot" class="w-3 h-3 rounded-full bg-green-500 transition-all duration-300"></div>
-      <span id="level-label" class="text-base font-bold text-green-400 transition-all duration-300">Pyme</span>
-      <span id="level-range" class="text-xs text-slate-400">1 – 500 unid.</span>
+    <div id="level-badge" class="flex items-center gap-3 px-5 py-2 rounded-full border-2 border-amber-500 bg-amber-500/10 transition-all duration-300">
+      <div id="level-dot" class="w-3 h-3 rounded-full bg-amber-500 transition-all duration-300"></div>
+      <span id="level-label" class="text-base font-bold text-amber-400 transition-all duration-300">Industrial</span>
+      <span id="level-range" class="text-xs text-slate-400">1 – 5.000 unid.</span>
     </div>
 
     <!-- Wheel Container -->
@@ -157,10 +157,8 @@
       let label, color, tw, range;
       if (val > 5000) {
         label = 'Corporate'; color = '#f87171'; tw = 'red';   range = '5.001+ unid.';
-      } else if (val > 500) {
-        label = 'Industrial'; color = '#fb923c'; tw = 'orange'; range = '501 – 5.000 unid.';
       } else {
-        label = 'Pyme';       color = '#4ade80'; tw = 'green';  range = '1 – 500 unid.';
+        label = 'Industrial'; color = '#fb923c'; tw = 'orange'; range = '1 – 5.000 unid.';
       }
 
       if (labelEl) { labelEl.textContent = label; labelEl.style.color = color; }
@@ -179,7 +177,7 @@
       // update state
       if (window.calculatorState) {
         window.calculatorState.annualUnits = val;
-        window.calculatorState.userLevel = val > 5000 ? 'corporate' : val > 500 ? 'industrial' : 'pyme';
+        window.calculatorState.userLevel = val > 5000 ? 'corporate' : 'industrial';
       }
 
       // update display
