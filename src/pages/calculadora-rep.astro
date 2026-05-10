@@ -5,6 +5,7 @@ import FrameHero from '../components/calculator/FrameHero.astro';
 import FrameCategories from '../components/calculator/FrameCategories.astro';
 import FrameLocation from '../components/calculator/FrameLocation.astro';
 import FramePowerDial from '../components/calculator/FramePowerDial.astro';
+import FrameCategoryBreakdown from '../components/calculator/FrameCategoryBreakdown.astro';
 import FrameProcessing from '../components/calculator/FrameProcessing.astro';
 import FrameGating from '../components/calculator/FrameGating.astro';
 import FrameResults from '../components/calculator/FrameResults.astro';
@@ -30,8 +31,8 @@ const pageDescription =
     <div class="fixed top-0 left-0 right-0 z-40 bg-slate-900/80 backdrop-blur border-b border-slate-700">
       <div class="max-w-5xl mx-auto px-4 py-3">
         <div class="flex gap-1">
-          {[1, 2, 3, 4, 5, 6, 7].map((frame) => (
-            <div 
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((frame) => (
+            <div
               id={`progress-${frame}`}
               class={`flex-1 h-1 rounded-full transition-all duration-300 ${
                 frame === 1 ? 'bg-amber-500' : 'bg-slate-700'
@@ -65,18 +66,23 @@ const pageDescription =
           <FramePowerDial />
         </div>
 
-        <!-- Frame 5: Processing -->
+        <!-- Frame 5: Category Breakdown -->
         <div id="frame-5" class="frame-container hidden">
+          <FrameCategoryBreakdown />
+        </div>
+
+        <!-- Frame 6: Processing -->
+        <div id="frame-6" class="frame-container hidden">
           <FrameProcessing />
         </div>
 
-        <!-- Frame 6: Gating (Lead Capture) -->
-        <div id="frame-6" class="frame-container hidden">
+        <!-- Frame 7: Gating (Lead Capture) -->
+        <div id="frame-7" class="frame-container hidden">
           <FrameGating />
         </div>
 
-        <!-- Frame 7: Results -->
-        <div id="frame-7" class="frame-container hidden">
+        <!-- Frame 8: Results -->
+        <div id="frame-8" class="frame-container hidden">
           <FrameResults />
         </div>
       </div>
@@ -132,6 +138,7 @@ const pageDescription =
     selectedRegion: null,
     selectedCommune: null,
     userLevel: 'pyme',
+    categoryBreakdown: {}, // { category: units, ... }
     estimatedTons: 0,
     transportCost: 0,
     totalEstimate: 0,
@@ -162,6 +169,16 @@ const pageDescription =
         bar.classList.add('bg-slate-700');
       }
     });
+
+    // Re-initialize Frame 5 (Category Breakdown) if navigating to it
+    if (frameNumber === 5 && window.initCategoryBreakdown) {
+      window.initCategoryBreakdown();
+    }
+
+    // Populate Frame 8 (Results) if navigating to it
+    if (frameNumber === 8 && window.populateResults) {
+      window.populateResults();
+    }
 
     state.currentFrame = frameNumber;
     console.log(`Frame ${frameNumber} - State:`, state);

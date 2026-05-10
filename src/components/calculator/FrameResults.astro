@@ -1,5 +1,5 @@
 ---
-// Frame 7: Resultados y Descarga (Dashboard)
+// Frame 8: Resultados y Descarga (Dashboard)
 ---
 
 <div class="space-y-8">
@@ -18,13 +18,14 @@
     <!-- Estimated Tons -->
     <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-slate-700 p-6 space-y-2">
       <p class="text-sm text-slate-400 font-semibold">Toneladas Estimadas</p>
-      <p class="text-4xl font-bold text-white" id="result-tons">0</p>
+      <p class="text-4xl font-bold text-white" id="result-tons">0.00</p>
       <p class="text-xs text-slate-500">basado en tu volumen</p>
+      <p class="text-xs text-slate-400 italic pt-2 border-t border-slate-600">*Cálculo con pesos promedios estimados por aparato</p>
     </div>
 
     <!-- Annual REP Meta -->
     <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg border border-slate-700 p-6 space-y-2">
-      <p class="text-sm text-slate-400 font-semibold">Meta REP 2025</p>
+      <p class="text-sm text-slate-400 font-semibold">Meta REP</p>
       <p class="text-4xl font-bold text-amber-400" id="result-meta">0%</p>
       <p class="text-xs text-slate-500">de recolección requerida</p>
     </div>
@@ -37,10 +38,42 @@
     </div>
   </div>
 
+  <!-- Tonnage by Category Breakdown -->
+  <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-6 space-y-4">
+    <h3 class="text-lg font-semibold text-white">Desglose por Categoría (Toneladas puestas en mercado)</h3>
+    <div id="category-breakdown" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <!-- Will be populated by script -->
+    </div>
+  </div>
+
+  <!-- REP Targets Table -->
+  <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-6 space-y-4">
+    <div class="space-y-1">
+      <h3 class="text-lg font-semibold text-white">📋 Plan de Metas REP (D.S. 22/2025)</h3>
+      <p class="text-xs text-slate-400">Toneladas a recolectar/valorizar por año según tu volumen. Primer año de operación: 2028.</p>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-slate-600">
+            <th class="text-left py-2 pr-4 text-slate-400 font-semibold">Año</th>
+            <th class="text-left py-2 pr-4 text-slate-400 font-semibold" id="th-general">Meta General<br><span class="font-normal text-xs">(AEE + Pilas, excl. PFV)</span></th>
+            <th class="text-left py-2 pr-4 text-slate-400 font-semibold" id="th-ait">Meta AIT<br><span class="font-normal text-xs">(Intercambio Temp.)</span></th>
+            <th class="text-left py-2 text-slate-400 font-semibold" id="th-pfv">Meta PFV<br><span class="font-normal text-xs">(Paneles Solares)</span></th>
+          </tr>
+        </thead>
+        <tbody id="metas-table-body">
+          <!-- Will be populated by script -->
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-slate-500 italic">*Las metas se calculan sobre el promedio de toneladas introducidas al mercado en los años anteriores (D.S. 22/2025).</p>
+  </div>
+
   <!-- Detailed Breakdown -->
   <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-6 space-y-4">
     <h3 class="text-lg font-semibold text-white">Resumen de tu Informe</h3>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
       <div>
         <p class="text-slate-400">Categorías seleccionadas</p>
@@ -50,9 +83,9 @@
         <p class="text-slate-400">Región</p>
         <p id="result-region" class="text-white font-semibold mt-1">-</p>
       </div>
-      <div>
-        <p class="text-slate-400">Volumen Anual</p>
-        <p id="result-volume" class="text-white font-semibold mt-1">-</p>
+      <div class="md:col-span-2">
+        <p class="text-slate-400 mb-2">Volumen por Categoría</p>
+        <div id="result-volume" class="space-y-1">-</div>
       </div>
       <div>
         <p class="text-slate-400">Nivel</p>
@@ -107,49 +140,237 @@
 </div>
 
 <script>
-  // Helper function to set text safely
-  function setText(id, text) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = text;
-  }
+  (function() {
+    // Category labels for display
+    const CATEGORY_LABELS = {
+      'temp': '❄️ Refrigeradores',
+      'monitors': '📺 TV/Monitores',
+      'lamps': '💡 Lámparas',
+      'large': '🔧 Electrodomésticos',
+      'small': '📱 Equipos pequeños',
+      'panels': '☀️ Paneles solares',
+      'batteries': '🔋 Baterías',
+      'other': '📦 Otros'
+    };
 
-  // Populate results from state
-  setText('result-email', window.calculatorState.userEmail || 'tu correo');
-  setText('result-categories', window.calculatorState.selectedCategories.join(', ') || '-');
-  const regionText = window.calculatorState.selectedRegion
-    ? window.calculatorState.selectedRegion.replace('region-', 'Región ')
-    : '-';
-  setText('result-region', regionText);
-  setText('result-volume', (window.calculatorState.annualUnits || 0).toLocaleString() + ' unidades');
-  setText('result-level', (window.calculatorState.userLevel || 'pyme').toUpperCase());
+    // Weight per unit in kg (averaged across category ranges)
+    const CATEGORY_WEIGHTS = {
+      'temp': 30,      // Refrigerators: 20-50 kg
+      'monitors': 6,   // TVs/Monitors: 4-8 kg
+      'lamps': 0.3,    // Lamps: 0.1-0.5 kg
+      'large': 40,     // Washers/Cookers: 30-50 kg
+      'small': 1.5,    // Mobile/Tools: 0.5-2.5 kg
+      'panels': 20,    // Solar Panels: 15-25 kg
+      'batteries': 0.2, // Batteries: 0.05-0.4 kg
+      'other': 5       // Other: estimate
+    };
 
-  // Calculate estimated tons based on categories
-  // Weight per unit in kg (averaged across category ranges)
-  const CATEGORY_WEIGHTS = {
-    'temp': 30,      // Refrigerators: 20-50 kg
-    'monitors': 6,   // TVs/Monitors: 4-8 kg
-    'lamps': 0.3,    // Lamps: 0.1-0.5 kg
-    'large': 40,     // Washers/Cookers: 30-50 kg
-    'small': 1.5,    // Mobile/Tools: 0.5-2.5 kg
-    'panels': 20,    // Solar Panels: 15-25 kg
-    'batteries': 0.2, // Batteries: 0.05-0.4 kg
-    'other': 5       // Other: estimate
-  };
+    // Helper function to set text safely
+    function setText(id, text) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
 
-  const units = window.calculatorState.annualUnits || 0;
-  const categories = window.calculatorState.selectedCategories || [];
+    // Main initialization function
+    function populateResults() {
+      // Populate results from state
+      setText('result-email', window.calculatorState.userEmail || 'tu correo');
 
-  let totalKg = 0;
-  categories.forEach(cat => {
-    const weight = CATEGORY_WEIGHTS[cat] || 5;
-    totalKg += units * weight;
-  });
+      const categoryBreakdown = window.calculatorState.categoryBreakdown || {};
+      const categories = window.calculatorState.selectedCategories || [];
 
-  const totalTons = totalKg / 1000;
-  setText('result-tons', totalTons > 0 ? totalTons.toFixed(2) : '0.00');
+      // Calculate tonnage by category
+      let totalKg = 0;
+      let totalUnits = 0;
+      const categoryTonnages = {};
 
-  // Meta (placeholder: 15% first year)
-  setText('result-meta', '15%');
+      categories.forEach(cat => {
+        const unitCount = categoryBreakdown[cat] || 0;
+        const weight = CATEGORY_WEIGHTS[cat] || 5;
+        const categoryKg = unitCount * weight;
+        categoryTonnages[cat] = categoryKg / 1000; // Convert to tons
+        totalKg += categoryKg;
+        totalUnits += unitCount;
+      });
+
+      const totalTons = totalKg / 1000;
+      setText('result-tons', totalTons > 0 ? totalTons.toFixed(2) : '0.00');
+
+      // Populate category breakdown
+      const breakdownContainer = document.getElementById('category-breakdown');
+      if (breakdownContainer) {
+        breakdownContainer.innerHTML = '';
+        categories.forEach(cat => {
+          const label = CATEGORY_LABELS[cat] || cat;
+          const tons = categoryTonnages[cat];
+          const units = categoryBreakdown[cat] || 0;
+
+          const div = document.createElement('div');
+          div.className = 'bg-slate-700/50 rounded p-3 border border-slate-600';
+          div.innerHTML = `
+            <p class="text-slate-300 text-sm font-semibold">${label}</p>
+            <p class="text-amber-400 text-lg font-bold mt-1">${tons.toFixed(2)} ton</p>
+            <p class="text-slate-400 text-xs mt-1">${units} unidades × ${CATEGORY_WEIGHTS[cat] || 5} kg</p>
+          `;
+          breakdownContainer.appendChild(div);
+        });
+
+        // Add total row
+        if (categories.length > 0) {
+          const totalDiv = document.createElement('div');
+          totalDiv.className = 'bg-amber-500/20 rounded p-3 border border-amber-500 md:col-span-2';
+          totalDiv.innerHTML = `
+            <p class="text-amber-300 text-sm font-semibold">TOTAL</p>
+            <p class="text-amber-400 text-2xl font-bold mt-1">${totalTons.toFixed(2)} toneladas</p>
+          `;
+          breakdownContainer.appendChild(totalDiv);
+        }
+      }
+
+      // Populate other results
+      setText('result-categories', categories.length > 0 ? categories.map(c => CATEGORY_LABELS[c] || c).join(', ') : '-');
+      const regionText = window.calculatorState.selectedRegion
+        ? window.calculatorState.selectedRegion.replace('region-', 'Región ')
+        : '-';
+      setText('result-region', regionText);
+      // Populate per-category volume in resumen
+      const volumeEl = document.getElementById('result-volume');
+      if (volumeEl) {
+        if (categories.length === 0) {
+          volumeEl.textContent = '-';
+        } else {
+          volumeEl.innerHTML = categories.map(cat => {
+            const units = categoryBreakdown[cat] || 0;
+            const label = CATEGORY_LABELS[cat] || cat;
+            return `<div class="flex justify-between items-center py-1 border-b border-slate-700 last:border-0">
+              <span class="text-white font-semibold">${label}</span>
+              <span class="text-amber-400 font-bold tabular-nums">${units.toLocaleString()} unid.</span>
+            </div>`;
+          }).join('') +
+          `<div class="flex justify-between items-center pt-2 mt-1">
+            <span class="text-slate-400 text-xs font-semibold">TOTAL</span>
+            <span class="text-white font-bold tabular-nums">${totalUnits.toLocaleString()} unidades</span>
+          </div>`;
+        }
+      }
+      setText('result-level', (window.calculatorState.userLevel || 'pyme').toUpperCase());
+
+      // ── REP Metas Table (D.S. 22/2025, primer año operación 2028) ──
+      // Categorías → tipo REP
+      // AIT: 'temp'
+      // PFV: 'panels'
+      // Otros (meta general): todo lo demás
+
+      const AIT_CATS = ['temp'];
+      const PFV_CATS = ['panels'];
+      const OTROS_CATS = ['monitors', 'lamps', 'large', 'small', 'batteries', 'other'];
+
+      let tonsAIT = 0;
+      let tonsPFV = 0;
+      let tonsOtros = 0;
+
+      categories.forEach(cat => {
+        const tons = categoryTonnages[cat] || 0;
+        if (AIT_CATS.includes(cat))  tonsAIT += tons;
+        else if (PFV_CATS.includes(cat)) tonsPFV += tons;
+        else tonsOtros += tons;
+      });
+
+      const tonsGeneral = tonsAIT + tonsOtros; // Base para meta general (excluye PFV)
+
+      const hasAIT  = AIT_CATS.some(c => categories.includes(c));
+      const hasPFV  = PFV_CATS.some(c => categories.includes(c));
+      const hasOtros = OTROS_CATS.some(c => categories.includes(c));
+      const hasGeneral = hasAIT || hasOtros;
+
+      // Metas por año según D.S. 22/2025
+      const METAS = [
+        { year: 2028, general: 0.03, ait: null,  pfv: null  },
+        { year: 2029, general: 0.05, ait: null,  pfv: null  },
+        { year: 2030, general: 0.08, ait: 0.06,  pfv: 0.10  },
+        { year: 2031, general: 0.12, ait: 0.09,  pfv: 0.14  },
+        { year: 2032, general: 0.16, ait: 0.13,  pfv: 0.18  },
+        { year: 2033, general: 0.20, ait: 0.17,  pfv: 0.22  },
+        { year: 2034, general: 0.24, ait: 0.21,  pfv: 0.28  },
+        { year: 2035, general: 0.30, ait: 0.25,  pfv: 0.34  },
+        { year: 2036, general: 0.37, ait: 0.30,  pfv: 0.42  },
+        { year: 2037, general: 0.45, ait: 0.30,  pfv: 0.50  },
+      ];
+
+      // Update header visibility
+      const thGeneral = document.getElementById('th-general');
+      const thAIT = document.getElementById('th-ait');
+      const thPFV = document.getElementById('th-pfv');
+      if (thGeneral) thGeneral.style.display = hasGeneral ? '' : 'none';
+      if (thAIT) thAIT.style.display = hasAIT ? '' : 'none';
+      if (thPFV) thPFV.style.display = hasPFV ? '' : 'none';
+
+      const tbody = document.getElementById('metas-table-body');
+      if (tbody) {
+        tbody.innerHTML = '';
+        METAS.forEach((m, idx) => {
+          const isFirst = idx === 0;
+          const tonsGeneralMeta = tonsGeneral * m.general;
+          const tonsAITMeta = m.ait !== null ? tonsAIT * m.ait : null;
+          const tonsPFVMeta = m.pfv !== null ? tonsPFV * m.pfv : null;
+
+          const tr = document.createElement('tr');
+          tr.className = isFirst
+            ? 'border-b border-slate-600 bg-amber-500/10'
+            : 'border-b border-slate-700 hover:bg-slate-700/30 transition-colors';
+
+          const yearLabel = m.year === 2037 ? `${m.year}+` : m.year;
+
+          let generalCell = '';
+          if (hasGeneral) {
+            generalCell = `<td class="py-2 pr-4">
+              <span class="text-amber-400 font-bold">${(m.general * 100).toFixed(0)}%</span>
+              <span class="text-slate-300 ml-2">${tonsGeneralMeta.toFixed(2)} ton</span>
+            </td>`;
+          }
+
+          let aitCell = '';
+          if (hasAIT) {
+            aitCell = tonsAITMeta !== null
+              ? `<td class="py-2 pr-4">
+                  <span class="text-cyan-400 font-bold">${(m.ait * 100).toFixed(0)}%</span>
+                  <span class="text-slate-300 ml-2">${tonsAITMeta.toFixed(2)} ton</span>
+                </td>`
+              : `<td class="py-2 pr-4 text-slate-500 text-xs">Sin meta</td>`;
+          }
+
+          let pfvCell = '';
+          if (hasPFV) {
+            pfvCell = tonsPFVMeta !== null
+              ? `<td class="py-2">
+                  <span class="text-green-400 font-bold">${(m.pfv * 100).toFixed(0)}%</span>
+                  <span class="text-slate-300 ml-2">${tonsPFVMeta.toFixed(2)} ton</span>
+                </td>`
+              : `<td class="py-2 text-slate-500 text-xs">Sin meta</td>`;
+          }
+
+          tr.innerHTML = `
+            <td class="py-2 pr-4 font-bold ${isFirst ? 'text-amber-400' : 'text-white'}">${yearLabel}${isFirst ? ' ★' : ''}</td>
+            ${generalCell}${aitCell}${pfvCell}
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Update summary meta card with year 1 data
+      setText('result-meta', `${(METAS[0].general * 100).toFixed(0)}% (2028)`);
+
+      console.log('Results populated:', { categories, totalTons, totalUnits });
+    }
+
+    // Initialize on page load
+    requestAnimationFrame(() => {
+      populateResults();
+    });
+
+    // Expose globally to be called when navigating to Frame 8
+    window.populateResults = populateResults;
+  })();
 
   window.downloadPDF = () => {
     // In production: Call API to generate + download PDF

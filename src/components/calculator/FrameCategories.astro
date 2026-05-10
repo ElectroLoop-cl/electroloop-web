@@ -68,7 +68,7 @@
     </button>
     <button
       id="btn-next-categories"
-      onclick="window.navigateFrame(3)"
+      onclick="window.navigateFrame(5)"
       disabled
       class="
         flex-1 px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg
@@ -82,19 +82,21 @@
 </div>
 
 <script>
-  window.onCategoryChange = (categoryId: string) => {
+  window.onCategoryChange = (categoryId) => {
     const checked = document.querySelector(`#cat-${categoryId}:checked`);
     const anyChecked = document.querySelectorAll('input[type="checkbox"]:checked').length > 0;
     const nextBtn = document.getElementById('btn-next-categories');
-    
+
     if (nextBtn) {
       nextBtn.disabled = !anyChecked;
     }
 
     if (checked) {
       window.calculatorState.selectedCategories.push(categoryId);
+      console.log('Category added:', categoryId, 'Total categories:', window.calculatorState.selectedCategories);
     } else {
-      window.calculatorState.selectedCategories = window.calculatorState.selectedCategories.filter((c: string) => c !== categoryId);
+      window.calculatorState.selectedCategories = window.calculatorState.selectedCategories.filter((c) => c !== categoryId);
+      console.log('Category removed:', categoryId, 'Total categories:', window.calculatorState.selectedCategories);
     }
   };
 </script>

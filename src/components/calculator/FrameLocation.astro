@@ -16,8 +16,8 @@
     
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {[
-        { id: 'region-3', name: 'Región III (Atacama)', communes: ['Copiapó', 'Caldera', 'Tierra Amarilla', 'Diego de Almagro'] },
-        { id: 'region-4', name: 'Región IV (Coquimbo)', communes: ['La Serena', 'Coquimbo', 'Ovalle', 'Región III'] }
+        { id: 'region-3', name: 'Región III (Atacama)', communes: ['Copiapó', 'Caldera', 'Tierra Amarilla', 'Chañaral', 'Diego de Almagro', '+4 más'] },
+        { id: 'region-4', name: 'Región IV (Coquimbo)', communes: ['La Serena', 'Coquimbo', 'Andacollo', 'La Higuera', 'Vicuña', '+10 más'] }
       ].map((region) => (
         <button
           type="button"
@@ -60,14 +60,14 @@
   <!-- Action Buttons -->
   <div class="flex gap-4 pt-8">
     <button
-      onclick="window.navigateFrame(2)"
+      onclick="window.navigateFrame(5)"
       class="flex-1 px-4 py-3 border border-slate-600 text-slate-300 font-semibold rounded-lg hover:bg-slate-800 transition-colors"
     >
       Atrás
     </button>
     <button
       id="btn-next-location"
-      onclick="window.navigateFrame(4)"
+      onclick="window.navigateFrame(6)"
       disabled
       class="
         flex-1 px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg
@@ -82,20 +82,20 @@
 
 <script>
   const regionCommunes = {
-    'region-3': ['Copiapó', 'Caldera', 'Tierra Amarilla', 'Diego de Almagro', 'Chañaral', 'Los Vilos'],
-    'region-4': ['La Serena', 'Coquimbo', 'Ovalle', 'Andacollo', 'Coquimbo', 'La Higuera', 'Paioa']
+    'region-3': ['Copiapó', 'Caldera', 'Tierra Amarilla', 'Chañaral', 'Diego de Almagro', 'Vallenar', 'Alto del Carmen', 'Freirina', 'Huasco'],
+    'region-4': ['La Serena', 'Coquimbo', 'Andacollo', 'La Higuera', 'Paihuano', 'Vicuña', 'Ovalle', 'Combarbalá', 'Monte Patria', 'Punitaqui', 'Río Hurtado', 'Illapel', 'Salamanca', 'Los Vilos', 'Canela']
   };
 
-  window.onRegionChange = (regionId: string) => {
+  window.onRegionChange = (regionId) => {
     window.calculatorState.selectedRegion = regionId;
-    
-    const communes = regionCommunes[regionId as keyof typeof regionCommunes] || [];
+
+    const communes = regionCommunes[regionId] || [];
     const selector = document.getElementById('commune-selector');
     const grid = document.getElementById('communes-grid');
-    
+
     if (selector && grid) {
       grid.innerHTML = '';
-      communes.forEach((commune: string) => {
+      communes.forEach((commune) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = `p-2 rounded border border-slate-600 text-sm text-slate-300 hover:border-amber-500 hover:bg-amber-500/10 transition-all cursor-pointer`;

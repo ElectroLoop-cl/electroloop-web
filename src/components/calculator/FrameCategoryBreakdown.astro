@@ -1,0 +1,197 @@
+---
+// Frame 4.5: Distribución por categoría
+// Permite al usuario especificar cuántas unidades de cada categoría vende
+---
+
+<div class="space-y-8">
+  <div class="text-center space-y-2">
+    <h2 class="text-3xl md:text-4xl font-bold text-white">
+      Distribución por categoría
+    </h2>
+    <p class="text-slate-400">
+      ¿Cuántas unidades de cada categoría vendes?
+    </p>
+  </div>
+
+  <!-- Summary Info -->
+  <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-4 space-y-2">
+    <div class="flex justify-between items-center">
+      <span class="text-slate-400">Total ingresado:</span>
+      <span class="text-2xl font-bold text-amber-400" id="total-distributed">0</span>
+    </div>
+    <p class="text-xs text-slate-500">Ingresa las unidades que vendes anualmente por categoría</p>
+  </div>
+
+  <!-- Category Inputs -->
+  <div class="space-y-4">
+    {/* Will be populated by script */}
+    <div id="category-inputs" class="space-y-3">
+      {/* Dynamic inputs will go here */}
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="flex gap-2 flex-wrap">
+    <button
+      type="button"
+      onclick="window.clearCategoryBreakdown()"
+      class="px-4 py-2 bg-slate-700 text-slate-300 text-sm font-semibold rounded-lg hover:bg-slate-600 transition-colors"
+    >
+      Limpiar
+    </button>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex gap-4 pt-4">
+    <button
+      type="button"
+      onclick="window.navigateFrame(2)"
+      class="flex-1 px-4 py-3 border border-slate-600 text-slate-300 font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+    >
+      Atrás
+    </button>
+    <button
+      type="button"
+      id="btn-next-breakdown"
+      onclick="window.navigateFrame(3)"
+      disabled
+      class="flex-1 px-4 py-3 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed transition-colors"
+    >
+      Siguiente
+    </button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function getDistributedEl() { return document.getElementById('total-distributed'); }
+    function getInputsContainer() { return document.getElementById('category-inputs'); }
+    function getNextBtn() { return document.getElementById('btn-next-breakdown'); }
+    function getSelectedCategories() { return window.calculatorState?.selectedCategories || []; }
+
+    const CATEGORY_LABELS = {
+      'temp': 'Refrigeradores', 'monitors': 'TV/Monitores', 'lamps': 'Lámparas',
+      'large': 'Electrodomésticos', 'small': 'Equipos pequeños',
+      'panels': 'Paneles solares', 'batteries': 'Baterías', 'other': 'Otros'
+    };
+    const CATEGORY_EMOJIS = {
+      'temp': '❄️', 'monitors': '📺', 'lamps': '💡', 'large': '🔧',
+      'small': '📱', 'panels': '☀️', 'batteries': '🔋', 'other': '📦'
+    };
+
+    function initializeCategoryBreakdown() {
+      if (!window.calculatorState.categoryBreakdown) {
+        window.calculatorState.categoryBreakdown = {};
+      }
+
+      const categories = getSelectedCategories();
+      const inputsContainer = getInputsContainer();
+
+      console.log('CategoryBreakdown init - categories:', categories);
+
+      if (!inputsContainer) {
+        console.error('Category inputs container not found!');
+        return;
+      }
+
+      inputsContainer.innerHTML = '';
+
+      if (categories.length === 0) {
+        inputsContainer.innerHTML = '<p class="text-slate-400 text-center py-4">No hay categorías seleccionadas. Por favor vuelve atrás y selecciona al menos una categoría.</p>';
+        return;
+      }
+
+      // Create input for each category — no max limit
+      categories.forEach((cat) => {
+        const label = CATEGORY_LABELS[cat] || cat;
+        const emoji = CATEGORY_EMOJIS[cat] || '📦';
+        const currentValue = window.calculatorState.categoryBreakdown[cat] || 0;
+
+        const div = document.createElement('div');
+        div.className = 'space-y-2';
+        div.innerHTML = `
+          <label class="block">
+            <span class="text-slate-300 text-sm font-semibold">${emoji} ${label}</span>
+          </label>
+          <input
+            type="number"
+            id="input-${cat}"
+            value="${currentValue}"
+            min="0"
+            class="w-full px-3 py-2 bg-slate-700 border border-slate-600 text-white rounded-lg focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/30"
+            placeholder="ej: 500"
+          />
+        `;
+        inputsContainer.appendChild(div);
+
+        const input = div.querySelector(`#input-${cat}`);
+        if (input) {
+          input.addEventListener('input', updateBreakdown);
+          input.addEventListener('change', updateBreakdown);
+        }
+      });
+
+      updateBreakdown();
+    }
+
+    function updateBreakdown() {
+      const categories = getSelectedCategories();
+      const distributedEl = getDistributedEl();
+      const nextBtn = getNextBtn();
+      let total = 0;
+
+      categories.forEach((cat) => {
+        const input = document.getElementById(`input-${cat}`);
+        if (input) {
+          const value = Math.max(0, parseInt(input.value, 10) || 0);
+          window.calculatorState.categoryBreakdown[cat] = value;
+          total += value;
+        }
+      });
+
+      // Update total annualUnits in state (sum of all categories)
+      window.calculatorState.annualUnits = total;
+
+      // Update display
+      if (distributedEl) distributedEl.textContent = total.toLocaleString('es-CL');
+
+      // Enable next if at least 1 unit total
+      if (nextBtn) nextBtn.disabled = total === 0;
+
+      console.log('Breakdown updated:', window.calculatorState.categoryBreakdown, 'annualUnits:', total);
+    }
+
+    window.clearCategoryBreakdown = function () {
+      const categories = getSelectedCategories();
+      categories.forEach((cat) => {
+        const input = document.getElementById(`input-${cat}`);
+        if (input) input.value = 0;
+      });
+      updateBreakdown();
+    };
+
+    // Initialize on page load
+    requestAnimationFrame(() => {
+      initializeCategoryBreakdown();
+      updateBreakdown();
+    });
+
+    // Expose initialization function globally for frame navigation
+    window.initCategoryBreakdown = () => {
+      initializeCategoryBreakdown();
+      updateBreakdown();
+    };
+  })();
+</script>
+
+<style>
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+</style>
