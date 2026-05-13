@@ -1,0 +1,330 @@
+---
+// HeroParticles.astro
+// BLOQUE 2: Hero particle system with 3D "E" logo formation + scroll-triggered dispersal
+// Uses vanilla Three.js for minimal bundle impact
+// Includes SVG fallback for non-WebGL browsers
+
+// Check if WebGL is supported
+const supportsWebGL = () => {
+  if (typeof window === 'undefined') return true; // SSR: assume support
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+  } catch {
+    return false;
+  }
+};
+---
+
+<div id="hero-particles-container" class="relative w-full h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+
+  <!-- Three.js Canvas (Primary) -->
+  <canvas
+    id="particles-canvas"
+    class="absolute inset-0 w-full h-full"
+    data-supports-webgl={supportsWebGL()}
+  ></canvas>
+
+  <!-- SVG Fallback (Non-WebGL browsers) -->
+  <div id="particles-fallback" class="absolute inset-0 w-full h-full hidden">
+    <svg class="w-full h-full" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+      <!-- "E" Letter Formation (SVG Fallback) -->
+      <defs>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- Vertical bar of E -->
+      <rect x="300" y="150" width="30" height="300" fill="#FB923C" opacity="0.8"/>
+
+      <!-- Top horizontal bar -->
+      <rect x="330" y="150" width="200" height="30" fill="#FB923C" opacity="0.8"/>
+
+      <!-- Middle horizontal bar -->
+      <rect x="330" y="285" width="150" height="30" fill="#FB923C" opacity="0.6"/>
+
+      <!-- Bottom horizontal bar -->
+      <rect x="330" y="420" width="200" height="30" fill="#FB923C" opacity="0.8"/>
+
+      <!-- Particle dots around the E (SVG circles as particles) -->
+      <circle cx="250" cy="200" r="4" fill="#FB923C" opacity="0.5" filter="url(#glow)"/>
+      <circle cx="270" cy="220" r="3" fill="#FB923C" opacity="0.6"/>
+      <circle cx="290" cy="240" r="4" fill="#FB923C" opacity="0.5"/>
+      <circle cx="310" cy="260" r="3" fill="#FB923C" opacity="0.7"/>
+      <circle cx="330" cy="280" r="4" fill="#FB923C" opacity="0.5"/>
+      <circle cx="550" cy="200" r="4" fill="#FB923C" opacity="0.5"/>
+      <circle cx="570" cy="220" r="3" fill="#FB923C" opacity="0.6"/>
+      <circle cx="590" cy="240" r="4" fill="#FB923C" opacity="0.5"/>
+      <circle cx="610" cy="260" r="3" fill="#FB923C" opacity="0.7"/>
+      <circle cx="250" cy="450" r="4" fill="#FB923C" opacity="0.5"/>
+      <circle cx="270" cy="430" r="3" fill="#FB923C" opacity="0.6"/>
+      <circle cx="290" cy="410" r="4" fill="#FB923C" opacity="0.5"/>
+      <circle cx="310" cy="390" r="3" fill="#FB923C" opacity="0.7"/>
+      <circle cx="550" cy="450" r="4" fill="#FB923C" opacity="0.5"/>
+      <circle cx="570" cy="430" r="3" fill="#FB923C" opacity="0.6"/>
+      <circle cx="590" cy="410" r="4" fill="#FB923C" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <!-- Content Layer (Always Visible) -->
+  <div id="hero-content" class="relative z-10 text-center px-4 max-w-4xl pointer-events-none">
+    <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+      Gestión RAEE <span class="text-amber-500">integrada</span> para Chile
+    </h1>
+    <p class="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
+      Red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos bajo Ley REP.
+    </p>
+    <div class="flex gap-4 justify-center pointer-events-auto">
+      <button class="px-8 py-3 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition-colors">
+        Pre-registro
+      </button>
+      <button class="px-8 py-3 border border-slate-500 text-slate-300 font-semibold rounded-lg hover:border-amber-500 hover:text-amber-500 transition-colors">
+        Más info
+      </button>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div id="scroll-indicator" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+    <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </div>
+</div>
+
+<script type="module">
+  import * as THREE from 'three';
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ─────────────────────────────────────────────────────────────
+  // BLOQUE 2: Hero Particles System
+  // ─────────────────────────────────────────────────────────────
+
+  const canvas = document.getElementById('particles-canvas');
+  const fallback = document.getElementById('particles-fallback');
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const prefersNoMotion = motionQuery.matches;
+
+  // Check WebGL support
+  const supportsWebGL = canvas && canvas.getContext('webgl') !== null;
+
+  if (!supportsWebGL || prefersNoMotion) {
+    // Show SVG fallback if no WebGL or motion disabled
+    if (fallback) fallback.classList.remove('hidden');
+    console.log('ℹ️ Using SVG fallback (WebGL unavailable or motion disabled)');
+  } else {
+    // ─────────────────────────────────────────────────────────────
+    // Three.js Initialization
+    // ─────────────────────────────────────────────────────────────
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.position.z = 100;
+
+    // ─────────────────────────────────────────────────────────────
+    // Particle System (~800 particles forming "E")
+    // ─────────────────────────────────────────────────────────────
+
+    const particleCount = 800;
+    const geometry = new THREE.BufferGeometry();
+    const positions = [];
+    const colors = [];
+    const scales = [];
+    const velocities = [];
+
+    // Generate particles in "E" formation
+    // E shape: vertical line + 3 horizontal bars
+    const eWidth = 40;
+    const eHeight = 60;
+    const particlesPerBar = Math.floor(particleCount / 4);
+
+    // Vertical bar (left side)
+    for (let i = 0; i < particlesPerBar; i++) {
+      const t = i / particlesPerBar;
+      positions.push(-eWidth / 2, (t - 0.5) * eHeight, Math.random() * 10 - 5);
+      colors.push(0.98, 0.57, 0.24); // Copper #FB923C
+      scales.push(Math.random() * 0.5 + 0.5);
+      velocities.push((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.15);
+    }
+
+    // Top horizontal bar
+    for (let i = 0; i < particlesPerBar; i++) {
+      const t = i / particlesPerBar;
+      positions.push((t - 0.5) * eWidth, eHeight / 2 - 0.15, Math.random() * 10 - 5);
+      colors.push(0.98, 0.57, 0.24);
+      scales.push(Math.random() * 0.5 + 0.5);
+      velocities.push((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.15);
+    }
+
+    // Middle horizontal bar
+    for (let i = 0; i < particlesPerBar / 2; i++) {
+      const t = i / (particlesPerBar / 2);
+      positions.push((t - 0.5) * eWidth * 0.75, 0, Math.random() * 10 - 5);
+      colors.push(0.98, 0.57, 0.24);
+      scales.push(Math.random() * 0.5 + 0.5);
+      velocities.push((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.15);
+    }
+
+    // Bottom horizontal bar
+    for (let i = 0; i < particlesPerBar; i++) {
+      const t = i / particlesPerBar;
+      positions.push((t - 0.5) * eWidth, -eHeight / 2 + 0.15, Math.random() * 10 - 5);
+      colors.push(0.98, 0.57, 0.24);
+      scales.push(Math.random() * 0.5 + 0.5);
+      velocities.push((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.15);
+    }
+
+    // Add remaining particles randomly around the E
+    const remaining = particleCount - positions.length / 3;
+    for (let i = 0; i < remaining; i++) {
+      positions.push(
+        (Math.random() - 0.5) * eWidth * 1.2,
+        (Math.random() - 0.5) * eHeight * 1.2,
+        Math.random() * 20 - 10
+      );
+      colors.push(0.98, 0.57, 0.24);
+      scales.push(Math.random() * 0.4 + 0.3);
+      velocities.push(
+        (Math.random() - 0.5) * 0.1,
+        (Math.random() - 0.5) * 0.1,
+        (Math.random() - 0.5) * 0.15
+      );
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
+    geometry.setAttribute('scale', new THREE.BufferAttribute(new Float32Array(scales), 1));
+
+    const material = new THREE.PointsMaterial({
+      size: 2,
+      vertexColors: true,
+      opacity: 0.8,
+      transparent: true,
+      sizeAttenuation: true,
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    // Store velocities for animation
+    particles.userData.velocities = velocities;
+    particles.userData.positions = new Float32Array(positions);
+    particles.userData.dispersed = false;
+
+    // ─────────────────────────────────────────────────────────────
+    // Scroll-Triggered Dispersal
+    // ─────────────────────────────────────────────────────────────
+
+    gsap.to(particles.userData, {
+      dispersed: 1,
+      duration: 2,
+      ease: 'power2.inOut',
+      scrollTrigger: {
+        trigger: '#hero-particles-container',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+        markers: false,
+      },
+      onUpdate: function () {
+        // Disperse particles into 3 clusters as user scrolls
+        const dispersion = this.targets()[0].dispersed;
+        const posAttr = particles.geometry.attributes.position;
+        const newPositions = particles.userData.positions;
+
+        for (let i = 0; i < newPositions.length; i += 3) {
+          const origX = newPositions[i];
+          const origY = newPositions[i + 1];
+          const origZ = newPositions[i + 2];
+
+          // Calculate cluster assignment (left, center, right)
+          const cluster = Math.floor((i / 3) % 3);
+          const clusterOffsets = [
+            { x: -80, y: 0, z: 50 },   // Left cluster
+            { x: 0, y: -50, z: 0 },    // Bottom cluster
+            { x: 80, y: 20, z: 50 },   // Right cluster
+          ];
+
+          const offset = clusterOffsets[cluster];
+          const dispersedX = origX + offset.x * dispersion;
+          const dispersedY = origY + offset.y * dispersion;
+          const dispersedZ = origZ + offset.z * dispersion;
+
+          posAttr.array[i] = origX + (dispersedX - origX) * dispersion;
+          posAttr.array[i + 1] = origY + (dispersedY - origY) * dispersion;
+          posAttr.array[i + 2] = origZ + (dispersedZ - origZ) * dispersion;
+        }
+
+        posAttr.needsUpdate = true;
+      },
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // Animation Loop
+    // ─────────────────────────────────────────────────────────────
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Gentle rotation
+      particles.rotation.x += 0.0001;
+      particles.rotation.y += 0.0002;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // ─────────────────────────────────────────────────────────────
+    // Responsive Resize Handler
+    // ─────────────────────────────────────────────────────────────
+
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+
+    console.log('✓ BLOQUE 2: Hero particles initialized');
+    console.log(`✓ ${particleCount} particles forming "E" logo`);
+    console.log('✓ Scroll-triggered dispersal active');
+  }
+</script>
+
+<style>
+  #particles-canvas {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #particles-canvas {
+      display: none;
+    }
+
+    #particles-fallback {
+      display: block !important;
+    }
+  }
+</style>
