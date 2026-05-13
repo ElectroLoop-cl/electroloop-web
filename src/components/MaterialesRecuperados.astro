@@ -1,0 +1,234 @@
+---
+// MaterialesRecuperados.astro
+// BLOQUE 3a: 6 recyclable materials with 3D objects + hover tooltips
+// Materials: Copper, Aluminum, Plastic, Gold, Silver, Tin
+
+const materials = [
+  {
+    name: 'Cobre',
+    value: '45%',
+    description: 'Metal conductor de alta valor de recuperación. Presente en transformadores y bobinas.',
+    color: '#FB923C', // Copper (brand color)
+    icon: '🔌',
+  },
+  {
+    name: 'Aluminio',
+    value: '18%',
+    description: 'Ligero y 100% reciclable. Encontrado en marcos y disipadores de calor.',
+    color: '#C0C0C0', // Silver
+    icon: '⚙️',
+  },
+  {
+    name: 'Plástico',
+    value: '15%',
+    description: 'Termoplásticos y termofraguados. Carcasas y aislantes del equipo electrónico.',
+    color: '#6366F1', // Indigo
+    icon: '🔷',
+  },
+  {
+    name: 'Oro',
+    value: '12%',
+    description: 'Trazas preciosas en tarjetas electrónicas. Alto valor por peso recuperado.',
+    color: '#FBBF24', // Gold
+    icon: '💎',
+  },
+  {
+    name: 'Plata',
+    value: '7%',
+    description: 'Contactos eléctricos y soldaduras. Metal precioso en componentes.',
+    color: '#E5E7EB', // Light gray
+    icon: '✨',
+  },
+  {
+    name: 'Estaño',
+    value: '3%',
+    description: 'Componente de soldaduras. Material de valor en recuperación selectiva.',
+    color: '#78716C', // Brown-gray
+    icon: '🔗',
+  },
+];
+---
+
+<section id="materiales" class="w-full py-24 bg-gradient-to-b from-slate-800 to-slate-900">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        Materiales <span class="text-amber-500">Recuperados</span>
+      </h2>
+      <p class="text-slate-400 max-w-2xl mx-auto">
+        En cada dispositivo electrónico hay valor. Recuperamos y reciclamos los 6 materiales más valiosos del ciclo de vida de RAEE.
+      </p>
+    </div>
+
+    <!-- Materials Grid with 3D Objects -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {materials.map((material, idx) => (
+        <div
+          id={`material-${idx}`}
+          class="group relative bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20"
+        >
+          <!-- 3D Canvas Container -->
+          <div
+            class="three-canvas-container h-48 bg-gradient-to-br from-slate-700 to-slate-900 relative overflow-hidden"
+            data-material-index={idx}
+            data-color={material.color}
+          >
+            <!-- Placeholder for Three.js canvas (will be injected by script) -->
+            <canvas class="w-full h-full"></canvas>
+
+            <!-- Fallback SVG shape -->
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id={`grad-${idx}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={`stop-color:${material.color};stop-opacity:1`} />
+                  <stop offset="100%" style={`stop-color:${material.color};stop-opacity:0.6`} />
+                </linearGradient>
+              </defs>
+              <!-- 3D-ish cube shape -->
+              <polygon points="50,50 150,50 150,150 50,150" fill={`url(#grad-${idx})`} />
+              <polygon points="150,50 170,30 170,130 150,150" fill={material.color} opacity="0.7" />
+              <polygon points="50,50 70,30 170,30 150,50" fill={material.color} opacity="0.9" />
+            </svg>
+          </div>
+
+          <!-- Material Info -->
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="text-xl font-bold text-white mb-1">{material.name}</h3>
+                <p class="text-sm text-amber-400 font-semibold">{material.value} del valor</p>
+              </div>
+              <span class="text-3xl">{material.icon}</span>
+            </div>
+
+            <!-- Tooltip (hidden by default) -->
+            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-sm text-slate-300 leading-relaxed">
+                {material.description}
+              </p>
+            </div>
+          </div>
+
+          <!-- Hover indicator line -->
+          <div class="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-300" style={`background-color: ${material.color}`}></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Value Statement -->
+    <div class="bg-slate-800/50 border border-amber-500/20 rounded-xl p-8 text-center">
+      <p class="text-lg text-slate-300 mb-4">
+        <span class="text-amber-500 font-bold">Cada kilogramo de RAEE</span> recuperado contiene materiales valiosos que merecen ser aprovechados en la cadena de circularidad.
+      </p>
+      <p class="text-sm text-slate-400">
+        Certificado bajo Ley REP N° 20.920 — Trazabilidad documentada de principio a fin
+      </p>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+  import * as THREE from 'three';
+
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const prefersNoMotion = motionQuery.matches;
+
+  if (!prefersNoMotion) {
+    // Initialize 3D objects for each material
+    const materials = [
+      { name: 'Cobre', color: 0xfb923c },
+      { name: 'Aluminio', color: 0xc0c0c0 },
+      { name: 'Plástico', color: 0x6366f1 },
+      { name: 'Oro', color: 0xfbbf24 },
+      { name: 'Plata', color: 0xe5e7eb },
+      { name: 'Estaño', color: 0x78716c },
+    ];
+
+    materials.forEach((material, idx) => {
+      const container = document.querySelector(`[data-material-index="${idx}"] canvas`);
+      if (!container) return;
+
+      const canvas = container;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setClearColor(0x000000, 0);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      camera.position.z = 3;
+
+      // Create rotating cube for each material
+      const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+      const material_obj = new THREE.MeshPhongMaterial({
+        color: material.color,
+        emissive: material.color,
+        emissiveIntensity: 0.3,
+        shininess: 100,
+      });
+
+      const cube = new THREE.Mesh(geometry, material_obj);
+      scene.add(cube);
+
+      // Lighting
+      const light1 = new THREE.DirectionalLight(0xffffff, 0.8);
+      light1.position.set(5, 5, 5);
+      scene.add(light1);
+
+      const light2 = new THREE.DirectionalLight(0xffffff, 0.4);
+      light2.position.set(-5, -5, 5);
+      scene.add(light2);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+      scene.add(ambientLight);
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+
+        // Gentle rotation
+        cube.rotation.x += 0.005;
+        cube.rotation.y += 0.008;
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // Handle resize
+      const resizeObserver = new ResizeObserver(() => {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      });
+
+      resizeObserver.observe(canvas.parentElement);
+    });
+
+    console.log('✓ BLOQUE 3a: Materiales recuperados initialized');
+    console.log('✓ 6 rotating material objects with hover tooltips');
+  }
+</script>
+
+<style>
+  .three-canvas-container {
+    position: relative;
+  }
+
+  .three-canvas-container canvas {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .three-canvas-container canvas {
+      display: none;
+    }
+
+    .three-canvas-container svg {
+      display: block !important;
+    }
+  }
+</style>
