@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectroLoop — Mockup Capa Premium v1.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --copper: #B87333;
+    --copper-light: #D4956A;
+    --copper-dark: #8B5523;
+    --black: #0A0A0B;
+    --deep: #111114;
+    --surface: #16161A;
+    --surface-2: #1E1E24;
+    --border: rgba(184,115,51,0.15);
+    --text: #F2F0ED;
+    --muted: #8A8A96;
+    --font-head: 'Space Grotesk', 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── BADGE DE MOCKUP ── */
+  .mockup-badge {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 9999;
+    background: rgba(184,115,51,0.15);
+    border: 1px solid var(--copper);
+    color: var(--copper-light);
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,11,0.9), transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(10,10,11,0.95);
+    border-bottom-color: var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--copper), var(--copper-dark));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 16px; color: #fff;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--copper);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover {
+    background: var(--copper-light) !important;
+    transform: scale(1.02) !important;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 120px 48px; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .section-sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* ── BLOQUE 1 ANNOTATION ── */
+  .block-annotation {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,115,51,0.08);
+    border: 1px solid rgba(184,115,51,0.3);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--copper-light);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+  }
+  .block-annotation .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--copper);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  /* ─────────────────────────────
+     HERO (Bloque 2)
+  ───────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    padding-top: 120px;
+    padding-bottom: 80px;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 64px;
+    padding-left: 80px;
+    padding-right: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,115,51,0.1);
+    border: 1px solid rgba(184,115,51,0.2);
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 12px;
+    color: var(--copper-light);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+  @keyframes pulse-green {
+    0%, 100% { box-shadow: 0 0 4px #22c55e; }
+    50% { box-shadow: 0 0 12px #22c55e; }
+  }
+
+  .hero-h1 {
+    font-family: var(--font-head);
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin-bottom: 24px;
+    /* peso 300 en tope → 700 a 30% scroll (GSAP kinetic) */
+  }
+  .hero-h1 strong {
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--copper) 0%, var(--copper-light) 50%, #E8B97A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta-group { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--copper);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background: var(--copper-light);
+    transform: scale(1.02);
+    box-shadow: 0 8px 32px rgba(184,115,51,0.4);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* Particles Canvas Placeholder */
+  .hero-particles {
+    position: relative;
+    height: 520px;
+    background: rgba(16,16,20,0.6);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Simulated particle field */
+  .particle-sim {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--copper);
+    animation: float-particle var(--dur, 4s) ease-in-out infinite;
+    opacity: var(--op, 0.6);
+  }
+  @keyframes float-particle {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: var(--op, 0.6); }
+    33% { transform: translate(var(--dx, 10px), var(--dy, -15px)) scale(0.8); }
+    66% { transform: translate(calc(var(--dx, 10px) * -0.5), var(--dy2, 8px)) scale(1.2); }
+  }
+
+  .canvas-label {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+  }
+  .canvas-label p { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+  /* E logo SVG animation */
+  .e-logo-anim {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    z-index: 2;
+  }
+  .e-path {
+    stroke: var(--copper);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw-e 2.5s ease-in-out infinite alternate;
+  }
+  @keyframes draw-e {
+    0% { stroke-dashoffset: 400; opacity: 0.3; }
+    60% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 0.8; }
+  }
+
+  /* Neon ring */
+  .ring-outer {
+    position: absolute;
+    inset: -40px;
+    border: 1px solid rgba(184,115,51,0.15);
+    border-radius: 50%;
+    animation: rotate-ring 12s linear infinite;
+  }
+  .ring-inner {
+    position: absolute;
+    inset: -20px;
+    border: 1px dashed rgba(184,115,51,0.08);
+    border-radius: 50%;
+    animation: rotate-ring 8s linear infinite reverse;
+  }
+  @keyframes rotate-ring {
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 48px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .stat-item { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--copper);
+  }
+  .stat-label { font-size: 12px; color: var(--muted); }
+
+  /* Smooth scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, transparent, var(--copper), transparent);
+    animation: scroll-anim 2s ease-in-out infinite;
+  }
+  @keyframes scroll-anim {
+    0%, 100% { transform: scaleY(0.3); opacity: 0.3; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  /* ─────────────────────────────
+     BLOQUE 3A — Materiales Recuperados
+  ───────────────────────────── */
+  #materiales { background: var(--deep); max-width: 100%; padding: 120px 80px; }
+  #materiales-inner { max-width: 1200px; margin: 0 auto; }
+
+  .materials-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+    gap: 32px;
+  }
+
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .material-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  .material-card:hover {
+    border-color: rgba(184,115,51,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .material-3d-container {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  /* Simulated 3D objects with CSS */
+  .obj-sphere {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #D4956A, #B87333 40%, #6B3A1F 80%);
+    box-shadow: -8px 8px 24px rgba(0,0,0,0.6), inset -4px -4px 12px rgba(0,0,0,0.3), inset 2px 2px 8px rgba(255,200,150,0.3);
+    animation: spin-obj 8s linear infinite;
+  }
+  .obj-cube {
+    width: 70px; height: 70px;
+    background: linear-gradient(135deg, #C0C0C0, #888);
+    transform: perspective(200px) rotateX(30deg) rotateY(30deg);
+    border-radius: 6px;
+    box-shadow: 8px 8px 24px rgba(0,0,0,0.5);
+    animation: spin-cube 10s linear infinite;
+  }
+  .obj-torus {
+    width: 80px; height: 40px;
+    border: 16px solid #DAA520;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(218,165,32,0.4), inset 0 0 10px rgba(0,0,0,0.3);
+    animation: spin-obj 7s linear infinite reverse;
+  }
+  .obj-octahedron {
+    width: 0; height: 0;
+    border-left: 36px solid transparent;
+    border-right: 36px solid transparent;
+    border-bottom: 62px solid #C0C0C0;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+    animation: spin-obj 9s linear infinite;
+  }
+  .obj-cone {
+    width: 0; height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 70px solid #CEC8BE;
+    filter: drop-shadow(4px 8px 16px rgba(0,0,0,0.5));
+    animation: spin-obj 11s linear infinite reverse;
+  }
+  .obj-plane {
+    width: 80px; height: 50px;
+    background: linear-gradient(135deg, #555, #333);
+    border-radius: 6px;
+    transform: perspective(200px) rotateX(50deg);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.6);
+    animation: float-plane 4s ease-in-out infinite;
+  }
+
+  @keyframes spin-obj {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes spin-cube {
+    to { transform: perspective(200px) rotateX(30deg) rotateY(390deg); }
+  }
+  @keyframes float-plane {
+    0%, 100% { transform: perspective(200px) rotateX(50deg) translateY(0); }
+    50% { transform: perspective(200px) rotateX(50deg) translateY(-8px); }
+  }
+
+  .tooltip-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    background: rgba(10,10,11,0.95);
+    border-radius: 20px;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.25s;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    height: 160px;
+  }
+  .material-card:hover .tooltip-overlay { opacity: 1; }
+  .tooltip-formula { font-size: 20px; font-weight: 700; color: var(--copper-light); font-family: monospace; }
+  .tooltip-pct { font-size: 13px; color: var(--muted); }
+
+  .material-name {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .material-desc { font-size: 13px; color: var(--muted); }
+
+  /* ─────────────────────────────
+     BLOQUE 3B — Mapa REP Chile
+  ───────────────────────────── */
+  #mapa { max-width: 100%; padding: 120px 80px; }
+  #mapa-inner { max-width: 1200px; margin: 0 auto; }
+
+  .mapa-layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: center;
+    margin-top: 64px;
+  }
+
+  .chile-map-container {
+    position: relative;
+    height: 600px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Chile SVG simple */
+  .chile-svg {
+    height: 90%;
+    fill: none;
+  }
+
+  .region-low { fill: rgba(184,115,51,0.15); stroke: rgba(184,115,51,0.2); stroke-width: 0.5; transition: fill 0.3s; cursor: pointer; }
+  .region-med { fill: rgba(184,115,51,0.35); stroke: rgba(184,115,51,0.3); stroke-width: 0.5; transition: fill 0.3s; cursor: pointer; }
+  .region-high { fill: rgba(184,115,51,0.6); stroke: rgba(184,115,51,0.4); stroke-width: 0.5; transition: fill 0.3s; cursor: pointer; }
+  .region-very-high { fill: rgba(184,115,51,0.85); stroke: var(--copper); stroke-width: 1; transition: fill 0.3s; cursor: pointer; }
+
+  .region-low:hover { fill: rgba(184,115,51,0.3); }
+  .region-med:hover { fill: rgba(184,115,51,0.5); }
+  .region-high:hover { fill: rgba(184,115,51,0.75); }
+  .region-very-high:hover { fill: var(--copper); }
+
+  /* Pulse point La Serena */
+  .pulse-marker {
+    position: absolute;
+    top: 55%;
+    left: 38%;
+    transform: translate(-50%, -50%);
+  }
+  .pulse-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px; height: 32px;
+    border: 2px solid var(--copper);
+    border-radius: 50%;
+    animation: pulse-ring 2s ease-out infinite;
+  }
+  .pulse-ring:nth-child(2) { animation-delay: 0.6s; }
+  .pulse-ring:nth-child(3) { animation-delay: 1.2s; }
+  @keyframes pulse-ring {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+  }
+  .pulse-dot-core {
+    width: 10px; height: 10px;
+    background: var(--copper);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--copper);
+    position: relative; z-index: 2;
+  }
+  .pulse-label {
+    position: absolute;
+    top: 18px;
+    left: 14px;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--copper-light);
+    letter-spacing: 0.06em;
+    background: rgba(10,10,11,0.9);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(184,115,51,0.3);
+  }
+
+  .mapa-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .legend-title {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .legend-sub { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+
+  .legend-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 12px; }
+  .legend-swatch {
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .legend-text { font-size: 14px; color: var(--muted); }
+  .legend-text strong { color: var(--text); }
+
+  .legend-cta {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 16px;
+  }
+  .legend-cta p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+
+  /* ─────────────────────────────
+     BLOQUE 4A — Timeline (Bloque 4)
+  ───────────────────────────── */
+  #timeline { background: var(--deep); max-width: 100%; padding: 120px 80px; }
+  #timeline-inner { max-width: 1200px; margin: 0 auto; }
+
+  .timeline-scroll-container {
+    overflow-x: auto;
+    padding-bottom: 32px;
+    margin-top: 64px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--copper) var(--surface);
+  }
+
+  .timeline-track {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-width: max-content;
+    gap: 0;
+    padding: 48px 32px;
+  }
+
+  /* La línea progresiva */
+  .timeline-line-bg {
+    position: absolute;
+    top: 50%;
+    left: 32px;
+    right: 32px;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-50%);
+  }
+  .timeline-line-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 60%;
+    background: linear-gradient(to right, var(--copper-dark), var(--copper));
+    border-radius: 2px;
+    box-shadow: 0 0 12px rgba(184,115,51,0.4);
+  }
+
+  .timeline-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+    padding: 0 40px;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    cursor: pointer;
+  }
+  .timeline-node.done { opacity: 1; }
+  .timeline-node.active {
+    opacity: 1;
+  }
+
+  .node-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid rgba(255,255,255,0.15);
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .timeline-node.done .node-dot {
+    background: var(--copper);
+    border-color: var(--copper);
+    box-shadow: 0 0 12px rgba(184,115,51,0.4);
+  }
+  .timeline-node.active .node-dot {
+    width: 24px; height: 24px;
+    background: var(--copper);
+    border-color: var(--copper-light);
+    box-shadow: 0 0 0 6px rgba(184,115,51,0.2), 0 0 20px rgba(184,115,51,0.6);
+    animation: pulse-node 2s ease-in-out infinite;
+  }
+  @keyframes pulse-node {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(184,115,51,0.2), 0 0 16px rgba(184,115,51,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(184,115,51,0.15), 0 0 28px rgba(184,115,51,0.6); }
+  }
+
+  .node-content {
+    text-align: center;
+    max-width: 160px;
+  }
+  .node-date { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .node-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .timeline-node.active .node-title { color: var(--copper-light); }
+  .node-badge {
+    display: inline-block;
+    background: rgba(184,115,51,0.15);
+    border: 1px solid rgba(184,115,51,0.3);
+    color: var(--copper);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 99px;
+    margin-top: 6px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ─────────────────────────────
+     BLOQUE 4B — CTA Final
+  ───────────────────────────── */
+  #cta-section {
+    text-align: center;
+    padding: 120px 48px;
+    max-width: 100%;
+    background: linear-gradient(to bottom, var(--black), #0E0B08, var(--black));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(184,115,51,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
+  .cta-title {
+    font-family: var(--font-head);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .cta-sub { font-size: 17px; color: var(--muted); margin-bottom: 40px; line-height: 1.7; }
+
+  /* ─────────────────────────────
+     FOOTER STRIP
+  ───────────────────────────── */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+  }
+  .footer-copy { font-size: 13px; color: var(--muted); }
+
+  /* ─────────────────────────────
+     Lenis smooth scroll indicator
+  ───────────────────────────── */
+  .bloque-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,115,51,0.06);
+    border: 1px solid rgba(184,115,51,0.2);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--copper);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 24px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    #hero { grid-template-columns: 1fr; padding: 100px 32px 80px; gap: 48px; }
+    .hero-particles { height: 360px; }
+    .materials-grid { grid-template-columns: repeat(2, 1fr); }
+    .mapa-layout { grid-template-columns: 1fr; }
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    #materiales, #mapa, #timeline { padding: 80px 24px; }
+    footer { padding: 24px 24px; }
+  }
+  @media (max-width: 640px) {
+    .materials-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 20px; }
+    .hero-h1 { font-size: 40px; }
+  }
+
+  /* ─── Scroll-reveal simulation ─── */
+  .sr {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .sr.visible {
+    opacity: 1;
+    transform: none;
+  }
+  .sr-delay-1 { transition-delay: 0.1s; }
+  .sr-delay-2 { transition-delay: 0.2s; }
+  .sr-delay-3 { transition-delay: 0.3s; }
+  .sr-delay-4 { transition-delay: 0.4s; }
+  .sr-delay-5 { transition-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- Mockup Badge -->
+<div class="mockup-badge">Mockup — No es producción</div>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <a class="logo" href="#">
+    <div class="logo-mark">E</div>
+    ElectroLoop
+  </a>
+  <ul class="nav-links">
+    <li><a href="#materiales">Materiales</a></li>
+    <li><a href="#mapa">Cobertura</a></li>
+    <li><a href="#timeline">Estado</a></li>
+    <li><a href="#calculadora">Calculadora REP</a></li>
+    <li><a href="#" class="nav-cta">Pre-registro</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO (Bloque 2)
+═══════════════════════════════════════ -->
+<div id="hero">
+
+  <!-- Left: Copy -->
+  <div class="hero-content">
+    <div class="bloque-chip">
+      <span class="dot"></span>
+      Bloque 2 — Hero + Partículas Three.js
+    </div>
+
+    <div class="hero-eyebrow">
+      <span class="status-dot"></span>
+      Inicio operativo: agosto 2026
+    </div>
+
+    <h1 class="hero-h1">
+      El residuo electrónico<br>
+      <strong>cierra el loop</strong><br>
+      con nosotros.
+    </h1>
+
+    <p class="hero-sub">
+      Gestión integral de RAEE con trazabilidad completa. Cumple la Ley REP con partners certificados y datos reales — sin promesas vacías.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        Calcular cumplimiento REP
+      </a>
+      <a href="#" class="btn-ghost">
+        Pre-registrar mi empresa →
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">8</span>
+        <span class="stat-label">Categorías RAEE</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">D.S. 22</span>
+        <span class="stat-label">Decreto 2025</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Trazabilidad</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Three.js Canvas (placeholder animado) -->
+  <div class="hero-particles">
+
+    <!-- Partículas CSS simulando el sistema Three.js -->
+    <div class="particle-sim" id="particleSim"></div>
+
+    <div class="canvas-label">
+      <!-- SVG "E" que se forma con partículas -->
+      <svg class="e-logo-anim" viewBox="0 0 120 120">
+        <rect class="e-path" x="20" y="20" width="80" height="80" rx="8"/>
+        <path class="e-path" d="M20 20 L20 100 L90 100" stroke-width="3"/>
+        <path class="e-path" d="M20 60 L80 60" stroke-width="3" style="animation-delay: 0.5s"/>
+        <path class="e-path" d="M20 20 L90 20" stroke-width="3" style="animation-delay: 0.25s"/>
+        <circle cx="95" cy="60" r="5" fill="var(--copper)" opacity="0.8" style="animation: pulse-dot 1.5s ease-in-out infinite"/>
+      </svg>
+
+      <div style="position:relative; width:80px; height:80px; margin:0 auto;">
+        <div class="ring-outer"></div>
+        <div class="ring-inner"></div>
+      </div>
+
+      <p>Canvas Three.js · ~800 partículas · 60fps</p>
+      <p style="font-size:11px; margin-top:4px; color: rgba(138,138,150,0.6)">
+        Se dispersan en clusters por material al hacer scroll
+      </p>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 3A — Materiales Recuperados
+═══════════════════════════════════════ -->
+<div id="materiales">
+  <div id="materiales-inner">
+    <div class="bloque-chip sr">
+      <span class="dot"></span>
+      Bloque 3 — Materiales · React Three Fiber
+    </div>
+
+    <div class="materials-header">
+      <div>
+        <p class="section-label sr sr-delay-1">Economía circular</p>
+        <h2 class="section-title sr sr-delay-2">Materiales que<br>recuperamos</h2>
+      </div>
+      <p class="section-sub sr sr-delay-3" style="max-width:340px; font-size:16px;">
+        Cada residuo electrónico contiene materiales valiosos. Los recuperamos con partners certificados.
+      </p>
+    </div>
+
+    <div class="materials-grid">
+      <!-- Cobre -->
+      <div class="material-card sr sr-delay-1">
+        <div class="material-3d-container">
+          <div class="obj-sphere"></div>
+          <div class="tooltip-overlay">
+            <div class="tooltip-formula">Cu</div>
+            <div class="tooltip-pct">~15% del peso total RAEE</div>
+            <div style="font-size:11px; color:var(--muted);">Hover: pausa rotación</div>
+          </div>
+        </div>
+        <div class="material-name">Cobre</div>
+        <div class="material-desc">Cables, circuitos, conectores</div>
+      </div>
+
+      <!-- Aluminio -->
+      <div class="material-card sr sr-delay-2">
+        <div class="material-3d-container">
+          <div class="obj-cube"></div>
+          <div class="tooltip-overlay">
+            <div class="tooltip-formula">Al</div>
+            <div class="tooltip-pct">~20% del peso total RAEE</div>
+          </div>
+        </div>
+        <div class="material-name">Aluminio</div>
+        <div class="material-desc">Carcasas, disipadores, estructuras</div>
+      </div>
+
+      <!-- Oro -->
+      <div class="material-card sr sr-delay-3">
+        <div class="material-3d-container">
+          <div class="obj-torus"></div>
+          <div class="tooltip-overlay">
+            <div class="tooltip-formula">Au</div>
+            <div class="tooltip-pct">~0.03% · alto valor/kg</div>
+          </div>
+        </div>
+        <div class="material-name">Oro</div>
+        <div class="material-desc">Contactos, placas de circuito</div>
+      </div>
+
+      <!-- Plata -->
+      <div class="material-card sr sr-delay-4">
+        <div class="material-3d-container">
+          <div class="obj-octahedron"></div>
+          <div class="tooltip-overlay">
+            <div class="tooltip-formula">Ag</div>
+            <div class="tooltip-pct">~0.04% del peso total</div>
+          </div>
+        </div>
+        <div class="material-name">Plata</div>
+        <div class="material-desc">Soldadura, paneles solares</div>
+      </div>
+
+      <!-- Paladio -->
+      <div class="material-card sr sr-delay-5">
+        <div class="material-3d-container">
+          <div class="obj-cone"></div>
+          <div class="tooltip-overlay">
+            <div class="tooltip-formula">Pd</div>
+            <div class="tooltip-pct">~0.01% · altísimo valor</div>
+          </div>
+        </div>
+        <div class="material-name">Paladio</div>
+        <div class="material-desc">Capacitores cerámicos</div>
+      </div>
+
+      <!-- Plástico -->
+      <div class="material-card sr sr-delay-5" style="transition-delay:0.6s">
+        <div class="material-3d-container">
+          <div class="obj-plane"></div>
+          <div class="tooltip-overlay">
+            <div class="tooltip-formula">ABS/PP</div>
+            <div class="tooltip-pct">~30% del peso total RAEE</div>
+          </div>
+        </div>
+        <div class="material-name">Plástico</div>
+        <div class="material-desc">Carcasas, aislantes, conectores</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 3B — Mapa REP Chile
+═══════════════════════════════════════ -->
+<div id="mapa">
+  <div id="mapa-inner">
+    <div class="bloque-chip sr">
+      <span class="dot"></span>
+      Bloque 3 — Mapa D3.js · Intensidad RAEE
+    </div>
+
+    <p class="section-label sr sr-delay-1">Cobertura nacional</p>
+    <h2 class="section-title sr sr-delay-2">Generación RAEE<br>por región</h2>
+
+    <div class="mapa-layout">
+      <!-- Chile Map (D3 placeholder) -->
+      <div class="chile-map-container sr">
+
+        <!-- Chile en SVG simplificado (placeholder para D3) -->
+        <svg class="chile-svg" viewBox="0 0 120 680" xmlns="http://www.w3.org/2000/svg">
+          <!-- Norte Grande (Muy alto - minero) -->
+          <path class="region-very-high" d="M30,10 L90,10 L95,80 L25,80 Z" title="Norte Grande"/>
+          <text x="60" y="50" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7" font-family="Inter">I–II Región</text>
+
+          <!-- Norte Chico (Alto) -->
+          <path class="region-high" d="M25,80 L95,80 L92,150 L28,150 Z"/>
+          <text x="60" y="118" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7" font-family="Inter">III–IV Región</text>
+
+          <!-- Zona Central (Muy alto - Santiago) -->
+          <path class="region-very-high" d="M28,150 L92,150 L90,230 L30,230 Z"/>
+          <text x="60" y="193" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7.5" font-weight="bold" font-family="Inter">RM + V–VI</text>
+
+          <!-- Centro-Sur (Medio) -->
+          <path class="region-med" d="M30,230 L90,230 L87,310 L33,310 Z"/>
+          <text x="60" y="272" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7" font-family="Inter">VII–IX Región</text>
+
+          <!-- Sur (Bajo) -->
+          <path class="region-low" d="M33,310 L87,310 L82,400 L38,400 Z"/>
+          <text x="60" y="358" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="7" font-family="Inter">X–XI Región</text>
+
+          <!-- Austral (Muy bajo) -->
+          <path class="region-low" style="fill:rgba(184,115,51,0.07)" d="M38,400 L82,400 L70,480 L50,480 Z"/>
+          <path class="region-low" style="fill:rgba(184,115,51,0.05)" d="M50,480 L70,480 L62,560 L58,560 Z"/>
+          <text x="60" y="510" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="6" font-family="Inter">XII Región</text>
+        </svg>
+
+        <!-- Pulse marker La Serena (Norte Chico) -->
+        <div class="pulse-marker">
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-dot-core"></div>
+          <div class="pulse-label">ElectroLoop · La Serena</div>
+        </div>
+
+        <div style="position:absolute; bottom:16px; left:50%; transform:translateX(-50%); font-size:11px; color:var(--muted); text-align:center;">
+          D3.js + TopoJSON — Datos reales al lanzar
+        </div>
+      </div>
+
+      <!-- Legend & Context -->
+      <div class="mapa-legend sr">
+        <div>
+          <div class="legend-title">Intensidad de generación RAEE</div>
+          <p class="legend-sub">Estimación basada en densidad industrial, población y actividad minera por región.</p>
+        </div>
+
+        <div class="legend-scale">
+          <div class="legend-item">
+            <div class="legend-swatch" style="background: rgba(184,115,51,0.85);"></div>
+            <span class="legend-text"><strong>Muy Alta</strong> — RM, Norte minero</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="background: rgba(184,115,51,0.6);"></div>
+            <span class="legend-text"><strong>Alta</strong> — Norte Chico, Concepción</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="background: rgba(184,115,51,0.35);"></div>
+            <span class="legend-text"><strong>Media</strong> — Centro-Sur</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="background: rgba(184,115,51,0.15);"></div>
+            <span class="legend-text"><strong>Baja</strong> — Zonas australes</span>
+          </div>
+        </div>
+
+        <div class="legend-cta">
+          <p>¿Tu empresa genera RAEE en alguna de estas regiones? Calcula tu obligación REP en menos de 1 minuto.</p>
+          <a href="#" class="btn-primary" style="font-size:14px; padding:12px 20px; text-decoration:none; display:inline-flex;">
+            Calcular ahora →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 4A — Timeline Horizontal
+═══════════════════════════════════════ -->
+<div id="timeline">
+  <div id="timeline-inner">
+    <div class="bloque-chip sr">
+      <span class="dot"></span>
+      Bloque 4 — Timeline ScrollTrigger GSAP
+    </div>
+
+    <p class="section-label sr sr-delay-1">Estado de ElectroLoop</p>
+    <h2 class="section-title sr sr-delay-2">Roadmap hacia<br>operación plena</h2>
+
+    <div class="timeline-scroll-container">
+      <div class="timeline-track">
+        <div class="timeline-line-bg">
+          <div class="timeline-line-fill"></div>
+        </div>
+
+        <!-- Nodo 1: Fundación -->
+        <div class="timeline-node done">
+          <div class="node-dot"></div>
+          <div class="node-content">
+            <div class="node-date">2021</div>
+            <div class="node-title">Fundación ElectroLoop</div>
+          </div>
+        </div>
+
+        <!-- Nodo 2: Partnerships -->
+        <div class="timeline-node done">
+          <div class="node-dot"></div>
+          <div class="node-content">
+            <div class="node-date">2024</div>
+            <div class="node-title">Red de partners certificados</div>
+          </div>
+        </div>
+
+        <!-- Nodo 3: Sitio + Calculadora -->
+        <div class="timeline-node done">
+          <div class="node-dot"></div>
+          <div class="node-content">
+            <div class="node-date">Ene 2026</div>
+            <div class="node-title">Lanzamiento sitio + Calculadora REP</div>
+          </div>
+        </div>
+
+        <!-- Nodo 4: ACTIVO -->
+        <div class="timeline-node active">
+          <div class="node-dot"></div>
+          <div class="node-content">
+            <div class="node-date">Jul–Ago 2026</div>
+            <div class="node-title">Inicio operativo planta La Serena</div>
+            <span class="node-badge">⬤ Próximo</span>
+          </div>
+        </div>
+
+        <!-- Nodo 5 -->
+        <div class="timeline-node">
+          <div class="node-dot"></div>
+          <div class="node-content">
+            <div class="node-date">2027</div>
+            <div class="node-title">Expansión cobertura nacional</div>
+          </div>
+        </div>
+
+        <!-- Nodo 6 -->
+        <div class="timeline-node">
+          <div class="node-dot"></div>
+          <div class="node-content">
+            <div class="node-date">2028</div>
+            <div class="node-title">Internalización total tratamiento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CTA FINAL
+═══════════════════════════════════════ -->
+<div id="cta-section">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <p class="section-label" style="text-align:center; margin-bottom:16px;">Empecemos</p>
+    <h2 class="cta-title">Tu empresa tiene<br>una obligación REP.</h2>
+    <p class="cta-sub">Calcula tu meta anual, tu hoja de ruta y el costo estimado en menos de 1 minuto. Gratis.</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a href="/calculadora-rep" class="btn-primary" style="text-decoration:none; font-size:16px; padding:16px 32px;">
+        Usar calculadora REP →
+      </a>
+      <a href="#" class="btn-ghost" style="text-decoration:none; font-size:16px; padding:16px 24px;">
+        Pre-registrar mi empresa
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <span class="footer-copy">© 2026 ElectroLoop SpA — Gestión RAEE con partners certificados · Inicio operativo agosto 2026</span>
+  <span class="footer-copy" style="color:rgba(138,138,150,0.4); font-size:11px;">MOCKUP — Solo diseño visual</span>
+</footer>
+
+<script>
+  // ── Navbar scroll effect
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Generate CSS particle simulation (simula el canvas Three.js)
+  const sim = document.getElementById('particleSim');
+  const colors = ['#B87333','#D4956A','#8B5523','#E8B97A','#C4854A'];
+  for (let i = 0; i < 120; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const size = Math.random() * 3 + 1;
+    const dur = (Math.random() * 4 + 3).toFixed(1);
+    const op = (Math.random() * 0.5 + 0.2).toFixed(2);
+    const dx = (Math.random() * 40 - 20).toFixed(0);
+    const dy = (Math.random() * 40 - 20).toFixed(0);
+    const dy2 = (Math.random() * 30 - 15).toFixed(0);
+    const delay = (Math.random() * 4).toFixed(1);
+    p.style.cssText = `
+      left:${x}%; top:${y}%;
+      width:${size}px; height:${size}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      --dur:${dur}s; --op:${op};
+      --dx:${dx}px; --dy:${dy}px; --dy2:${dy2}px;
+      animation-delay:${delay}s;
+    `;
+    sim.appendChild(p);
+  }
+
+  // ── Scroll reveal
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.sr').forEach(el => observer.observe(el));
+
+  // ── Material card: pause animation on hover
+  document.querySelectorAll('.material-card').forEach(card => {
+    const obj = card.querySelector('[class^="obj-"]');
+    if (!obj) return;
+    card.addEventListener('mouseenter', () => {
+      if (obj) obj.style.animationPlayState = 'paused';
+    });
+    card.addEventListener('mouseleave', () => {
+      if (obj) obj.style.animationPlayState = 'running';
+    });
+  });
+
+  // ── prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.particle, .ring-outer, .ring-inner, .pulse-ring, [class^="obj-"], .e-path').forEach(el => {
+      el.style.animation = 'none';
+    });
+  }
+</script>
+
+</body>
+</html>

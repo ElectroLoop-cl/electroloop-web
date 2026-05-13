@@ -458,5 +458,50 @@ const siteUrl = 'https://electroloop.cl';
       lines.forEach((line) => observer.observe(line));
     })();
   </script>
+
+  <!-- ─── BLOQUE 1: Global Lenis + GSAP ScrollTrigger Initialization ─── -->
+  <script type="module">
+    import Lenis from 'lenis';
+    import gsap from 'gsap';
+    import ScrollTrigger from 'gsap/ScrollTrigger';
+
+    // Register ScrollTrigger with GSAP globally
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Check prefers-reduced-motion BEFORE initializing
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const prefersNoMotion = motionQuery.matches;
+
+    if (!prefersNoMotion) {
+      // Initialize Lenis only if user allows motion
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smoothWheel: true,
+        smoothTouch: false,
+        touchMultiplier: 2,
+      });
+
+      // Connect Lenis scroll to ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+
+      // Integrate Lenis with GSAP ticker
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      // Expose for debugging
+      window.__lenisInstance = lenis;
+      console.log('✓ Lenis initialized globally (smooth scroll active)');
+      console.log('✓ GSAP ScrollTrigger registered');
+    } else {
+      console.log('⚠️ Animations disabled: prefers-reduced-motion detected');
+    }
+
+    // Expose GSAP for component access
+    window.__gsap = gsap;
+  </script>
 </body>
 </html>
