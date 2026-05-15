@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-05-15T01:57:56.966Z",
+  "timestamp": "2026-05-15T02:17:56.883Z",
   "mode": "headless",
   "workerType": "testgaps",
   "model": "sonnet",
-  "durationMs": 59,
-  "executionId": "testgaps_1778810276907_md8u4q",
+  "durationMs": 10,
+  "executionId": "testgaps_1778811476873_4plju3",
   "success": false,
   "findings": null,
   "rawOutputPreview": "",
