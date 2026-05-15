@@ -503,5 +503,34 @@ const siteUrl = 'https://electroloop.cl';
     // Expose GSAP for component access
     window.__gsap = gsap;
   </script>
+
+  <!-- ─── Motion Library Scroll Animations ─── -->
+  <script>
+    import('../lib/scroll-animations.ts').then(({ setupScrollAnimations }) => {
+      const initAnimations = () => {
+        const elements = document.querySelectorAll('[data-scroll-animate]');
+        console.log('📍 Found', elements.length, 'elements with data-scroll-animate');
+
+        if (elements.length > 0) {
+          elements.forEach((el, i) => {
+            console.log(`  [${i}]`, el.dataset.scrollAnimate, '-', el.className.substring(0, 50));
+          });
+        }
+
+        setupScrollAnimations({
+          duration: 1.0,
+          delay: 0,
+          threshold: 0.2,
+        });
+        console.log('✓ Motion scroll animations initialized');
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAnimations);
+      } else {
+        initAnimations();
+      }
+    }).catch(err => console.error('❌ Failed to load scroll animations:', err));
+  </script>
 </body>
 </html>

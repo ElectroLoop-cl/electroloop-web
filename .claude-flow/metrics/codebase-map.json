@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-15T01:49:56.850Z",
+  "projectRoot": "C:\\Users\\carif\\web\\electroloop-web",
+  "structure": {
+    "hasPackageJson": true,
+    "hasTsConfig": true,
+    "hasClaudeConfig": true,
+    "hasClaudeFlow": true
+  },
+  "scannedAt": 1778809796851
+}

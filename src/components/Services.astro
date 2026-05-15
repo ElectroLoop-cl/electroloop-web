@@ -1,32 +1,37 @@
 ---
-// Services.astro — 3 alternating service blocks with gradient image placeholders
+// Services.astro — 3 alternating service blocks with modern dark glassmorphic design
 ---
 
-<section id="servicios" class="section-padding bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="servicios" class="relative w-full py-32 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+  <!-- Background accent elements -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-20 left-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Section Header -->
-    <div class="text-center mb-16 reveal">
-      <span class="inline-block text-xs font-bold tracking-widest uppercase mb-3" style="color: #B97333;">
-        Lo que ofrecemos
-      </span>
-      <h2
-        class="text-3xl sm:text-4xl lg:text-5xl font-black font-display mb-4"
-        style="color: #0B1B32; letter-spacing: -0.02em;"
-        data-i18n="services.title"
-      >Nuestros Servicios</h2>
-      <p
-        class="text-base max-w-2xl mx-auto"
-        style="color: #8E9297;"
-        data-i18n="services.subtitle"
-      >Simplificamos tu cumplimiento REP de RAEEs coordinando partners certificados, generando reportería lista para el Ministerio del Medio Ambiente.</p>
+    <div class="text-center mb-20">
+      <div class="inline-block mb-4">
+        <span class="inline-block text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full" style="background: rgba(251, 146, 60, 0.1); color: #FB923C;">
+          Lo que ofrecemos
+        </span>
+      </div>
+      <h2 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+        Nuestros <span class="text-amber-500">Servicios</span>
+      </h2>
+      <p class="text-lg text-slate-400 max-w-3xl mx-auto">
+        Simplificamos tu cumplimiento REP de RAEEs coordinando partners certificados, generando reportería lista para el Ministerio del Medio Ambiente.
+      </p>
     </div>
 
     <!-- Service 1: Image Left / Text Right -->
-    <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-center" data-scroll-animate="fade-up">
       <!-- Image (left) -->
-      <div class="w-full lg:w-1/2 reveal-left">
-        <div class="relative rounded-2xl overflow-hidden aspect-video">
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-orange-500/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-video border border-slate-700/50 group-hover:border-amber-500/30 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-amber-500/10">
           <img
             src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
             srcset="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80 400w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80 800w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80 1200w"
@@ -36,51 +41,37 @@
             loading="lazy"
             decoding="async"
           />
-          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,27,50,0.4) 0%, transparent 60%);"></div>
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 60%);"></div>
         </div>
       </div>
 
       <!-- Text (right) -->
-      <div class="w-full lg:w-1/2 reveal-right">
-        <div class="flex items-center gap-3 mb-4">
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-wide"
-            style="background: rgba(185,115,51,0.1); color: #B97333;"
-          >
-            <span>01</span>
+      <div class="space-y-6">
+        <div class="flex items-center gap-3">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/50">
+            <span class="text-sm font-bold text-amber-400">01</span>
           </div>
-          <!-- Data destruction highlight badge -->
-          <span
-            class="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full"
-            style="background: rgba(185,115,51,0.12); color: #B97333; border: 1px solid rgba(185,115,51,0.25);"
-          >
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-            </svg>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/10 text-amber-400">
             Destrucción de datos incluida
           </span>
         </div>
-        <h3
-          class="text-2xl lg:text-3xl font-black mb-4"
-          style="color: #0B1B32; letter-spacing: -0.02em;"
-          data-i18n="services.items.0.title"
-        >Recolección, Logística y Destrucción de Datos</h3>
-        <p
-          class="text-base leading-relaxed mb-4"
-          style="color: #8E9297;"
-          data-i18n="services.items.0.desc"
-        >Coordinamos retiro con partners logísticos certificados y manifiestos de transporte. Destrucción segura de datos o física del soporte con certificado individual por número de serie, válido para auditorías de cumplimiento normativo.</p>
+        <div>
+          <h3 class="text-3xl font-bold text-white mb-3">
+            Recolección, Logística y Destrucción de Datos
+          </h3>
+          <p class="text-slate-300 leading-relaxed mb-4">
+            Coordinamos retiro con partners logísticos certificados y manifiestos de transporte. Destrucción segura de datos o física del soporte con certificado individual por número de serie, válido para auditorías de cumplimiento normativo.
+          </p>
+        </div>
         <!-- Feature pills -->
-        <div class="flex flex-wrap gap-2 mb-6">
-          <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background: #F4F4F4; color: #8E9297;">Acta de recepción emitida</span>
-          <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background: #F4F4F4; color: #8E9297;">Cert. por dispositivo</span>
-          <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background: #F4F4F4; color: #8E9297;">Confirmación en 48h</span>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs font-medium px-3 py-1 rounded-full bg-slate-700/50 text-slate-300">Acta de recepción emitida</span>
+          <span class="text-xs font-medium px-3 py-1 rounded-full bg-slate-700/50 text-slate-300">Cert. por dispositivo</span>
+          <span class="text-xs font-medium px-3 py-1 rounded-full bg-slate-700/50 text-slate-300">Confirmación en 48h</span>
         </div>
         <a
           href="#contacto"
-          class="inline-flex items-center gap-2 text-sm font-bold transition-colors duration-200 group"
-          style="color: #B97333;"
-          data-i18n="services.items.0.cta"
+          class="inline-flex items-center gap-2 text-sm font-bold text-amber-400 hover:text-amber-300 transition-colors duration-200 group"
         >
           Pre-registrarme
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,10 +82,35 @@
     </div>
 
     <!-- Service 2: Text Left / Image Right -->
-    <div class="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16 mb-20">
-      <!-- Image (right on desktop, top on mobile) -->
-      <div class="w-full lg:w-1/2 reveal-right">
-        <div class="relative rounded-2xl overflow-hidden aspect-video">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-center" data-scroll-animate="fade-up">
+      <!-- Text (left) -->
+      <div class="space-y-6 order-2 lg:order-1">
+        <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/50">
+          <span class="text-sm font-bold text-amber-400">02</span>
+        </div>
+        <div>
+          <h3 class="text-3xl font-bold text-white mb-3">
+            Tratamiento y Valorización
+          </h3>
+          <p class="text-slate-300 leading-relaxed mb-4">
+            Desmantelamiento, clasificación y procesamiento de residuos electrónicos con recuperación de metales preciosos y materiales reutilizables. Los materiales regresan al ciclo productivo como materia prima secundaria.
+          </p>
+        </div>
+        <a
+          href="#contacto"
+          class="inline-flex items-center gap-2 text-sm font-bold text-amber-400 hover:text-amber-300 transition-colors duration-200 group"
+        >
+          Más información
+          <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Image (right) -->
+      <div class="group relative order-1 lg:order-2">
+        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-orange-500/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-video border border-slate-700/50 group-hover:border-amber-500/30 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-amber-500/10">
           <img
             src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80"
             srcset="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80 400w, https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80 800w, https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80 1200w"
@@ -104,47 +120,17 @@
             loading="lazy"
             decoding="async"
           />
-          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,27,50,0.4) 0%, transparent 60%);"></div>
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 60%);"></div>
         </div>
-      </div>
-
-      <!-- Text (left on desktop) -->
-      <div class="w-full lg:w-1/2 reveal-left">
-        <div
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-4 tracking-wide"
-          style="background: rgba(185,115,51,0.1); color: #B97333;"
-        >
-          <span>02</span>
-        </div>
-        <h3
-          class="text-2xl lg:text-3xl font-black mb-4"
-          style="color: #0B1B32; letter-spacing: -0.02em;"
-          data-i18n="services.items.1.title"
-        >Tratamiento y Valorización</h3>
-        <p
-          class="text-base leading-relaxed mb-6"
-          style="color: #8E9297;"
-          data-i18n="services.items.1.desc"
-        >Desmantelamiento, clasificación y procesamiento de residuos electrónicos con recuperación de metales preciosos y materiales reutilizables. Los materiales regresan al ciclo productivo como materia prima secundaria.</p>
-        <a
-          href="#contacto"
-          class="inline-flex items-center gap-2 text-sm font-bold transition-colors duration-200 group"
-          style="color: #B97333;"
-          data-i18n="services.items.1.cta"
-        >
-          Más información
-          <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
       </div>
     </div>
 
     <!-- Service 3: Image Left / Text Right -->
-    <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" data-scroll-animate="fade-up">
       <!-- Image (left) -->
-      <div class="w-full lg:w-1/2 reveal-left">
-        <div class="relative rounded-2xl overflow-hidden aspect-video">
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-orange-500/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-video border border-slate-700/50 group-hover:border-amber-500/30 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-amber-500/10">
           <img
             src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80"
             srcset="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80 400w, https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80 800w, https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80 1200w"
@@ -154,33 +140,26 @@
             loading="lazy"
             decoding="async"
           />
-          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(11,27,50,0.4) 0%, transparent 60%);"></div>
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 60%);"></div>
         </div>
       </div>
 
       <!-- Text (right) -->
-      <div class="w-full lg:w-1/2 reveal-right">
-        <div
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-4 tracking-wide"
-          style="background: rgba(185,115,51,0.1); color: #B97333;"
-        >
-          <span>03</span>
+      <div class="space-y-6">
+        <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/50">
+          <span class="text-sm font-bold text-amber-400">03</span>
         </div>
-        <h3
-          class="text-2xl lg:text-3xl font-black mb-4"
-          style="color: #0B1B32; letter-spacing: -0.02em;"
-          data-i18n="services.items.2.title"
-        >Gestión REP y Reportería</h3>
-        <p
-          class="text-base leading-relaxed mb-6"
-          style="color: #8E9297;"
-          data-i18n="services.items.2.desc"
-        >Administramos tu obligación REP como productor: desde la inscripción en el registro hasta los informes anuales al Ministerio del Medio Ambiente. Simplificamos tu cumplimiento normativo.</p>
+        <div>
+          <h3 class="text-3xl font-bold text-white mb-3">
+            Gestión REP y Reportería
+          </h3>
+          <p class="text-slate-300 leading-relaxed mb-4">
+            Administramos tu obligación REP como productor: desde la inscripción en el registro hasta los informes anuales al Ministerio del Medio Ambiente. Simplificamos tu cumplimiento normativo.
+          </p>
+        </div>
         <a
           href="#contacto"
-          class="inline-flex items-center gap-2 text-sm font-bold transition-colors duration-200 group"
-          style="color: #B97333;"
-          data-i18n="services.items.2.cta"
+          class="inline-flex items-center gap-2 text-sm font-bold text-amber-400 hover:text-amber-300 transition-colors duration-200 group"
         >
           Más información
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
