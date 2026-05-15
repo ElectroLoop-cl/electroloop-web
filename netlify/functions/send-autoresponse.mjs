@@ -18,10 +18,23 @@ export default async (req, context) => {
     const data = JSON.parse(req.body);
     const { email, name } = data;
 
+    console.log('🔍 send-autoresponse called with:', { email, name });
+    console.log('📧 GMAIL_USER env:', process.env.GMAIL_USER ? '✅ Configurado' : '❌ NO configurado');
+    console.log('🔑 GMAIL_APP_PASSWORD env:', process.env.GMAIL_APP_PASSWORD ? '✅ Configurado' : '❌ NO configurado');
+
     if (!email || !name) {
+      console.error('❌ Missing email or name:', { email, name });
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Email and name required' }),
+      };
+    }
+
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+      console.error('❌ Gmail environment variables NOT configured');
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Email service not configured' }),
       };
     }
 
