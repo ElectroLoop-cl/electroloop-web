@@ -93,7 +93,7 @@ export default async (req, context) => {
               <a href="mailto:contacto@electroloop.cl" style="color: #FB923C; text-decoration: none;">contacto@electroloop.cl</a>
             </p>
             <p style="margin: 10px 0 0 0; color: #64748B;">
-              Región III de Atacama • Copiapó, Chile
+              Región IV de Coquimbo • La Serena, Chile
             </p>
           </div>
         </div>
