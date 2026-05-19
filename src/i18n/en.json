@@ -265,7 +265,6 @@
     "error": "There was an error. Please try again.",
     "info": {
       "email": "contacto@electroloop.cl",
-      "phone": "+56 2 2345 6789",
       "address": "Barrio Industrial La Serena - Coquimbo, Chile"
     }
   },
@@ -361,7 +360,6 @@
         "title": "Contact",
         "links": [
           "contacto@electroloop.cl",
-          "+56 51 2345 6789",
           "La Serena, Coquimbo"
         ]
       }
