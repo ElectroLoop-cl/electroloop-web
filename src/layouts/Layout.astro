@@ -76,6 +76,15 @@ const siteUrl = 'https://electroloop.cl';
   <!-- Canonical -->
   <link rel="canonical" href={siteUrl} />
 
+  <!-- Global: dark body + transparent section backgrounds so particles show through -->
+  <style is:global>
+    body { background-color: #030B18 !important; }
+    #inicio, #container-scroll, #por-que, #cadena,
+    #servicios, #estado, #proceso, #contacto, footer {
+      background: transparent !important;
+    }
+  </style>
+
   <!-- Sitemap -->
   <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
@@ -223,7 +232,7 @@ const siteUrl = 'https://electroloop.cl';
         "name": "¿Qué es un gestor RAEE en Chile?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Un gestor RAEE es una empresa que recolecta, transporta, trata y valoriza residuos de aparatos eléctricos y electrónicos (RAEE) de manera legal y segura bajo la Ley REP N° 20.920 de Chile. ElectroLoop opera con partners certificados por la Superintendencia del Medio Ambiente (SMA)."
+          "text": "Un gestor RAEE es una empresa que recolecta, transporta, trata y valoriza residuos de aparatos eléctricos y electrónicos (RAEE) de manera legal y segura bajo la Ley REP N° 20.920 de Chile. ElectroLoop coordina la gestión integral a través de una red de gestores certificados, con inicio operativo propio agosto 2026."
         }
       },
       {
@@ -270,8 +279,63 @@ const siteUrl = 'https://electroloop.cl';
   </script>
 </head>
 
-<body class="bg-white font-sans text-deep-blue">
+<body class="font-sans text-deep-blue">
+
+  <!-- Global copper particle network — fixed, behind all sections -->
+  <div id="particles-js" aria-hidden="true"
+    style="position:fixed;inset:0;z-index:1;pointer-events:none;"></div>
+
+  <!-- Custom cursor -->
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-follower" aria-hidden="true"></div>
+
   <slot />
+
+  <!-- ─── Custom Cursor ─── -->
+  <script>
+    (function initCursor() {
+      const cursor = document.getElementById('cursor');
+      const follower = document.getElementById('cursor-follower');
+      if (!cursor || !follower) return;
+
+      let mouseX = 0, mouseY = 0;
+      let followerX = 0, followerY = 0;
+      let rafId: number;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+      }, { passive: true });
+
+      function animateFollower() {
+        followerX += (mouseX - followerX) * 0.12;
+        followerY += (mouseY - followerY) * 0.12;
+        follower.style.transform = `translate(${followerX - 16}px, ${followerY - 16}px)`;
+        rafId = requestAnimationFrame(animateFollower);
+      }
+      animateFollower();
+
+      // Enlarge on interactive elements
+      const interactiveSelectors = 'a, button, [data-magnetic], [role="button"]';
+      document.querySelectorAll(interactiveSelectors).forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.classList.add('cursor-hover');
+          follower.classList.add('cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('cursor-hover');
+          follower.classList.remove('cursor-hover');
+        });
+      });
+
+      // Hide on mobile / touch
+      if (window.matchMedia('(pointer: coarse)').matches) {
+        cursor.style.display = 'none';
+        follower.style.display = 'none';
+      }
+    })();
+  </script>
 
   <!-- ─── Scroll Reveal (IntersectionObserver) ─── -->
   <script>
@@ -456,6 +520,34 @@ const siteUrl = 'https://electroloop.cl';
       );
 
       lines.forEach((line) => observer.observe(line));
+    })();
+  </script>
+
+  <!-- ─── Global particles.js (copper network, full-page background) ─── -->
+  <script is:inline src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script is:inline>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function init() {
+        if (!window.particlesJS) { setTimeout(init, 60); return; }
+        window.particlesJS('particles-js', {
+          particles: {
+            number: { value: reduce ? 40 : 85, density: { enable: true, value_area: 1400 } },
+            color: { value: ['#B97333', '#D4894A', '#FB923C'] },
+            shape: { type: 'circle', stroke: { width: 0, color: '#B97333' } },
+            opacity: { value: 0.32, random: true, anim: { enable: !reduce, speed: 0.7, opacity_min: 0.08, sync: false } },
+            size: { value: 2.2, random: true, anim: { enable: !reduce, speed: 1.4, size_min: 0.5, sync: false } },
+            line_linked: { enable: true, distance: 145, color: '#B97333', opacity: 0.16, width: 1 },
+            move: { enable: !reduce, speed: 1.1, direction: 'none', random: true, straight: false, out_mode: 'bounce' }
+          },
+          interactivity: {
+            detect_on: 'canvas',
+            events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+          },
+          retina_detect: true
+        });
+      }
+      init();
     })();
   </script>
 

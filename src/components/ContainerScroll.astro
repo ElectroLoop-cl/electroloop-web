@@ -1,0 +1,164 @@
+---
+// ContainerScroll.astro — GSAP ScrollTrigger 3D card (rotateX 20°→0° on scroll)
+---
+
+<section id="container-scroll" class="cs-section relative overflow-hidden" style="background-color: #030B18; padding: 6rem 0 8rem;">
+
+  <!-- Top fade from hero -->
+  <div class="absolute top-0 inset-x-0 h-24 pointer-events-none"
+    style="background: linear-gradient(to bottom, #030B18 0%, transparent 100%);"></div>
+
+  <div class="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-16">
+
+    <!-- Section header -->
+    <div id="cs-header" class="text-center mb-16 opacity-0 translate-y-10">
+      <div class="inline-block mb-5">
+        <span class="text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full"
+          style="background: rgba(185,115,51,0.1); color: #FB923C; border: 1px solid rgba(185,115,51,0.2);">
+          Trazabilidad digital
+        </span>
+      </div>
+      <h2
+        class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+        style="font-family: 'Poppins', sans-serif; letter-spacing: -0.03em;"
+      >
+        Trazabilidad que<br>
+        <span style="color: #FB923C;">inspira confianza</span>
+      </h2>
+      <p class="text-lg max-w-2xl mx-auto" style="color: rgba(255,255,255,0.5); line-height: 1.7;">
+        Cada dispositivo, cada paso documentado. Reportería ESG y certificados REP
+        descargables desde el primer retiro.
+      </p>
+    </div>
+
+    <!-- 3D scroll card wrapper -->
+    <div id="cs-card-wrapper" class="relative">
+      <div
+        id="cs-card"
+        class="cs-card relative mx-auto rounded-2xl overflow-hidden"
+        style="max-width: 900px; transform: perspective(1000px) rotateX(20deg) scale(1.05); transform-origin: 50% 0%;"
+      >
+        <!-- Aspect ratio box -->
+        <div class="relative w-full" style="aspect-ratio: 16/9;">
+
+          <!-- Dashboard background image -->
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=85&auto=format&fit=crop"
+            alt="Panel de trazabilidad ElectroLoop"
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="675"
+          />
+
+          <!-- Dark overlay + branded stats -->
+          <div
+            class="absolute inset-0 flex flex-col justify-between p-6 md:p-10"
+            style="background: linear-gradient(135deg, rgba(3,11,24,0.88) 0%, rgba(3,11,24,0.55) 55%, rgba(3,11,24,0.75) 100%);"
+          >
+            <!-- Top status bar -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full" style="background: #4ADE80; box-shadow: 0 0 6px rgba(74,222,128,0.9);"></div>
+                <span class="text-xs font-semibold tracking-wide" style="color: rgba(255,255,255,0.6);">SISTEMA ACTIVO</span>
+              </div>
+              <div class="hidden sm:flex items-center gap-3 text-xs" style="color: rgba(255,255,255,0.4);">
+                <span>ElectroLoop Dashboard</span>
+                <span>·</span>
+                <span>v1.0</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <div class="w-2 h-2 rounded-full" style="background: #FB923C;"></div>
+                <div class="w-2 h-2 rounded-full" style="background: rgba(251,146,60,0.4);"></div>
+                <div class="w-2 h-2 rounded-full" style="background: rgba(251,146,60,0.15);"></div>
+              </div>
+            </div>
+
+            <!-- KPI stats grid -->
+            <div class="grid grid-cols-3 gap-3 md:gap-5">
+              <div class="rounded-xl p-4 md:p-5"
+                style="background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06);">
+                <div class="text-xl md:text-3xl font-bold text-white mb-1">1,240</div>
+                <div class="text-xs" style="color: rgba(255,255,255,0.45);">Dispositivos trazados</div>
+              </div>
+              <div class="rounded-xl p-4 md:p-5"
+                style="background: rgba(185,115,51,0.12); backdrop-filter: blur(12px); border: 1px solid rgba(185,115,51,0.3);">
+                <div class="text-xl md:text-3xl font-bold mb-1" style="color: #FB923C;">100%</div>
+                <div class="text-xs" style="color: rgba(255,255,255,0.45);">Certificación REP</div>
+              </div>
+              <div class="rounded-xl p-4 md:p-5"
+                style="background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06);">
+                <div class="text-xl md:text-3xl font-bold text-white mb-1">4.2 t</div>
+                <div class="text-xs" style="color: rgba(255,255,255,0.45);">CO₂ eq evitado</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card border + glow -->
+        <div class="absolute inset-0 rounded-2xl pointer-events-none"
+          style="box-shadow: inset 0 0 0 1px rgba(185,115,51,0.15), 0 0 0 1px rgba(255,255,255,0.04), 0 40px 100px rgba(0,0,0,0.7);"></div>
+      </div>
+
+      <!-- Subtle bottom shadow to ground the card -->
+      <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 w-2/3 h-16 pointer-events-none"
+        style="background: radial-gradient(ellipse, rgba(185,115,51,0.18) 0%, transparent 70%); filter: blur(20px);"></div>
+    </div>
+
+  </div>
+
+  <!-- Bottom fade to next section -->
+  <div class="absolute bottom-0 inset-x-0 h-24 pointer-events-none"
+    style="background: linear-gradient(to top, #0B1B32 0%, transparent 100%);"></div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersNoMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const card   = document.getElementById('cs-card');
+  const header = document.getElementById('cs-header');
+
+  if (prefersNoMotion) {
+    if (card) card.style.transform = 'perspective(1000px) rotateX(0deg) scale(1)';
+    if (header) { header.style.opacity = '1'; header.style.transform = 'none'; }
+  } else {
+    // Header fade in
+    if (header) {
+      gsap.to(header, {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '#container-scroll', start: 'top 80%' }
+      });
+    }
+
+    // 3D card rotation driven by scroll
+    if (card) {
+      ScrollTrigger.create({
+        trigger: '#cs-card-wrapper',
+        start: 'top 85%',
+        end: 'center 55%',
+        scrub: 1.5,
+        onUpdate: (self) => {
+          const p = self.progress;
+          const rx = 20 * (1 - p);
+          const sc = 1.05 - 0.05 * p;
+          card.style.transform = `perspective(1000px) rotateX(${rx}deg) scale(${sc})`;
+        }
+      });
+    }
+  }
+</script>
+
+<style>
+  .cs-card {
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cs-card { transform: none !important; }
+  }
+</style>

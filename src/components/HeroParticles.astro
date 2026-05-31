@@ -1,330 +1,546 @@
 ---
-// HeroParticles.astro
-// BLOQUE 2: Hero particle system with 3D "E" logo formation + scroll-triggered dispersal
-// Uses vanilla Three.js for minimal bundle impact
-// Includes SVG fallback for non-WebGL browsers
-
-// Check if WebGL is supported
-const supportsWebGL = () => {
-  if (typeof window === 'undefined') return true; // SSR: assume support
-  try {
-    const canvas = document.createElement('canvas');
-    return !!(window.WebGLRenderingContext &&
-      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-  } catch {
-    return false;
-  }
-};
+// HeroParticles.astro — Split hero: text left + "Ciclo Circular RAEE" 3D carousel right
 ---
 
-<div id="hero-particles-container" class="relative w-full h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+<section
+  id="inicio"
+  class="hero-section relative w-full min-h-screen flex items-center overflow-hidden"
+  aria-label="Hero section"
+>
+  <!-- Grid texture background -->
+  <div class="grid-bg absolute inset-0 pointer-events-none z-0" aria-hidden="true"></div>
 
-  <!-- Three.js Canvas (Primary) -->
-  <canvas
-    id="particles-canvas"
-    class="absolute inset-0 w-full h-full"
-    data-supports-webgl={supportsWebGL()}
-  ></canvas>
-
-  <!-- SVG Fallback (Non-WebGL browsers) -->
-  <div id="particles-fallback" class="absolute inset-0 w-full h-full hidden">
-    <svg class="w-full h-full" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
-      <!-- "E" Letter Formation (SVG Fallback) -->
+  <!-- Spotlight SVG (left half sweep) -->
+  <div class="spotlight-wrap absolute inset-0 pointer-events-none z-[1] overflow-hidden" aria-hidden="true">
+    <svg class="spotlight-svg" viewBox="0 0 3787 2842" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#spotlight-filter)">
+        <ellipse cx="1924.71" cy="273.501" rx="1924.71" ry="273.501"
+          transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)"
+          fill="white" fill-opacity="0.18"/>
+      </g>
       <defs>
-        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge>
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
+        <filter id="spotlight-filter" x="0.860352" y="0.81" width="3785.16" height="2840.26"
+          filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feGaussianBlur stdDeviation="151" result="effect1_foregroundBlur"/>
         </filter>
       </defs>
-
-      <!-- Vertical bar of E -->
-      <rect x="300" y="150" width="30" height="300" fill="#FB923C" opacity="0.8"/>
-
-      <!-- Top horizontal bar -->
-      <rect x="330" y="150" width="200" height="30" fill="#FB923C" opacity="0.8"/>
-
-      <!-- Middle horizontal bar -->
-      <rect x="330" y="285" width="150" height="30" fill="#FB923C" opacity="0.6"/>
-
-      <!-- Bottom horizontal bar -->
-      <rect x="330" y="420" width="200" height="30" fill="#FB923C" opacity="0.8"/>
-
-      <!-- Particle dots around the E (SVG circles as particles) -->
-      <circle cx="250" cy="200" r="4" fill="#FB923C" opacity="0.5" filter="url(#glow)"/>
-      <circle cx="270" cy="220" r="3" fill="#FB923C" opacity="0.6"/>
-      <circle cx="290" cy="240" r="4" fill="#FB923C" opacity="0.5"/>
-      <circle cx="310" cy="260" r="3" fill="#FB923C" opacity="0.7"/>
-      <circle cx="330" cy="280" r="4" fill="#FB923C" opacity="0.5"/>
-      <circle cx="550" cy="200" r="4" fill="#FB923C" opacity="0.5"/>
-      <circle cx="570" cy="220" r="3" fill="#FB923C" opacity="0.6"/>
-      <circle cx="590" cy="240" r="4" fill="#FB923C" opacity="0.5"/>
-      <circle cx="610" cy="260" r="3" fill="#FB923C" opacity="0.7"/>
-      <circle cx="250" cy="450" r="4" fill="#FB923C" opacity="0.5"/>
-      <circle cx="270" cy="430" r="3" fill="#FB923C" opacity="0.6"/>
-      <circle cx="290" cy="410" r="4" fill="#FB923C" opacity="0.5"/>
-      <circle cx="310" cy="390" r="3" fill="#FB923C" opacity="0.7"/>
-      <circle cx="550" cy="450" r="4" fill="#FB923C" opacity="0.5"/>
-      <circle cx="570" cy="430" r="3" fill="#FB923C" opacity="0.6"/>
-      <circle cx="590" cy="410" r="4" fill="#FB923C" opacity="0.5"/>
     </svg>
   </div>
 
-  <!-- Content Layer (Always Visible) -->
-  <div id="hero-content" class="relative z-10 text-center px-4 max-w-4xl pointer-events-none">
-    <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-      Gestión RAEE <span class="text-amber-500">integrada</span> para Chile
-    </h1>
-    <p class="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
-      Red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos bajo Ley REP.
-    </p>
-    <div class="flex gap-4 justify-center pointer-events-auto">
-      <button class="px-8 py-3 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition-colors">
-        Pre-registro
-      </button>
-      <button class="px-8 py-3 border border-slate-500 text-slate-300 font-semibold rounded-lg hover:border-amber-500 hover:text-amber-500 transition-colors">
-        Más info
-      </button>
+  <!-- Ambient glows -->
+  <div class="absolute top-1/3 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none z-[2]" aria-hidden="true"
+    style="background: radial-gradient(circle, rgba(185,115,51,0.08) 0%, transparent 65%); filter: blur(60px);"></div>
+  <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none z-[2]" aria-hidden="true"
+    style="background: radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%); filter: blur(80px);"></div>
+
+  <!-- 2-column layout -->
+  <div class="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-16 w-full pt-24 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center" style="min-height: calc(100vh - 6rem);">
+
+      <!-- LEFT: Text content -->
+      <div class="flex flex-col justify-center">
+
+        <!-- Eyebrow -->
+        <div class="hero-eyebrow mb-8 overflow-hidden">
+          <div class="eyebrow-inner flex items-center gap-3 opacity-0 translate-y-4">
+            <div class="w-8 h-px" style="background: rgba(185,115,51,0.6);"></div>
+            <span class="text-xs font-bold tracking-[0.28em] uppercase" style="color: rgba(185,115,51,0.75);">
+              Integrador RAEE · Chile
+            </span>
+            <div class="w-8 h-px" style="background: rgba(185,115,51,0.3);"></div>
+          </div>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-headline font-black leading-[0.9] tracking-[-0.04em] text-white mb-8"
+          style="font-size: clamp(2.8rem, 5.5vw, 5.5rem); font-family: 'Poppins', sans-serif;">
+          <span class="hero-line block overflow-hidden">
+            <span class="hero-line-inner block">La gestión RAEE</span>
+          </span>
+          <span class="hero-line block overflow-hidden">
+            <span class="hero-line-inner block">que la macrozona</span>
+          </span>
+          <span class="hero-line block overflow-hidden">
+            <span class="hero-line-inner block">
+              <em class="not-italic" style="color: #FB923C;">norte</em> necesita.
+            </span>
+          </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <div class="hero-subtitle-wrap overflow-hidden mb-10">
+          <p class="hero-subtitle max-w-lg text-base sm:text-lg leading-relaxed opacity-0"
+            style="color: rgba(255,255,255,0.55);">
+            Un solo punto de contacto, responsabilidad integral.
+            Operamos con <strong style="color: rgba(255,255,255,0.85);">partners certificados</strong>
+            mientras construimos capacidad propia.
+            <strong style="color: #FB923C;">Inicio operativo agosto 2026.</strong>
+          </p>
+        </div>
+
+        <!-- CTAs -->
+        <div class="hero-cta flex flex-col sm:flex-row gap-4 opacity-0">
+          <a href="#contacto"
+            class="magnetic-btn group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-sm font-bold text-white overflow-hidden"
+            style="background: linear-gradient(135deg, #B97333, #D4894A); box-shadow: 0 8px 32px rgba(185,115,51,0.35);"
+            data-magnetic>
+            <span class="relative z-10 flex items-center gap-2">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              Pre-registrarme como cliente ancla
+            </span>
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style="background: linear-gradient(135deg, #D4894A, #FB923C);"></div>
+          </a>
+
+          <a href="#cadena"
+            class="magnetic-btn group inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-sm font-bold transition-all duration-300"
+            style="color: rgba(255,255,255,0.75); border: 1.5px solid rgba(255,255,255,0.12);"
+            data-magnetic>
+            <span>Ver cómo funciona</span>
+            <svg class="w-4 h-4 transition-transform duration-400 group-hover:translate-y-1"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: "Ciclo Circular RAEE" 3D carousel -->
+      <div class="devices-panel relative" aria-hidden="true">
+        <div class="stage" id="cc-stage">
+
+          <!-- ambient dashed ring -->
+          <div class="backring"></div>
+
+          <!-- device cards (Lucide-style line glyphs) -->
+          <div class="card3d" data-i="0">
+            <div class="card-face">
+              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9"/>
+                <path d="M2.5 16h19l1.2 2.4a1 1 0 0 1-.9 1.45H2.2a1 1 0 0 1-.9-1.45L2.5 16Z"/>
+              </svg>
+              <div class="cap"><div class="name">Notebook</div><div class="bar"></div></div>
+            </div>
+          </div>
+
+          <div class="card3d" data-i="1">
+            <div class="card-face">
+              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="6" y="2" width="12" height="20" rx="2.5"/>
+                <path d="M11 18h2"/>
+              </svg>
+              <div class="cap"><div class="name">Celular</div><div class="bar"></div></div>
+            </div>
+          </div>
+
+          <div class="card3d" data-i="2">
+            <div class="card-face">
+              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="13" rx="2"/>
+                <path d="M16 3l-4 3-4-3"/>
+                <path d="M9 22h6"/>
+              </svg>
+              <div class="cap"><div class="name">Televisor</div><div class="bar"></div></div>
+            </div>
+          </div>
+
+          <div class="card3d" data-i="3">
+            <div class="card-face">
+              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6.5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2V10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/>
+                <path d="M15 6.5h3v4h-3"/>
+                <path d="M18 8.5h4"/>
+                <path d="M7 12v2.6a2.4 2.4 0 0 0 2.4 2.4h.6a1.8 1.8 0 0 0 1.8-1.6L12 12"/>
+                <path d="M12 7.5h2.5"/>
+              </svg>
+              <div class="cap"><div class="name">Herramientas<br>eléctricas</div><div class="bar"></div></div>
+            </div>
+          </div>
+
+          <div class="card3d" data-i="4">
+            <div class="card-face">
+              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2.5"/>
+                <path d="M7 6h.01"/><path d="M11 6h.01"/>
+                <circle cx="12" cy="14" r="5"/>
+                <path d="M12 18.5a2.6 2.6 0 0 0 0-5.2 2.6 2.6 0 0 1 0-5.2"/>
+              </svg>
+              <div class="cap"><div class="name">Electrodomésticos</div><div class="bar"></div></div>
+            </div>
+          </div>
+
+          <!-- central recycle hub -->
+          <div class="hub">
+            <svg class="recycle" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>
+              <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>
+              <path d="m14 16-3 3 3 3"/>
+              <path d="M8.293 13.596 7.196 9.5 3.1 10.598"/>
+              <path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>
+              <path d="m13.378 9.633 4.096 1.098 1.097-4.096"/>
+            </svg>
+          </div>
+
+          <!-- drag hint -->
+          <div class="cc-hint" id="cc-hint">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 6 6 9l3 3"/><path d="m15 6 3 3-3 3"/><path d="M6 9h12"/>
+            </svg>
+            Arrastra para girar
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Scroll Indicator -->
-  <div id="scroll-indicator" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-    <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-    </svg>
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-20 opacity-0" aria-hidden="true">
+    <span class="text-[9px] font-bold tracking-[0.4em] uppercase" style="color: rgba(255,255,255,0.25);">Scroll</span>
+    <div class="scroll-track relative w-px h-12 overflow-hidden" style="background: rgba(255,255,255,0.1);">
+      <div class="scroll-line absolute inset-x-0 h-full"
+        style="background: linear-gradient(to bottom, #B97333, transparent); animation: scrollDown 1.8s ease-in-out infinite;"></div>
+    </div>
   </div>
-</div>
+</section>
 
-<script type="module">
-  import * as THREE from 'three';
+<script>
   import gsap from 'gsap';
-  import ScrollTrigger from 'gsap/ScrollTrigger';
 
-  gsap.registerPlugin(ScrollTrigger);
+  const prefersNoMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ─────────────────────────────────────────────────────────────
-  // BLOQUE 2: Hero Particles System
-  // ─────────────────────────────────────────────────────────────
+  // ─── ENTRANCE ANIMATION ───────────────────────────────────────
 
-  const canvas = document.getElementById('particles-canvas');
-  const fallback = document.getElementById('particles-fallback');
-  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const prefersNoMotion = motionQuery.matches;
-
-  // Check WebGL support
-  const supportsWebGL = canvas && canvas.getContext('webgl') !== null;
-
-  if (!supportsWebGL || prefersNoMotion) {
-    // Show SVG fallback if no WebGL or motion disabled
-    if (fallback) fallback.classList.remove('hidden');
-    console.log('ℹ️ Using SVG fallback (WebGL unavailable or motion disabled)');
+  if (!prefersNoMotion) {
+    const tl = gsap.timeline({ delay: 0.2 });
+    tl.to('.eyebrow-inner', { opacity: 1, y: 0, duration: 0.9, ease: 'power4.out' });
+    tl.fromTo('.hero-line-inner', { y: '105%' }, { y: '0%', duration: 1.1, ease: 'expo.out', stagger: 0.13 }, '-=0.55');
+    tl.to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.65');
+    tl.to('.hero-cta', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.55');
+    tl.to('.scroll-indicator', { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.3');
   } else {
-    // ─────────────────────────────────────────────────────────────
-    // Three.js Initialization
-    // ─────────────────────────────────────────────────────────────
+    document.querySelectorAll('.eyebrow-inner, .hero-subtitle, .hero-cta, .scroll-indicator')
+      .forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+    document.querySelectorAll('.hero-line-inner')
+      .forEach(el => { el.style.transform = 'none'; });
+  }
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  // ─── MAGNETIC BUTTONS ─────────────────────────────────────────
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    camera.position.z = 100;
+  if (!prefersNoMotion) {
+    document.querySelectorAll('[data-magnetic]').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width  / 2) * 0.28;
+        const y = (e.clientY - r.top  - r.height / 2) * 0.28;
+        gsap.to(btn, { x, y, duration: 0.35, ease: 'power3.out', overwrite: true });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.45)', overwrite: true });
+      });
+    });
+  }
 
-    // ─────────────────────────────────────────────────────────────
-    // Particle System (~800 particles forming "E")
-    // ─────────────────────────────────────────────────────────────
+  // ─── CICLO CIRCULAR RAEE — 3D CAROUSEL ────────────────────────
+  // Cards orbit an elliptical ring around a central recycle hub.
+  // Auto-spin (30s/rev) + drag-to-rotate with inertia + cursor parallax.
 
-    const particleCount = 800;
-    const geometry = new THREE.BufferGeometry();
-    const positions = [];
-    const colors = [];
-    const scales = [];
-    const velocities = [];
+  const stage = document.getElementById('cc-stage');
 
-    // Generate particles in "E" formation
-    // E shape: vertical line + 3 horizontal bars
-    const eWidth = 40;
-    const eHeight = 60;
-    const particlesPerBar = Math.floor(particleCount / 4);
+  if (stage) {
+    const cards = [...stage.querySelectorAll('.card3d')];
+    const hint  = stage.querySelector('.cc-hint');
+    const N     = cards.length;
+    const TWO_PI = Math.PI * 2;
+    const OMEGA  = TWO_PI / 30;        // one revolution every 30s
+    const MAX_TILT = 32;              // deg of yaw at the sides
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
-    // Vertical bar (left side)
-    for (let i = 0; i < particlesPerBar; i++) {
-      const t = i / particlesPerBar;
-      positions.push(-eWidth / 2, (t - 0.5) * eHeight, Math.random() * 10 - 5);
-      colors.push(0.98, 0.57, 0.24); // Copper #FB923C
-      scales.push(Math.random() * 0.5 + 0.5);
-      velocities.push((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.15);
+    let Rx = 167, Ry = 96, Z = 170;
+    function measure() {
+      const w = stage.clientWidth, h = stage.clientHeight, m = Math.min(w, h);
+      Rx = clamp(w * 0.30, 120, 215);   // horizontal reach
+      Ry = clamp(h * 0.165, 60, 120);   // vertical arc (keeps hub visible)
+      Z  = clamp(m * 0.34, 110, 195);   // depth
+    }
+    measure();
+    window.addEventListener('resize', measure, { passive: true });
+
+    let angle    = -Math.PI / 2 + 0.0001;  // opening frame: a card rising front-left
+    let vel      = OMEGA;
+    let dragging = false;
+    let last     = performance.now();
+
+    function layout() {
+      let frontIdx = 0, frontCos = -2;
+      for (let i = 0; i < N; i++) {
+        const a  = angle + i * (TWO_PI / N);
+        const s  = Math.sin(a);
+        const co = Math.cos(a);
+        const x  = s * Rx;
+        const y  = co * Ry;            // front (co=1) dips down, back lifts up
+        const z  = co * Z;             // front toward viewer
+        const depth = (co + 1) / 2;    // 0 = far, 1 = near
+        const scale = 0.56 + 0.36 * depth;
+        const tilt  = -s * MAX_TILT;
+        const c = cards[i];
+        c.style.transform =
+          `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${tilt.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+        c.style.zIndex  = String(Math.round(co * 100) + 110);
+        c.style.opacity = (0.30 + 0.70 * depth).toFixed(3);
+        c.style.filter  = `brightness(${(0.50 + 0.50 * depth).toFixed(3)}) saturate(${(0.7 + 0.3 * depth).toFixed(2)})`;
+        if (co > frontCos) { frontCos = co; frontIdx = i; }
+      }
+      cards.forEach((c, i) => c.classList.toggle('active', i === frontIdx));
     }
 
-    // Top horizontal bar
-    for (let i = 0; i < particlesPerBar; i++) {
-      const t = i / particlesPerBar;
-      positions.push((t - 0.5) * eWidth, eHeight / 2 - 0.15, Math.random() * 10 - 5);
-      colors.push(0.98, 0.57, 0.24);
-      scales.push(Math.random() * 0.5 + 0.5);
-      velocities.push((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.15);
+    function frame(now) {
+      let dt = (now - last) / 1000; last = now;
+      if (dt > 0.05) dt = 0.05;
+      if (!dragging) {
+        vel += (OMEGA - vel) * Math.min(1, dt * 1.4);   // ease back to auto-spin
+        angle += vel * dt;
+      }
+      layout();
+      requestAnimationFrame(frame);
     }
 
-    // Middle horizontal bar
-    for (let i = 0; i < particlesPerBar / 2; i++) {
-      const t = i / (particlesPerBar / 2);
-      positions.push((t - 0.5) * eWidth * 0.75, 0, Math.random() * 10 - 5);
-      colors.push(0.98, 0.57, 0.24);
-      scales.push(Math.random() * 0.5 + 0.5);
-      velocities.push((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.15);
-    }
+    layout();
+    if (!prefersNoMotion) requestAnimationFrame(frame);
 
-    // Bottom horizontal bar
-    for (let i = 0; i < particlesPerBar; i++) {
-      const t = i / particlesPerBar;
-      positions.push((t - 0.5) * eWidth, -eHeight / 2 + 0.15, Math.random() * 10 - 5);
-      colors.push(0.98, 0.57, 0.24);
-      scales.push(Math.random() * 0.5 + 0.5);
-      velocities.push((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.15);
-    }
+    // ── Drag to rotate (Pointer Events) + parallax ──
+    let lastX = 0, lastT = 0;
 
-    // Add remaining particles randomly around the E
-    const remaining = particleCount - positions.length / 3;
-    for (let i = 0; i < remaining; i++) {
-      positions.push(
-        (Math.random() - 0.5) * eWidth * 1.2,
-        (Math.random() - 0.5) * eHeight * 1.2,
-        Math.random() * 20 - 10
-      );
-      colors.push(0.98, 0.57, 0.24);
-      scales.push(Math.random() * 0.4 + 0.3);
-      velocities.push(
-        (Math.random() - 0.5) * 0.1,
-        (Math.random() - 0.5) * 0.1,
-        (Math.random() - 0.5) * 0.15
-      );
-    }
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
-    geometry.setAttribute('scale', new THREE.BufferAttribute(new Float32Array(scales), 1));
-
-    const material = new THREE.PointsMaterial({
-      size: 2,
-      vertexColors: true,
-      opacity: 0.8,
-      transparent: true,
-      sizeAttenuation: true,
+    stage.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      lastX = e.clientX; lastT = performance.now();
+      document.body.classList.add('cc-grabbing');
+      if (hint) hint.classList.add('hide');
+      try { stage.setPointerCapture(e.pointerId); } catch (_) {}
     });
 
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
+    window.addEventListener('pointermove', (e) => {
+      const r = stage.getBoundingClientRect();
+      const nx = clamp(((e.clientX - r.left) / r.width  - 0.5) * 2, -1, 1);
+      const ny = clamp(((e.clientY - r.top)  / r.height - 0.5) * 2, -1, 1);
+      if (!dragging) {
+        if (!prefersNoMotion)
+          stage.style.perspectiveOrigin = `${(50 + nx * 6).toFixed(1)}% ${(46 + ny * 5).toFixed(1)}%`;
+        return;
+      }
+      const now = performance.now();
+      let dt = (now - lastT) / 1000; if (dt <= 0) dt = 0.016;
+      const dA = (e.clientX - lastX) * 0.0068;   // px → radians
+      angle += dA;
+      vel = clamp(dA / dt, -9, 9);
+      lastX = e.clientX; lastT = now;
+      layout();   // immediate response while dragging
+    }, { passive: true });
 
-    // Store velocities for animation
-    particles.userData.velocities = velocities;
-    particles.userData.positions = new Float32Array(positions);
-    particles.userData.dispersed = false;
-
-    // ─────────────────────────────────────────────────────────────
-    // Scroll-Triggered Dispersal
-    // ─────────────────────────────────────────────────────────────
-
-    gsap.to(particles.userData, {
-      dispersed: 1,
-      duration: 2,
-      ease: 'power2.inOut',
-      scrollTrigger: {
-        trigger: '#hero-particles-container',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-        markers: false,
-      },
-      onUpdate: function () {
-        // Disperse particles into 3 clusters as user scrolls
-        const dispersion = this.targets()[0].dispersed;
-        const posAttr = particles.geometry.attributes.position;
-        const newPositions = particles.userData.positions;
-
-        for (let i = 0; i < newPositions.length; i += 3) {
-          const origX = newPositions[i];
-          const origY = newPositions[i + 1];
-          const origZ = newPositions[i + 2];
-
-          // Calculate cluster assignment (left, center, right)
-          const cluster = Math.floor((i / 3) % 3);
-          const clusterOffsets = [
-            { x: -80, y: 0, z: 50 },   // Left cluster
-            { x: 0, y: -50, z: 0 },    // Bottom cluster
-            { x: 80, y: 20, z: 50 },   // Right cluster
-          ];
-
-          const offset = clusterOffsets[cluster];
-          const dispersedX = origX + offset.x * dispersion;
-          const dispersedY = origY + offset.y * dispersion;
-          const dispersedZ = origZ + offset.z * dispersion;
-
-          posAttr.array[i] = origX + (dispersedX - origX) * dispersion;
-          posAttr.array[i + 1] = origY + (dispersedY - origY) * dispersion;
-          posAttr.array[i + 2] = origZ + (dispersedZ - origZ) * dispersion;
-        }
-
-        posAttr.needsUpdate = true;
-      },
-    });
-
-    // ─────────────────────────────────────────────────────────────
-    // Animation Loop
-    // ─────────────────────────────────────────────────────────────
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      // Gentle rotation
-      particles.rotation.x += 0.0001;
-      particles.rotation.y += 0.0002;
-
-      renderer.render(scene, camera);
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      document.body.classList.remove('cc-grabbing');
     }
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
 
-    animate();
-
-    // ─────────────────────────────────────────────────────────────
-    // Responsive Resize Handler
-    // ─────────────────────────────────────────────────────────────
-
-    window.addEventListener('resize', () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    });
-
-    console.log('✓ BLOQUE 2: Hero particles initialized');
-    console.log(`✓ ${particleCount} particles forming "E" logo`);
-    console.log('✓ Scroll-triggered dispersal active');
+    if (hint) setTimeout(() => hint.classList.add('hide'), 6000);
   }
 </script>
 
 <style>
-  #particles-canvas {
+  .hero-section {
+    background-color: #030B18;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(185,115,51,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(185,115,51,0.04) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .spotlight-svg {
+    position: absolute;
+    top: -25%;
+    left: -5%;
+    width: 75%;
+    height: auto;
+    pointer-events: none;
+    animation: spotlightPan 8s ease-in-out infinite;
+  }
+
+  @keyframes spotlightPan {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+    40%       { transform: translate(40px, -30px) rotate(3deg); opacity: 1; }
+    70%       { transform: translate(-25px, 15px) rotate(-2deg); opacity: 0.75; }
+  }
+
+  .hero-line-inner {
     display: block;
+    will-change: transform;
+    transform: translateY(105%);
+  }
+
+  .hero-subtitle { transform: translateY(16px); }
+  .hero-cta      { transform: translateY(16px); }
+
+  @keyframes scrollDown {
+    0%   { transform: translateY(-100%); opacity: 1; }
+    70%  { opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
+
+  /* ════════ CICLO CIRCULAR RAEE — 3D CAROUSEL ════════ */
+  .devices-panel { height: 580px; }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1200px;
+    perspective-origin: 50% 46%;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: perspective-origin .4s ease-out;
+    animation: ccRise 1.3s cubic-bezier(.2,.7,.2,1) both;
+    /* responsive geometry tokens */
+    --cardw: clamp(108px, 13.5vmin, 150px);
+    --cardh: clamp(136px, 17vmin, 188px);
+    --icon:  clamp(36px, 6vmin, 58px);
+    --core:  clamp(92px, 14vmin, 142px);
+    --recy:  clamp(42px, 7vmin, 68px);
+  }
+  :global(body.cc-grabbing) .stage { cursor: grabbing; transition: none; }
+
+  @keyframes ccRise { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: scale(1); } }
+
+  /* ambient dashed ring + halo */
+  .backring {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    width: clamp(240px, 78%, 460px); height: clamp(240px, 78%, 460px);
+    border-radius: 50%;
+    border: 1px dashed rgba(184,115,51,0.16);
+    box-shadow: inset 0 0 90px rgba(184,115,51,0.05);
+    z-index: 1;
+    animation: ccSpin 120s linear infinite;
+  }
+  .backring::after {
+    content: ''; position: absolute; inset: 13%;
+    border-radius: 50%; border: 1px solid rgba(255,255,255,0.05);
+  }
+  @keyframes ccSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+  /* central recycle hub */
+  .hub {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    width: var(--core); height: var(--core); border-radius: 50%;
+    background:
+      radial-gradient(125% 125% at 38% 30%, rgba(255,255,255,0.08) 0%, transparent 26%),
+      radial-gradient(120% 120% at 40% 32%, #16294a 0%, #0e1d36 60%, #0a1730 100%);
+    border: 1px solid rgba(184,115,51,0.42);
+    box-shadow:
+      0 40px 90px -20px rgba(0,0,0,0.78),
+      0 0 0 9px rgba(184,115,51,0.05),
+      inset 0 2px 0 rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+  }
+  .hub::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    box-shadow: 0 0 60px 8px rgba(184,115,51,0.30);
+    animation: ccPulse 4.8s ease-in-out infinite;
+  }
+  .recycle { width: var(--recy); height: var(--recy); animation: ccSpinR 30s linear infinite; }
+  .recycle * { stroke: #B87333; }
+  @keyframes ccSpinR { to { transform: rotate(360deg); } }
+  @keyframes ccPulse { 0%,100% { opacity: .42; transform: scale(.98); } 50% { opacity: .92; transform: scale(1.03); } }
+
+  /* device cards */
+  .card3d {
+    position: absolute; left: 50%; top: 46%;
+    width: var(--cardw); height: var(--cardh);
+    margin-left: calc(var(--cardw) / -2); margin-top: calc(var(--cardh) / -2);
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+  .card-face {
+    position: absolute; inset: 0; border-radius: clamp(14px, 1.8vmin, 20px);
+    background:
+      radial-gradient(135% 100% at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 34%),
+      linear-gradient(155deg, #16294a 0%, #0e1d36 58%, #0a1730 100%);
+    border: 1px solid rgba(255,255,255,0.11);
+    box-shadow:
+      0 30px 60px -18px rgba(0,0,0,0.72),
+      inset 0 1px 0 rgba(255,255,255,0.07);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: clamp(12px, 2vmin, 22px);
+    padding: clamp(12px, 2vmin, 22px);
+    overflow: hidden;
+    transition: border-color .5s ease, box-shadow .5s ease;
+  }
+  .card-face::before {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    border: 1.5px solid transparent;
+    box-shadow: 0 0 0 0 rgba(184,115,51,0);
+    transition: border-color .5s, box-shadow .5s;
+    pointer-events: none;
+  }
+  .card3d.active .card-face { border-color: rgba(184,115,51,0.55); }
+  .card3d.active .card-face::before {
+    border-color: rgba(184,115,51,0.85);
+    box-shadow: 0 0 30px 2px rgba(184,115,51,0.30), inset 0 0 20px rgba(184,115,51,0.10);
+  }
+  .card3d .glyph { width: var(--icon); height: var(--icon); display: block; }
+  .card3d .glyph * { stroke: #E8EEF4; }
+  .cap { display: flex; flex-direction: column; align-items: center; gap: clamp(6px, 1vmin, 10px); }
+  .cap .name {
+    font-size: clamp(9px, 1.2vmin, 12px); font-weight: 600;
+    letter-spacing: 0.07em; text-transform: uppercase; color: #E8EEF4;
+    text-align: center; line-height: 1.26; max-width: 100%;
+    overflow-wrap: break-word; hyphens: auto;
+  }
+  .cap .bar { width: clamp(20px, 3vmin, 30px); height: 2px; border-radius: 2px; background: #B87333; opacity: .85; }
+
+  /* drag hint */
+  .cc-hint {
+    position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 7px; z-index: 120;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    opacity: .9; transition: opacity .5s ease; pointer-events: none;
+  }
+  .cc-hint.hide { opacity: 0; }
+  .cc-hint svg { width: 14px; height: 14px; stroke: #B87333; fill: none; }
+
+  @media (max-width: 1023px) {
+    .devices-panel { height: 420px; }
+  }
+
+  @media (max-width: 639px) {
+    .devices-panel { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    #particles-canvas {
-      display: none;
-    }
-
-    #particles-fallback {
-      display: block !important;
-    }
+    .hero-line-inner { transform: none !important; }
+    .hero-subtitle, .hero-cta, .scroll-indicator { opacity: 1 !important; transform: none !important; }
+    .eyebrow-inner { opacity: 1 !important; transform: none !important; }
+    .spotlight-svg { animation: none; }
+    .stage { animation: none; }
+    .recycle, .hub::after, .backring { animation: none !important; }
+    .cc-hint { display: none; }
   }
 </style>

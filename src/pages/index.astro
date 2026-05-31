@@ -7,14 +7,15 @@ import ValueProps from '../components/ValueProps.astro';
 import Services from '../components/Services.astro';
 import Process from '../components/Process.astro';
 import Status from '../components/Status.astro';
+import ContainerScroll from '../components/ContainerScroll.astro';
 import ChainOfCustody from '../components/ChainOfCustody.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import Chatbot from '../components/Chatbot.astro';
 
-const pageTitle = 'Gestor RAEE Chile Autorizado | ElectroLoop — Ley REP & Reciclaje Electrónico';
+const pageTitle = 'Gestor RAEE Chile | ElectroLoop — Ley REP & Reciclaje Electrónico';
 const pageDescription =
-  'ElectroLoop: gestor RAEE autorizado en Chile. Cumple la Ley REP con trazabilidad total. Recolección, tratamiento y valorización de residuos electrónicos para empresas. ✓ Certificado SMA.';
+  'ElectroLoop: integrador RAEE con red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos. Inicio operativo agosto 2026. Pre-registro de clientes ancla abierto.';
 ---
 
 <Layout title={pageTitle} description={pageDescription} lang="es">
@@ -32,8 +33,11 @@ const pageDescription =
 
   <!-- Main content -->
   <main id="main-content">
-    <!-- 1. Hero — Full viewport, particle system, animated headline (BLOQUE 2) -->
+    <!-- 1. Hero — Split layout: text left + Spline 3D right (BLOQUE 2) -->
     <HeroParticles />
+
+    <!-- 1b. ContainerScroll — 3D dashboard card reveal on scroll -->
+    <ContainerScroll />
 
     <!-- 2. Value Propositions — Why ElectroLoop? 4 cards -->
     <ValueProps />
