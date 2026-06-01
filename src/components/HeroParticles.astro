@@ -1,5 +1,19 @@
 ---
 // HeroParticles.astro — Split hero: text left + "Ciclo Circular RAEE" 3D carousel right
+// Cards with real product photos + per-card 360° Y-rotation on mouse drag
+// Replace image src with licensed images placed in /public/images/carousel/
+interface CardDef { src: string; label: string; }
+const CARDS: CardDef[] = [
+  { src: 'https://images.unsplash.com/photo-1567177662154-dfeb4c93b6ae?w=280&q=80', label: 'Iluminación' },
+  { src: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=280&q=80', label: 'Celulares' },
+  { src: 'https://images.unsplash.com/photo-1585515320310-259814833e62?w=280&q=80', label: 'Electrodomésticos' },
+  { src: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=280&q=80', label: 'Notebooks' },
+  { src: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=280&q=80', label: 'Energía Solar' },
+  { src: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=280&q=80', label: 'Baterías' },
+  { src: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=280&q=80', label: 'Herramientas' },
+  { src: 'https://images.unsplash.com/photo-1461151304267-38535e780c79?w=280&q=80', label: 'TVs' },
+  { src: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829e1?w=280&q=80', label: 'Smart TVs' },
+];
 ---
 
 <section
@@ -118,62 +132,30 @@
           <!-- ambient dashed ring -->
           <div class="backring"></div>
 
-          <!-- device cards (Lucide-style line glyphs) -->
-          <div class="card3d" data-i="0">
-            <div class="card-face">
-              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9"/>
-                <path d="M2.5 16h19l1.2 2.4a1 1 0 0 1-.9 1.45H2.2a1 1 0 0 1-.9-1.45L2.5 16Z"/>
-              </svg>
-              <div class="cap"><div class="name">Notebooks</div><div class="bar"></div></div>
+          <!-- 9 device cards — product photo front + ElectroLoop recycling back -->
+          <!-- Drag each card individually to rotate 360° on its own axis -->
+          {CARDS.map((card, i) => (
+            <div class="card3d" data-i={i}>
+              <div class="card-inner">
+                <div class="card-face card-front">
+                  <div class="card-img-win">
+                    <img src={card.src} class="card-img" alt={card.label} loading="lazy" draggable="false" />
+                  </div>
+                  <div class="cap"><div class="name">{card.label}</div><div class="bar"></div></div>
+                </div>
+                <div class="card-face card-back">
+                  <svg class="back-recy" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/>
+                    <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/>
+                    <path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/>
+                    <path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/>
+                    <path d="m13.378 9.633 4.096 1.098 1.097-4.096"/>
+                  </svg>
+                  <div class="cap"><div class="name back-brand">ElectroLoop</div><div class="bar"></div></div>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="card3d" data-i="1">
-            <div class="card-face">
-              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="6" y="2" width="12" height="20" rx="2.5"/>
-                <path d="M11 18h2"/>
-              </svg>
-              <div class="cap"><div class="name">Celulares</div><div class="bar"></div></div>
-            </div>
-          </div>
-
-          <div class="card3d" data-i="2">
-            <div class="card-face">
-              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="6" width="20" height="13" rx="2"/>
-                <path d="M16 3l-4 3-4-3"/>
-                <path d="M9 22h6"/>
-              </svg>
-              <div class="cap"><div class="name">TVs</div><div class="bar"></div></div>
-            </div>
-          </div>
-
-          <div class="card3d" data-i="3">
-            <div class="card-face">
-              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 6.5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2V10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/>
-                <path d="M15 6.5h3v4h-3"/>
-                <path d="M18 8.5h4"/>
-                <path d="M7 12v2.6a2.4 2.4 0 0 0 2.4 2.4h.6a1.8 1.8 0 0 0 1.8-1.6L12 12"/>
-                <path d="M12 7.5h2.5"/>
-              </svg>
-              <div class="cap"><div class="name">Herramientas</div><div class="bar"></div></div>
-            </div>
-          </div>
-
-          <div class="card3d" data-i="4">
-            <div class="card-face">
-              <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="2" width="16" height="20" rx="2.5"/>
-                <path d="M7 6h.01"/><path d="M11 6h.01"/>
-                <circle cx="12" cy="14" r="5"/>
-                <path d="M12 18.5a2.6 2.6 0 0 0 0-5.2 2.6 2.6 0 0 1 0-5.2"/>
-              </svg>
-              <div class="cap"><div class="name">Electrodomésticos</div><div class="bar"></div></div>
-            </div>
-          </div>
+          ))}
 
           <!-- central recycle hub -->
           <div class="hub">
@@ -266,17 +248,18 @@
     let Rx = 167, Ry = 96, Z = 170;
     function measure() {
       const w = stage.clientWidth, h = stage.clientHeight, m = Math.min(w, h);
-      Rx = clamp(w * 0.30, 120, 215);   // horizontal reach
+      Rx = clamp(w * 0.34, 135, 240);   // horizontal reach (wider for 9 cards)
       Ry = clamp(h * 0.165, 60, 120);   // vertical arc (keeps hub visible)
       Z  = clamp(m * 0.34, 110, 195);   // depth
     }
     measure();
     window.addEventListener('resize', measure, { passive: true });
 
-    let angle    = -Math.PI / 2 + 0.0001;  // opening frame: a card rising front-left
-    let vel      = OMEGA;
-    let dragging = false;
-    let last     = performance.now();
+    let angle        = -Math.PI / 2 + 0.0001;
+    let vel          = OMEGA;
+    let dragging     = false;
+    let cardDragging = -1;   // index of card currently being rotated individually
+    let last         = performance.now();
 
     function layout() {
       let frontIdx = 0, frontCos = -2;
@@ -304,7 +287,7 @@
     function frame(now) {
       let dt = (now - last) / 1000; last = now;
       if (dt > 0.05) dt = 0.05;
-      if (!dragging) {
+      if (!dragging && cardDragging < 0) {
         vel += (OMEGA - vel) * Math.min(1, dt * 1.4);   // ease back to auto-spin
         angle += vel * dt;
       }
@@ -353,6 +336,45 @@
     window.addEventListener('pointercancel', endDrag);
 
     if (hint) setTimeout(() => hint.classList.add('hide'), 6000);
+
+    // ── Per-card 360° Y-rotation on individual drag ──
+    // Drag a card directly to spin it on its own axis (front→back→front).
+    // stopPropagation prevents the carousel-ring drag from activating at the same time.
+    const cardInners    = cards.map(c => c.querySelector('.card-inner'));
+    const cardRots      = new Array(N).fill(0);
+    let   cardDragX     = 0;
+    let   cardDragStart = 0;
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('pointerdown', (e) => {
+        e.stopPropagation();          // don't start carousel drag
+        cardDragging  = idx;
+        cardDragX     = e.clientX;
+        cardDragStart = cardRots[idx];
+        try { card.setPointerCapture(e.pointerId); } catch (_) {}
+        cardInners[idx]?.classList.add('spinning');
+        document.body.classList.add('cc-grabbing');
+        if (hint) hint.classList.add('hide');
+      });
+
+      card.addEventListener('pointermove', (e) => {
+        if (cardDragging !== idx) return;
+        const dx = e.clientX - cardDragX;
+        cardRots[idx] = cardDragStart + dx * 0.55;   // ~0.55 deg per px
+        if (cardInners[idx])
+          cardInners[idx].style.transform = `rotateY(${cardRots[idx]}deg)`;
+      });
+
+      const endCardDrag = () => {
+        if (cardDragging !== idx) return;
+        cardDragging = -1;
+        cardInners[idx]?.classList.remove('spinning');
+        document.body.classList.remove('cc-grabbing');
+      };
+      card.addEventListener('pointerup',           endCardDrag);
+      card.addEventListener('pointercancel',        endCardDrag);
+      card.addEventListener('lostpointercapture',   endCardDrag);
+    });
   }
 </script>
 
@@ -475,8 +497,19 @@
     margin-left: calc(var(--cardw) / -2); margin-top: calc(var(--cardh) / -2);
     transform-style: preserve-3d;
     will-change: transform, opacity;
-    backface-visibility: hidden;
+    cursor: pointer;
   }
+
+  /* inner wrapper — handles per-card 360° Y rotation */
+  .card-inner {
+    position: absolute; inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.18s ease-out;
+  }
+  .card-inner.spinning { transition: none; }
+
+  /* shared face styles */
   .card-face {
     position: absolute; inset: 0; border-radius: clamp(14px, 1.8vmin, 20px);
     background:
@@ -487,15 +520,16 @@
       0 30px 60px -18px rgba(0,0,0,0.72),
       inset 0 1px 0 rgba(255,255,255,0.07);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: clamp(12px, 2vmin, 22px);
-    padding: clamp(12px, 2vmin, 22px);
+    gap: clamp(10px, 1.6vmin, 18px);
+    padding: clamp(10px, 1.6vmin, 18px);
     overflow: hidden;
     transition: border-color .5s ease, box-shadow .5s ease;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   .card-face::before {
     content: ''; position: absolute; inset: 0; border-radius: inherit;
     border: 1.5px solid transparent;
-    box-shadow: 0 0 0 0 rgba(184,115,51,0);
     transition: border-color .5s, box-shadow .5s;
     pointer-events: none;
   }
@@ -504,9 +538,42 @@
     border-color: rgba(184,115,51,0.85);
     box-shadow: 0 0 30px 2px rgba(184,115,51,0.30), inset 0 0 20px rgba(184,115,51,0.10);
   }
-  .card3d .glyph { width: var(--icon); height: var(--icon); display: block; }
-  .card3d .glyph * { stroke: #E8EEF4; }
-  .cap { display: flex; flex-direction: column; align-items: center; gap: clamp(6px, 1vmin, 10px); }
+
+  /* BACK face — rotated 180°, copper recycling branding */
+  .card-back {
+    transform: rotateY(180deg);
+    background:
+      radial-gradient(135% 100% at 50% 0%, rgba(184,115,51,0.14) 0%, transparent 34%),
+      linear-gradient(155deg, #16294a 0%, #0e1d36 58%, #0a1730 100%);
+    border-color: rgba(184,115,51,0.28);
+  }
+
+  /* product image showcase window (white bg, product contained) */
+  .card-img-win {
+    width: 86%; aspect-ratio: 1 / 1;
+    border-radius: clamp(8px, 1.2vmin, 14px);
+    overflow: hidden;
+    background: rgba(255,255,255,0.97);
+    display: flex; align-items: center; justify-content: center;
+    padding: 10%;
+    flex-shrink: 0;
+  }
+  .card-img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    display: block;
+  }
+
+  /* recycling icon on back face */
+  .back-recy {
+    width: clamp(38px, 6.5vmin, 60px);
+    height: clamp(38px, 6.5vmin, 60px);
+  }
+  .back-recy * { stroke: #B87333; }
+  .back-brand { color: #B87333 !important; }
+
+  .cap { display: flex; flex-direction: column; align-items: center; gap: clamp(5px, 0.9vmin, 9px); }
   .cap .name {
     font-size: clamp(9px, 1.2vmin, 12px); font-weight: 600;
     letter-spacing: 0.07em; text-transform: uppercase; color: #E8EEF4;
