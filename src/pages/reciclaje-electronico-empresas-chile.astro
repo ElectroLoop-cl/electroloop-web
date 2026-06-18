@@ -75,8 +75,8 @@ const faqs = [
 ---
 
 <BlueprintLayout
-  title="Reciclaje Electrónico para Empresas en Chile | ElectroLoop Gestor RAEE"
-  description="Servicio de reciclaje de equipos electrónicos para empresas en Chile. Retiro en tus instalaciones con partners certificados, certificado de disposición final y cumplimiento Ley REP."
+  title="Reciclaje Electrónico para Empresas en Chile | Retiro + Certificado | ElectroLoop"
+  description="Retiro de equipos electrónicos en tus instalaciones, destrucción certificada de datos y certificado de disposición final. Cumplimiento Ley REP para empresas en la III y IV Región. Solicita cotización gratuita."
 >
 
   <!-- HERO -->
@@ -239,20 +239,43 @@ const faqs = [
 
   <FooterV2 />
 
-  <!-- Schema.org -->
+  <!-- Schema.org: Service -->
   <script type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'Reciclaje de Equipos Electrónicos para Empresas en Chile',
-    description: 'Servicio de recolección, tratamiento y valorización de residuos electrónicos para empresas en Chile, operando a través de partners certificados bajo la Ley REP. Macrozona norte, inicio operativo agosto 2026.',
+    description: 'Retiro de RAEE en instalaciones, destrucción certificada de datos y certificado de disposición final. Cumplimiento Ley REP para empresas en III y IV Región de Chile.',
     provider: {
       '@type': 'Organization',
-      name: 'ElectroLoop',
+      name: 'ElectroLoop SpA',
       url: 'https://electroloop.cl',
     },
-    areaServed: 'Macrozona Norte de Chile',
+    areaServed: [
+      { '@type': 'State', name: 'Región de Atacama', containedInPlace: { '@type': 'Country', name: 'Chile' } },
+      { '@type': 'State', name: 'Región de Coquimbo', containedInPlace: { '@type': 'Country', name: 'Chile' } },
+    ],
     serviceType: 'Reciclaje Electrónico Empresas RAEE',
-    url: 'https://electroloop.cl/reciclaje-electronico-empresas-chile',
+    url: 'https://electroloop.cl/reciclaje-electronico-empresas-chile/',
+    offers: {
+      '@type': 'Offer',
+      description: 'Cotización gratuita sin compromiso para retiro de equipos electrónicos',
+      price: '0',
+      priceCurrency: 'CLP',
+    },
+  })} />
+
+  <!-- Schema.org: FAQPage (rich snippets en Google) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.a,
+      },
+    })),
   })} />
 
 </BlueprintLayout>
