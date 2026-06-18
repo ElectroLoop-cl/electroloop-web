@@ -1,264 +1,307 @@
----
-import Layout from '../layouts/Layout.astro';
+﻿---
+import BlueprintLayout from '../layouts/BlueprintLayout.astro';
+import FooterV2 from '../components/v2/FooterV2.astro';
+
+const materiales = {
+  peligrosos: ['Plomo en soldaduras', 'Mercurio en pantallas', 'Cadmio en baterÃ­as', 'ArsÃ©nico en semiconductores', 'Retardantes de llama bromados'],
+  recuperables: ['Cobre en circuitos', 'Oro y plata en conectores', 'Aluminio en carcasas', 'Paladio en tarjetas', 'PlÃ¡sticos de ingenierÃ­a'],
+};
+
+const ciclo = [
+  { n: '01', code: 'RET', title: 'RecolecciÃ³n y logÃ­stica', desc: 'Coordinamos el retiro en tus instalaciones con partners logÃ­sticos certificados. Manifiestos de transporte y acta de recepciÃ³n inmediata.', seal: '[ VÃA PARTNERS CERTIFICADOS ]' },
+  { n: '02', code: 'PES', title: 'RecepciÃ³n y pesaje', desc: 'Cada RAEE es registrado, pesado y fotografiado. Trazabilidad desde el primer kilo.', seal: '[ TRAZABILIDAD COMPLETA ]' },
+  { n: '03', code: 'DAT', title: 'DestrucciÃ³n certificada de datos', desc: 'Borrado seguro o destrucciÃ³n fÃ­sica del soporte. Certificado individual por nÃºmero de serie y mÃ©todo.', seal: '[ CERTIFICADO POR DISPOSITIVO ]' },
+  { n: '04', code: 'DES', title: 'Desmantelamiento y clasificaciÃ³n', desc: 'SeparaciÃ³n de componentes por tipo de material: metales, plÃ¡sticos, vidrio y materiales peligrosos.', seal: '[ GESTORES AUTORIZADOS SMA ]' },
+  { n: '05', code: 'VAL', title: 'ValorizaciÃ³n de materiales', desc: 'RecuperaciÃ³n de metales preciosos y materiales reciclables que regresan al ciclo productivo como materia prima secundaria.', seal: '[ ECONOMÃA CIRCULAR ]' },
+  { n: '06', code: 'CDF', title: 'CertificaciÃ³n y reporterÃ­a', desc: 'Certificados de valorizaciÃ³n y reportes auditables para cumplimiento REP e informes ESG.', seal: '[ EN 5 DÃAS HÃBILES ]' },
+];
+
+const diferenciadores = [
+  { tag: 'INT', title: 'Integrador especializado', desc: 'ElectroLoop gestiona todo el ciclo: un solo punto de contacto que coordina partners certificados, logÃ­stica, trazabilidad y certificaciÃ³n.' },
+  { tag: 'TRZ', title: 'Trazabilidad que puedes auditar', desc: 'Seguimiento digital de cada componente. Reportes descargables listos para tu auditorÃ­a REP o informe ESG.' },
+  { tag: 'DAT', title: 'DestrucciÃ³n de datos certificada', desc: 'Certificado individual por dispositivo con nÃºmero de serie y mÃ©todo. VÃ¡lido para auditorÃ­as de cumplimiento normativo.' },
+  { tag: 'REP', title: 'GestiÃ³n REP integral', desc: 'RecolecciÃ³n, certificados y reporterÃ­a para el Ministerio. Todo en un solo proveedor, sin costo de coordinaciÃ³n.' },
+];
+
+const marco = [
+  { org: 'Ley NÂ° 20.920 â€” REP', desc: 'Marco legal que obliga a productores a financiar la gestiÃ³n de sus RAEE al final de su vida Ãºtil.' },
+  { org: 'DS 8/2021 â€” Reglamento RAEE', desc: 'Fija metas anuales de recolecciÃ³n y valorizaciÃ³n por categorÃ­a (AIT, PFV, AEE).' },
+  { org: 'Registro de Gestores â€” MMA', desc: 'Solo gestores inscritos en el Ministerio del Medio Ambiente pueden emitir certificados vÃ¡lidos.' },
+  { org: 'Decreto 148 â€” Residuos Peligrosos', desc: 'Regula el manejo, transporte y disposiciÃ³n de los materiales peligrosos contenidos en los RAEE.' },
+];
+
+const faqs = [
+  { q: 'Â¿CÃ³mo verifico si un gestor RAEE estÃ¡ autorizado?', a: 'En el Registro PÃºblico de Gestores del Ministerio del Medio Ambiente. ElectroLoop opera con partners que cuentan con las autorizaciones vigentes. Exige siempre el nÃºmero de registro antes de contratar.' },
+  { q: 'Â¿CuÃ¡l es la diferencia entre ElectroLoop y un chatarrero?', a: 'Un chatarrero no cuenta con autorizaciones legales, no emite certificados vÃ¡lidos ante la SMA y no garantiza disposiciÃ³n correcta de materiales peligrosos. Usarlo no te exime de responsabilidad bajo la Ley REP.' },
+  { q: 'Â¿CuÃ¡ntos equipos mÃ­nimos necesito para un retiro?', a: 'No hay mÃ­nimo estricto, pero el servicio es mÃ¡s eficiente desde 10 equipos. Para volÃºmenes menores podemos orientarte hacia puntos de recolecciÃ³n o agendar retiro compartido.' },
+  { q: 'Â¿La gestiÃ³n RAEE aplica solo a computadores?', a: 'Aplica a todos los AEE: smartphones, televisores, impresoras, servidores, baterÃ­as, luminarias y equipos industriales.' },
+  { q: 'Â¿El certificado sirve para mi reporte ESG?', a: 'SÃ­. Incluye kilogramos valorizados por tipo de material, destino final y data para reportes de sostenibilidad. Compatible con los principales estÃ¡ndares ESG y con el informe anual REP.' },
+];
 ---
 
-<Layout
-  title="Gestión RAEE Chile — Gestor Autorizado de Residuos Electrónicos | ElectroLoop"
-  description="ElectroLoop: gestor RAEE autorizado en Chile para empresas. Recolección, tratamiento y valorización de residuos electrónicos con trazabilidad total. Certificado SMA y Ley REP."
+<BlueprintLayout
+  title="GestiÃ³n RAEE Chile â€” Integrador de Residuos ElectrÃ³nicos | ElectroLoop"
+  description="ElectroLoop gestiona tus RAEE de principio a fin, coordinando partners certificados. RecolecciÃ³n, trazabilidad, destrucciÃ³n de datos y certificado de disposiciÃ³n final para Ley REP."
 >
 
-  <header style="background: #0a1628; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
-    <a href="/" style="display: flex; align-items: center; text-decoration: none;">
-      <img src="/logo-light.png" alt="ElectroLoop" style="height: 36px;" />
-    </a>
-    <a href="/#contacto" style="background: #B97333; color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
-      Contactar ahora
-    </a>
-  </header>
-
-  <main style="max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; font-family: Arial, Helvetica, sans-serif; color: #1a1a2e; line-height: 1.75;">
-
-    <!-- Breadcrumb -->
-    <nav style="font-size: 13px; color: #666; margin-bottom: 32px;">
-      <a href="/" style="color: #B97333; text-decoration: none;">Inicio</a>
-      <span style="margin: 0 8px;">›</span>
-      <span>Gestión RAEE Chile</span>
+  <!-- HERO -->
+  <section class="gr-hero v2-section" id="inicio" data-section="Inicio" data-index="01">
+    <nav class="gr-breadcrumb v2-mono v2-mono--steel">
+      <a href="/">INICIO</a><span aria-hidden="true"> / </span><span>GESTIÃ“N RAEE CHILE</span>
     </nav>
-
-    <!-- Hero -->
-    <div style="background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%); border-radius: 16px; padding: 48px 40px; margin-bottom: 48px; color: white;">
-      <span style="background: #B97333; color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;">GESTOR AUTORIZADO SMA</span>
-      <h1 style="font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin: 20px 0 16px; line-height: 1.2;">
-        Gestión RAEE en Chile:<br>El Gestor Autorizado que<br>Cierra el Ciclo
-      </h1>
-      <p style="font-size: 18px; opacity: 0.9; margin: 0 0 28px; max-width: 580px;">
-        ElectroLoop es el único gestor RAEE en Chile 100% especializado en residuos electrónicos, con trazabilidad auditable y cumplimiento total de la Ley REP.
-      </p>
-      <a href="/#contacto" style="background: #B97333; color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px;">
-        Hablar con un especialista →
+    <p class="gr-eyebrow v2-mono v2-mono--copper">[ INTEGRADOR RAEE Â· MACROZONA NORTE CHILE ]</p>
+    <h1 class="gr-h1">
+      <span class="gr-h1-outline">GESTIÃ“N</span><br />
+      <span class="gr-h1-solid">RAEE</span><br />
+      <span class="gr-h1-thin">EN CHILE</span>
+    </h1>
+    <p class="gr-lead">
+      Un solo punto de contacto que gestiona todo el ciclo de vida de tus residuos
+      electrÃ³nicos: recolecciÃ³n, trazabilidad, destrucciÃ³n de datos y certificado de
+      disposiciÃ³n final.
+    </p>
+    <div class="gr-ctas">
+      <a href="/#contacto" class="gr-cta-primary v2-mono">
+        SOLICITAR GESTIÃ“N <span aria-hidden="true">â†’</span>
+        <i class="v2-drawline" aria-hidden="true"></i>
+      </a>
+      <a href="/ley-rep-chile-empresas" class="gr-cta-secondary v2-mono">
+        VER GUÃA LEY REP <span aria-hidden="true">â†—</span>
       </a>
     </div>
+    <p class="gr-honest v2-mono v2-mono--steel">[ INICIO OPERATIVO AGOSTO 2026 Â· SERVICIO VÃA PARTNERS CERTIFICADOS ]</p>
+  </section>
 
-    <!-- Qué son los RAEE -->
-    <section style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        ¿Qué son los RAEE y por qué necesitan gestión especializada?
-      </h2>
-      <p>Los <strong>RAEE</strong> (Residuos de Aparatos Eléctricos y Electrónicos) son todos los equipos eléctricos o electrónicos que han llegado al final de su vida útil: computadores, teléfonos, televisores, impresoras, electrodomésticos y más.</p>
-      <p>A diferencia de la basura común, los RAEE contienen <strong>materiales peligrosos</strong> como mercurio, plomo, cadmio y arsénico, que pueden contaminar suelos y aguas si no se tratan correctamente. Al mismo tiempo, contienen <strong>materiales valiosos</strong> como cobre, oro, plata y aluminio que pueden recuperarse y volver al ciclo productivo.</p>
-      <p>Por eso en Chile, la <strong>Ley REP N° 20.920</strong> exige que la gestión de RAEE sea realizada exclusivamente por gestores autorizados por la Superintendencia del Medio Ambiente (SMA).</p>
+  <!-- QUÃ‰ SON LOS RAEE -->
+  <section class="gr-section v2-light" id="que-son" data-section="QuÃ© son los RAEE" data-index="02">
+    <header class="v2-sechead">
+      <span class="sh-idx">02</span>
+      <h2 class="sh-name">Â¿QuÃ© son los RAEE y por quÃ© necesitan gestiÃ³n especializada?</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <p class="gr-intro">
+      Los <strong>RAEE</strong> (Residuos de Aparatos ElÃ©ctricos y ElectrÃ³nicos) son equipos al
+      final de su vida Ãºtil. A diferencia de la basura comÃºn, contienen materiales peligrosos
+      que contaminan suelos y aguas, y materiales valiosos que pueden volver al ciclo productivo.
+    </p>
+    <div class="gr-mat-grid">
+      <div class="gr-mat-col gr-mat-col--danger">
+        <span class="gr-mat-head v2-mono v2-mono--copper">[ MATERIALES PELIGROSOS ]</span>
+        <ul class="gr-mat-list">{materiales.peligrosos.map(m => <li>{m}</li>)}</ul>
+      </div>
+      <div class="gr-mat-col gr-mat-col--ok">
+        <span class="gr-mat-head v2-mono v2-mono--steel">[ MATERIALES RECUPERABLES ]</span>
+        <ul class="gr-mat-list">{materiales.recuperables.map(m => <li>{m}</li>)}</ul>
+      </div>
+    </div>
+    <p class="gr-nota v2-mono v2-mono--steel">[ LEY REP NÂ° 20.920: LA GESTIÃ“N DE RAEE DEBE SER REALIZADA EXCLUSIVAMENTE POR GESTORES AUTORIZADOS POR LA SMA ]</p>
+  </section>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px;">
-        <div style="background: #fff3f3; border-radius: 12px; padding: 24px;">
-          <p style="font-weight: 700; color: #c53030; margin: 0 0 12px; font-size: 16px;">⚠️ Materiales peligrosos</p>
-          <ul style="padding-left: 18px; margin: 0; color: #555; font-size: 14px;">
-            <li style="margin-bottom: 6px;">Plomo en soldaduras</li>
-            <li style="margin-bottom: 6px;">Mercurio en pantallas</li>
-            <li style="margin-bottom: 6px;">Cadmio en baterías</li>
-            <li style="margin-bottom: 6px;">Arsénico en semiconductores</li>
-            <li style="margin-bottom: 0;">Retardantes de llama bromados</li>
-          </ul>
+  <!-- CICLO DE GESTIÃ“N -->
+  <section class="gr-section" id="ciclo" data-section="Ciclo de gestiÃ³n" data-index="03">
+    <header class="v2-sechead">
+      <span class="sh-idx">03</span>
+      <h2 class="sh-name">El Ciclo Completo de GestiÃ³n</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <ol class="gr-steps" role="list">
+      {ciclo.map((c, i) => (
+        <li class={`gr-step${i === ciclo.length - 1 ? ' gr-step--final' : ''}`}>
+          <div class="gr-step-left">
+            <span class="gr-step-n v2-mono">{c.n}</span>
+            <span class="gr-step-code v2-mono v2-mono--copper">[ {c.code} ]</span>
+          </div>
+          <div class="gr-step-body">
+            <h3 class="gr-step-title">{c.title}</h3>
+            <p class="gr-step-desc">{c.desc}</p>
+            <span class="gr-step-seal v2-mono v2-mono--steel">{c.seal}</span>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- POR QUÃ‰ ELECTROLOOP -->
+  <section class="gr-section v2-light" id="por-que" data-section="Por quÃ© ElectroLoop" data-index="04">
+    <header class="v2-sechead">
+      <span class="sh-idx">04</span>
+      <h2 class="sh-name">Por QuÃ© Elegir ElectroLoop</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <p class="gr-intro">No todos los gestores RAEE son iguales. ElectroLoop se especializa exclusivamente en residuos electrÃ³nicos y actÃºa como integrador de todo el proceso:</p>
+    <ul class="gr-dif-grid" role="list">
+      {diferenciadores.map((d) => (
+        <li class="gr-dif-cell">
+          <span class="gr-dif-tag v2-mono v2-mono--copper">[ {d.tag} ]</span>
+          <h3 class="gr-dif-title">{d.title}</h3>
+          <p class="gr-dif-desc">{d.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- MARCO REGULATORIO -->
+  <section class="gr-section" id="marco" data-section="Marco regulatorio" data-index="05">
+    <header class="v2-sechead">
+      <span class="sh-idx">05</span>
+      <h2 class="sh-name">Marco Regulatorio</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <p class="gr-intro">
+      La cadena de gestiÃ³n RAEE en Chile estÃ¡ regulada por mÃºltiples normativas. ElectroLoop
+      coordina con partners que operan bajo todas estas autorizaciones:
+    </p>
+    <ul class="gr-marco-list" role="list">
+      {marco.map((m) => (
+        <li class="gr-marco-item">
+          <span class="gr-marco-org v2-mono v2-mono--copper">{m.org}</span>
+          <p class="gr-marco-desc">{m.desc}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="gr-marco-honest v2-mono v2-mono--steel">[ ELECTROLOOP OPERA COMO INTEGRADOR DESDE AGO 2026 Â· PARTNERS CON AUTORIZACIONES VIGENTES ]</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="gr-section gr-cta-section" id="contacto-cta" data-section="Cotizar" data-index="06">
+    <p class="gr-cta-eyebrow v2-mono v2-mono--copper">[ Â¿BUSCAS GESTIÃ“N RAEE EN CHILE? ]</p>
+    <h2 class="gr-cta-title">
+      CuÃ©ntanos quÃ© equipos tienes.<br />
+      Te respondemos en menos de 24 horas.
+    </h2>
+    <div class="gr-cta-btns">
+      <a href="/#contacto" class="gr-cta-primary v2-mono">
+        SOLICITAR COTIZACIÃ“N <span aria-hidden="true">â†’</span>
+        <i class="v2-drawline" aria-hidden="true"></i>
+      </a>
+      <a href="/ley-rep-chile-empresas" class="gr-cta-secondary v2-mono">
+        VER GUÃA LEY REP <span aria-hidden="true">â†—</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="gr-section v2-light" id="faq" data-section="FAQ" data-index="07">
+    <header class="v2-sechead">
+      <span class="sh-idx">07</span>
+      <h2 class="sh-name">Preguntas Frecuentes sobre GestiÃ³n RAEE</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <dl class="gr-faq">
+      {faqs.map((f) => (
+        <div class="gr-faq-item">
+          <dt class="gr-faq-q">{f.q}</dt>
+          <dd class="gr-faq-a">{f.a}</dd>
         </div>
-        <div style="background: #f0f9f0; border-radius: 12px; padding: 24px;">
-          <p style="font-weight: 700; color: #2d7a2d; margin: 0 0 12px; font-size: 16px;">✓ Materiales recuperables</p>
-          <ul style="padding-left: 18px; margin: 0; color: #555; font-size: 14px;">
-            <li style="margin-bottom: 6px;">Cobre en circuitos</li>
-            <li style="margin-bottom: 6px;">Oro y plata en conectores</li>
-            <li style="margin-bottom: 6px;">Aluminio en carcasas</li>
-            <li style="margin-bottom: 6px;">Paladio en tarjetas</li>
-            <li style="margin-bottom: 0;">Plásticos de ingeniería</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      ))}
+    </dl>
+  </section>
 
-    <!-- Qué hace un gestor RAEE -->
-    <section style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        ¿Qué hace un gestor RAEE autorizado?
-      </h2>
-      <p>Un gestor RAEE autorizado como ElectroLoop se encarga de todo el ciclo de vida del residuo electrónico una vez que sale de tu empresa:</p>
+  <FooterV2 />
 
-      <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 28px;">
-        {[
-          { icon: "🚛", title: "Recolección y logística", desc: "Retiro en las instalaciones del cliente con flota certificada, manifiestos de transporte y acta de recepción inmediata." },
-          { icon: "⚖️", title: "Recepción y pesaje certificado", desc: "Cada RAEE es registrado, pesado y fotografiado en nuestras instalaciones. Trazabilidad desde el primer momento." },
-          { icon: "🔒", title: "Destrucción certificada de datos", desc: "Borrado seguro o destrucción física del soporte de almacenamiento con certificado individual por número de serie." },
-          { icon: "🔧", title: "Desmantelamiento y clasificación", desc: "Separación de componentes por tipo de material: metales, plásticos, vidrio y materiales peligrosos." },
-          { icon: "♻️", title: "Valorización de materiales", desc: "Recuperación de metales preciosos y materiales reciclables que regresan al ciclo productivo como materia prima secundaria." },
-          { icon: "📄", title: "Certificación y reportería", desc: "Emisión de certificados de valorización y reportes auditables para cumplimiento REP e informes ESG." },
-        ].map(item => (
-          <div style="display: flex; gap: 20px; background: #f9fafc; border-radius: 12px; padding: 24px;">
-            <div style="font-size: 32px; flex-shrink: 0;">{item.icon}</div>
-            <div>
-              <p style="font-weight: 700; color: #0a1628; margin: 0 0 6px;">{item.title}</p>
-              <p style="color: #555; margin: 0; font-size: 15px;">{item.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- Por qué ElectroLoop -->
-    <section style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        ¿Por qué elegir ElectroLoop como tu gestor RAEE en Chile?
-      </h2>
-      <p>No todos los gestores RAEE son iguales. Aquí está lo que nos diferencia:</p>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin-top: 28px;">
-        {[
-          {
-            title: "100% especializado en RAEE",
-            desc: "No gestionamos residuos industriales genéricos. ElectroLoop existe exclusivamente para el reciclaje electrónico — eso se nota en cada proceso.",
-            color: "#f0f4ff"
-          },
-          {
-            title: "Trazabilidad que puedes auditar",
-            desc: "Seguimiento digital de cada componente en tiempo real. Reportes descargables listos para tu auditoría REP o informe ESG.",
-            color: "#f0f9f0"
-          },
-          {
-            title: "Destrucción de datos certificada",
-            desc: "Certificado individual por dispositivo con número de serie y método. Válido para auditorías de cumplimiento normativo.",
-            color: "#fff8f0"
-          },
-          {
-            title: "Socio REP integral",
-            desc: "Gestión completa de tu obligación REP: recolección, reportería y certificados para el Ministerio. Todo en un solo proveedor.",
-            color: "#f9f0ff"
-          },
-        ].map(item => (
-          <div style={`background: ${item.color}; border-radius: 12px; padding: 24px;`}>
-            <p style="font-weight: 700; color: #0a1628; margin: 0 0 10px; font-size: 16px;">✓ {item.title}</p>
-            <p style="color: #555; font-size: 14px; margin: 0; line-height: 1.6;">{item.desc}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- Autorización -->
-    <section style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        Autorizaciones y certificaciones vigentes
-      </h2>
-      <p>Para operar legalmente como gestor RAEE en Chile, es obligatorio contar con autorizaciones de múltiples organismos. ElectroLoop las tiene todas vigentes:</p>
-
-      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
-        {[
-          { org: "Ministerio del Medio Ambiente", cert: "Registro de Gestores de Residuos — Ley REP N° 20.920" },
-          { org: "Superintendencia del Medio Ambiente (SMA)", cert: "Autorización de operación como gestor RAEE" },
-          { org: "SEREMI de Salud", cert: "Autorización sanitaria para manejo de residuos peligrosos" },
-          { org: "Estándar internacional", cert: "Sistema de Gestión Ambiental ISO 14001" },
-          { org: "Decreto 148", cert: "Cumplimiento para manejo de residuos peligrosos" },
-        ].map(item => (
-          <div style="display: flex; align-items: flex-start; gap: 16px; background: #f9fafc; border-radius: 10px; padding: 18px 20px;">
-            <span style="color: #2d7a2d; font-size: 20px; flex-shrink: 0; margin-top: 2px;">✅</span>
-            <div>
-              <p style="font-weight: 600; color: #0a1628; margin: 0 0 2px; font-size: 15px;">{item.cert}</p>
-              <p style="color: #777; font-size: 13px; margin: 0;">{item.org}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section style="background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%); border-radius: 16px; padding: 48px 40px; text-align: center; margin-bottom: 56px; color: white;">
-      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 16px;">¿Buscas un gestor RAEE autorizado en Chile?</h2>
-      <p style="font-size: 17px; opacity: 0.9; margin: 0 auto 32px; max-width: 500px;">
-        Cuéntanos qué equipos tienes y cómo podemos ayudarte. Te respondemos en menos de 24 horas hábiles.
-      </p>
-      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <a href="/#contacto" style="background: #B97333; color: white; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 17px;">
-          Solicitar cotización →
-        </a>
-        <a href="/ley-rep-chile-empresas" style="background: rgba(255,255,255,0.15); color: white; padding: 16px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px;">
-          Ver guía Ley REP
-        </a>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section style="margin-bottom: 40px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        Preguntas Frecuentes sobre Gestión RAEE
-      </h2>
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        {[
-          {
-            q: "¿Cómo sé si un gestor RAEE está realmente autorizado en Chile?",
-            a: "Puedes verificarlo en el Registro Público de Gestores del Ministerio del Medio Ambiente de Chile. ElectroLoop está inscrito con todas las autorizaciones vigentes. Exige siempre el número de registro antes de contratar cualquier servicio de gestión RAEE."
-          },
-          {
-            q: "¿Cuál es la diferencia entre un gestor RAEE y un chatarrero?",
-            a: "Un chatarrero no cuenta con las autorizaciones legales para gestionar RAEE, no emite certificados válidos ante el SMA y no garantiza la correcta disposición de los materiales peligrosos. Usar un chatarrero no te exime de responsabilidad legal bajo la Ley REP."
-          },
-          {
-            q: "¿Cuántos equipos mínimos necesito para solicitar un retiro?",
-            a: "No hay un mínimo estricto, pero el servicio es más eficiente a partir de 10-15 equipos. Para volúmenes menores podemos orientarte hacia puntos de recolección cercanos o agendar un retiro compartido."
-          },
-          {
-            q: "¿La gestión RAEE aplica solo a computadores o a todo tipo de electrónicos?",
-            a: "Aplica a todos los aparatos eléctricos y electrónicos: desde smartphones hasta electrodomésticos, pasando por televisores, impresoras, servidores, baterías, luminarias y equipos industriales."
-          },
-          {
-            q: "¿Puedo usar el certificado de ElectroLoop para mi reporte de sustentabilidad ESG?",
-            a: "Sí. Nuestros certificados incluyen métricas de impacto ambiental: kilogramos valorizados por tipo de material, CO₂ evitado y destino final de los residuos. Son compatibles con los principales estándares de reporte ESG y con el informe anual de la Ley REP."
-          },
-        ].map(item => (
-          <details style="background: #f9fafc; border-radius: 12px; padding: 20px 24px; cursor: pointer;">
-            <summary style="font-weight: 700; color: #0a1628; font-size: 16px; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-              {item.q}
-              <span style="color: #B97333; font-size: 20px; flex-shrink: 0; margin-left: 12px;">+</span>
-            </summary>
-            <p style="margin: 14px 0 0; color: #555; line-height: 1.7;">{item.a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer style="background: #0a1628; color: #aaa; text-align: center; padding: 32px 24px; font-size: 14px;">
-    <p style="margin: 0 0 8px;">
-      <a href="/" style="color: white; text-decoration: none; font-weight: 600;">ElectroLoop SpA</a>
-      — Gestor RAEE Autorizado Chile
-    </p>
-    <p style="margin: 0 0 8px;">
-      <a href="/ley-rep-chile-empresas" style="color: #B97333; text-decoration: none;">Guía Ley REP Chile</a>
-      <span style="margin: 0 12px; opacity: 0.4;">|</span>
-      <a href="/reciclaje-electronico-empresas-chile" style="color: #B97333; text-decoration: none;">Reciclaje para empresas</a>
-    </p>
-    <p style="margin: 0;">
-      <a href="/" style="color: #aaa; text-decoration: none;">← Volver al sitio principal</a>
-    </p>
-  </footer>
-
-  <!-- Schema.org -->
   <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Gestión RAEE Chile — Qué es y cómo funciona el gestor autorizado de residuos electrónicos",
-    "description": "Guía completa sobre la gestión de RAEE en Chile. Qué hace un gestor autorizado, por qué es obligatorio y cómo elegir el mejor socio para tu empresa.",
-    "author": {
-      "@type": "Organization",
-      "name": "ElectroLoop SpA",
-      "url": "https://electroloop.cl"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "ElectroLoop SpA",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://electroloop.cl/favicon.png"
-      }
-    },
-    "datePublished": "2026-04-15",
-    "dateModified": "2026-04-15",
-    "mainEntityOfPage": "https://electroloop.cl/gestion-raee-chile",
-    "inLanguage": "es-CL"
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'GestiÃ³n RAEE Chile â€” Integrador de Residuos ElectrÃ³nicos',
+    description: 'ElectroLoop gestiona el ciclo completo de residuos electrÃ³nicos en Chile coordinando partners certificados. RecolecciÃ³n, trazabilidad, destrucciÃ³n de datos y certificado de disposiciÃ³n final.',
+    provider: { '@type': 'Organization', name: 'ElectroLoop', url: 'https://electroloop.cl' },
+    areaServed: 'Macrozona Norte de Chile',
+    serviceType: 'GestiÃ³n RAEE Chile Ley REP',
+    url: 'https://electroloop.cl/gestion-raee-chile',
   })} />
 
-</Layout>
+</BlueprintLayout>
+
+<style>
+  .gr-hero,
+  .gr-section {
+    padding: clamp(64px, 10vh, 120px) var(--margin-edge) clamp(64px, 10vh, 120px) var(--margin-bind);
+  }
+
+  /* HERO */
+  .gr-hero { background: var(--abyssal); color: var(--ceramic); min-height: 85vh; display: flex; flex-direction: column; justify-content: center; }
+  .gr-breadcrumb { font-size: 0.6rem; letter-spacing: 0.12em; margin-bottom: clamp(32px, 5vh, 56px); }
+  .gr-breadcrumb a { color: var(--steel); text-decoration: none; }
+  .gr-breadcrumb a:hover { color: var(--copper); }
+  .gr-eyebrow { font-size: 0.65rem; margin-bottom: 24px; }
+  .gr-h1 { font-family: var(--font-display); line-height: 0.92; margin: 0 0 clamp(28px, 4vh, 48px); }
+  .gr-h1-outline { font-size: clamp(3.5rem, 11vw, 10rem); font-weight: 800; color: transparent; -webkit-text-stroke: 1.5px var(--ceramic); display: block; letter-spacing: -0.02em; }
+  .gr-h1-solid { font-size: clamp(3.5rem, 11vw, 10rem); font-weight: 800; color: var(--copper); display: block; letter-spacing: -0.02em; }
+  .gr-h1-thin { font-size: clamp(1.6rem, 4.5vw, 4.5rem); font-weight: 300; color: var(--ceramic); display: block; letter-spacing: 0.08em; margin-top: 8px; }
+  .gr-lead { font-size: clamp(1rem, 1.8vw, 1.35rem); font-weight: 300; line-height: 1.65; max-width: 52ch; color: rgba(244, 244, 244, 0.85); margin: 0 0 clamp(32px, 5vh, 48px); }
+  .gr-ctas { display: flex; gap: 32px; flex-wrap: wrap; align-items: center; margin-bottom: clamp(32px, 5vh, 48px); }
+  .gr-cta-primary { position: relative; text-decoration: none; color: var(--ceramic); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.14em; padding: 16px 0; }
+  .gr-cta-primary:hover { color: var(--copper); }
+  .gr-cta-primary .v2-drawline { bottom: 6px; left: 0; right: 0; position: absolute; }
+  .gr-cta-secondary { text-decoration: none; color: var(--steel); font-size: 0.72rem; letter-spacing: 0.12em; transition: color 0.3s; }
+  .gr-cta-secondary:hover { color: var(--ceramic); }
+  .gr-honest { font-size: 0.58rem; margin: 0; }
+
+  /* SECTIONS */
+  .gr-section { position: relative; }
+  .gr-intro { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 300; line-height: 1.7; color: var(--ceramic); max-width: 64ch; margin: 0 0 clamp(36px, 5vh, 56px); }
+  .gr-intro strong { font-weight: 800; }
+  .gr-nota, .gr-marco-honest { font-size: 0.58rem; margin-top: clamp(28px, 4vh, 48px); }
+
+  /* MATERIALES */
+  .gr-mat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(11,27,50,0.12); border: 1px solid rgba(11,27,50,0.12); }
+  .gr-mat-col { padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; gap: 16px; }
+  .gr-mat-col--danger { background: var(--abyssal); }
+  .gr-mat-col--ok { background: rgba(11,27,50,0.04); }
+  .gr-mat-head { font-size: 0.6rem; }
+  .gr-mat-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .gr-mat-list li { font-size: 0.85rem; font-weight: 300; line-height: 1.5; color: var(--steel); }
+  .gr-mat-col--danger .gr-mat-list li { color: rgba(244,244,244,0.75); }
+
+  /* CICLO */
+  .gr-steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(142,146,151,0.2); }
+  .gr-step { display: grid; grid-template-columns: 100px 1fr; gap: 0 24px; padding: clamp(28px, 4vh, 48px) 0; border-bottom: 1px solid rgba(142,146,151,0.2); align-items: start; }
+  .gr-step--final { border-bottom: none; }
+  .gr-step-left { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; padding-top: 4px; }
+  .gr-step-n { font-size: 2.5rem; font-weight: 800; color: rgba(184,115,51,0.2); line-height: 1; }
+  .gr-step-code { font-size: 0.58rem; }
+  .gr-step-body { padding-right: var(--margin-edge); }
+  .gr-step-title { font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-weight: 700; color: var(--ceramic); margin: 0 0 10px; }
+  .gr-step-desc { font-size: clamp(0.9rem, 1.2vw, 1rem); font-weight: 300; color: var(--steel); line-height: 1.7; margin: 0 0 14px; max-width: 60ch; }
+  .gr-step-seal { font-size: 0.58rem; }
+
+  /* DIFERENCIADORES */
+  .gr-dif-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: rgba(11,27,50,0.12); border: 1px solid rgba(11,27,50,0.12); }
+  .gr-dif-cell { background: var(--ceramic); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 10px; }
+  .gr-dif-tag { font-size: 0.6rem; }
+  .gr-dif-title { font-size: 1rem; font-weight: 800; color: var(--abyssal); margin: 0; }
+  .gr-dif-desc { font-size: 0.85rem; font-weight: 300; color: var(--steel-ink, #5d6267); line-height: 1.65; margin: 0; }
+
+  /* MARCO */
+  .gr-marco-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(11,27,50,0.18); }
+  .gr-marco-item { display: grid; grid-template-columns: 280px 1fr; gap: 0 32px; padding: clamp(20px, 3vh, 32px) 0; border-bottom: 1px solid rgba(11,27,50,0.18); align-items: start; }
+  .gr-marco-org { font-size: 0.65rem; letter-spacing: 0.06em; padding-top: 4px; }
+  .gr-marco-desc { font-size: clamp(0.85rem, 1.1vw, 1rem); font-weight: 300; color: var(--steel-ink, #5d6267); line-height: 1.7; margin: 0; }
+
+  /* CTA */
+  .gr-cta-section { background: var(--abyssal); display: flex; flex-direction: column; align-items: flex-start; gap: clamp(20px, 3vh, 32px); }
+  .gr-cta-eyebrow { font-size: 0.62rem; margin: 0; }
+  .gr-cta-title { font-size: clamp(1.8rem, 4vw, 3.5rem); font-weight: 300; color: var(--ceramic); line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
+  .gr-cta-btns { display: flex; gap: 32px; flex-wrap: wrap; align-items: center; }
+
+  /* FAQ */
+  .gr-faq { display: flex; flex-direction: column; gap: 0; border-top: 1px solid rgba(11,27,50,0.18); }
+  .gr-faq-item { padding: clamp(24px, 3.5vh, 40px) 0; border-bottom: 1px solid rgba(11,27,50,0.18); display: grid; grid-template-columns: 1fr 1.4fr; gap: 24px; }
+  .gr-faq-q { font-size: clamp(0.9rem, 1.3vw, 1.1rem); font-weight: 700; color: var(--abyssal); margin: 0; line-height: 1.4; }
+  .gr-faq-a { font-size: clamp(0.85rem, 1.1vw, 1rem); font-weight: 300; color: var(--steel-ink, #5d6267); line-height: 1.75; margin: 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .gr-mat-grid { grid-template-columns: 1fr; }
+    .gr-faq-item { grid-template-columns: 1fr; gap: 12px; }
+    .gr-step { grid-template-columns: 72px 1fr; }
+    .gr-step-body { padding-right: 0; }
+    .gr-marco-item { grid-template-columns: 1fr; gap: 8px; }
+  }
+  @media (max-width: 600px) {
+    .gr-dif-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gr-cta-secondary, .gr-breadcrumb a { transition: none; }
+  }
+</style>

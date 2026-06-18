@@ -1,304 +1,325 @@
----
-import Layout from '../layouts/Layout.astro';
+﻿---
+import BlueprintLayout from '../layouts/BlueprintLayout.astro';
+import FooterV2 from '../components/v2/FooterV2.astro';
+
+const obligaciones = [
+  { num: '01', title: 'Inscribirse como productor', desc: 'Registro en el sistema del Ministerio del Medio Ambiente antes de comercializar productos en Chile.' },
+  { num: '02', title: 'Cumplir metas anuales de recolecciÃ³n', desc: 'El DS 8/2021 fija metas porcentuales crecientes. En 2026 son significativamente mayores que en aÃ±os anteriores.' },
+  { num: '03', title: 'Contratar gestores RAEE autorizados', desc: 'Los RAEE recolectados deben entregarse exclusivamente a gestores autorizados por la SMA.' },
+  { num: '04', title: 'Reportar anualmente al Ministerio', desc: 'Informe anual acreditando cumplimiento de metas, con certificados emitidos por el gestor.' },
+  { num: '05', title: 'Financiar el sistema de gestiÃ³n', desc: 'El productor financia recolecciÃ³n y tratamiento, ya sea individualmente o vÃ­a un SIG colectivo.' },
+];
+
+const categorias = [
+  { tag: 'CAT. 1 â€” AIT', name: 'Aparatos de intercambio de temperatura', items: ['Refrigeradores', 'Aires acondicionados', 'Bombas de calor'] },
+  { tag: 'CAT. 2 â€” PFV', name: 'Paneles fotovoltaicos', items: ['MÃ³dulos solares al fin de su vida Ãºtil', 'CrÃ­tico en el norte minero'] },
+  { tag: 'CAT. 3 â€” AEE', name: 'Resto de aparatos elÃ©ctricos y electrÃ³nicos', items: ['Computadores y smartphones', 'ElectrodomÃ©sticos', 'Herramientas elÃ©ctricas', 'Luminarias'] },
+];
+
+const sanciones = [
+  { code: 'ECO', title: 'Multa hasta 10.000 UTA', desc: 'Equivalente a mÃ¡s de $700 millones de pesos chilenos.' },
+  { code: 'OPS', title: 'Clausura temporal', desc: 'Cierre de instalaciones hasta regularizaciÃ³n.' },
+  { code: 'LEG', title: 'RevocaciÃ³n de permisos', desc: 'PÃ©rdida de permisos de operaciÃ³n vigentes.' },
+  { code: 'REP', title: 'DaÃ±o reputacional', desc: 'PublicaciÃ³n en Registro de Sanciones. Impacto directo en licitaciones y ESG.' },
+];
+
+const pasos = [
+  { n: '01', title: 'DiagnÃ³stico inicial', desc: 'Identifica quÃ© productos estÃ¡n sujetos a REP y en quÃ© volÃºmenes los introduces al mercado chileno.', seal: '[ SIN COSTO ADICIONAL ]' },
+  { n: '02', title: 'InscripciÃ³n como productor', desc: 'Registro ante el Ministerio del Medio Ambiente en el sistema online habilitado.', seal: '[ OBLIGATORIO ANTES DE COMERCIALIZAR ]' },
+  { n: '03', title: 'Seleccionar gestor integrador', desc: 'Trabaja con ElectroLoop: un solo punto de contacto que coordina todo el proceso con partners certificados.', seal: '[ VÃA PARTNERS CERTIFICADOS ]' },
+  { n: '04', title: 'Implementar recolecciÃ³n', desc: 'Coordinamos retiro en tus instalaciones. Acta de recepciÃ³n firmada el mismo dÃ­a.', seal: '[ TRAZABILIDAD DESDE EL PRIMER KILO ]' },
+  { n: '05', title: 'Reportar al Ministerio', desc: 'Con los certificados que emitimos preparas tu informe anual. Te asistimos en todo el proceso.', seal: '[ CERTIFICADO EN 5 DÃAS HÃBILES ]' },
+];
+
+const faqs = [
+  { q: 'Â¿CuÃ¡ndo entrÃ³ en vigor la Ley REP para RAEE?', a: 'El DS 8/2021 para aparatos elÃ©ctricos y electrÃ³nicos entrÃ³ en vigor en 2023 para los primeros productores obligados. Las metas se incrementan aÃ±o a aÃ±o hasta 2030.' },
+  { q: 'Â¿QuÃ© pasa si soy una PYME pequeÃ±a?', a: 'La Ley REP aplica segÃºn el volumen que introduces al mercado. Las empresas pequeÃ±as tienen metas menores, pero la obligaciÃ³n existe si superas los umbrales del reglamento.' },
+  { q: 'Â¿Puedo cumplir de forma individual o debo unirme a un SIG?', a: 'Ambas opciones son vÃ¡lidas: contrato directo con un gestor integrador como ElectroLoop, o sumarte a un Sistema Integrado de GestiÃ³n (SIG) colectivo.' },
+  { q: 'Â¿CuÃ¡nto cuesta cumplir con la Ley REP?', a: 'Depende del volumen y tipo de equipos. Ofrecemos cotizaciones sin costo. El cumplimiento es significativamente mÃ¡s barato que el riesgo de una sanciÃ³n.' },
+  { q: 'Â¿ElectroLoop entrega los documentos para el reporte anual?', a: 'SÃ­. Emitimos certificados y reportes necesarios: toneladas valorizadas, tipo de material, destino final. VÃ¡lidos para auditorÃ­a REP e informes ESG.' },
+];
 ---
 
-<Layout
-  title="Ley REP Chile Empresas: Guía Completa de Cumplimiento RAEE | ElectroLoop"
-  description="Todo lo que tu empresa necesita saber sobre la Ley REP Chile (N° 20.920). Obligaciones, plazos, multas y cómo cumplir con la gestión de residuos electrónicos. Gestor RAEE autorizado."
+<BlueprintLayout
+  title="Ley REP Chile Empresas: GuÃ­a Completa de Cumplimiento RAEE | ElectroLoop"
+  description="Todo lo que tu empresa necesita saber sobre la Ley REP Chile (NÂ° 20.920). Obligaciones, plazos, multas y cÃ³mo cumplir con la gestiÃ³n de residuos electrÃ³nicos."
 >
 
-  <header style="background: #0a1628; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
-    <a href="/" style="display: flex; align-items: center; text-decoration: none;">
-      <img src="/logo-light.png" alt="ElectroLoop" style="height: 36px;" />
-    </a>
-    <a href="/#contacto" style="background: #B97333; color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
-      Contactar ahora
-    </a>
-  </header>
-
-  <main style="max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; font-family: Arial, Helvetica, sans-serif; color: #1a1a2e; line-height: 1.75;">
-
-    <!-- Breadcrumb -->
-    <nav style="font-size: 13px; color: #666; margin-bottom: 32px;">
-      <a href="/" style="color: #B97333; text-decoration: none;">Inicio</a>
-      <span style="margin: 0 8px;">›</span>
-      <span>Ley REP Chile Empresas</span>
+  <!-- HERO -->
+  <section class="lr-hero v2-section" id="inicio" data-section="Inicio" data-index="01">
+    <nav class="lr-breadcrumb v2-mono v2-mono--steel">
+      <a href="/">INICIO</a><span aria-hidden="true"> / </span><span>LEY REP CHILE EMPRESAS</span>
     </nav>
-
-    <!-- Hero del artículo -->
-    <div style="background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%); border-radius: 16px; padding: 48px 40px; margin-bottom: 48px; color: white;">
-      <span style="background: #B97333; color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;">GUÍA COMPLETA 2026</span>
-      <h1 style="font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin: 20px 0 16px; line-height: 1.2;">
-        Ley REP Chile Empresas:<br>Todo lo que Necesitas Saber
-      </h1>
-      <p style="font-size: 18px; opacity: 0.9; margin: 0; max-width: 600px;">
-        Obligaciones, plazos, multas y cómo cumplir correctamente con la gestión de residuos electrónicos bajo la Ley N° 20.920.
-      </p>
-    </div>
-
-    <!-- Índice -->
-    <div style="background: #f0f4ff; border-left: 4px solid #B97333; border-radius: 8px; padding: 28px 32px; margin-bottom: 48px;">
-      <p style="font-weight: 700; font-size: 16px; margin: 0 0 16px; color: #0a1628;">En esta guía:</p>
-      <ol style="margin: 0; padding-left: 20px; color: #1a3a5c;">
-        <li style="margin-bottom: 8px;"><a href="#que-es" style="color: #B97333; text-decoration: none;">¿Qué es la Ley REP Chile?</a></li>
-        <li style="margin-bottom: 8px;"><a href="#quienes" style="color: #B97333; text-decoration: none;">¿A qué empresas aplica?</a></li>
-        <li style="margin-bottom: 8px;"><a href="#obligaciones" style="color: #B97333; text-decoration: none;">Obligaciones concretas para empresas</a></li>
-        <li style="margin-bottom: 8px;"><a href="#multas" style="color: #B97333; text-decoration: none;">¿Qué pasa si no cumplo? Multas y sanciones</a></li>
-        <li style="margin-bottom: 8px;"><a href="#como-cumplir" style="color: #B97333; text-decoration: none;">Cómo cumplir paso a paso</a></li>
-        <li style="margin-bottom: 8px;"><a href="#electroloop" style="color: #B97333; text-decoration: none;">Por qué ElectroLoop es tu mejor socio REP</a></li>
-        <li style="margin-bottom: 0;"><a href="#preguntas" style="color: #B97333; text-decoration: none;">Preguntas frecuentes</a></li>
+    <p class="lr-eyebrow v2-mono v2-mono--copper">[ GUÃA COMPLETA 2026 Â· LEY NÂ° 20.920 ]</p>
+    <h1 class="lr-h1">
+      <span class="lr-h1-outline">GUÃA</span><br />
+      <span class="lr-h1-solid">LEY REP</span><br />
+      <span class="lr-h1-thin">PARA EMPRESAS</span>
+    </h1>
+    <p class="lr-lead">
+      Obligaciones, plazos, multas y cÃ³mo cumplir con la gestiÃ³n de residuos
+      electrÃ³nicos bajo la Ley NÂ° 20.920 y el DS 8/2021.
+    </p>
+    <nav class="lr-indice" aria-label="Ãndice de contenidos">
+      <span class="lr-indice-label v2-mono v2-mono--steel">[ EN ESTA GUÃA ]</span>
+      <ol class="lr-indice-list v2-mono">
+        <li><a href="#que-es">QuÃ© es la Ley REP</a></li>
+        <li><a href="#quienes">A quÃ© empresas aplica</a></li>
+        <li><a href="#obligaciones">Obligaciones concretas</a></li>
+        <li><a href="#multas">Multas y sanciones</a></li>
+        <li><a href="#como-cumplir">CÃ³mo cumplir paso a paso</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
       </ol>
+    </nav>
+  </section>
+
+  <!-- QUÃ‰ ES -->
+  <section class="lr-section v2-light" id="que-es" data-section="QuÃ© es" data-index="02">
+    <header class="v2-sechead">
+      <span class="sh-idx">02</span>
+      <h2 class="sh-name">Â¿QuÃ© es la Ley REP Chile?</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <div class="lr-two-col">
+      <div class="lr-col-main">
+        <p class="lr-text">La <strong>Ley REP</strong> (Responsabilidad Extendida del Productor), Ley NÂ° 20.920, establece que fabricantes e importadores de ciertos productos son responsables de gestionar correctamente esos productos al final de su vida Ãºtil.</p>
+        <p class="lr-text">Si tu empresa fabrica, importa o vende aparatos elÃ©ctricos y electrÃ³nicos en Chile, la ley te hace responsable de que esos equipos sean reciclados o valorizados â€” no enviados al basural.</p>
+        <p class="lr-text">Promulgada en <strong>2016</strong>, el reglamento para RAEE (DS 8/2021) entrÃ³ en vigor en <strong>2023</strong> para los primeros productores obligados.</p>
+      </div>
+      <aside class="lr-col-aside">
+        <span class="lr-aside-head v2-mono v2-mono--steel">[ DATO CLAVE ]</span>
+        <p class="lr-aside-text">Chile es uno de los primeros paÃ­ses de LatinoamÃ©rica en implementar una Ley REP para residuos electrÃ³nicos, alineada con las mejores prÃ¡cticas de la UE en economÃ­a circular.</p>
+      </aside>
     </div>
+  </section>
 
-    <!-- Sección 1 -->
-    <section id="que-es" style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        ¿Qué es la Ley REP Chile?
-      </h2>
-      <p>La <strong>Ley REP</strong> (Responsabilidad Extendida del Productor), oficialmente la <strong>Ley N° 20.920</strong>, es la norma que establece en Chile que los fabricantes e importadores de ciertos productos son responsables de gestionar correctamente esos productos cuando se convierten en residuos.</p>
-      <p>En términos simples: si tu empresa fabrica, importa o vende aparatos eléctricos o electrónicos en Chile, la ley te hace responsable de que esos equipos sean reciclados o valorizados al final de su vida útil — no simplemente enviados al basural.</p>
-      <p>La Ley REP fue promulgada en <strong>2016</strong> y su reglamento para aparatos eléctricos y electrónicos (RAEE) entró en vigencia plena para los primeros productores en <strong>2023</strong>.</p>
+  <!-- QUIÃ‰NES -->
+  <section class="lr-section" id="quienes" data-section="A quiÃ©nes aplica" data-index="03">
+    <header class="v2-sechead">
+      <span class="sh-idx">03</span>
+      <h2 class="sh-name">Â¿A QuÃ© Empresas Aplica?</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <p class="lr-intro">La ley aplica a los <strong>productores</strong>: fabricantes, importadores, marcas propias y vendedores por comercio electrÃ³nico que introducen AEE al mercado chileno. Tres categorÃ­as reguladas:</p>
+    <div class="lr-cat-grid">
+      {categorias.map((c) => (
+        <div class="lr-cat-card">
+          <span class="lr-cat-tag v2-mono v2-mono--copper">{c.tag}</span>
+          <h3 class="lr-cat-name">{c.name}</h3>
+          <ul class="lr-cat-items v2-mono">{c.items.map(i => <li>{i}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+    <p class="lr-nota v2-mono v2-mono--steel">[ AUNQUE NO SEAS PRODUCTOR: TIENES OBLIGACIÃ“N DE ENTREGAR TUS RAEE A UN GESTOR AUTORIZADO â€” NO DESECHARLOS EN BASURA COMÃšN ]</p>
+  </section>
 
-      <div style="background: #fff8f0; border: 1px solid #B97333; border-radius: 12px; padding: 24px 28px; margin-top: 28px;">
-        <p style="font-weight: 700; color: #B97333; margin: 0 0 8px; font-size: 15px;">⚡ Dato clave</p>
-        <p style="margin: 0; color: #333;">Chile es uno de los primeros países de Latinoamérica en implementar una Ley REP para residuos electrónicos. La norma está alineada con las mejores prácticas de la Unión Europea en materia de economía circular.</p>
-      </div>
-    </section>
-
-    <!-- Sección 2 -->
-    <section id="quienes" style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        ¿A qué empresas aplica la Ley REP?
-      </h2>
-      <p>La Ley REP aplica principalmente a los <strong>productores</strong>, que según la ley son:</p>
-
-      <ul style="padding-left: 24px; margin: 24px 0;">
-        <li style="margin-bottom: 12px;"><strong>Fabricantes</strong> de aparatos eléctricos y electrónicos que venden en Chile</li>
-        <li style="margin-bottom: 12px;"><strong>Importadores</strong> de equipos electrónicos para venta en el mercado chileno</li>
-        <li style="margin-bottom: 12px;"><strong>Marcas propias</strong> que comercializan productos bajo su nombre aunque sean fabricados por terceros</li>
-        <li style="margin-bottom: 0;"><strong>Vendedores por comercio electrónico</strong> que introducen productos desde el extranjero</li>
-      </ul>
-
-      <p>Los productos incluidos en la regulación son:</p>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 24px 0;">
-        {[
-          "Computadores y laptops",
-          "Teléfonos y smartphones",
-          "Televisores y monitores",
-          "Impresoras y escáneres",
-          "Electrodomésticos",
-          "Equipos de audio y video",
-          "Tablets y accesorios",
-          "Servidores y equipos TI",
-          "Herramientas eléctricas",
-          "Equipos de iluminación"
-        ].map(item => (
-          <div style="background: #f5f7ff; border-radius: 8px; padding: 12px 16px; font-size: 14px; display: flex; align-items: center; gap: 8px;">
-            <span style="color: #B97333; font-weight: 700;">✓</span> {item}
+  <!-- OBLIGACIONES -->
+  <section class="lr-section v2-light" id="obligaciones" data-section="Obligaciones" data-index="04">
+    <header class="v2-sechead">
+      <span class="sh-idx">04</span>
+      <h2 class="sh-name">Obligaciones Concretas para Productores</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <ol class="lr-oblig-list" role="list">
+      {obligaciones.map((o) => (
+        <li class="lr-oblig-item">
+          <span class="lr-oblig-n v2-mono">{o.num}</span>
+          <div>
+            <h3 class="lr-oblig-title">{o.title}</h3>
+            <p class="lr-oblig-desc">{o.desc}</p>
           </div>
-        ))}
-      </div>
+        </li>
+      ))}
+    </ol>
+  </section>
 
-      <div style="background: #fff3f3; border-left: 4px solid #e53e3e; border-radius: 8px; padding: 20px 24px; margin-top: 16px;">
-        <p style="font-weight: 700; color: #c53030; margin: 0 0 8px;">⚠️ Importante</p>
-        <p style="margin: 0; color: #333;">Si tu empresa no fabrica ni importa directamente, pero genera RAEE en sus operaciones (computadores en desuso, equipos reemplazados), igualmente tienes la obligación de entregarlos a un <strong>gestor RAEE autorizado</strong> y no desecharlos en la basura común.</p>
-      </div>
-    </section>
+  <!-- MULTAS -->
+  <section class="lr-section" id="multas" data-section="Multas" data-index="05">
+    <header class="v2-sechead">
+      <span class="sh-idx">05</span>
+      <h2 class="sh-name">Multas y Sanciones</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <p class="lr-intro">El incumplimiento es fiscalizado por la <strong>Superintendencia del Medio Ambiente (SMA)</strong> con amplias facultades sancionatorias:</p>
+    <ul class="lr-sancion-grid" role="list">
+      {sanciones.map((s) => (
+        <li class="lr-sancion-cell">
+          <span class="lr-sancion-code v2-mono v2-mono--copper">[ {s.code} ]</span>
+          <h3 class="lr-sancion-title">{s.title}</h3>
+          <p class="lr-sancion-desc">{s.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
 
-    <!-- Sección 3 -->
-    <section id="obligaciones" style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        Obligaciones concretas para empresas
-      </h2>
-      <p>Las empresas definidas como productores bajo la Ley REP deben cumplir con las siguientes obligaciones:</p>
-
-      <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 28px;">
-        {[
-          { num: "01", title: "Inscribirse en el Registro de Productores", desc: "Todo productor debe inscribirse en el registro oficial del Ministerio del Medio Ambiente antes de comercializar productos en Chile." },
-          { num: "02", title: "Cumplir metas anuales de recolección", desc: "El reglamento establece metas porcentuales crecientes cada año. En 2026 las metas son significativamente mayores que en años anteriores." },
-          { num: "03", title: "Contratar gestores RAEE autorizados", desc: "Los residuos recolectados deben ser entregados exclusivamente a gestores autorizados por la Superintendencia del Medio Ambiente (SMA)." },
-          { num: "04", title: "Reportar anualmente al Ministerio", desc: "Cada productor debe entregar un informe anual al Ministerio del Medio Ambiente acreditando el cumplimiento de sus metas." },
-          { num: "05", title: "Financiar el sistema de gestión", desc: "Los productores son responsables de financiar la recolección y tratamiento de sus productos en desuso, ya sea individualmente o a través de un sistema colectivo." },
-        ].map(item => (
-          <div style="display: flex; gap: 20px; background: #f9fafc; border-radius: 12px; padding: 24px;">
-            <div style="background: #0a1628; color: white; font-size: 18px; font-weight: 800; border-radius: 8px; min-width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-              {item.num}
-            </div>
-            <div>
-              <p style="font-weight: 700; margin: 0 0 6px; color: #0a1628;">{item.title}</p>
-              <p style="margin: 0; color: #555; font-size: 15px;">{item.desc}</p>
-            </div>
+  <!-- CÃ“MO CUMPLIR -->
+  <section class="lr-section v2-light" id="como-cumplir" data-section="CÃ³mo cumplir" data-index="06">
+    <header class="v2-sechead">
+      <span class="sh-idx">06</span>
+      <h2 class="sh-name">CÃ³mo Cumplir Paso a Paso</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <ol class="lr-steps" role="list">
+      {pasos.map((p, i) => (
+        <li class={`lr-step${i === pasos.length - 1 ? ' lr-step--final' : ''}`}>
+          <span class="lr-step-n v2-mono">{p.n}</span>
+          <div class="lr-step-body">
+            <h3 class="lr-step-title">{p.title}</h3>
+            <p class="lr-step-desc">{p.desc}</p>
+            <span class="lr-step-seal v2-mono v2-mono--copper">{p.seal}</span>
           </div>
-        ))}
-      </div>
-    </section>
+        </li>
+      ))}
+    </ol>
+  </section>
 
-    <!-- Sección 4 -->
-    <section id="multas" style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        ¿Qué pasa si no cumplo? Multas y sanciones
-      </h2>
-      <p>El incumplimiento de la Ley REP es fiscalizado por la <strong>Superintendencia del Medio Ambiente (SMA)</strong>, que tiene amplias facultades sancionatorias.</p>
+  <!-- CTA -->
+  <section class="lr-section lr-cta-section" id="contacto-cta" data-section="Consultar" data-index="07">
+    <p class="lr-cta-eyebrow v2-mono v2-mono--copper">[ Â¿TU EMPRESA NECESITA CUMPLIR CON LA LEY REP? ]</p>
+    <h2 class="lr-cta-title">
+      CuÃ©ntanos tu situaciÃ³n.<br />
+      Te explicamos quÃ© necesitas hacer.
+    </h2>
+    <a href="/#contacto" class="lr-cta-btn v2-mono">
+      HABLAR CON UN ESPECIALISTA <span aria-hidden="true">â†’</span>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </a>
+    <p class="lr-honest v2-mono v2-mono--steel">[ INICIO OPERATIVO AGOSTO 2026 Â· SERVICIO VÃA PARTNERS CERTIFICADOS ]</p>
+  </section>
 
-      <div style="background: #fff3f3; border-radius: 12px; padding: 32px; margin: 28px 0;">
-        <h3 style="color: #c53030; margin: 0 0 20px; font-size: 20px;">Las sanciones pueden incluir:</h3>
-        <ul style="padding-left: 20px; margin: 0; color: #333;">
-          <li style="margin-bottom: 12px;">Multas de hasta <strong>10.000 UTM</strong> (aproximadamente $700 millones de pesos chilenos)</li>
-          <li style="margin-bottom: 12px;"><strong>Clausura temporal</strong> de instalaciones</li>
-          <li style="margin-bottom: 12px;"><strong>Revocación de permisos</strong> de operación</li>
-          <li style="margin-bottom: 0;">Publicación del incumplimiento en el <strong>Registro de Sanciones</strong> (daño reputacional)</li>
-        </ul>
-      </div>
+  <!-- FAQ -->
+  <section class="lr-section v2-light" id="faq" data-section="FAQ" data-index="08">
+    <header class="v2-sechead">
+      <span class="sh-idx">08</span>
+      <h2 class="sh-name">Preguntas Frecuentes â€” Ley REP</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+    <dl class="lr-faq">
+      {faqs.map((f) => (
+        <div class="lr-faq-item">
+          <dt class="lr-faq-q">{f.q}</dt>
+          <dd class="lr-faq-a">{f.a}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
 
-      <p>Además del riesgo regulatorio, las empresas que no cumplen quedan expuestas a <strong>daño reputacional</strong> ante clientes, inversores y licitaciones públicas que cada vez más exigen acreditación de cumplimiento ambiental.</p>
-    </section>
+  <FooterV2 />
 
-    <!-- Sección 5 -->
-    <section id="como-cumplir" style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        Cómo cumplir con la Ley REP paso a paso
-      </h2>
-      <p>Cumplir con la Ley REP no tiene por qué ser complicado. Estos son los pasos concretos:</p>
-
-      <div style="display: flex; flex-direction: column; gap: 0; margin-top: 28px; position: relative;">
-        {[
-          { title: "Diagnóstico inicial", desc: "Identificar qué productos de tu empresa están sujetos a la Ley REP y en qué volúmenes los comercializas." },
-          { title: "Inscripción en el registro", desc: "Registrarte como productor ante el Ministerio del Medio Ambiente en el sistema online habilitado para este fin." },
-          { title: "Seleccionar un gestor RAEE autorizado", desc: "Contratar a un gestor certificado por la SMA como ElectroLoop para la recolección y tratamiento de tus RAEE." },
-          { title: "Implementar el sistema de recolección", desc: "Coordinar con el gestor los puntos y frecuencias de recolección. ElectroLoop hace el retiro directamente en tus instalaciones." },
-          { title: "Reportar a fin de año", desc: "Con los certificados que emite ElectroLoop, preparar y enviar el informe anual al Ministerio del Medio Ambiente." },
-        ].map((item, i) => (
-          <div style="display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #eee;">
-            <div style="display: flex; flex-direction: column; align-items: center;">
-              <div style="background: #B97333; color: white; font-size: 16px; font-weight: 800; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                {i + 1}
-              </div>
-            </div>
-            <div style="padding-top: 8px;">
-              <p style="font-weight: 700; margin: 0 0 6px; color: #0a1628; font-size: 17px;">{item.title}</p>
-              <p style="margin: 0; color: #555;">{item.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- Sección 6 -->
-    <section id="electroloop" style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        Por qué ElectroLoop es tu mejor socio REP
-      </h2>
-      <p>ElectroLoop es el gestor RAEE autorizado en Chile que se especializa <strong>exclusivamente</strong> en residuos electrónicos — no gestionamos residuos industriales genéricos ni somos una división de otro negocio.</p>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin: 32px 0;">
-        {[
-          { icon: "📋", title: "Gestión REP integral", desc: "Nos encargamos de todo el proceso: recolección, tratamiento, reportería y certificados listos para tu auditoría." },
-          { icon: "🔍", title: "Trazabilidad total", desc: "Seguimiento digital de cada componente. Sabes exactamente qué pasó con cada equipo entregado." },
-          { icon: "🔒", title: "Destrucción de datos certificada", desc: "Certificado individual por dispositivo con número de serie. Válido para auditorías internas y cumplimiento normativo." },
-          { icon: "✅", title: "Autorizado por la SMA", desc: "Inscripción vigente en el Registro de Gestores del Ministerio del Medio Ambiente de Chile." },
-        ].map(item => (
-          <div style="background: #f5f7ff; border-radius: 12px; padding: 24px;">
-            <div style="font-size: 32px; margin-bottom: 12px;">{item.icon}</div>
-            <p style="font-weight: 700; color: #0a1628; margin: 0 0 8px;">{item.title}</p>
-            <p style="color: #555; font-size: 14px; margin: 0;">{item.desc}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section style="background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%); border-radius: 16px; padding: 48px 40px; text-align: center; margin-bottom: 56px; color: white;">
-      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 16px;">¿Tu empresa necesita cumplir con la Ley REP?</h2>
-      <p style="font-size: 17px; opacity: 0.9; margin: 0 0 32px; max-width: 500px; margin-left: auto; margin-right: auto;">
-        Cuéntanos tu situación y te explicamos exactamente qué necesitas hacer. Sin costo, sin compromiso.
-      </p>
-      <a href="/#contacto" style="background: #B97333; color: white; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 17px; display: inline-block;">
-        Hablar con un especialista →
-      </a>
-    </section>
-
-    <!-- FAQ -->
-    <section id="preguntas" style="margin-bottom: 56px;">
-      <h2 style="font-size: 30px; font-weight: 800; color: #0a1628; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 2px solid #e8ecf0;">
-        Preguntas Frecuentes — Ley REP Chile
-      </h2>
-
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        {[
-          {
-            q: "¿Cuándo entró en vigor la Ley REP para RAEE en Chile?",
-            a: "El reglamento para aparatos eléctricos y electrónicos entró en vigor en 2023 para los primeros productores obligados. Las metas se van incrementando año a año hasta 2030."
-          },
-          {
-            q: "¿Qué pasa si soy una PYME pequeña?",
-            a: "La Ley REP aplica según los volúmenes de producto que introduces al mercado. Las empresas más pequeñas tienen metas menores, pero la obligación existe igualmente si superas los umbrales establecidos en el reglamento."
-          },
-          {
-            q: "¿Puedo cumplir la Ley REP de forma individual o debo unirme a un sistema colectivo?",
-            a: "Puedes cumplir de forma individual contratando directamente a un gestor RAEE autorizado como ElectroLoop, o sumarte a un sistema colectivo con otros productores. Ambas opciones son válidas ante el Ministerio."
-          },
-          {
-            q: "¿Cuánto cuesta cumplir con la Ley REP?",
-            a: "El costo depende del volumen de productos que comercializas y del tipo de equipos. ElectroLoop ofrece cotizaciones personalizadas sin costo. En general, el cumplimiento es significativamente más barato que el riesgo de una multa."
-          },
-          {
-            q: "¿ElectroLoop entrega los documentos necesarios para el reporte anual?",
-            a: "Sí. Emitimos todos los certificados y reportes necesarios para que puedas cumplir con el informe anual al Ministerio del Medio Ambiente, incluyendo toneladas valorizadas, tipo de material y destino final."
-          },
-        ].map(item => (
-          <details style="background: #f9fafc; border-radius: 12px; padding: 20px 24px; cursor: pointer;">
-            <summary style="font-weight: 700; color: #0a1628; font-size: 16px; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-              {item.q}
-              <span style="color: #B97333; font-size: 20px; flex-shrink: 0; margin-left: 12px;">+</span>
-            </summary>
-            <p style="margin: 14px 0 0; color: #555; line-height: 1.7;">{item.a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer simple -->
-  <footer style="background: #0a1628; color: #aaa; text-align: center; padding: 32px 24px; font-size: 14px;">
-    <p style="margin: 0 0 8px;">
-      <a href="/" style="color: white; text-decoration: none; font-weight: 600;">ElectroLoop SpA</a>
-      — Gestor RAEE Autorizado Chile
-    </p>
-    <p style="margin: 0;">
-      <a href="/" style="color: #B97333; text-decoration: none;">← Volver al sitio principal</a>
-    </p>
-  </footer>
-
-  <!-- Schema.org: Article -->
   <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Ley REP Chile Empresas: Guía Completa de Cumplimiento RAEE 2026",
-    "description": "Todo lo que tu empresa necesita saber sobre la Ley REP Chile (N° 20.920). Obligaciones, plazos, multas y cómo cumplir con la gestión de residuos electrónicos.",
-    "author": {
-      "@type": "Organization",
-      "name": "ElectroLoop SpA",
-      "url": "https://electroloop.cl"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "ElectroLoop SpA",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://electroloop.cl/favicon.png"
-      }
-    },
-    "datePublished": "2026-04-15",
-    "dateModified": "2026-04-15",
-    "mainEntityOfPage": "https://electroloop.cl/ley-rep-chile-empresas",
-    "inLanguage": "es-CL",
-    "about": {
-      "@type": "Thing",
-      "name": "Ley REP Chile",
-      "description": "Ley N° 20.920 de Responsabilidad Extendida del Productor"
-    }
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Ley REP Chile Empresas: GuÃ­a Completa de Cumplimiento RAEE 2026',
+    description: 'Obligaciones, plazos, multas y cÃ³mo cumplir con la gestiÃ³n de residuos electrÃ³nicos bajo la Ley NÂ° 20.920.',
+    author: { '@type': 'Organization', name: 'ElectroLoop', url: 'https://electroloop.cl' },
+    publisher: { '@type': 'Organization', name: 'ElectroLoop', logo: { '@type': 'ImageObject', url: 'https://electroloop.cl/favicon.png' } },
+    datePublished: '2026-04-15',
+    dateModified: '2026-06-17',
+    mainEntityOfPage: 'https://electroloop.cl/ley-rep-chile-empresas',
+    inLanguage: 'es-CL',
+    about: { '@type': 'Thing', name: 'Ley REP Chile', description: 'Ley NÂ° 20.920 de Responsabilidad Extendida del Productor' },
   })} />
 
-</Layout>
+</BlueprintLayout>
+
+<style>
+  .lr-hero,
+  .lr-section {
+    padding: clamp(64px, 10vh, 120px) var(--margin-edge) clamp(64px, 10vh, 120px) var(--margin-bind);
+  }
+
+  /* HERO */
+  .lr-hero { background: var(--abyssal); color: var(--ceramic); min-height: 85vh; display: flex; flex-direction: column; justify-content: center; }
+  .lr-breadcrumb { font-size: 0.6rem; letter-spacing: 0.12em; margin-bottom: clamp(32px, 5vh, 56px); }
+  .lr-breadcrumb a { color: var(--steel); text-decoration: none; }
+  .lr-breadcrumb a:hover { color: var(--copper); }
+  .lr-eyebrow { font-size: 0.65rem; margin-bottom: 24px; }
+  .lr-h1 { font-family: var(--font-display); line-height: 0.92; margin: 0 0 clamp(28px, 4vh, 48px); }
+  .lr-h1-outline { font-size: clamp(3.5rem, 11vw, 10rem); font-weight: 800; color: transparent; -webkit-text-stroke: 1.5px var(--ceramic); display: block; letter-spacing: -0.02em; }
+  .lr-h1-solid { font-size: clamp(3.5rem, 11vw, 10rem); font-weight: 800; color: var(--copper); display: block; letter-spacing: -0.02em; }
+  .lr-h1-thin { font-size: clamp(1.6rem, 4.5vw, 4.5rem); font-weight: 300; color: var(--ceramic); display: block; letter-spacing: 0.08em; margin-top: 8px; }
+  .lr-lead { font-size: clamp(1rem, 1.8vw, 1.35rem); font-weight: 300; line-height: 1.65; max-width: 52ch; color: rgba(244, 244, 244, 0.85); margin: 0 0 clamp(28px, 4vh, 40px); }
+  .lr-indice { display: flex; flex-direction: column; gap: 14px; }
+  .lr-indice-label { font-size: 0.58rem; }
+  .lr-indice-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 24px; }
+  .lr-indice-list li { font-size: 0.65rem; letter-spacing: 0.08em; }
+  .lr-indice-list a { color: var(--steel); text-decoration: none; transition: color 0.3s; }
+  .lr-indice-list a:hover { color: var(--copper); }
+
+  /* SECTIONS */
+  .lr-section { position: relative; }
+  .lr-intro { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 300; line-height: 1.7; color: var(--ceramic); max-width: 64ch; margin: 0 0 clamp(36px, 5vh, 56px); }
+  .lr-intro strong { font-weight: 800; }
+  .lr-nota { font-size: 0.58rem; margin-top: clamp(28px, 4vh, 48px); }
+  .lr-text { font-size: clamp(0.95rem, 1.4vw, 1.1rem); font-weight: 300; line-height: 1.75; color: var(--abyssal); margin: 0 0 1.2em; max-width: 64ch; }
+  .lr-text strong { font-weight: 800; }
+
+  /* TWO-COL */
+  .lr-two-col { display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: start; }
+  .lr-col-aside { border-left: 1px solid rgba(11, 27, 50, 0.2); padding-left: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .lr-aside-head { font-size: 0.58rem; }
+  .lr-aside-text { font-size: 0.9rem; font-weight: 300; line-height: 1.7; color: var(--steel-ink, #5d6267); margin: 0; }
+
+  /* CATEGORÃAS */
+  .lr-cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: rgba(11,27,50,0.12); border: 1px solid rgba(11,27,50,0.12); }
+  .lr-cat-card { background: var(--abyssal); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 10px; }
+  .lr-cat-tag { font-size: 0.6rem; }
+  .lr-cat-name { font-size: 1rem; font-weight: 700; color: var(--ceramic); margin: 0; }
+  .lr-cat-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .lr-cat-items li { font-size: 0.65rem; letter-spacing: 0.06em; color: var(--steel); }
+
+  /* OBLIGACIONES */
+  .lr-oblig-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(11,27,50,0.18); }
+  .lr-oblig-item { display: grid; grid-template-columns: 64px 1fr; gap: 0 24px; padding: clamp(24px, 3.5vh, 40px) 0; border-bottom: 1px solid rgba(11,27,50,0.18); align-items: start; }
+  .lr-oblig-n { font-size: 2.5rem; font-weight: 800; color: rgba(184, 115, 51, 0.22); line-height: 1; padding-top: 4px; }
+  .lr-oblig-title { font-size: clamp(1rem, 1.6vw, 1.35rem); font-weight: 700; color: var(--abyssal); margin: 0 0 8px; }
+  .lr-oblig-desc { font-size: clamp(0.85rem, 1.1vw, 1rem); font-weight: 300; color: var(--steel-ink, #5d6267); line-height: 1.7; margin: 0; max-width: 58ch; }
+
+  /* SANCIONES */
+  .lr-sancion-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: rgba(11,27,50,0.15); border: 1px solid rgba(11,27,50,0.15); }
+  .lr-sancion-cell { background: var(--ceramic); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 10px; }
+  .lr-sancion-code { font-size: 0.6rem; }
+  .lr-sancion-title { font-size: 1rem; font-weight: 800; color: var(--abyssal); margin: 0; }
+  .lr-sancion-desc { font-size: 0.85rem; font-weight: 300; color: var(--steel-ink, #5d6267); line-height: 1.65; margin: 0; }
+
+  /* PASOS */
+  .lr-steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(11,27,50,0.18); }
+  .lr-step { display: grid; grid-template-columns: 80px 1fr; gap: 0 24px; padding: clamp(28px, 4vh, 48px) 0; border-bottom: 1px solid rgba(11,27,50,0.18); }
+  .lr-step--final { border-bottom: none; }
+  .lr-step-n { font-size: 3rem; font-weight: 800; color: rgba(184,115,51,0.25); line-height: 1; align-self: start; padding-top: 4px; }
+  .lr-step-body { padding-right: var(--margin-edge); }
+  .lr-step-title { font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-weight: 700; color: var(--abyssal); margin: 0 0 10px; }
+  .lr-step-desc { font-size: clamp(0.9rem, 1.2vw, 1rem); font-weight: 300; color: var(--steel-ink, #5d6267); line-height: 1.7; margin: 0 0 14px; max-width: 60ch; }
+  .lr-step-seal { font-size: 0.58rem; }
+
+  /* CTA */
+  .lr-cta-section { background: var(--abyssal); display: flex; flex-direction: column; align-items: flex-start; gap: clamp(20px, 3vh, 32px); }
+  .lr-cta-eyebrow { font-size: 0.62rem; margin: 0; }
+  .lr-cta-title { font-size: clamp(1.8rem, 4vw, 3.5rem); font-weight: 300; color: var(--ceramic); line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
+  .lr-cta-btn { position: relative; text-decoration: none; color: var(--ceramic); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.14em; padding: 16px 0; }
+  .lr-cta-btn:hover { color: var(--copper); }
+  .lr-cta-btn .v2-drawline { bottom: 6px; left: 0; right: 0; position: absolute; }
+  .lr-honest { font-size: 0.58rem; margin: 0; }
+
+  /* FAQ */
+  .lr-faq { display: flex; flex-direction: column; gap: 0; border-top: 1px solid rgba(11,27,50,0.18); }
+  .lr-faq-item { padding: clamp(24px, 3.5vh, 40px) 0; border-bottom: 1px solid rgba(11,27,50,0.18); display: grid; grid-template-columns: 1fr 1.4fr; gap: 24px; }
+  .lr-faq-q { font-size: clamp(0.9rem, 1.3vw, 1.1rem); font-weight: 700; color: var(--abyssal); margin: 0; line-height: 1.4; }
+  .lr-faq-a { font-size: clamp(0.85rem, 1.1vw, 1rem); font-weight: 300; color: var(--steel-ink, #5d6267); line-height: 1.75; margin: 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .lr-two-col { grid-template-columns: 1fr; }
+    .lr-col-aside { border-left: none; border-top: 1px solid rgba(11,27,50,0.15); padding-left: 0; padding-top: 24px; }
+    .lr-faq-item { grid-template-columns: 1fr; gap: 12px; }
+    .lr-step { grid-template-columns: 56px 1fr; }
+    .lr-step-body { padding-right: 0; }
+  }
+  @media (max-width: 600px) {
+    .lr-sancion-grid, .lr-cat-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lr-indice-list a, .lr-breadcrumb a, .lr-cta-btn { transition: none; }
+  }
+</style>
+
