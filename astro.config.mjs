@@ -8,6 +8,7 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes('/test-motion') &&
+        !page.includes('/v2') &&
         !page.includes('/404'),
     }),
   ],

@@ -1,0 +1,322 @@
+---
+/**
+ * ELECTROLOOP v2 — 01 / HERO "La portada del plano".
+ * Título editorial asimétrico + metadatos mono + WebGL detrás.
+ * Estados del sistema: outline = trazado · cobre = materializado.
+ */
+---
+
+<section id="inicio" class="v2-hero" data-section="Inicio" data-index="01">
+  <!-- Escena WebGL: detrás de la tipografía -->
+  <canvas id="v2-hero-canvas" class="v2-hero-canvas" aria-hidden="true"></canvas>
+
+  <div class="v2-hero-content">
+    <!-- Título editorial: rompe la grilla hacia la encuadernación -->
+    <h1 class="v2-hero-title" aria-label="Cerramos el loop — recursos infinitos">
+      <span class="line" data-split aria-hidden="true"><span class="w v2-outline">CERRAMOS</span></span>
+      <span class="line" data-split aria-hidden="true"
+        ><span class="w thin">EL&nbsp;</span><span class="w copper">LOOP</span><span class="w cube">■</span></span>
+      <span class="line sub" data-split aria-hidden="true"
+        ><span class="w thin">RECURSOS&nbsp;</span><span class="w solid">INFINITOS</span></span>
+    </h1>
+
+    <!-- Metadatos: instrumentación de laboratorio, col 9-12 -->
+    <ul class="v2-hero-meta v2-mono" role="list">
+      <li class="meta-item">[ 29°57′S 71°20′W ]</li>
+      <li class="meta-item">[ COQUIMBO — CHILE ]</li>
+      <li class="meta-item">[ DOC 01 / REV A ]</li>
+      <li class="meta-item v2-mono--copper">[ LEY REP — DS 8/2021 ]</li>
+    </ul>
+
+    <!-- Claim de honestidad: el estado real, estampado -->
+    <p class="v2-hero-claim v2-mono v2-mono--steel">
+      GESTOR INTEGRADOR RAEE — OPERATIVO VÍA PARTNERS CERTIFICADOS<br />
+      CAPACIDAD PROPIA EST. AGO 2026
+    </p>
+
+    <!-- CTA único: línea de cobre, no botón simétrico -->
+    <a
+      href="#contacto"
+      class="v2-hero-cta v2-mono"
+      data-magnetic
+      data-cursor="[ IR ]"
+    >
+      PRE-REGISTRO <span class="arrow">→</span>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </a>
+
+    <!-- Indicador de scroll -->
+    <div class="v2-hero-scroll v2-mono v2-mono--steel" aria-hidden="true">
+      SCROLL
+      <i class="scroll-line"></i>
+    </div>
+  </div>
+</section>
+
+<style>
+  .v2-hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .v2-hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .v2-hero-content {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 1fr auto auto;
+    align-items: end;
+    padding: 0 var(--margin-edge) clamp(28px, 5vh, 64px) var(--margin-bind);
+    column-gap: 24px;
+  }
+
+  /* ---------- Título ---------- */
+  .v2-hero-title {
+    grid-column: 1 / 11;
+    grid-row: 1;
+    align-self: end;
+    margin: 0 0 clamp(20px, 4vh, 48px);
+    /* Rompe hacia la zona de encuadernación */
+    margin-left: calc(var(--margin-bind) * -0.42);
+    font-weight: 800;
+    font-size: clamp(3.4rem, 11.5vw, 13rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .v2-hero-title .line {
+    display: block;
+    overflow: hidden;
+    padding-right: 0.08em; /* evita clipping de la Ñ/acentos en el split */
+  }
+
+  .v2-hero-title .w { display: inline-block; }
+  .v2-hero-title .solid { color: var(--ceramic); }
+  .v2-hero-title .thin { font-weight: 300; color: var(--ceramic); }
+  .v2-hero-title .copper { color: var(--copper); }
+  .v2-hero-title .cube {
+    color: var(--copper);
+    font-size: 0.35em;
+    vertical-align: 0.18em;
+    margin-left: 0.12em;
+  }
+
+  /* Remate: la promesa en escala menor, mono-espaciada en ritmo */
+  .v2-hero-title .line.sub {
+    font-size: clamp(0.95rem, 1.6vw, 1.5rem);
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    line-height: 1.4;
+    margin-top: clamp(14px, 2.5vh, 28px);
+  }
+  .v2-hero-title .line.sub .solid { font-weight: 800; }
+
+  /* ---------- Metadatos ---------- */
+  .v2-hero-meta {
+    grid-column: 10 / 13;
+    grid-row: 1;
+    align-self: center;
+    justify-self: end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: right;
+    color: var(--steel);
+  }
+
+  .meta-item { overflow: hidden; }
+
+  /* ---------- Claim ---------- */
+  .v2-hero-claim {
+    grid-column: 1 / 8;
+    grid-row: 2;
+    margin: 0 0 clamp(16px, 3vh, 32px);
+    line-height: 1.9;
+  }
+
+  /* ---------- CTA ---------- */
+  .v2-hero-cta {
+    grid-column: 9 / 13;
+    grid-row: 2;
+    justify-self: end;
+    align-self: end;
+    position: relative;
+    display: inline-block;
+    padding: 14px 2px;
+    color: var(--ceramic);
+    text-decoration: none;
+    margin-bottom: clamp(16px, 3vh, 32px);
+  }
+  .v2-hero-cta .arrow {
+    display: inline-block;
+    color: var(--copper);
+    transition: transform 0.45s var(--ease-blueprint);
+  }
+  .v2-hero-cta:hover .arrow { transform: translateX(6px); }
+  .v2-hero-cta .v2-drawline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+  }
+
+  /* ---------- Scroll indicator ---------- */
+  .v2-hero-scroll {
+    grid-column: 1 / 3;
+    grid-row: 3;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .scroll-line {
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: var(--steel);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--copper);
+    transform: translateX(-100%);
+    animation: v2-scroll-sweep 2.4s var(--ease-blueprint) infinite;
+  }
+  @keyframes v2-scroll-sweep {
+    0% { transform: translateX(-100%); }
+    55% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* ---------- Móvil: rediseño, no reducción ---------- */
+  @media (max-width: 767px) {
+    .v2-hero-content {
+      grid-template-rows: auto 1fr auto auto auto;
+      align-items: start;
+      padding-top: 128px; /* despeja el topbar con lockup de 40px + subtítulo */
+    }
+    .v2-hero-title {
+      grid-column: 1 / 13;
+      grid-row: 2;
+      align-self: center;
+      margin-left: 0;
+      font-size: clamp(2.4rem, 12.5vw, 4.5rem);
+    }
+    .v2-hero-title .line { white-space: nowrap; }
+    /* La sub-línea sí puede quebrar en pantallas angostas */
+    .v2-hero-title .line.sub {
+      white-space: normal;
+      letter-spacing: 0.14em;
+    }
+    .v2-hero-meta {
+      grid-column: 1 / 13;
+      grid-row: 1;
+      align-self: start;
+      justify-self: start;
+      text-align: left;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+    }
+    .v2-hero-claim { grid-column: 1 / 13; grid-row: 3; }
+    .v2-hero-cta { grid-column: 1 / 13; grid-row: 4; justify-self: start; }
+    .v2-hero-scroll { grid-column: 1 / 13; grid-row: 5; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-line::after { animation: none; transform: translateX(0); }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Split por caracteres (sin dependencia de SplitText) ---------- */
+  function splitChars(scope: HTMLElement): HTMLElement[] {
+    const chars: HTMLElement[] = [];
+    scope.querySelectorAll<HTMLElement>('.w').forEach((word) => {
+      const text = word.textContent ?? '';
+      word.textContent = '';
+      for (const ch of [...text]) {
+        const s = document.createElement('span');
+        s.textContent = ch === ' ' ? ' ' : ch;
+        s.style.display = 'inline-block';
+        s.style.transform = 'translateY(115%)';
+        word.appendChild(s);
+        chars.push(s);
+      }
+    });
+    return chars;
+  }
+
+  function enter() {
+    const title = document.querySelector<HTMLElement>('.v2-hero-title');
+    const metas = document.querySelectorAll('.v2-hero-meta .meta-item');
+    const claim = document.querySelector('.v2-hero-claim');
+    const cta = document.querySelector('.v2-hero-cta');
+    const scroll = document.querySelector('.v2-hero-scroll');
+    if (!title) return;
+
+    if (reduced) return; // todo ya visible, sin coreografía
+
+    const lines = title.querySelectorAll<HTMLElement>('[data-split]');
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+
+    gsap.set([claim, cta, scroll], { opacity: 0, y: 18 });
+    gsap.set(metas, { opacity: 0, y: 14 });
+
+    lines.forEach((line, i) => {
+      const chars = splitChars(line);
+      tl.to(chars, { y: 0, duration: 1.1, stagger: 0.018 }, 0.12 + i * 0.14);
+    });
+
+    tl.to(metas, { opacity: 1, y: 0, duration: 0.9, stagger: 0.07 }, 0.7)
+      .to(claim, { opacity: 1, y: 0, duration: 0.9 }, 0.9)
+      .to(cta, { opacity: 1, y: 0, duration: 0.9 }, 1.0)
+      .to(scroll, { opacity: 1, y: 0, duration: 0.9 }, 1.1);
+  }
+
+  /* ---------- WebGL: carga diferida post-reveal ---------- */
+  function loadScene() {
+    const canvas = document.getElementById('v2-hero-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    import('../../scripts/v2/hero-particles.ts')
+      .then(({ initHeroParticles }) => initHeroParticles(canvas))
+      .catch(() => { /* sin escena: el hero tipográfico se sostiene solo */ });
+  }
+
+  function start() {
+    enter();
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadScene, { timeout: 1500 });
+    } else {
+      setTimeout(loadScene, 300);
+    }
+  }
+
+  if ((window as any).__v2Revealed) {
+    start();
+  } else {
+    document.addEventListener('v2:reveal', start, { once: true });
+  }
+</script>

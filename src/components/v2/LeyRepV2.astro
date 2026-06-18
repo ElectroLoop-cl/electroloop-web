@@ -1,0 +1,125 @@
+---
+/**
+ * ELECTROLOOP v2 — 05 / LEY REP "El marco".
+ * Pliego claro, estructura de documento legal anotado.
+ * La calculadora REP existente vive en /calculadora-rep (re-skin pendiente al swap).
+ */
+const categorias = [
+  {
+    tag: 'CAT. 1 — AIT',
+    name: 'Aparatos de intercambio de temperatura',
+    desc: 'Refrigeradores, aires acondicionados, bombas de calor.',
+  },
+  {
+    tag: 'CAT. 2 — PFV',
+    name: 'Paneles fotovoltaicos',
+    desc: 'Módulos solares al fin de su vida útil — crítico en el norte minero.',
+  },
+  {
+    tag: 'CAT. 3 — OTROS AEE',
+    name: 'Resto de aparatos eléctricos y electrónicos',
+    desc: 'Computación, telecomunicaciones, electrodomésticos, herramientas.',
+  },
+];
+---
+
+<section id="ley-rep" class="v2-section v2-light v2-rep" data-section="Ley REP" data-index="05">
+  <header class="v2-sechead">
+    <span class="sh-idx">05</span>
+    <h2 class="sh-name">Marco Regulatorio — Ley REP</h2>
+    <i class="v2-drawline" aria-hidden="true"></i>
+  </header>
+
+  <div class="rep-grid">
+    <div class="rep-main">
+      <p class="rep-lead">
+        La <strong>Ley 20.920</strong> hace responsable al productor del fin de vida
+        de sus productos. El <strong>DS 8/2021</strong> fija metas progresivas de
+        recolección y valorización para aparatos eléctricos y electrónicos.
+      </p>
+      <p class="rep-sub">
+        Si tu empresa importa o fabrica AEE, tiene obligaciones desde ya.
+        El incumplimiento arriesga sanciones de la SMA de hasta 10.000 UTA.
+      </p>
+
+      <a href="/calculadora" class="rep-cta v2-mono" data-magnetic data-cursor="[ CALCULAR ]">
+        CALCULAR MIS OBLIGACIONES REP <span class="arrow">→</span>
+        <i class="v2-drawline" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    <!-- Anotaciones al margen: las 3 categorías del decreto -->
+    <aside class="rep-side" aria-label="Categorías del DS 8/2021">
+      <span class="side-head v2-mono v2-mono--steel">[ DS 8/2021 — CATEGORÍAS ]</span>
+      {categorias.map((c) => (
+        <div class="cat">
+          <span class="cat-tag v2-mono v2-mono--copper">{c.tag}</span>
+          <span class="cat-name">{c.name}</span>
+          <span class="cat-desc">{c.desc}</span>
+        </div>
+      ))}
+    </aside>
+  </div>
+</section>
+
+<style>
+  .rep-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 24px;
+    row-gap: 48px;
+    align-items: start;
+  }
+
+  .rep-main { grid-column: 1 / 8; }
+  .rep-lead {
+    margin: 0 0 1.2em;
+    font-size: clamp(1.5rem, 2.9vw, 2.7rem);
+    font-weight: 300;
+    line-height: 1.35;
+  }
+  .rep-lead strong { font-weight: 800; }
+  .rep-sub {
+    margin: 0 0 2.2em;
+    max-width: 52ch;
+    font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+    font-weight: 400;
+    line-height: 1.7;
+    color: #4a5158;
+  }
+
+  .rep-cta {
+    position: relative;
+    display: inline-block;
+    padding: 14px 2px;
+    color: var(--abyssal);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .rep-cta .arrow {
+    color: var(--copper);
+    display: inline-block;
+    transition: transform 0.45s var(--ease-blueprint);
+  }
+  .rep-cta:hover .arrow { transform: translateX(6px); }
+  .rep-cta .v2-drawline { position: absolute; left: 0; right: 0; bottom: 6px; }
+
+  /* ---------- Anotaciones ---------- */
+  .rep-side {
+    grid-column: 9 / 13;
+    border-left: 1px solid rgba(11, 27, 50, 0.25);
+    padding-left: clamp(18px, 2vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vh, 32px);
+  }
+  .side-head { font-size: 0.6rem; }
+  .cat { display: flex; flex-direction: column; gap: 4px; }
+  .cat-tag { font-size: 0.62rem; }
+  .cat-name { font-weight: 600; font-size: 1rem; }
+  .cat-desc { font-weight: 300; font-size: 0.85rem; line-height: 1.55; color: #4a5158; }
+
+  @media (max-width: 767px) {
+    .rep-main, .rep-side { grid-column: 1 / 13; }
+  }
+</style>

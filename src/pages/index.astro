@@ -1,74 +1,22 @@
 ---
-// index.astro — Main landing page
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import HeroParticles from '../components/HeroParticles.astro';
-import ValueProps from '../components/ValueProps.astro';
-import Services from '../components/Services.astro';
-import Process from '../components/Process.astro';
-import Status from '../components/Status.astro';
-import ContainerScroll from '../components/ContainerScroll.astro';
-import ChainOfCustody from '../components/ChainOfCustody.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
-import Chatbot from '../components/Chatbot.astro';
-
-const pageTitle = 'Gestor RAEE Chile | ElectroLoop — Ley REP & Reciclaje Electrónico';
-const pageDescription =
-  'ElectroLoop: integrador RAEE con red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos. Inicio operativo agosto 2026. Pre-registro de clientes ancla abierto.';
+import BlueprintLayout from '../layouts/BlueprintLayout.astro';
+import HeroV2 from '../components/v2/HeroV2.astro';
+import ManifiestoV2 from '../components/v2/ManifiestoV2.astro';
+import ProcesoV2 from '../components/v2/ProcesoV2.astro';
+import MaterialesV2 from '../components/v2/MaterialesV2.astro';
+import LeyRepV2 from '../components/v2/LeyRepV2.astro';
+import TrazabilidadV2 from '../components/v2/TrazabilidadV2.astro';
+import ContactoV2 from '../components/v2/ContactoV2.astro';
+import FooterV2 from '../components/v2/FooterV2.astro';
 ---
 
-<Layout title={pageTitle} description={pageDescription} lang="es">
-  <!-- Skip to content link for accessibility -->
-  <a
-    href="#inicio"
-    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:text-white focus:font-bold"
-    style="background-color: #B97333;"
-  >
-    Saltar al contenido principal
-  </a>
-
-  <!-- Fixed Navbar -->
-  <Navbar />
-
-  <!-- Main content -->
-  <main id="main-content">
-    <!-- 1. Hero — Split layout: text left + Spline 3D right (BLOQUE 2) -->
-    <HeroParticles />
-
-    <!-- 1b. ContainerScroll — 3D dashboard card reveal on scroll -->
-    <ContainerScroll />
-
-    <!-- 2. Value Propositions — Why ElectroLoop? 4 cards -->
-    <ValueProps />
-
-    <!-- 3. Chain of Custody — DIFERENCIADOR CLAVE: ningún competidor chileno muestra esto -->
-    <ChainOfCustody />
-
-    <!-- 4. Services — 3 alternating service blocks -->
-    <Services />
-
-    <!-- 4b. Status — Roadmap & regulatory authorization timeline -->
-    <Status />
-
-    <!-- 5. Process — 5-step timeline -->
-    <Process />
-
-
-    <!-- 6. Contact — Form + info + WhatsApp button -->
-    <Contact />
-  </main>
-
-  <!-- Footer -->
-  <Footer />
-
-  <!-- Chatbot — Asistente virtual -->
-  <Chatbot />
-</Layout>
-
-<style is:global>
-  /* Ensure the navbar has a transparent background before scrolling (no bg set by default) */
-  #navbar {
-    background: transparent;
-  }
-</style>
+<BlueprintLayout>
+  <HeroV2 />
+  <ManifiestoV2 />
+  <ProcesoV2 />
+  <MaterialesV2 />
+  <LeyRepV2 />
+  <TrazabilidadV2 />
+  <ContactoV2 />
+  <FooterV2 />
+</BlueprintLayout>

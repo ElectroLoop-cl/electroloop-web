@@ -1,0 +1,169 @@
+---
+/**
+ * ELECTROLOOP v2 — 08 / FOOTER "El sello".
+ * Columnas de navegación + RECURSOS (enlaces SEO a páginas de contenido) +
+ * contacto, sobre el cierre tipográfico a ancho completo.
+ */
+const year = new Date().getFullYear();
+
+const navegacion = [
+  { name: 'Minería Urbana', href: '/#manifiesto' },
+  { name: 'El Proceso', href: '/#proceso' },
+  { name: 'Materiales', href: '/#materiales' },
+  { name: 'Ley REP', href: '/#ley-rep' },
+  { name: 'Trazabilidad', href: '/#trazabilidad' },
+  { name: 'Contacto', href: '/#contacto' },
+];
+
+// RECURSOS — enlaces SEO a páginas de contenido (se conservan de la web actual)
+const recursos = [
+  { name: 'Guía Ley REP Chile', href: '/ley-rep-chile-empresas' },
+  { name: 'Reciclaje electrónico para empresas', href: '/reciclaje-electronico-empresas-chile' },
+  { name: 'Gestión RAEE en Chile', href: '/gestion-raee-chile' },
+  { name: 'Calculadora REP', href: '/calculadora' },
+  { name: 'Noticias RAEE', href: '/noticias' },
+];
+---
+
+<footer class="v2-footer" data-section="Fin" data-index="08">
+  <div class="ft-cols">
+    <!-- Identidad + tagline (texto legible para crawlers e IA) -->
+    <div class="ft-brand">
+      <a href="/#inicio" class="ft-logo" aria-label="ElectroLoop — inicio">
+        <img src="/logo-dark.png" alt="ElectroLoop" width="170" height="42" />
+      </a>
+      <p class="ft-tagline">
+        Gestor integrador de residuos electrónicos (RAEE) bajo Ley REP, con red de
+        partners certificados. Base en Coquimbo, Chile.
+      </p>
+    </div>
+
+    <nav class="ft-col" aria-label="Navegación del sitio">
+      <h2 class="ft-head v2-mono v2-mono--copper">[ NAVEGACIÓN ]</h2>
+      <ul>
+        {navegacion.map((n) => <li><a href={n.href}>{n.name}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav class="ft-col" aria-label="Recursos y guías RAEE">
+      <h2 class="ft-head v2-mono v2-mono--copper">[ RECURSOS ]</h2>
+      <ul>
+        {recursos.map((r) => <li><a href={r.href}>{r.name}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="ft-col ft-contact">
+      <h2 class="ft-head v2-mono v2-mono--copper">[ CONTACTO ]</h2>
+      <ul>
+        <li><a href="mailto:contacto@electroloop.cl">contacto@electroloop.cl</a></li>
+        <li><span>Coquimbo, Chile</span></li>
+        <li><span class="v2-mono v2-mono--steel">[ 29°57′S 71°20′W ]</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ft-legal v2-mono v2-mono--steel">
+    <span>© {year} ElectroLoop — Coquimbo, Chile</span>
+    <span>[ REV A — PLANO SUJETO A CONSTRUCCIÓN · INICIO OPERATIVO AGO 2026 ]</span>
+  </div>
+
+  <!-- El sello: recortado por el borde, gesto editorial -->
+  <div class="ft-seal" aria-hidden="true">
+    <span class="ft-word">ELECTRO<b>LOOP</b></span>
+  </div>
+</footer>
+
+<style>
+  .v2-footer {
+    position: relative;
+    background: var(--abyssal-deep);
+    border-top: 1px solid rgba(142, 146, 151, 0.15);
+    overflow: hidden;
+  }
+
+  /* ---------- Columnas ---------- */
+  .ft-cols {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1.2fr 1fr;
+    gap: clamp(28px, 4vw, 56px);
+    padding: clamp(48px, 7vh, 88px) var(--margin-edge) clamp(32px, 5vh, 56px) var(--margin-bind);
+    border-bottom: 1px solid rgba(142, 146, 151, 0.15);
+  }
+
+  .ft-logo { display: inline-block; margin-bottom: 18px; }
+  .ft-logo img { display: block; height: 38px; width: auto; }
+  .ft-tagline {
+    margin: 0;
+    max-width: 36ch;
+    font-weight: 300;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--steel);
+  }
+
+  .ft-head {
+    margin: 0 0 18px;
+    font-size: 0.6rem;
+    font-weight: 400;
+  }
+  .ft-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  .ft-col a, .ft-col span {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: var(--steel);
+    text-decoration: none;
+    transition: color 0.3s var(--ease-blueprint);
+  }
+  .ft-col a {
+    position: relative;
+    display: inline-block;
+  }
+  .ft-col a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%; height: 1px;
+    background: var(--copper);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-blueprint);
+  }
+  .ft-col a:hover { color: var(--ceramic); }
+  .ft-col a:hover::after { transform: scaleX(1); }
+
+  /* ---------- Legal ---------- */
+  .ft-legal {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: clamp(20px, 3vh, 32px) var(--margin-edge) clamp(20px, 3vh, 32px) var(--margin-bind);
+    font-size: 0.58rem;
+  }
+
+  /* ---------- El sello ---------- */
+  .ft-seal {
+    line-height: 0.72;
+    margin-bottom: -0.045em;
+    padding: 0 0 0 var(--margin-bind);
+    user-select: none;
+  }
+  .ft-word {
+    font-weight: 800;
+    font-size: clamp(3.4rem, 12.2vw, 15rem);
+    letter-spacing: -0.03em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(244, 244, 244, 0.35);
+    white-space: nowrap;
+  }
+  .ft-word b { color: var(--copper); -webkit-text-stroke: 0; font-weight: 800; }
+
+  @media (max-width: 860px) {
+    .ft-cols { grid-template-columns: 1fr 1fr; }
+    .ft-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 480px) {
+    .ft-cols { grid-template-columns: 1fr; }
+    .ft-legal { flex-direction: column; }
+  }
+</style>

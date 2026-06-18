@@ -1,0 +1,524 @@
+/* ============================================================
+   ELECTROLOOP v2 — SISTEMA "BLUEPRINT"
+   Tokens + chrome global. Doc 01 / Rev A.
+   Paleta cerrada: Abyssal #0B1B32 · Copper #B87333 · Steel #8E9297 · Ceramic #F4F4F4
+   ============================================================ */
+
+/* Fuentes self-hosted (variables, subset latin) — sin dependencia de Google */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/v2/montserrat-latin-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: swap;
+  src: url('/fonts/v2/roboto-mono-latin-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --abyssal: #0B1B32;
+  --abyssal-deep: #081323;
+  --copper: #B87333;
+  --copper-light: #D08A48;
+  --steel: #8E9297;
+  --ceramic: #F4F4F4;
+
+  --font-display: 'Montserrat', system-ui, sans-serif;
+  --font-mono: 'Roboto Mono', ui-monospace, monospace;
+
+  --ease-blueprint: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Márgenes asimétricos: zona de encuadernación izquierda */
+  --margin-bind: clamp(56px, 7vw, 112px);
+  --margin-edge: clamp(20px, 3.5vw, 56px);
+}
+
+/* ---------- Base ---------- */
+.v2-body {
+  background: var(--abyssal);
+  color: var(--ceramic);
+  font-family: var(--font-display);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.v2-body ::selection {
+  background: var(--copper);
+  color: var(--abyssal);
+}
+
+.v2-body :focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+}
+
+/* ---------- Utilidades tipográficas ---------- */
+.v2-mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(0.625rem, 0.85vw, 0.78rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.v2-mono--steel { color: var(--steel); }
+.v2-mono--copper { color: var(--copper); }
+
+/* Texto en outline — estado "trazado" */
+.v2-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(244, 244, 244, 0.75);
+}
+@supports not (-webkit-text-stroke: 1px white) {
+  .v2-outline { color: var(--ceramic); }
+}
+
+/* ---------- Grain (papel heliográfico) ---------- */
+.v2-grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Espina dorsal: regla vertical de cobre ---------- */
+.v2-spine {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--margin-bind) * 0.5);
+  width: 1px;
+  z-index: 40;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(184, 115, 51, 0.5) 8%,
+    rgba(184, 115, 51, 0.5) 92%,
+    transparent 100%
+  );
+}
+
+/* Marcas graduadas sobre la regla */
+.v2-spine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 7px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(12.5vh - 1px),
+    rgba(184, 115, 51, 0.55) calc(12.5vh - 1px),
+    rgba(184, 115, 51, 0.55) 12.5vh
+  );
+}
+
+/* Índice de sección — vive junto a la regla */
+.v2-spine-index {
+  position: fixed;
+  left: calc(var(--margin-bind) * 0.5 + 14px);
+  bottom: var(--margin-edge);
+  z-index: 40;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.v2-spine-index .idx-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--copper);
+  letter-spacing: 0.1em;
+}
+
+.v2-spine-index .idx-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--steel);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  max-height: 30vh;
+}
+
+/* ---------- Marcas de registro en esquinas ---------- */
+.v2-regmark {
+  position: fixed;
+  width: 14px;
+  height: 14px;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.45;
+}
+.v2-regmark::before,
+.v2-regmark::after {
+  content: '';
+  position: absolute;
+  background: var(--steel);
+}
+.v2-regmark::before { left: 50%; top: 0; width: 1px; height: 100%; }
+.v2-regmark::after  { top: 50%; left: 0; height: 1px; width: 100%; }
+
+.v2-regmark--tl { top: 10px; left: 10px; }
+.v2-regmark--tr { top: 10px; right: 10px; }
+.v2-regmark--bl { bottom: 10px; left: 10px; }
+.v2-regmark--br { bottom: 10px; right: 10px; }
+
+/* ---------- Topbar ---------- */
+.v2-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 70;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: clamp(16px, 2.2vw, 28px) var(--margin-edge) 12px var(--margin-bind);
+  transition: background-color 0.4s var(--ease-blueprint);
+}
+
+/* Con scroll: fondo del pliego activo para no chocar con contenido denso */
+.v2-topbar.scrolled { background: rgba(11, 27, 50, 0.92); }
+.v2-topbar.scrolled.on-light { background: rgba(244, 244, 244, 0.94); }
+
+.v2-logo {
+  display: block;
+  text-decoration: none;
+  line-height: 1.1;
+}
+.v2-logo .lg {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+.v2-logo .lg-light { display: none; }
+
+/* Topbar sobre sección clara: tinta invertida + swap de lockup */
+.v2-topbar.on-light .v2-menu-btn { color: var(--abyssal); }
+.v2-topbar.on-light .lg-dark { display: none; }
+.v2-topbar.on-light .lg-light { display: block; }
+.v2-logo .loop { color: var(--copper); }
+.v2-logo-sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+  color: var(--steel);
+  margin-top: 4px;
+}
+
+.v2-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 40px);
+}
+
+.v2-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--ceramic);
+  padding: 6px 0;
+  transition: color 0.4s var(--ease-blueprint);
+}
+.v2-menu-btn .ticks {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.v2-menu-btn .ticks i {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--copper);
+  transition: transform 0.5s var(--ease-blueprint), width 0.5s var(--ease-blueprint);
+}
+.v2-menu-btn:hover .ticks i:nth-child(2) { width: 14px; }
+
+/* ---------- Menú overlay ---------- */
+.v2-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--abyssal-deep);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: var(--margin-bind);
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition: clip-path 0.8s var(--ease-blueprint), visibility 0s 0.8s;
+}
+.v2-menu.open {
+  clip-path: inset(0 0 0% 0);
+  visibility: visible;
+  transition: clip-path 0.8s var(--ease-blueprint), visibility 0s;
+}
+
+.v2-menu a {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  text-decoration: none;
+  padding: clamp(4px, 1vh, 10px) 0;
+}
+.v2-menu a .m-idx {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--copper);
+}
+.v2-menu a .m-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 4.5vw, 3.2rem);
+  letter-spacing: -0.01em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244, 244, 244, 0.6);
+  transition: color 0.4s var(--ease-blueprint);
+}
+.v2-menu a:hover .m-name,
+.v2-menu a:focus-visible .m-name {
+  color: var(--copper);
+  -webkit-text-stroke: 1px transparent;
+}
+
+.v2-menu-close {
+  position: absolute;
+  top: clamp(16px, 2.2vw, 28px);
+  right: var(--margin-edge);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  padding: 6px 0;
+}
+.v2-menu-close:hover { color: var(--copper); }
+
+/* ---------- Cursor custom ---------- */
+.v2-cursor-dot,
+.v2-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.v2-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--copper);
+}
+/* El isotipo ElectroLoop sigue al cursor */
+.v2-cursor-ring {
+  width: 34px;
+  height: 34px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.35s var(--ease-blueprint), height 0.35s var(--ease-blueprint),
+              opacity 0.3s;
+}
+.v2-cursor-ring .cursor-logo {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+.v2-cursor-ring.is-active {
+  width: 56px;
+  height: 56px;
+}
+.v2-cursor-ring.is-active .cursor-logo { opacity: 1; }
+.v2-cursor-label {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: var(--copper);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.v2-cursor-ring.is-active .v2-cursor-label { opacity: 1; }
+
+@media (pointer: coarse) {
+  .v2-cursor-dot, .v2-cursor-ring { display: none; }
+}
+
+/* ---------- Preloader ---------- */
+.v2-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--abyssal-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.v2-preloader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+.v2-preloader-logo { width: 88px; height: 88px; }
+.v2-preloader-logo circle {
+  fill: none;
+  stroke: var(--copper);
+  stroke-width: 1.5;
+  stroke-dasharray: 302;
+  stroke-dashoffset: 302;
+}
+.v2-preloader-logo rect {
+  fill: var(--copper);
+  opacity: 0;
+}
+.v2-preloader-count {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--steel);
+}
+.v2-preloader-count b {
+  font-weight: 700;
+  color: var(--copper);
+}
+
+/* ---------- Secciones del documento ---------- */
+.v2-section {
+  position: relative;
+  padding: clamp(88px, 14vh, 180px) var(--margin-edge) clamp(88px, 14vh, 180px) var(--margin-bind);
+}
+
+/* Sección clara: el pliego se da vuelta.
+   Tintas oscurecidas para AA en texto mono pequeño sobre ceramic. */
+.v2-light {
+  background: var(--ceramic);
+  color: var(--abyssal);
+  --copper-ink: #8F5722; /* cobre de imprenta: AA sobre ceramic */
+  --steel-ink: #5d6267;
+}
+.v2-light ::selection { background: var(--abyssal); color: var(--ceramic); }
+.v2-light .v2-mono--steel { color: var(--steel-ink); }
+.v2-light .v2-mono--copper { color: var(--copper-ink); }
+.v2-light .v2-sechead .sh-idx { color: var(--copper-ink); }
+.v2-light .v2-sechead .sh-name { color: var(--steel-ink); }
+.v2-light .v2-seal {
+  color: var(--copper-ink);
+  border-color: rgba(143, 87, 34, 0.5);
+}
+.v2-light .v2-outline { -webkit-text-stroke-color: rgba(11, 27, 50, 0.55); }
+
+/* Cabecera de sección: índice + nombre + línea técnica */
+.v2-sechead {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: clamp(40px, 7vh, 88px);
+}
+.v2-sechead .sh-idx {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--copper);
+  letter-spacing: 0.1em;
+}
+.v2-sechead .sh-name {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--steel);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.v2-sechead .v2-drawline {
+  flex: 1;
+  align-self: center;
+  opacity: 0.45;
+}
+
+/* Sello de estado: la honestidad estampada */
+.v2-seal {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copper);
+  border: 1px solid rgba(184, 115, 51, 0.45);
+  padding: 6px 12px;
+}
+
+/* ---------- Línea de cobre que se dibuja (patrón trazo→cobre) ---------- */
+.v2-drawline {
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: var(--copper);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ---------- Responsive: encuadernación ---------- */
+@media (max-width: 767px) {
+  :root {
+    --margin-bind: 24px;
+    --margin-edge: 20px;
+  }
+}
+
+/* La regla y la instrumentación de bordes leen bien solo en pantallas anchas */
+@media (max-width: 1023px) {
+  .v2-spine, .v2-spine-index, .v2-regmark { display: none; }
+}
+
+/* ---------- Reduced motion: documento completo, ya dibujado ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .v2-preloader { display: none !important; }
+  .v2-drawline { transform: scaleX(1); }
+  .v2-cursor-dot, .v2-cursor-ring { display: none; }
+  .v2-body *, .v2-body *::before, .v2-body *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

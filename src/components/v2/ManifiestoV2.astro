@@ -1,0 +1,255 @@
+---
+/**
+ * ELECTROLOOP v2 — 02 / MANIFIESTO "La veta está arriba".
+ * Pliego claro. Reveal palabra por palabra al scroll + testigo geológico
+ * (Au en roca vs Au en RAEE) + datos duros MMA 2019.
+ */
+---
+
+<section id="manifiesto" class="v2-section v2-light v2-manifiesto" data-section="Minería Urbana" data-index="02">
+  <header class="v2-sechead">
+    <span class="sh-idx">02</span>
+    <h2 class="sh-name">Minería Urbana</h2>
+    <i class="v2-drawline" aria-hidden="true"></i>
+  </header>
+
+  <div class="mani-grid">
+    <p class="mani-text" data-words>
+      La mina más rica de Chile no está bajo tierra.
+      Una tonelada de placas electrónicas contiene hasta
+      <strong>100 veces más oro</strong> que una tonelada de roca mineralizada.
+      Está en bodegas, oficinas y galpones.
+      <strong>Esperando ser declarada.</strong>
+    </p>
+
+    <!-- Testigo geológico: dos núcleos de sondaje -->
+    <figure class="mani-core" aria-label="Comparación: concentración de oro en roca versus RAEE">
+      <div class="core">
+        <div class="core-bar">
+          <i class="fill fill-rock" aria-hidden="true"></i>
+        </div>
+        <figcaption class="v2-mono v2-mono--steel">ROCA<br />1–4 g Au/t</figcaption>
+      </div>
+      <div class="core">
+        <div class="core-bar">
+          <i class="fill fill-raee" aria-hidden="true"></i>
+        </div>
+        <figcaption class="v2-mono"><span class="v2-mono--copper">RAEE</span><br />~250 g Au/t</figcaption>
+      </div>
+      <span class="core-note v2-mono v2-mono--steel">[ CONC. AU — REF. PLACAS ELECTRÓNICAS ]</span>
+    </figure>
+  </div>
+
+  <!-- Datos duros: instrumentos calibrados -->
+  <div class="mani-data">
+    <dl class="mani-dl">
+      <div class="datum">
+        <dt class="v2-mono v2-mono--steel">RAEE GENERADOS EN CHILE / AÑO</dt>
+        <dd><span class="num" data-count="196236" data-suffix=" t">0 t</span></dd>
+      </div>
+      <div class="datum">
+        <dt class="v2-mono v2-mono--steel">POR HABITANTE / AÑO — 1° DE LATAM</dt>
+        <dd><span class="num" data-count="10.2" data-suffix=" kg">0 kg</span></dd>
+      </div>
+      <div class="datum">
+        <dt class="v2-mono v2-mono--steel">RECIBE TRATAMIENTO FORMAL</dt>
+        <dd><span class="num" data-count="3.3" data-prefix="~" data-suffix="%">~0%</span></dd>
+      </div>
+    </dl>
+    <span class="data-src v2-mono v2-mono--steel">[ FUENTE: MINISTERIO DEL MEDIO AMBIENTE, 2019 ]</span>
+  </div>
+</section>
+
+<style>
+  .mani-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  .mani-text {
+    grid-column: 1 / 9;
+    margin: 0;
+    font-size: clamp(1.7rem, 3.6vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .mani-text strong {
+    font-weight: 800;
+    color: var(--copper);
+  }
+  /* Palabras: el color inicial (gris AA) lo fija el JS; aquí solo el layout */
+  .mani-text :global(.wd) {
+    display: inline-block;
+  }
+
+  /* ---------- Testigo geológico ---------- */
+  .mani-core {
+    grid-column: 10 / 13;
+    margin: 0;
+    display: flex;
+    gap: clamp(20px, 2.5vw, 40px);
+    align-items: flex-end;
+    position: relative;
+    padding-bottom: 36px;
+  }
+  .core { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  .core-bar {
+    width: clamp(34px, 3vw, 48px);
+    height: clamp(180px, 28vh, 300px);
+    border: 1px solid rgba(11, 27, 50, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .core-bar .fill {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    transform-origin: bottom;
+    transform: scaleY(0);
+  }
+  .fill-rock { height: 4%; background: #6b7075; }
+  .fill-raee { height: 100%; background: var(--copper); }
+  .core figcaption { text-align: center; line-height: 1.6; }
+  .core-note {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.55rem;
+  }
+
+  /* ---------- Datos ---------- */
+  .mani-data {
+    margin: clamp(64px, 10vh, 120px) 0 0;
+    border-top: 1px solid rgba(11, 27, 50, 0.25);
+    padding-top: clamp(28px, 4vh, 48px);
+    position: relative;
+  }
+  .mani-dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .datum dt { margin-bottom: 10px; }
+  .datum dd { margin: 0; }
+  .datum .num {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 3.4vw, 3.2rem);
+    color: var(--copper);
+    letter-spacing: -0.01em;
+  }
+  .data-src {
+    position: absolute;
+    right: 0;
+    top: -1.6em;
+    font-size: 0.55rem;
+  }
+
+  @media (max-width: 767px) {
+    .mani-text { grid-column: 1 / 13; }
+    .mani-core {
+      grid-column: 1 / 13;
+      margin-top: 48px;
+      justify-content: flex-start;
+    }
+    .core-note { left: 0; transform: none; }
+    .mani-data { grid-template-columns: 1fr; gap: 28px; }
+    .data-src { position: static; margin-top: 4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .core-bar .fill { transform: scaleY(1) !important; }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Reveal palabra por palabra, scrubbed al scroll */
+  (function initWords() {
+    const el = document.querySelector<HTMLElement>('.v2-manifiesto [data-words]');
+    if (!el || reduced) return;
+
+    // Envuelve cada palabra preservando los <strong>
+    const wrap = (node: Node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const frag = document.createDocumentFragment();
+        (node.textContent ?? '').split(/(\s+)/).forEach((part) => {
+          if (/^\s+$/.test(part) || part === '') {
+            frag.appendChild(document.createTextNode(part));
+          } else {
+            const s = document.createElement('span');
+            s.className = 'wd';
+            s.textContent = part;
+            s.style.color = '#7d8287'; // gris de partida: AA (3,7:1) en texto grande
+            frag.appendChild(s);
+          }
+        });
+        node.parentNode?.replaceChild(frag, node);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        [...node.childNodes].forEach(wrap);
+      }
+    };
+    [...el.childNodes].forEach(wrap);
+
+    // Materialización: gris → tinta final (abyssal o cobre en los strong)
+    gsap.to(el.querySelectorAll('.wd'), {
+      color: (_i: number, t: Element) =>
+        t.closest('strong') ? '#B87333' : '#0B1B32',
+      stagger: 0.06,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 78%',
+        end: 'bottom 45%',
+        scrub: 0.4,
+      },
+    });
+  })();
+
+  /* Testigo geológico: los núcleos se llenan */
+  (function initCores() {
+    if (reduced) return;
+    document.querySelectorAll<HTMLElement>('.v2-manifiesto .core-bar .fill').forEach((f, i) => {
+      gsap.to(f, {
+        scaleY: 1,
+        duration: 1.4,
+        delay: i * 0.25,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: f, start: 'top 85%' },
+      });
+    });
+  })();
+
+  /* Contadores es-CL (miles con punto, decimales con coma) */
+  (function initCounts() {
+    document.querySelectorAll<HTMLElement>('.v2-manifiesto [data-count]').forEach((el) => {
+      const target = parseFloat(el.dataset.count ?? '0');
+      const prefix = el.dataset.prefix ?? '';
+      const suffix = el.dataset.suffix ?? '';
+      const decimals = Number.isInteger(target) ? 0 : 1;
+      const fmt = (v: number) =>
+        prefix + v.toLocaleString('es-CL', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+
+      if (reduced) { el.textContent = fmt(target); return; }
+
+      const state = { v: 0 };
+      gsap.to(state, {
+        v: target,
+        duration: 1.8,
+        ease: 'power3.out',
+        onUpdate: () => { el.textContent = fmt(state.v); },
+        scrollTrigger: { trigger: el, start: 'top 88%' },
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,545 @@
+---
+/**
+ * ELECTROLOOP v2 — CALCULADORA REP "Ficha de cálculo técnico".
+ * 4 pasos: condición de productor → categorías → volumen → reporte.
+ * Lógica en src/scripts/v2/calculadora.ts (DS N°22/2025, Año 1 = 2028).
+ */
+const condiciones = [
+  {
+    id: 'calc-c1',
+    title: 'Primer distribuidor en Chile',
+    desc: 'Fabricas, importas o eres el primer distribuidor que introduce el producto al mercado nacional.',
+  },
+  {
+    id: 'calc-c2',
+    title: 'Marca propia',
+    desc: 'Vendes bajo tu propia marca productos adquiridos de terceros.',
+  },
+  {
+    id: 'calc-c3',
+    title: 'Importación para uso profesional',
+    desc: 'Importas pilas o AEE para uso propio vinculado a tu giro (no para reventa).',
+  },
+];
+
+const categorias = [
+  {
+    val: 'ait', code: 'AIT', name: 'Aparatos de Intercambio de Temperatura',
+    desc: 'Refrigeradores, aire acondicionado, cámaras frías, radiadores con refrigerante.',
+    meta: 'META GENERAL + ESPECÍFICA AIT',
+  },
+  {
+    val: 'pfv', code: 'PFV', name: 'Paneles Fotovoltaicos',
+    desc: 'Paneles solares con superficie mayor a 0,25 m². Metas independientes.',
+    meta: 'META ESPECÍFICA PFV EXCLUSIVA',
+  },
+  {
+    val: 'otros', code: 'AEE', name: 'Otros Aparatos Eléctricos y Electrónicos',
+    desc: 'Computadores, celulares, TV, electrodomésticos, telecomunicaciones, impresoras.',
+    meta: 'META GENERAL',
+  },
+  {
+    val: 'pilas', code: 'PIL', name: 'Pilas y Baterías',
+    desc: 'Fuentes de energía química < 5 kg. Excluye plomo-ácido (autos, UPS).',
+    meta: 'META GENERAL',
+  },
+];
+
+const railSteps = [
+  { n: 1, name: 'CONDICIÓN' },
+  { n: 2, name: 'CATEGORÍAS' },
+  { n: 3, name: 'VOLUMEN' },
+  { n: 4, name: 'REPORTE' },
+];
+---
+
+<section id="calculadora" class="v2-section v2-calc" data-section="Calculadora REP" data-index="05">
+  <header class="v2-sechead">
+    <span class="sh-idx">05</span>
+    <h2 class="sh-name">Calculadora de Obligaciones REP</h2>
+    <i class="v2-drawline" aria-hidden="true"></i>
+  </header>
+
+  <div class="calc-head">
+    <p class="calc-lead">
+      ¿Cuánto debes <strong>valorizar</strong>?
+    </p>
+    <p class="calc-sub">
+      Metas de recolección y valorización a 10 años por categoría,
+      según el Decreto Supremo N°22 de 2025. Primera meta exigible: <b>2028</b>.
+    </p>
+  </div>
+
+  <div id="calc-frame" class="calc-frame">
+    <!-- Riel: pasos + ficha viva -->
+    <aside class="calc-rail" aria-label="Progreso del cálculo">
+      <ol class="rail-steps">
+        {railSteps.map((s) => (
+          <li class={`rstep ${s.n === 1 ? 'active' : ''}`} data-rstep={s.n}>
+            <span class="r-mark" aria-hidden="true"></span>
+            <span class="r-num v2-mono">{String(s.n).padStart(2, '0')}</span>
+            <span class="r-name v2-mono">{s.name}</span>
+          </li>
+        ))}
+      </ol>
+      <p id="calc-step-live" class="sr-only" aria-live="polite">Paso 1 de 4</p>
+
+      <dl class="rail-ficha v2-mono" aria-label="Resumen del cálculo">
+        <div><dt>CATEGORÍAS</dt><dd id="ficha-cats">—</dd></div>
+        <div><dt>BASE ANUAL</dt><dd id="ficha-base">—</dd></div>
+        <div><dt>NORMA</dt><dd>DS 22/2025</dd></div>
+        <div><dt>AÑO 1</dt><dd>2028</dd></div>
+      </dl>
+    </aside>
+
+    <!-- Cuerpo de pasos -->
+    <div class="calc-body">
+
+      <!-- ── PASO 1 — Condición de productor ── -->
+      <div class="calc-step" data-step="1">
+        <h3 class="step-title" tabindex="-1">¿Tu empresa es <b>productora</b> bajo la Ley REP?</h3>
+        <p class="step-help">Marca las condiciones que apliquen — basta una.</p>
+
+        <div class="cond-list">
+          {condiciones.map((c) => (
+            <label class="cond" for={c.id}>
+              <input type="checkbox" id={c.id} />
+              <span class="check" aria-hidden="true"></span>
+              <span class="cond-text">
+                <span class="cond-title">{c.title}</span>
+                <span class="cond-desc">{c.desc}</span>
+              </span>
+            </label>
+          ))}
+        </div>
+
+        <fieldset class="micro">
+          <legend class="v2-mono v2-mono--steel">[ ¿MICROEMPRESA? — LEY 20.416 · VENTAS ≤ 2.400 UF/AÑO ]</legend>
+          <div class="micro-chips">
+            <label class="chip"><input type="radio" name="calc-micro" value="yes" /><span>SÍ</span></label>
+            <label class="chip"><input type="radio" name="calc-micro" value="no" checked /><span>NO</span></label>
+            <label class="chip"><input type="radio" name="calc-micro" value="unknown" /><span>NO ESTOY SEGURO</span></label>
+          </div>
+        </fieldset>
+
+        <p id="calc-note-noprod" class="note" hidden>
+          Si ninguna condición aplica, probablemente no eres productor REP — pero como
+          <b>generador</b> de RAEE igual debes entregarlos a un gestor autorizado.
+          ElectroLoop puede ayudarte en ambos casos.
+        </p>
+        <p id="calc-note-micro" class="note note-copper" hidden>
+          <b>Microempresa:</b> estás eximida de metas de recolección, pero debes reportar
+          anualmente al Ministerio del Medio Ambiente y gestionar tus RAEE correctamente.
+        </p>
+
+        <div class="step-nav">
+          <span></span>
+          <button id="calc-next-1" class="nav-btn v2-mono" data-cursor="[ SEGUIR ]" data-magnetic>
+            CONTINUAR <span class="arrow">→</span><i class="v2-drawline" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── PASO 2 — Categorías ── -->
+      <div class="calc-step" data-step="2" hidden>
+        <h3 class="step-title" tabindex="-1">¿Qué productos introduces al <b>mercado</b>?</h3>
+        <p class="step-help">El DS N°22/2025 define 4 categorías de productos prioritarios.</p>
+
+        <div class="cat-grid">
+          {categorias.map((c) => (
+            <label class="cat-cell" for={`calc-cat-${c.val}`} data-cursor="[ ELEGIR ]">
+              <input type="checkbox" id={`calc-cat-${c.val}`} class="calc-cat" value={c.val} />
+              <span class="cat-code" aria-hidden="true">{c.code}</span>
+              <span class="cat-name">{c.name}</span>
+              <span class="cat-desc">{c.desc}</span>
+              <span class="cat-meta v2-mono">[ {c.meta} ]</span>
+              <span class="cat-tick v2-mono" aria-hidden="true">[ SELECCIONADA ]</span>
+            </label>
+          ))}
+        </div>
+
+        <p id="calc-err-cat" class="err v2-mono" role="alert" hidden>
+          [ ! ] SELECCIONA AL MENOS UNA CATEGORÍA
+        </p>
+
+        <div class="step-nav">
+          <button id="calc-back-2" class="nav-btn nav-back v2-mono" data-cursor="[ VOLVER ]">← VOLVER</button>
+          <button id="calc-next-2" class="nav-btn v2-mono" data-cursor="[ SEGUIR ]" data-magnetic>
+            CONTINUAR <span class="arrow">→</span><i class="v2-drawline" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── PASO 3 — Volúmenes ── -->
+      <div class="calc-step" data-step="3" hidden>
+        <h3 class="step-title" tabindex="-1">¿Cuánto pusiste en el mercado el <b>año anterior</b>?</h3>
+        <p class="step-help">
+          Toneladas introducidas al mercado por categoría. La meta oficial se calcula sobre el
+          promedio de años previos — esta ficha usa el año anterior como base referencial.
+        </p>
+
+        <div id="calc-vols" class="vols"></div>
+
+        <p id="calc-err-vol" class="err v2-mono" role="alert" hidden>
+          [ ! ] INGRESA EL VOLUMEN EN AL MENOS UNA CATEGORÍA
+        </p>
+
+        <div class="step-nav">
+          <button id="calc-back-3" class="nav-btn nav-back v2-mono" data-cursor="[ VOLVER ]">← VOLVER</button>
+          <button id="calc-next-3" class="nav-btn v2-mono" data-cursor="[ CALCULAR ]" data-magnetic>
+            CALCULAR OBLIGACIONES <span class="arrow">→</span><i class="v2-drawline" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── PASO 4 — Reporte ── -->
+      <div class="calc-step" data-step="4" hidden>
+        <div class="rep-head">
+          <h3 class="step-title" tabindex="-1">Reporte de <b>obligaciones REP</b></h3>
+          <span id="calc-stamp" class="v2-mono v2-mono--steel"></span>
+        </div>
+
+        <div id="calc-results" class="results" aria-live="polite"></div>
+
+        <p class="note">
+          <b>Nota legal:</b> herramienta orientativa. No constituye asesoría legal ni reemplaza
+          la consulta al Ministerio del Medio Ambiente. Para la declaración oficial usa el RETC
+          (Ventanilla Única).
+        </p>
+
+        <div class="rep-cta">
+          <p class="cta-text">¿Cuánto cuesta cumplir estas metas?<br />
+            <b>Depende del volumen, tipo y condición del material — cotiza tu caso.
+            ElectroLoop coordina recolección, trazabilidad y reportes listos para el MMA.</b>
+          </p>
+          <a href="/#contacto" class="nav-btn v2-mono" data-cursor="[ IR ]" data-magnetic>
+            COTIZAR MI CASO <span class="arrow">→</span><i class="v2-drawline" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="step-nav">
+          <button id="calc-restart" class="nav-btn nav-back v2-mono" data-cursor="[ REINICIAR ]">
+            ↺ HACER OTRO CÁLCULO
+          </button>
+          <span></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .v2-calc { background: var(--abyssal); }
+
+  .calc-head { max-width: 60ch; margin-bottom: clamp(36px, 6vh, 64px); }
+  .calc-lead {
+    margin: 0 0 0.4em;
+    font-size: clamp(1.9rem, 4vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ceramic);
+  }
+  .calc-lead strong { font-weight: 800; color: var(--copper); }
+  .calc-sub { margin: 0; font-weight: 300; line-height: 1.7; color: var(--steel); }
+  .calc-sub b { color: var(--ceramic); font-weight: 600; }
+
+  /* ---------- Marco: riel + cuerpo ---------- */
+  .calc-frame {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border: 1px solid rgba(142, 146, 151, 0.25);
+  }
+
+  .calc-rail {
+    border-right: 1px solid rgba(142, 146, 151, 0.25);
+    padding: clamp(20px, 2.5vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 5vh, 48px);
+  }
+  .rail-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .rstep { display: flex; align-items: center; gap: 10px; }
+  .r-mark {
+    width: 9px; height: 9px;
+    border: 1px solid rgba(142, 146, 151, 0.5);
+    flex-shrink: 0;
+    transition: background-color 0.35s var(--ease-blueprint), border-color 0.35s var(--ease-blueprint);
+  }
+  .rstep.active .r-mark { border-color: var(--copper); background: var(--copper); }
+  .rstep.done .r-mark { border-color: var(--copper); background: rgba(184, 115, 51, 0.45); }
+  .r-num { font-size: 0.62rem; color: var(--steel); }
+  .r-name { font-size: 0.62rem; letter-spacing: 0.16em; color: var(--steel); transition: color 0.3s; }
+  .rstep.active .r-num, .rstep.active .r-name { color: var(--copper); }
+  .rstep.done .r-name { color: var(--ceramic); }
+
+  .rail-ficha { margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.6rem; }
+  .rail-ficha div { display: flex; flex-direction: column; gap: 2px; border-top: 1px solid rgba(142,146,151,0.18); padding-top: 10px; }
+  .rail-ficha dt { color: var(--steel); letter-spacing: 0.16em; }
+  .rail-ficha dd { margin: 0; color: var(--copper); font-weight: 700; font-size: 0.72rem; }
+
+  .calc-body { padding: clamp(24px, 3.5vw, 48px); min-width: 0; }
+
+  /* ---------- Pasos ---------- */
+  .step-title {
+    margin: 0 0 8px;
+    font-size: clamp(1.3rem, 2.4vw, 2rem);
+    font-weight: 300;
+    color: var(--ceramic);
+    outline: none;
+  }
+  .step-title b { font-weight: 800; color: var(--copper); }
+  .step-help {
+    margin: 0 0 clamp(24px, 4vh, 36px);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--steel);
+    max-width: 58ch;
+  }
+
+  /* Paso 1: checklist técnica */
+  .cond-list { display: flex; flex-direction: column; margin-bottom: clamp(24px, 4vh, 36px); }
+  .cond {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 4px;
+    border-bottom: 1px solid rgba(142, 146, 151, 0.18);
+    cursor: pointer;
+  }
+  .cond input { position: absolute; opacity: 0; pointer-events: none; }
+  .cond .check {
+    flex-shrink: 0;
+    width: 16px; height: 16px;
+    margin-top: 2px;
+    border: 1px solid rgba(142, 146, 151, 0.55);
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .cond .check::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--copper);
+    transform: scale(0);
+    transition: transform 0.3s var(--ease-blueprint);
+  }
+  .cond:hover .check { border-color: var(--copper); }
+  .cond input:checked + .check { border-color: var(--copper); }
+  .cond input:checked + .check::after { transform: scale(1); }
+  .cond input:focus-visible + .check { outline: 2px solid var(--copper); outline-offset: 3px; }
+  .cond-text { display: flex; flex-direction: column; gap: 3px; }
+  .cond-title { font-weight: 600; color: var(--ceramic); font-size: 0.98rem; }
+  .cond-desc { font-weight: 300; font-size: 0.85rem; line-height: 1.55; color: var(--steel); }
+
+  .micro { border: none; margin: 0 0 clamp(20px, 3vh, 32px); padding: 0; }
+  .micro legend { font-size: 0.6rem; margin-bottom: 12px; padding: 0; }
+  .micro-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { cursor: pointer; position: relative; }
+  .chip input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip span {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    padding: 9px 16px;
+    border: 1px solid rgba(142, 146, 151, 0.4);
+    color: var(--ceramic);
+    transition: all 0.3s var(--ease-blueprint);
+  }
+  .chip:hover span { border-color: var(--copper); color: var(--copper); }
+  .chip input:checked + span { background: var(--copper); border-color: var(--copper); color: var(--abyssal); }
+  .chip input:focus-visible + span { outline: 2px solid var(--copper); outline-offset: 3px; }
+
+  .note {
+    margin: 0 0 16px;
+    padding: 14px 16px;
+    border-left: 2px solid rgba(142, 146, 151, 0.4);
+    font-weight: 300;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--steel);
+  }
+  .note b { color: var(--ceramic); font-weight: 600; }
+  .note-copper { border-left-color: var(--copper); }
+  .note-copper b { color: var(--copper); }
+
+  /* Paso 2: celdas de categoría */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(142, 146, 151, 0.22);
+    border: 1px solid rgba(142, 146, 151, 0.22);
+    margin-bottom: 20px;
+  }
+  .cat-cell {
+    position: relative;
+    background: var(--abyssal);
+    padding: clamp(16px, 2vw, 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .cat-cell input { position: absolute; opacity: 0; pointer-events: none; }
+  .cat-code {
+    font-weight: 800;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.2px rgba(244, 244, 244, 0.6);
+    transition: all 0.35s var(--ease-blueprint);
+  }
+  .cat-name { font-weight: 600; font-size: 0.92rem; color: var(--ceramic); }
+  .cat-desc { font-weight: 300; font-size: 0.8rem; line-height: 1.5; color: var(--steel); }
+  .cat-meta { font-size: 0.55rem; color: var(--steel); }
+  .cat-tick {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-size: 0.55rem;
+    color: var(--copper);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .cat-cell:hover .cat-code { -webkit-text-stroke-color: var(--copper); }
+  .cat-cell:has(input:checked) {
+    background: rgba(184, 115, 51, 0.09);
+    box-shadow: inset 0 0 0 1px var(--copper);
+  }
+  .cat-cell:has(input:checked) .cat-code { color: var(--copper); -webkit-text-stroke: 0; }
+  .cat-cell:has(input:checked) .cat-tick { opacity: 1; }
+  .cat-cell:has(input:focus-visible) { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+  /* Paso 3: campos de volumen (generados por JS — :global) */
+  .vols { display: flex; flex-direction: column; gap: clamp(24px, 4vh, 36px); margin-bottom: 20px; }
+  .vols :global(.vol-label) { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; cursor: pointer; }
+  .vols :global(.vol-name) { font-weight: 600; color: var(--ceramic); font-size: 0.95rem; }
+  .vols :global(.vol-field) { display: flex; align-items: baseline; gap: 14px; }
+  .vols :global(.vol-input) {
+    flex: 1;
+    max-width: 280px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(142, 146, 151, 0.45);
+    border-radius: 0;
+    padding: 8px 2px;
+    color: var(--ceramic);
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .vols :global(.vol-input:focus) { border-bottom: 2px solid var(--copper); }
+  .vols :global(.vol-input::placeholder) { color: rgba(142, 146, 151, 0.4); }
+  .vols :global(.vol-unit) { font-size: 0.62rem; }
+  .vols :global(.vol-help) { margin: 8px 0 0; font-size: 0.58rem; line-height: 1.6; }
+
+  .err { margin: 0 0 16px; color: #e8896a; font-size: 0.65rem; letter-spacing: 0.1em; }
+
+  /* Paso 4: reporte */
+  .rep-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: clamp(20px, 3vh, 32px); }
+  .rep-head .step-title { margin: 0; }
+  .rep-head .v2-mono { font-size: 0.58rem; }
+
+  .results { display: flex; flex-direction: column; gap: clamp(32px, 5vh, 48px); margin-bottom: clamp(32px, 5vh, 48px); }
+  .results :global(.res-tag) { margin: 0 0 6px; font-size: 0.62rem; }
+  .results :global(.res-base) { margin: 0 0 14px; font-weight: 300; font-size: 0.88rem; color: var(--steel); }
+  .results :global(.res-base b) { color: var(--ceramic); font-weight: 600; }
+  .results :global(.res-scroll) { overflow-x: auto; border: 1px solid rgba(142, 146, 151, 0.22); }
+  .results :global(.res-table) { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.72rem; }
+  .results :global(.res-table th) {
+    text-align: left;
+    padding: 10px 14px;
+    color: var(--steel);
+    font-weight: 400;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    border-bottom: 1px solid rgba(142, 146, 151, 0.3);
+    white-space: nowrap;
+  }
+  .results :global(.res-table td) {
+    padding: 8px 14px;
+    color: var(--ceramic);
+    border-bottom: 1px solid rgba(142, 146, 151, 0.1);
+    white-space: nowrap;
+  }
+  .results :global(.res-table tr:last-child td) { border-bottom: none; }
+  .results :global(.res-table .acc) { color: var(--copper); }
+  .results :global(.res-table .dim) { color: rgba(142, 146, 151, 0.55); }
+  .results :global(.res-table .c-cal) { color: var(--steel); }
+  .results :global(.row-first td) { background: rgba(184, 115, 51, 0.08); }
+  .results :global(.row-first td:first-child) { box-shadow: inset 2px 0 0 var(--copper); }
+  .results :global(.row-dim td) { color: rgba(142, 146, 151, 0.5); }
+
+  .rep-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    border: 1px solid rgba(184, 115, 51, 0.4);
+    padding: clamp(20px, 3vw, 32px);
+    margin: clamp(24px, 4vh, 36px) 0;
+  }
+  .cta-text { margin: 0; font-weight: 300; line-height: 1.6; color: var(--steel); }
+  .cta-text b { color: var(--ceramic); font-weight: 600; }
+
+  /* Navegación de pasos */
+  .step-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 8px; }
+  .nav-btn {
+    position: relative;
+    display: inline-block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px 2px;
+    color: var(--ceramic);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+  }
+  .nav-btn .arrow { color: var(--copper); display: inline-block; transition: transform 0.4s var(--ease-blueprint); }
+  .nav-btn:hover .arrow { transform: translateX(5px); }
+  .nav-btn .v2-drawline { position: absolute; left: 0; right: 0; bottom: 4px; transform: scaleX(1); }
+  .nav-back { color: var(--steel); font-weight: 400; }
+  .nav-back:hover { color: var(--ceramic); }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .calc-frame { grid-template-columns: 1fr; }
+    .calc-rail {
+      border-right: none;
+      border-bottom: 1px solid rgba(142, 146, 151, 0.25);
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .rail-steps { flex-direction: row; flex-wrap: wrap; gap: 12px 18px; }
+    .r-num { display: none; }
+    .rail-ficha { display: none; } /* la ficha vive en los pasos en móvil */
+  }
+  @media (max-width: 560px) {
+    .cat-grid { grid-template-columns: 1fr; }
+    .costs { grid-template-columns: 1fr 1fr; }
+    .rep-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<script>
+  import '../../scripts/v2/calculadora.ts';
+</script>

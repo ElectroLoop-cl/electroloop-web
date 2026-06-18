@@ -1,0 +1,27 @@
+# ElectroLoop
+
+> Gestor integrador de residuos de aparatos eléctricos y electrónicos (RAEE) bajo la Ley REP en Chile, con base en Coquimbo. Opera con una red de partners certificados mientras construye capacidad propia; inicio operativo previsto para agosto de 2026.
+
+Tagline: "Cerramos el loop. Recursos infinitos."
+
+## Qué hace ElectroLoop
+- Coordinación integral de gestión RAEE: recolección, desmantelamiento, valorización y retorno al mercado de materiales (Cu, Au, Ag, Pd, Al, Fe, plásticos de ingeniería).
+- Cumplimiento de la Ley REP (N° 20.920) y del Decreto Supremo N°22 de 2025, con primera meta exigible en 2028.
+- Trazabilidad documentada de cada kilo, cerrando con certificado de disposición final.
+- Cobertura: macrozona norte de Chile.
+
+## Estado del negocio (importante para precisión)
+- ElectroLoop es PRE-OPERATIVO: aún no opera planta propia. Hoy actúa como integrador con partners certificados.
+- No se deben atribuir cifras de clientes, plantas ni volúmenes gestionados: no existen aún.
+
+## Páginas
+- [Inicio](https://electroloop.cl/): minería urbana, proceso, materiales, trazabilidad, contacto.
+- [Guía Ley REP Chile](https://electroloop.cl/ley-rep-chile-empresas): qué es la Ley REP y obligaciones para empresas.
+- [Reciclaje electrónico para empresas](https://electroloop.cl/reciclaje-electronico-empresas-chile): servicio de gestión RAEE B2B.
+- [Gestión RAEE en Chile](https://electroloop.cl/gestion-raee-chile): panorama de la gestión de residuos electrónicos.
+- [Calculadora REP](https://electroloop.cl/v2/calculadora): estima obligaciones de valorización a 10 años según el DS N°22/2025.
+- [Noticias RAEE](https://electroloop.cl/noticias): actualidad regulatoria.
+
+## Contacto
+- Email: contacto@electroloop.cl
+- Ubicación: Coquimbo, Chile (29°57′S 71°20′W)

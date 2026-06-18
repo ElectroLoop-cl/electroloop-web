@@ -1,0 +1,224 @@
+---
+/**
+ * ELECTROLOOP v2 — Layout "Blueprint".
+ * Chrome del documento: grain, espina/regla de cobre, marcas de registro,
+ * topbar, menú overlay, cursor custom, preloader.
+ * Ruta de preview /v2 — noindex hasta el swap a producción.
+ */
+import '../styles/v2/blueprint.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'ElectroLoop — Cerramos el loop. Recursos infinitos | Gestión RAEE Ley REP Chile',
+  description = 'Gestor RAEE integrador con red de partners certificados. Valorización de residuos electrónicos bajo Ley REP. Coquimbo, Chile. Inicio operativo agosto 2026.',
+} = Astro.props;
+
+const siteUrl = 'https://electroloop.cl';
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+
+// Datos estructurados (schema.org) — legibles por buscadores y modelos de IA.
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'ElectroLoop',
+      description:
+        'Gestor integrador de residuos de aparatos eléctricos y electrónicos (RAEE) bajo Ley REP en Chile, con red de partners certificados. Inicio operativo agosto 2026.',
+      url: siteUrl,
+      logo: `${siteUrl}/logo-dark.png`,
+      email: 'contacto@electroloop.cl',
+      slogan: 'Cerramos el loop. Recursos infinitos.',
+      areaServed: ['Macrozona Norte de Chile'],
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Coquimbo',
+        addressRegion: 'Región de Coquimbo',
+        addressCountry: 'CL',
+      },
+    },
+    {
+      '@type': 'LocalBusiness',
+      '@id': `${siteUrl}/#localbusiness`,
+      name: 'ElectroLoop',
+      image: `${siteUrl}/logo-dark.png`,
+      url: siteUrl,
+      email: 'contacto@electroloop.cl',
+      priceRange: '$$',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Coquimbo',
+        addressRegion: 'Región de Coquimbo',
+        addressCountry: 'CL',
+      },
+      geo: { '@type': 'GeoCoordinates', latitude: -29.9533, longitude: -71.3436 },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: 'ElectroLoop',
+      inLanguage: 'es-CL',
+      publisher: { '@id': `${siteUrl}/#organization` },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: '¿Qué es un gestor RAEE bajo la Ley REP en Chile?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Un gestor RAEE coordina la recolección, transporte, tratamiento y valorización de residuos de aparatos eléctricos y electrónicos bajo la Ley REP (N° 20.920). ElectroLoop opera como integrador con una red de gestores certificados, con inicio operativo propio en agosto de 2026.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: '¿Qué obligaciones impone el DS N°22/2025 a los productores?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'El Decreto Supremo N°22 de 2025 fija metas progresivas de recolección y valorización de aparatos eléctricos y electrónicos, con primera meta exigible en 2028. Las categorías son AIT (intercambio de temperatura), PFV (paneles fotovoltaicos), Otros AEE y Pilas.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: '¿Qué cobertura geográfica tiene ElectroLoop?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'ElectroLoop atiende la macrozona norte de Chile.',
+          },
+        },
+      ],
+    },
+  ],
+};
+
+// Hrefs absolutos: el menú funciona también desde páginas internas (/v2/calculadora)
+const sections = [
+  { idx: '01', name: 'Inicio', href: '/#inicio' },
+  { idx: '02', name: 'Minería Urbana', href: '/#manifiesto' },
+  { idx: '03', name: 'El Proceso', href: '/#proceso' },
+  { idx: '04', name: 'Materiales', href: '/#materiales' },
+  { idx: '05', name: 'Ley REP', href: '/#ley-rep' },
+  { idx: '06', name: 'Trazabilidad', href: '/#trazabilidad' },
+  { idx: '07', name: 'Contacto', href: '/#contacto' },
+  { idx: '→', name: 'Calculadora REP', href: '/calculadora' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content="ElectroLoop" />
+  <link rel="canonical" href={canonical} />
+
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Twitter — tarjetas para compartir y rastreo social/IA -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="ElectroLoop" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={`${siteUrl}/logo-dark.png`} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <!-- Datos estructurados schema.org (Organization, LocalBusiness, WebSite, FAQ) -->
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Fuentes self-hosted variables (71 KB total) — preload directo, sin cadena externa -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/v2/montserrat-latin-var.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/v2/roboto-mono-latin-var.woff2" crossorigin />
+</head>
+
+<body class="v2-body">
+  <!-- Preloader: contador + loop que se traza (solo primera visita) -->
+  <div id="v2-preloader" class="v2-preloader" role="status" aria-label="Cargando">
+    <div class="v2-preloader-inner">
+      <svg class="v2-preloader-logo" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="48" transform="rotate(-90 60 60)" />
+        <rect x="56" y="8" width="8" height="8" />
+      </svg>
+      <div class="v2-preloader-count" aria-hidden="true">
+        [ <b>000</b> / 100 ]
+      </div>
+    </div>
+  </div>
+
+  <!-- Chrome del documento -->
+  <div class="v2-grain" aria-hidden="true"></div>
+  <div class="v2-spine" aria-hidden="true"></div>
+  <div class="v2-spine-index" aria-hidden="true">
+    <span class="idx-num">01</span>
+    <span class="idx-label">Inicio</span>
+  </div>
+  <i class="v2-regmark v2-regmark--tl" aria-hidden="true"></i>
+  <i class="v2-regmark v2-regmark--tr" aria-hidden="true"></i>
+  <i class="v2-regmark v2-regmark--bl" aria-hidden="true"></i>
+  <i class="v2-regmark v2-regmark--br" aria-hidden="true"></i>
+
+  <!-- Topbar -->
+  <header class="v2-topbar">
+    <a href="#inicio" class="v2-logo">
+      <img class="lg lg-dark" src="/logo-dark.png" alt="ElectroLoop" width="131" height="42" />
+      <img class="lg lg-light" src="/logo-light.png" alt="" aria-hidden="true" width="130" height="42" />
+      <span class="v2-logo-sub">GESTIÓN RAEE · LEY REP CHILE</span>
+    </a>
+    <div class="v2-topbar-right">
+      <button
+        id="v2-menu-btn"
+        class="v2-menu-btn"
+        aria-expanded="false"
+        aria-controls="v2-menu"
+        data-cursor="[ ABRIR ]"
+      >
+        <span class="ticks" aria-hidden="true"><i></i><i></i></span>
+        MENÚ
+      </button>
+    </div>
+  </header>
+
+  <!-- Menú overlay -->
+  <nav id="v2-menu" class="v2-menu" aria-label="Navegación principal">
+    <button id="v2-menu-close" class="v2-menu-close" data-cursor="[ CERRAR ]">
+      [ CERRAR ]
+    </button>
+    {sections.map((s) => (
+      <a href={s.href} data-cursor="[ IR ]">
+        <span class="m-idx">{s.idx}</span>
+        <span class="m-name">{s.name.toUpperCase()}</span>
+      </a>
+    ))}
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <!-- Cursor custom: punto + isotipo oficial ElectroLoop que sigue al cursor -->
+  <div class="v2-cursor-dot" aria-hidden="true"></div>
+  <div class="v2-cursor-ring" aria-hidden="true">
+    <img class="cursor-logo" src="/isotipo-cursor.png" alt="" width="160" height="156" />
+    <span class="v2-cursor-label"></span>
+  </div>
+
+  <script>
+    import '../scripts/v2/chrome.ts';
+  </script>
+</body>
+</html>

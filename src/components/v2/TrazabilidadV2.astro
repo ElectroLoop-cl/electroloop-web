@@ -1,0 +1,151 @@
+---
+/**
+ * ELECTROLOOP v2 — 06 / TRAZABILIDAD "Cadena de custodia".
+ * El diferenciador: cada kg documentado de retiro a certificado.
+ * Cierra en el entregable real: certificado de disposición final.
+ */
+const pasos = [
+  { code: 'RET', name: 'RETIRO', doc: 'Acta de retiro' },
+  { code: 'TRA', name: 'TRANSPORTE', doc: 'Guía de despacho' },
+  { code: 'REC', name: 'RECEPCIÓN', doc: 'Registro de ingreso' },
+  { code: 'PES', name: 'PESAJE', doc: 'Ticket de romana' },
+  { code: 'VAL', name: 'VALORIZACIÓN', doc: 'Reporte por fracción' },
+  { code: 'CDF', name: 'CERTIFICADO', doc: 'Disposición final', final: true },
+];
+---
+
+<section id="trazabilidad" class="v2-section v2-traz" data-section="Trazabilidad" data-index="06">
+  <header class="v2-sechead">
+    <span class="sh-idx">06</span>
+    <h2 class="sh-name">Trazabilidad</h2>
+    <i class="v2-drawline" aria-hidden="true"></i>
+  </header>
+
+  <p class="traz-lead">
+    Cada kilo viaja con su registro.<br />
+    <strong>Un certificado de disposición final por cada lote. Auditable.</strong>
+  </p>
+
+  <!-- Flujo documental -->
+  <ol class="traz-flow" role="list">
+    {pasos.map((p, i) => (
+      <li class={`step ${p.final ? 'final' : ''}`}>
+        <span class="st-line" aria-hidden="true"></span>
+        <span class="st-dot" aria-hidden="true"></span>
+        <span class="st-code v2-mono v2-mono--copper">[ {p.code} ]</span>
+        <span class="st-name">{p.name}</span>
+        <span class="st-doc v2-mono v2-mono--steel">{p.doc}</span>
+      </li>
+    ))}
+  </ol>
+
+  <p class="traz-note v2-mono v2-mono--steel">
+    [ DOCUMENTACIÓN VÁLIDA PARA CUMPLIMIENTO LEY REP Y AUDITORÍAS DE SOSTENIBILIDAD ]
+  </p>
+</section>
+
+<style>
+  .v2-traz {
+    background: var(--abyssal);
+    border-top: 1px solid rgba(142, 146, 151, 0.15);
+  }
+
+  .traz-lead {
+    margin: 0 0 clamp(48px, 8vh, 96px);
+    font-size: clamp(1.6rem, 3.2vw, 3rem);
+    font-weight: 300;
+    line-height: 1.35;
+    color: var(--ceramic);
+    max-width: 28ch;
+  }
+  .traz-lead strong { font-weight: 800; color: var(--copper); }
+
+  /* ---------- Flujo ---------- */
+  .traz-flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+  }
+
+  .step {
+    position: relative;
+    padding: 26px 14px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  /* Línea del flujo: se dibuja al entrar */
+  .st-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(184, 115, 51, 0.7);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .st-dot {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid var(--copper);
+    background: var(--abyssal);
+    opacity: 0;
+  }
+  .step.final .st-dot { background: var(--copper); }
+
+  .st-code { font-size: 0.62rem; }
+  .st-name {
+    font-weight: 800;
+    font-size: clamp(0.85rem, 1.25vw, 1.15rem);
+    letter-spacing: 0.01em;
+    color: var(--ceramic);
+  }
+  .step.final .st-name { color: var(--copper); }
+  .st-doc { font-size: 0.6rem; line-height: 1.5; }
+
+  .traz-note {
+    display: block;
+    margin-top: clamp(40px, 6vh, 72px);
+    font-size: 0.55rem;
+  }
+
+  @media (max-width: 767px) {
+    .traz-flow { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .st-line { transform: scaleX(1) !important; }
+    .st-dot { opacity: 1 !important; }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  (function initTraz() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const flow = document.querySelector('.traz-flow');
+    if (!flow) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: flow, start: 'top 80%' },
+      defaults: { ease: 'expo.out' },
+    });
+
+    flow.querySelectorAll('.step').forEach((step, i) => {
+      const at = i * 0.18;
+      tl.to(step.querySelector('.st-line'), { scaleX: 1, duration: 0.6 }, at)
+        .to(step.querySelector('.st-dot'), { opacity: 1, duration: 0.3 }, at + 0.3);
+    });
+  })();
+</script>

@@ -1,0 +1,190 @@
+---
+/**
+ * ELECTROLOOP v2 — 04 / MATERIALES "Tabla periódica blueprint".
+ * Grilla asimétrica: tamaño de celda según valor estratégico.
+ * Hover: wipe de cobre con datos técnicos. Cifras referenciales internacionales.
+ */
+const materiales = [
+  {
+    sym: 'Cu', z: '29', name: 'COBRE', size: 'xl',
+    detail: 'Conductores, motores, transformadores. ~7% del peso típico de un RAEE. Refinación nacional.',
+  },
+  {
+    sym: 'Au', z: '79', name: 'ORO', size: 'xl',
+    detail: 'Contactos y conectores de placas. ~250 g/t en PCB — hasta 100x el mineral de roca.',
+  },
+  {
+    sym: 'Ag', z: '47', name: 'PLATA', size: 'sm',
+    detail: 'Soldaduras y contactos. ~1.000 g/t en placas electrónicas.',
+  },
+  {
+    sym: 'Pd', z: '46', name: 'PALADIO', size: 'sm',
+    detail: 'Capacitores multicapa. Material crítico para electromovilidad.',
+  },
+  {
+    sym: 'Al', z: '13', name: 'ALUMINIO', size: 'md',
+    detail: 'Carcasas y disipadores. ~5% del peso típico. Reciclaje con 95% menos energía que el primario.',
+  },
+  {
+    sym: 'Fe', z: '26', name: 'HIERRO / ACERO', size: 'sm',
+    detail: 'Estructuras y chasis. ~50% del peso en grandes equipos.',
+  },
+  {
+    sym: 'PLX', z: '—', name: 'PLÁSTICOS ING.', size: 'md',
+    detail: 'ABS, PC, HIPS. ~21% del peso típico. Reciclaje mecánico a pellet industrial.',
+  },
+];
+---
+
+<section id="materiales" class="v2-section v2-mat" data-section="Materiales" data-index="04">
+  <header class="v2-sechead">
+    <span class="sh-idx">04</span>
+    <h2 class="sh-name">Materiales Que Se Pueden Recuperar</h2>
+    <i class="v2-drawline" aria-hidden="true"></i>
+  </header>
+
+  <ul class="mat-grid" role="list">
+    {materiales.map((m) => (
+      <li class={`cell cell-${m.size}`} data-cursor="[ VER ]" tabindex="0">
+        <span class="z v2-mono" aria-hidden="true">{m.z}</span>
+        <span class="sym" aria-hidden="true">{m.sym}</span>
+        <span class="name v2-mono">{m.name}</span>
+        <span class="detail">{m.detail}</span>
+      </li>
+    ))}
+    <!-- Parcela vacía del plano: rutas futuras, honestamente marcadas -->
+    <li class="cell cell-blank" aria-label="Rutas de valorización en evaluación">
+      <span class="blank-mark" aria-hidden="true"></span>
+      <span class="blank-text v2-mono v2-mono--steel">
+        [ Li · Co · TIERRAS RARAS — RUTAS DE VALORIZACIÓN EN EVALUACIÓN 2027+ ]
+      </span>
+    </li>
+  </ul>
+
+  <p class="mat-note v2-mono v2-mono--steel">
+    [ COMPOSICIONES REFERENCIALES — LITERATURA INTERNACIONAL RAEE ]
+  </p>
+</section>
+
+<style>
+  .v2-mat { background: var(--abyssal); }
+
+  .mat-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+    gap: 1px;
+    /* La grilla misma como plano: líneas de 1px entre celdas */
+    background: rgba(142, 146, 151, 0.22);
+    border: 1px solid rgba(142, 146, 151, 0.22);
+  }
+
+  .cell {
+    position: relative;
+    background: var(--abyssal);
+    padding: clamp(14px, 1.8vw, 26px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    cursor: default;
+    min-height: clamp(120px, 16vw, 220px);
+  }
+  .cell-xl { grid-column: span 2; grid-row: span 2; }
+  .cell-md { grid-column: span 2; }
+  .cell-sm { grid-column: span 1; }
+
+  .z {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 0.62rem;
+    color: var(--steel);
+  }
+  .sym {
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4.6vw, 5rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.2px rgba(244, 244, 244, 0.65);
+    transition: -webkit-text-stroke-color 0.4s var(--ease-blueprint), color 0.4s var(--ease-blueprint);
+  }
+  .name {
+    margin-top: 10px;
+    font-size: 0.6rem;
+    color: var(--steel);
+    transition: color 0.4s var(--ease-blueprint);
+  }
+
+  /* Wipe de cobre + detalle al hover/focus */
+  .detail {
+    position: absolute;
+    inset: 0;
+    padding: clamp(12px, 1.6vw, 26px);
+    background: var(--copper);
+    color: var(--abyssal);
+    font-weight: 400;
+    font-size: clamp(0.78rem, 1vw, 0.95rem);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start; /* ancla arriba: si falta alto, recorta abajo y no el inicio */
+    overflow: hidden;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.55s var(--ease-blueprint);
+  }
+  /* Celdas chicas: tipografía más compacta para que el detalle quepa */
+  .cell-sm .detail {
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+  .cell:hover .detail,
+  .cell:focus-visible .detail {
+    clip-path: inset(0 0% 0 0);
+  }
+  .cell:hover .sym,
+  .cell:focus-visible .sym { -webkit-text-stroke-color: transparent; color: var(--copper); }
+
+  .mat-note {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.55rem;
+    text-align: right;
+  }
+
+  /* Parcela vacía: cruz de registro + anotación */
+  .cell-blank {
+    grid-column: span 3;
+    justify-content: space-between;
+    cursor: default;
+  }
+  .blank-mark {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+  .blank-mark::before,
+  .blank-mark::after {
+    content: '';
+    position: absolute;
+    background: var(--steel);
+  }
+  .blank-mark::before { left: 50%; top: 0; width: 1px; height: 100%; }
+  .blank-mark::after { top: 50%; left: 0; height: 1px; width: 100%; }
+  .blank-text { font-size: 0.58rem; line-height: 1.8; }
+
+  @media (max-width: 767px) {
+    .mat-grid { grid-template-columns: repeat(2, 1fr); grid-auto-flow: dense; }
+    .cell-xl, .cell-md { grid-column: span 2; grid-row: auto; }
+    .cell-sm { grid-column: span 1; }
+    .cell-blank { grid-column: span 1; }
+    .mat-note { text-align: left; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .detail { transition: none; }
+  }
+</style>

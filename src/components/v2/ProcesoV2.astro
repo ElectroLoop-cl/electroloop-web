@@ -1,0 +1,290 @@
+---
+/**
+ * ELECTROLOOP v2 — 03 / EL PROCESO "Diagrama de flujo".
+ * Desktop: sección pinned 400vh — circuito SVG que se dibuja al scroll,
+ * 4 etapas que se materializan en secuencia, cada una con su sello de estado real.
+ * Móvil / reduced-motion / no-JS: etapas apiladas, circuito ya dibujado.
+ */
+const etapas = [
+  {
+    n: '01',
+    title: 'RECOLECCIÓN',
+    seal: '[ VÍA PARTNERS CERTIFICADOS ]',
+    desc: 'Retiro en origen, macrozona norte. Logística inversa coordinada con gestores autorizados. Cadena de custodia documentada desde el primer kilo.',
+    code: 'RET — MACROZONA N',
+  },
+  {
+    n: '02',
+    title: 'DESMANTELAMIENTO',
+    seal: '[ VÍA PARTNERS — INTERNALIZACIÓN 2027 ]',
+    desc: 'Separación por fracciones: placas, metales, plásticos de ingeniería, vidrio. Destrucción de datos certificada donde aplica.',
+    code: 'DSM — FRACCIONES',
+  },
+  {
+    n: '03',
+    title: 'VALORIZACIÓN',
+    seal: '[ VÍA PARTNERS CERTIFICADOS ]',
+    desc: 'Cada fracción a su destino técnico: metales a refinación, plásticos a reciclaje industrial. Nada a vertedero que pueda valorizarse.',
+    code: 'VAL — Cu/Au/Al/PLX',
+  },
+  {
+    n: '04',
+    title: 'RETORNO AL MERCADO',
+    seal: '[ EL LOOP CERRADO ]',
+    desc: 'Los materiales vuelven como materia prima secundaria. Certificado de disposición final por cada kilo gestionado. El recurso, de nuevo en circulación.',
+    code: 'LOOP — ∞',
+  },
+];
+---
+
+<section id="proceso" class="v2-proc" data-section="El Proceso" data-index="03">
+  <div class="proc-pin">
+    <header class="v2-sechead">
+      <span class="sh-idx">03</span>
+      <h2 class="sh-name">El Proceso</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <!-- Circuito: la línea que conecta las 4 etapas -->
+    <svg class="proc-circuit" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+      <path
+        class="circuit-path"
+        d="M0,30 H210 l20,-14 h60 l20,14 H510 l20,14 h60 l20,-14 H810 l20,-14 h60 l20,14 H1200"
+        fill="none"
+      />
+      <circle class="node n1" cx="150" cy="30" r="5" />
+      <circle class="node n2" cx="450" cy="30" r="5" />
+      <circle class="node n3" cx="750" cy="30" r="5" />
+      <circle class="node n4" cx="1050" cy="30" r="5" />
+    </svg>
+
+    <!-- Etapas -->
+    <div class="proc-stages">
+      {etapas.map((e, i) => (
+        <article class={`stage stage-${i + 1}`} data-stage={i}>
+          <span class="st-num" aria-hidden="true">{e.n}</span>
+          <div class="st-body">
+            <span class="v2-seal">{e.seal}</span>
+            <h3 class="st-title">{e.title}</h3>
+            <p class="st-desc">{e.desc}</p>
+            <span class="st-code v2-mono v2-mono--steel">[ {e.code} ]</span>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Progreso del recorrido -->
+    <div class="proc-progress v2-mono v2-mono--steel" aria-hidden="true">
+      <span class="pp-current">01</span> / 04
+    </div>
+  </div>
+</section>
+
+<style>
+  .v2-proc {
+    position: relative;
+    background: var(--abyssal);
+    border-top: 1px solid rgba(142, 146, 151, 0.15);
+  }
+
+  .proc-pin {
+    padding: clamp(72px, 10vh, 120px) var(--margin-edge) clamp(48px, 8vh, 96px) var(--margin-bind);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Circuito ---------- */
+  .proc-circuit {
+    width: 100%;
+    height: 60px;
+    margin-bottom: clamp(32px, 6vh, 72px);
+    overflow: visible;
+  }
+  .circuit-path {
+    stroke: var(--copper);
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+  }
+  .node {
+    fill: var(--abyssal);
+    stroke: var(--copper);
+    stroke-width: 1.5;
+    transition: fill 0.4s var(--ease-blueprint);
+  }
+  .node.lit { fill: var(--copper); }
+
+  /* ---------- Etapas (layout base: apiladas — fallback honesto) ---------- */
+  .stage {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(20px, 3vw, 48px);
+    align-items: start;
+    padding: clamp(24px, 4vh, 40px) 0;
+    border-bottom: 1px solid rgba(142, 146, 151, 0.12);
+  }
+  .st-num {
+    font-family: var(--font-mono);
+    font-size: clamp(2.6rem, 6vw, 5.5rem);
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(184, 115, 51, 0.6);
+    line-height: 1;
+  }
+  .st-body { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+  .st-title {
+    margin: 0;
+    font-size: clamp(1.7rem, 4.2vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--ceramic);
+  }
+  .st-desc {
+    margin: 0;
+    max-width: 52ch;
+    font-weight: 300;
+    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+    line-height: 1.7;
+    color: var(--steel);
+  }
+  .st-code { font-size: 0.62rem; }
+
+  .proc-progress {
+    margin-top: clamp(20px, 3vh, 36px);
+    letter-spacing: 0.2em;
+    display: none;
+  }
+  .pp-current { color: var(--copper); font-weight: 700; }
+
+  /* ---------- Modo pinned (lo activa JS solo en desktop) ---------- */
+  :global(.proc-enhanced) .v2-proc { height: 400vh; }
+  :global(.proc-enhanced) .proc-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  :global(.proc-enhanced) .proc-stages {
+    position: relative;
+    flex: 1;
+  }
+  :global(.proc-enhanced) .stage {
+    position: absolute;
+    inset: 0;
+    border-bottom: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+  :global(.proc-enhanced) .stage.active { pointer-events: auto; }
+  :global(.proc-enhanced) .proc-progress { display: block; }
+
+  /* ---------- Touch: carrete horizontal con snap (el pinned es para mouse) ---------- */
+  @media (pointer: coarse) {
+    .proc-stages {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 16px;
+      margin-right: calc(var(--margin-edge) * -1);
+      padding-right: var(--margin-edge);
+      scrollbar-width: none;
+    }
+    .proc-stages::-webkit-scrollbar { display: none; }
+    .stage {
+      flex: 0 0 84vw;
+      scroll-snap-align: start;
+      grid-template-columns: 1fr;
+      border-bottom: none;
+      border-left: 1px solid rgba(184, 115, 51, 0.35);
+      padding-left: 18px;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Pinned para cualquier puntero de precisión (mouse/trackpad); carrete solo touch
+  const desktop = window.matchMedia('(pointer: fine)').matches;
+
+  (function initProceso() {
+    const section = document.querySelector<HTMLElement>('.v2-proc');
+    if (!section) return;
+
+    const path = section.querySelector<SVGPathElement>('.circuit-path');
+    const nodes = [...section.querySelectorAll<SVGCircleElement>('.node')];
+    const stages = [...section.querySelectorAll<HTMLElement>('.stage')];
+    const ppCurrent = section.querySelector<HTMLElement>('.pp-current');
+
+    const len = path?.getTotalLength() ?? 0;
+
+    if (reduced || !desktop) {
+      // Circuito ya dibujado, nodos encendidos, etapas visibles
+      nodes.forEach((n) => n.classList.add('lit'));
+      return;
+    }
+
+    // Modo pinned
+    document.documentElement.classList.add('proc-enhanced');
+    if (path) {
+      path.style.strokeDasharray = String(len);
+      path.style.strokeDashoffset = String(len);
+    }
+    gsap.set(stages[0], { opacity: 1, y: 0 });
+    gsap.set(stages.slice(1), { opacity: 0, y: 32 });
+    stages[0].classList.add('active');
+
+    let current = 0;
+    const show = (idx: number) => {
+      if (idx === current) return;
+      // Estado determinista por etapa + overwrite: a prueba de scroll rápido
+      stages.forEach((s, i) => {
+        const active = i === idx;
+        s.classList.toggle('active', active);
+        gsap.to(s, {
+          opacity: active ? 1 : 0,
+          y: active ? 0 : i < idx ? -24 : 32,
+          duration: active ? 0.55 : 0.4,
+          ease: active ? 'expo.out' : 'power3.in',
+          overwrite: 'auto',
+        });
+      });
+      current = idx;
+      if (ppCurrent) ppCurrent.textContent = String(idx + 1).padStart(2, '0');
+    };
+
+    // Cada nodo se planta en el cuarto exacto del trazado (25/50/75/100% de
+    // la longitud real, no del eje x). Así el trazo es lineal y la punta cae
+    // SIEMPRE sobre el nodo al cambiar de etapa, sin importar los quiebres.
+    const STEPS = stages.length; // 4
+    nodes.forEach((n, i) => {
+      if (!path || !len) return;
+      const pt = path.getPointAtLength((len * (i + 1)) / STEPS);
+      n.setAttribute('cx', String(pt.x));
+      n.setAttribute('cy', String(pt.y));
+    });
+
+    const update = (p: number) => {
+      // Punta lineal: a p=0,25 → fin del tramo 1 (nodo 1) · 0,5 → nodo 2 · etc.
+      if (path) path.style.strokeDashoffset = String(len * (1 - p));
+      // Nodo i encendido cuando su etapa termina (la punta lo alcanza)
+      nodes.forEach((n, i) => n.classList.toggle('lit', p >= (i + 1) / STEPS - 0.001));
+      show(Math.min(STEPS - 1, Math.floor(p * STEPS)));
+    };
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: (self) => update(self.progress),
+      onRefresh: (self) => update(self.progress),
+    });
+
+    // Re-medir cuando el layout termina de asentarse (fonts, imágenes):
+    // evita que el pin quede desfasado respecto al scroll real.
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+    if (document.fonts?.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
+  })();
+</script>
