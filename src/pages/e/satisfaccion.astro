@@ -1,0 +1,290 @@
+---
+// Página oculta — encuesta de satisfacción post-servicio.
+// No está enlazada desde el menú ni el footer, y está excluida del sitemap
+// (ver astro.config.mjs) y marcada noindex. El acceso es vía link directo
+// enviado al cliente, con un token opcional (?c=empresa&t=token) que se
+// adjunta a la respuesta solo como referencia, no como autenticación real.
+
+// Reemplaza este valor una vez tengas la ficha de Google Business Profile
+// activa. El botón "Dejar reseña en Google" solo aparece automáticamente
+// para quienes respondan NPS 9 o 10 (promotores); a los demás no se les
+// pide reseña pública, para no mezclar feedback negativo con la reputación
+// online.
+//
+// Cómo obtener el link:
+// 1. Ve a https://business.google.com/ con la cuenta que administra la
+//    ficha "ElectroLoop" / "Sociedad de Reciclaje La Serena SpA" en Google
+//    Maps. Si no existe, créala ahí (Perfil de Negocio de Google, gratis).
+// 2. Dentro del perfil, busca "Pedir reseñas" / "Compartir perfil" — Google
+//    entrega un link corto tipo https://g.page/r/XXXXXXXX/review.
+//    (Alternativa manual: busca "ElectroLoop" en Google Maps, copia el
+//    Place ID desde la URL o desde
+//    https://developers.google.com/maps/documentation/places/web-service/place-id
+//    y arma el link como
+//    https://search.google.com/local/writereview?placeid=TU_PLACE_ID)
+// 3. Pega el link aquí abajo.
+const GOOGLE_REVIEW_URL = '';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encuesta de Satisfacción | ElectroLoop</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+</head>
+<body class="min-h-screen bg-deep-blue font-sans text-ceramic">
+  <div class="max-w-2xl mx-auto px-5 py-12 sm:py-16">
+    <header class="mb-10 text-center">
+      <div class="inline-flex items-center gap-1 text-2xl font-display font-bold mb-3">
+        <span class="text-ceramic">Electro</span><span class="text-copper">Loop</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-display font-bold mb-2">Encuesta de Satisfacción</h1>
+      <p class="text-steel text-sm sm:text-base" id="intro-text">
+        Tu evaluación nos ayuda a mejorar cada retiro y a respaldar nuestro trabajo de trazabilidad. Toma menos de 2 minutos.
+      </p>
+    </header>
+
+    <form id="survey-form" class="space-y-8" novalidate>
+      <!-- Pregunta 1: NPS -->
+      <fieldset class="bg-white/5 border border-white/10 rounded-xl p-5 sm:p-6">
+        <legend class="font-display font-semibold text-base sm:text-lg mb-1 px-1">
+          1. En una escala de 0 a 10, ¿qué tan probable es que recomiendes ElectroLoop a otra empresa que necesite gestionar sus RAEE? <span class="text-copper">*</span>
+        </legend>
+        <p class="text-steel text-xs mb-4 px-1">0 = Nada probable · 10 = Muy probable</p>
+        <div class="grid grid-cols-11 gap-1 sm:gap-1.5" role="radiogroup" aria-label="Nota de recomendación">
+          {Array.from({ length: 11 }, (_, i) => i).map((n) => (
+            <label class="scale-option">
+              <input type="radio" name="nps" value={n} required />
+              <span>{n}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <!-- Pregunta 2: Ejecución del retiro -->
+      <fieldset class="bg-white/5 border border-white/10 rounded-xl p-5 sm:p-6">
+        <legend class="font-display font-semibold text-base sm:text-lg mb-1 px-1">
+          2. ¿Cómo evalúas la coordinación y ejecución del retiro (puntualidad, orden, mínima interrupción a tu operación)? <span class="text-copper">*</span>
+        </legend>
+        <p class="text-steel text-xs mb-4 px-1">1 = Muy deficiente · 7 = Excelente</p>
+        <div class="grid grid-cols-7 gap-1.5 sm:gap-2" role="radiogroup" aria-label="Evaluación de ejecución del retiro">
+          {Array.from({ length: 7 }, (_, i) => i + 1).map((n) => (
+            <label class="scale-option">
+              <input type="radio" name="ejecucion" value={n} required />
+              <span>{n}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <!-- Pregunta 3: Informe de trazabilidad -->
+      <fieldset class="bg-white/5 border border-white/10 rounded-xl p-5 sm:p-6">
+        <legend class="font-display font-semibold text-base sm:text-lg mb-1 px-1">
+          3. ¿Qué tan claro y útil te resultó el informe de trazabilidad para efectos de tu respaldo interno y cumplimiento (Ley REP)? <span class="text-copper">*</span>
+        </legend>
+        <p class="text-steel text-xs mb-4 px-1">1 = Nada claro/útil · 7 = Totalmente claro y útil</p>
+        <div class="grid grid-cols-7 gap-1.5 sm:gap-2" role="radiogroup" aria-label="Evaluación del informe de trazabilidad">
+          {Array.from({ length: 7 }, (_, i) => i + 1).map((n) => (
+            <label class="scale-option">
+              <input type="radio" name="trazabilidad" value={n} required />
+              <span>{n}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <!-- Pregunta 4: Qué generó valor -->
+      <fieldset class="bg-white/5 border border-white/10 rounded-xl p-5 sm:p-6">
+        <legend class="font-display font-semibold text-base sm:text-lg mb-3 px-1">
+          4. ¿Qué fue lo que más te sirvió o más tranquilidad te dio de trabajar con nosotros? <span class="text-copper">*</span>
+        </legend>
+        <textarea name="valor" required rows="3" maxlength="2000"
+          class="w-full rounded-lg bg-deep-blue border border-white/15 px-3 py-2.5 text-sm text-ceramic placeholder:text-steel/60 focus:outline-none focus:border-copper resize-y"
+          placeholder="Cuéntanos brevemente qué fue lo más valioso..."></textarea>
+      </fieldset>
+
+      <!-- Pregunta 5: Qué mejorar (opcional) -->
+      <fieldset class="bg-white/5 border border-white/10 rounded-xl p-5 sm:p-6">
+        <legend class="font-display font-semibold text-base sm:text-lg mb-3 px-1">
+          5. ¿Qué te faltó o qué harías distinto si repitiéramos la operación? <span class="text-steel text-xs font-normal">(opcional)</span>
+        </legend>
+        <textarea name="mejorar" rows="3" maxlength="2000"
+          class="w-full rounded-lg bg-deep-blue border border-white/15 px-3 py-2.5 text-sm text-ceramic placeholder:text-steel/60 focus:outline-none focus:border-copper resize-y"
+          placeholder="Una sugerencia concreta nos sirve más que una nota..."></textarea>
+      </fieldset>
+
+      <!-- Pregunta 6: Cierre comercial -->
+      <fieldset class="bg-white/5 border border-white/10 rounded-xl p-5 sm:p-6">
+        <legend class="font-display font-semibold text-base sm:text-lg mb-3 px-1">
+          6. ¿Te interesaría coordinar retiros periódicos o extender el servicio a otras sedes? <span class="text-steel text-xs font-normal">(opcional)</span>
+        </legend>
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <label class="choice-option">
+            <input type="radio" name="interes" value="si" />
+            <span>Sí, contáctenme</span>
+          </label>
+          <label class="choice-option">
+            <input type="radio" name="interes" value="quizas" />
+            <span>Quizás, contáctenme</span>
+          </label>
+          <label class="choice-option">
+            <input type="radio" name="interes" value="no" />
+            <span>Por ahora no</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <p id="form-error" class="text-sm text-center hidden" style="color:#E07A5F;"></p>
+
+      <button type="submit" id="submit-btn"
+        class="w-full bg-copper hover:bg-copper-dark transition-colors text-white font-display font-semibold py-3.5 rounded-lg text-base">
+        Enviar evaluación
+      </button>
+    </form>
+
+    <!-- Estado de agradecimiento -->
+    <div id="thanks-view" class="hidden text-center py-10">
+      <div class="w-14 h-14 rounded-full bg-copper/15 border border-copper/40 flex items-center justify-center mx-auto mb-5">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B87333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="text-2xl font-display font-bold mb-2">¡Gracias por tu evaluación!</h2>
+      <p class="text-steel text-sm sm:text-base max-w-md mx-auto" id="thanks-text">
+        Tu respuesta fue enviada a nuestro equipo. La usamos directamente para mejorar el servicio.
+      </p>
+
+      <div id="google-block" class="hidden mt-8 border-t border-white/10 pt-8">
+        <p class="text-ceramic text-sm sm:text-base mb-4 max-w-md mx-auto">
+          Nos alegra que tu experiencia haya sido buena. Si tienes 30 segundos, nos ayudaría muchísimo que la compartieras públicamente en Google:
+        </p>
+        <a id="google-link" href="#" target="_blank" rel="noopener"
+          class="inline-block bg-copper hover:bg-copper-dark transition-colors text-white font-display font-semibold px-6 py-3 rounded-lg text-sm">
+          Dejar reseña en Google
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .scale-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(11,27,50,0.4);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .scale-option input { position: absolute; opacity: 0; pointer-events: none; }
+    .scale-option:has(input:checked) {
+      background: #B87333;
+      border-color: #B87333;
+      color: #fff;
+    }
+    .scale-option:hover { border-color: #B87333; }
+
+    .choice-option {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(11,27,50,0.4);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .choice-option input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice-option:has(input:checked) {
+      background: #B87333;
+      border-color: #B87333;
+      color: #fff;
+    }
+    .choice-option:hover { border-color: #B87333; }
+  </style>
+
+  <script define:vars={{ GOOGLE_REVIEW_URL }}>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const cliente = params.get('c') || params.get('cliente') || '';
+      const token = params.get('t') || params.get('token') || '';
+
+      if (cliente) {
+        const introEl = document.getElementById('intro-text');
+        if (introEl) {
+          introEl.textContent = `Hola, equipo de ${cliente}. ` + introEl.textContent;
+        }
+      }
+
+      const form = document.getElementById('survey-form');
+      const errorEl = document.getElementById('form-error');
+      const submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errorEl.classList.add('hidden');
+
+        const fd = new FormData(form);
+        const nps = fd.get('nps');
+        const ejecucion = fd.get('ejecucion');
+        const trazabilidad = fd.get('trazabilidad');
+        const valor = (fd.get('valor') || '').toString().trim();
+
+        if (nps === null || ejecucion === null || trazabilidad === null || !valor) {
+          errorEl.textContent = 'Por favor responde las preguntas 1, 2, 3 y 4 antes de enviar.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        const payload = {
+          nps: Number(nps),
+          ejecucion: Number(ejecucion),
+          trazabilidad: Number(trazabilidad),
+          valor,
+          mejorar: (fd.get('mejorar') || '').toString().trim(),
+          interes: fd.get('interes') || '',
+          cliente,
+          token,
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+
+        try {
+          const res = await fetch('/.netlify/functions/submit-satisfaccion', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          if (!res.ok) throw new Error('submit failed');
+
+          form.classList.add('hidden');
+          document.getElementById('thanks-view').classList.remove('hidden');
+
+          if (payload.nps >= 9 && GOOGLE_REVIEW_URL) {
+            const googleBlock = document.getElementById('google-block');
+            const googleLink = document.getElementById('google-link');
+            googleLink.href = GOOGLE_REVIEW_URL;
+            googleBlock.classList.remove('hidden');
+          }
+        } catch (err) {
+          errorEl.textContent = 'Hubo un problema al enviar tu respuesta. Intenta nuevamente en unos segundos.';
+          errorEl.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar evaluación';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -9,7 +9,8 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/test-motion') &&
         !page.includes('/v2') &&
-        !page.includes('/404'),
+        !page.includes('/404') &&
+        !page.includes('/e/satisfaccion'),
     }),
   ],
   site: 'https://electroloop.cl',
