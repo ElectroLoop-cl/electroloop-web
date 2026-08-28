@@ -1,0 +1,104 @@
+---
+/**
+ * ELECTROLOOP v2 — 07 / CONFIANZA "Lo que dicen los clientes".
+ * Resumen público de la encuesta de satisfacción — solo agregados
+ * (promedio NPS, % promotores, muestra). Nunca comentarios ni nombres
+ * de cliente: esos quedan privados en el Sheet interno.
+ * Se oculta por completo si aún no hay muestra mínima (ver
+ * netlify/functions/satisfaccion-resumen.mjs, MIN_RESPONSES).
+ */
+---
+
+<section id="confianza" class="v2-section v2-conf" data-section="Confianza" data-index="07" hidden>
+  <header class="v2-sechead">
+    <span class="sh-idx">07</span>
+    <h2 class="sh-name">Lo Que Dicen Nuestros Clientes</h2>
+    <i class="v2-drawline" aria-hidden="true"></i>
+  </header>
+
+  <div class="conf-stats">
+    <div class="stat">
+      <span class="stat-num"><span data-stat="avgNps">—</span><span class="stat-unit">/10</span></span>
+      <span class="stat-label v2-mono v2-mono--steel">RECOMENDACIÓN PROMEDIO (NPS)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num"><span data-stat="promoterPct">—</span><span class="stat-unit">%</span></span>
+      <span class="stat-label v2-mono v2-mono--steel">CLIENTES PROMOTORES</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num"><span data-stat="avgTrazabilidad">—</span><span class="stat-unit">/7</span></span>
+      <span class="stat-label v2-mono v2-mono--steel">CLARIDAD DEL INFORME DE TRAZABILIDAD</span>
+    </div>
+  </div>
+
+  <p class="conf-note v2-mono v2-mono--steel">
+    [ BASADO EN <span data-stat="count">—</span> EVALUACIONES REALES DE CLIENTES · ENCUESTA POST-SERVICIO ]
+  </p>
+</section>
+
+<style>
+  .v2-conf { background: var(--abyssal); }
+
+  .conf-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    margin-bottom: clamp(32px, 5vh, 56px);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stat-num {
+    font-weight: 800;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1;
+    color: var(--copper);
+  }
+
+  .stat-unit {
+    font-size: 0.4em;
+    font-weight: 600;
+    color: var(--steel);
+    margin-left: 2px;
+  }
+
+  .stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+    max-width: 24ch;
+  }
+
+  .conf-note { font-size: 0.55rem; }
+
+  @media (max-width: 767px) {
+    .conf-stats { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+
+<script>
+  (async function initConfianza() {
+    const section = document.getElementById('confianza');
+    if (!section) return;
+
+    try {
+      const res = await fetch('/.netlify/functions/satisfaccion-resumen');
+      if (!res.ok) return;
+      const data = await res.json();
+
+      if (!data.count || data.avgNps === undefined) return; // muestra insuficiente: sección se queda oculta
+
+      section.querySelector('[data-stat="avgNps"]').textContent = data.avgNps;
+      section.querySelector('[data-stat="promoterPct"]').textContent = data.promoterPct;
+      section.querySelector('[data-stat="avgTrazabilidad"]').textContent = data.avgTrazabilidad;
+      section.querySelector('[data-stat="count"]').textContent = data.count;
+
+      section.hidden = false;
+    } catch (err) {
+      console.error('No se pudo cargar el resumen de satisfacción:', err);
+    }
+  })();
+</script>

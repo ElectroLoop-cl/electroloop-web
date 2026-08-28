@@ -8,7 +8,28 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const RECIPIENT = process.env.SURVEY_RECIPIENT_EMAIL || 'contacto@electroloop.cl';
+const RECIPIENT = process.env.SURVEY_RECIPIENT_EMAIL || 'nicolas@electroloop.cl';
+
+// URL del Google Apps Script Web App (doPost) que agrega cada respuesta como
+// fila en la planilla de Drive. No es un secreto — es un endpoint pensado
+// para recibir POSTs públicos — por eso va hardcodeado acá y no como env var
+// de Netlify (evita depender de acceso al dashboard de Netlify).
+const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwb9XlnCByuiY71fsH577rw3R-YLmwJ213yh-7oYm1UJAmBcNUhGAZ7JUKKHdbLFwBU/exec';
+
+async function appendToSheet(payload) {
+  if (!SHEETS_WEBHOOK_URL) throw new Error('SHEETS_WEBHOOK_URL no configurado');
+
+  const res = await fetch(SHEETS_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // evita preflight CORS del lado de Apps Script
+    body: JSON.stringify(payload),
+    redirect: 'follow',
+  });
+
+  if (!res.ok) {
+    throw new Error(`Apps Script respondió ${res.status}`);
+  }
+}
 
 const INTERES_LABELS = {
   si: 'Sí, contáctenme',
@@ -102,12 +123,26 @@ export default async (req) => {
       </div>
     `;
 
-    await transporter.sendMail({
-      from: process.env.GMAIL_USER,
-      to: RECIPIENT,
-      subject: `[ENCUESTA] ${segmento} · NPS ${npsNum} ${cliente ? '· ' + cliente : ''}`,
-      html,
-    });
+    // Guardado principal: fila en el Google Sheet (fuente de verdad actual).
+    try {
+      await appendToSheet({ nps: npsNum, ejecucion: ejecucionNum, trazabilidad: trazabilidadNum, valor, mejorar, interes, cliente, token });
+    } catch (sheetErr) {
+      console.error('Error guardando en Sheet:', sheetErr);
+      return new Response(JSON.stringify({ error: 'Error al guardar la encuesta' }), { status: 500 });
+    }
+
+    // Notificación por email: best-effort. Si Gmail no está configurado o falla,
+    // no debe tumbar la respuesta — la fila ya quedó guardada en el Sheet.
+    try {
+      await transporter.sendMail({
+        from: process.env.GMAIL_USER,
+        to: RECIPIENT,
+        subject: `[ENCUESTA] ${segmento} · NPS ${npsNum} ${cliente ? '· ' + cliente : ''}`,
+        html,
+      });
+    } catch (mailErr) {
+      console.error('Aviso: no se pudo enviar el email de la encuesta (la respuesta sí quedó guardada):', mailErr);
+    }
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (err) {
