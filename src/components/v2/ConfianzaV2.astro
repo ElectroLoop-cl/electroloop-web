@@ -85,7 +85,7 @@
     if (!section) return;
 
     try {
-      const res = await fetch('/.netlify/functions/satisfaccion-resumen');
+      const res = await fetch('/.netlify/functions/satisfaccion-resumen', { cache: 'no-store' });
       if (!res.ok) return;
       const data = await res.json();
 

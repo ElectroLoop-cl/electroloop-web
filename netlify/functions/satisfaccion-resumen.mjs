@@ -15,7 +15,7 @@ export default async (req) => {
   if (!SHEETS_WEBHOOK_URL) {
     return new Response(JSON.stringify({ count: 0 }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=300' },
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
     });
   }
 
@@ -38,13 +38,13 @@ export default async (req) => {
 
     return new Response(JSON.stringify(body), {
       status: 200,
-      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=300' },
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
     });
   } catch (err) {
     console.error('Error obteniendo resumen de satisfacción:', err);
     return new Response(JSON.stringify({ count: 0 }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=60' },
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
     });
   }
 };
