@@ -200,7 +200,7 @@ const sections = [
       [ CERRAR ]
     </button>
     {sections.map((s) => (
-      <a href={s.href} data-cursor="[ IR ]">
+      <a href={s.href} data-cursor="[ IR ]" data-nav-target={s.href === '/#confianza' ? 'confianza' : undefined} hidden={s.href === '/#confianza'}>
         <span class="m-idx">{s.idx}</span>
         <span class="m-name">{s.name.toUpperCase()}</span>
       </a>

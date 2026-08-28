@@ -42,7 +42,11 @@ const recursos = [
     <nav class="ft-col" aria-label="Navegación del sitio">
       <h2 class="ft-head v2-mono v2-mono--copper">[ NAVEGACIÓN ]</h2>
       <ul>
-        {navegacion.map((n) => <li><a href={n.href}>{n.name}</a></li>)}
+        {navegacion.map((n) => (
+          <li hidden={n.href === '/#confianza'} data-nav-target={n.href === '/#confianza' ? 'confianza' : undefined}>
+            <a href={n.href}>{n.name}</a>
+          </li>
+        ))}
       </ul>
     </nav>
 

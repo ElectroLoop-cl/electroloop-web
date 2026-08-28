@@ -97,6 +97,12 @@
       section.querySelector('[data-stat="count"]').textContent = data.count;
 
       section.hidden = false;
+      // Revela también los links de navegación (menú overlay + footer) que
+      // apuntan a esta sección — están ocultos por defecto para no llevar
+      // a un ancla invisible mientras no hay muestra suficiente.
+      document.querySelectorAll('[data-nav-target="confianza"]').forEach((el) => {
+        el.hidden = false;
+      });
     } catch (err) {
       console.error('No se pudo cargar el resumen de satisfacción:', err);
     }
