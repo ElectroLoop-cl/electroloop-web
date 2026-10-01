@@ -140,11 +140,17 @@ export default async (req) => {
     transporter.sendMail(userMailOptions),
   ]);
 
+  // Diagnóstico temporal: solo códigos SMTP, sin datos sensibles.
+  const diag = (r) =>
+    r.status === 'fulfilled'
+      ? { ok: true, response: String(r.value?.response ?? '').slice(0, 120), rejected: r.value?.rejected?.length ?? 0 }
+      : { ok: false, code: r.reason?.code, responseCode: r.reason?.responseCode, command: r.reason?.command, response: String(r.reason?.response ?? r.reason?.message ?? '').slice(0, 160) };
+
   if (user.status === 'rejected') console.error('Error enviando autorespuesta:', user.reason);
   if (admin.status === 'rejected') {
     console.error('Error enviando aviso al equipo:', admin.reason);
-    return json({ error: 'No se pudo enviar el aviso' }, 500);
+    return json({ error: 'No se pudo enviar el aviso', admin: diag(admin), user: diag(user) }, 500);
   }
 
-  return json({ success: true, autorespuesta: user.status === 'fulfilled' }, 200);
+  return json({ success: true, admin: diag(admin), user: diag(user) }, 200);
 };
