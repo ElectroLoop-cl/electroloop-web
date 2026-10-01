@@ -11,7 +11,7 @@
   },
   "hero": {
     "title": "WEEE Management for the Northern Zone",
-    "subtitle": "A single point of contact with full service responsibility. We operate with certified partners while building our own capacity. Operational launch August 2026.",
+    "subtitle": "A single point of contact with full service responsibility. We operate with certified partners while building our own capacity.",
     "differentiator": "We coordinate complete electronic waste management with certified partner networks, REP compliance and documented traceability.",
     "claim2": "Infinite Resources",
     "cta1": "See how it works",
@@ -40,7 +40,7 @@
       }
     ],
     "strip": {
-      "title": "On the path to authorization — August 2026",
+      "title": "On the path to authorization",
       "desc": "We structure operations to comply with REP Law N°20.920, Decree 148 and health authorizations. Currently operating with certified partners.",
       "cta": "See our roadmap →"
     }
@@ -59,7 +59,7 @@
     ],
     "cta": {
       "title": "Ready to start managing your WEEE?",
-      "subtitle": "Pre-register as an anchor client. Operations launch August 2026.",
+      "subtitle": "Pre-register as an anchor client.",
       "button": "Pre-register as anchor client"
     }
   },
@@ -117,7 +117,7 @@
   },
   "status": {
     "title": "Regulatory Roadmap",
-    "subtitle": "Complete transparency on our progress toward August 2026 authorization",
+    "subtitle": "Complete transparency on our progress toward authorization",
     "phases": [
       {
         "tag": "Q3 2026 — Now",
@@ -125,9 +125,9 @@
         "desc": "Preparing regulatory documentation, validating certified partners, structuring digital traceability systems."
       },
       {
-        "tag": "August 2026",
+        "tag": "Hoy",
         "title": "Pilot Operations",
-        "desc": "Operational launch with anchor clients (producers, generators III-IV region). Certified pickups with partners."
+        "desc": "Operational launch with anchor clients (producers and generators). Certified pickups with partners."
       },
       {
         "tag": "2027+",
@@ -205,7 +205,7 @@
   "compliance": {
     "title": "Regulatory Compliance",
     "subtitle": "Structured to operate in accordance with REP regulations and environmental standards",
-    "description": "REP Law (Law N° 20.920) establishes extended producer responsibility for waste electrical and electronic equipment (WEEE). ElectroLoop is an integrator operating with certified partners, structured to comply with all required technical, environmental and safety standards. Operational launch August 2026.",
+    "description": "REP Law (Law N° 20.920) establishes extended producer responsibility for waste electrical and electronic equipment (WEEE). ElectroLoop is an integrator operating with certified partners, structured to comply with all required technical, environmental and safety standards.",
     "certifications": [
       "Structuring for Manager Registry — Ministry of the Environment",
       "Compliance with SEREMI Health requirements (in process)",
@@ -213,7 +213,7 @@
       "Digital traceability aligned with Decree 148",
       "Audit and REP-compatible reporting systems"
     ],
-    "badge": "WEEE Integrator — In authorization, August 2026",
+    "badge": "WEEE Integrator — Certified partners",
     "cta": "See our regulatory roadmap →"
   },
   "about": {
@@ -265,7 +265,7 @@
     "error": "There was an error. Please try again.",
     "info": {
       "email": "contacto@electroloop.cl",
-      "address": "Barrio Industrial La Serena - Coquimbo, Chile"
+      "address": "Chile"
     }
   },
   "calculator": {
@@ -360,11 +360,11 @@
         "title": "Contact",
         "links": [
           "contacto@electroloop.cl",
-          "La Serena, Coquimbo"
+          "Chile"
         ]
       }
     },
     "copyright": "© 2026 ElectroLoop SpA. All rights reserved.",
-    "legal": "WEEE Integrator — Operations launch August 2026 — REP Law Chile (N° 20.920)"
+    "legal": "WEEE Integrator — REP Law Chile (N° 20.920)"
   }
 }

@@ -1,0 +1,10 @@
+# Páginas duplicadas/antiguas: consolidan su autoridad en la URL canónica
+/v2              /                 301
+/v2/             /                 301
+/v2/calculadora  /calculadora/     301
+/v2/calculadora/ /calculadora/     301
+/v2/*            /                 301
+/calculadora-rep   /calculadora/   301
+/calculadora-rep/  /calculadora/   301
+/test-motion     /                 301
+/test-motion/    /                 301

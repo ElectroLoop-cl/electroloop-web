@@ -11,7 +11,7 @@
   },
   "hero": {
     "title": "La gestión RAEE que la macrozona norte va a necesitar",
-    "subtitle": "Un solo punto de contacto, responsabilidad de servicio integral. Operamos con partners certificados mientras construimos capacidad propia. Inicio operativo agosto 2026.",
+    "subtitle": "Un solo punto de contacto, responsabilidad de servicio integral. Operamos con partners certificados mientras construimos capacidad propia.",
     "differentiator": "Coordinamos la gestión completa de tus residuos electrónicos con red de gestores certificados, cumplimiento REP y trazabilidad documentada.",
     "claim2": "Recursos Infinitos",
     "cta1": "Ver cómo funciona",
@@ -40,7 +40,7 @@
       }
     ],
     "strip": {
-      "title": "En vía hacia la autorización — Agosto 2026",
+      "title": "En vía hacia la autorización",
       "desc": "Estructuramos nuestras operaciones para cumplir con Ley REP N°20.920, Decreto 148 y autorizaciones sanitarias. Operamos actualmente con partners certificados.",
       "cta": "Conoce nuestro roadmap →"
     }
@@ -59,7 +59,7 @@
     ],
     "cta": {
       "title": "¿Listo para iniciar gestión de tus RAEE?",
-      "subtitle": "Pre-regístrate como cliente ancla. Iniciamos operaciones agosto 2026.",
+      "subtitle": "Pre-regístrate como cliente ancla.",
       "button": "Pre-registrarme como cliente ancla"
     }
   },
@@ -117,7 +117,7 @@
   },
   "status": {
     "title": "Roadmap Regulatorio",
-    "subtitle": "Trazabilidad completa de nuestro progreso hacia la autorización agosto 2026",
+    "subtitle": "Trazabilidad completa de nuestro progreso hacia la autorización",
     "phases": [
       {
         "tag": "Q3 2026 — Ahora",
@@ -125,9 +125,9 @@
         "desc": "Preparando documentación regulatoria, validando partners certificados, estructurando sistemas de trazabilidad digital."
       },
       {
-        "tag": "Agosto 2026",
+        "tag": "Hoy",
         "title": "Operaciones Piloto",
-        "desc": "Lanzamiento operativo con clientes ancla (productores, generadores III-IV región). Retiros certificados con partners."
+        "desc": "Lanzamiento operativo con clientes ancla (productores y generadores). Retiros certificados con partners."
       },
       {
         "tag": "2027+",
@@ -205,7 +205,7 @@
   "compliance": {
     "title": "Cumplimiento Normativo",
     "subtitle": "Estructurado para operar conforme a la normativa REP y regulaciones ambientales",
-    "description": "La Ley REP (Ley N° 20.920) establece la responsabilidad extendida del productor para la gestión de RAEE. ElectroLoop es un integrador que opera con partners certificados y se estructura para cumplir con todos los requisitos técnicos, ambientales y de seguridad. Inicio operativo agosto 2026.",
+    "description": "La Ley REP (Ley N° 20.920) establece la responsabilidad extendida del productor para la gestión de RAEE. ElectroLoop es un integrador que opera con partners certificados y se estructura para cumplir con todos los requisitos técnicos, ambientales y de seguridad.",
     "certifications": [
       "Estructuración para Registro de Gestores — Ministerio del Medio Ambiente",
       "Conformidad con requisitos SEREMI de Salud (en vía)",
@@ -213,7 +213,7 @@
       "Trazabilidad digital conforme a Decreto 148",
       "Sistemas de auditoría y reportería REP-compatible"
     ],
-    "badge": "Integrador RAEE — En autorización, agosto 2026",
+    "badge": "Integrador RAEE — Partners certificados",
     "cta": "Conoce nuestro roadmap regulatorio →"
   },
   "about": {
@@ -265,7 +265,7 @@
     "error": "Hubo un error. Por favor intenta nuevamente.",
     "info": {
       "email": "contacto@electroloop.cl",
-      "address": "Barrio Industrial La Serena - Coquimbo, Chile"
+      "address": "Chile"
     }
   },
   "calculator": {
@@ -360,11 +360,11 @@
         "title": "Contacto",
         "links": [
           "contacto@electroloop.cl",
-          "La Serena, Coquimbo"
+          "Chile"
         ]
       }
     },
     "copyright": "© 2026 ElectroLoop SpA. Todos los derechos reservados.",
-    "legal": "Integrador RAEE — Operaciones inician agosto 2026 — Ley REP Chile (N° 20.920)"
+    "legal": "Integrador RAEE — Ley REP Chile (N° 20.920)"
   }
 }

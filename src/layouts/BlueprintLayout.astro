@@ -13,8 +13,8 @@ export interface Props {
 }
 
 const {
-  title = 'ElectroLoop — Cerramos el loop. Recursos infinitos | Gestión RAEE Ley REP Chile',
-  description = 'Gestor RAEE integrador con red de partners certificados. Valorización de residuos electrónicos bajo Ley REP. Coquimbo, Chile. Inicio operativo agosto 2026.',
+  title = 'Gestión RAEE y Reciclaje Electrónico para Empresas | ElectroLoop',
+  description = 'Retiro de residuos electrónicos para empresas, destrucción certificada de datos y certificados para la Ley REP. Gestor RAEE integrador con partners certificados en Chile.',
 } = Astro.props;
 
 const siteUrl = 'https://electroloop.cl';
@@ -29,7 +29,7 @@ const schema = {
       '@id': `${siteUrl}/#organization`,
       name: 'ElectroLoop',
       description:
-        'Gestor integrador de residuos de aparatos eléctricos y electrónicos (RAEE) bajo Ley REP en Chile, con red de partners certificados. Inicio operativo agosto 2026.',
+        'Gestor integrador de residuos de aparatos eléctricos y electrónicos (RAEE) bajo Ley REP en Chile, con red de partners certificados.',
       url: siteUrl,
       logo: `${siteUrl}/logo-dark.png`,
       email: 'contacto@electroloop.cl',
@@ -37,8 +37,6 @@ const schema = {
       areaServed: ['Macrozona Norte de Chile'],
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Coquimbo',
-        addressRegion: 'Región de Coquimbo',
         addressCountry: 'CL',
       },
     },
@@ -52,11 +50,8 @@ const schema = {
       priceRange: '$$',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Coquimbo',
-        addressRegion: 'Región de Coquimbo',
         addressCountry: 'CL',
       },
-      geo: { '@type': 'GeoCoordinates', latitude: -29.9533, longitude: -71.3436 },
     },
     {
       '@type': 'WebSite',
@@ -75,7 +70,7 @@ const schema = {
           name: '¿Qué es un gestor RAEE bajo la Ley REP en Chile?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Un gestor RAEE coordina la recolección, transporte, tratamiento y valorización de residuos de aparatos eléctricos y electrónicos bajo la Ley REP (N° 20.920). ElectroLoop opera como integrador con una red de gestores certificados, con inicio operativo propio en agosto de 2026.',
+            text: 'Un gestor RAEE coordina la recolección, transporte, tratamiento y valorización de residuos de aparatos eléctricos y electrónicos bajo la Ley REP (N° 20.920). ElectroLoop opera como integrador con una red de gestores certificados.',
           },
         },
         {
@@ -109,7 +104,7 @@ const sections = [
   { idx: '06', name: 'Trazabilidad', href: '/#trazabilidad' },
   { idx: '07', name: 'Confianza', href: '/#confianza' },
   { idx: '08', name: 'Contacto', href: '/#contacto' },
-  { idx: '→', name: 'Calculadora REP', href: '/calculadora' },
+  { idx: '→', name: 'Calculadora REP', href: '/calculadora/' },
 ];
 ---
 

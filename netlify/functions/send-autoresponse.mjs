@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 
-// Configure email transporter
+// Netlify Functions v2: recibe un Request y debe devolver un Response.
+// Avisa al equipo de cada contacto del formulario de la home y envía autorespuesta al cliente.
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -9,36 +10,76 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export default async (req, context) => {
-  if (req.method !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+const json = (body, status) =>
+  new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
+
+const escapeHtml = (value) =>
+  String(value ?? '')
+    .slice(0, 2000)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+export default async (req) => {
+  if (req.method !== 'POST') return json({ error: 'Method Not Allowed' }, 405);
+
+  let data;
+  try {
+    data = await req.json();
+  } catch {
+    return json({ error: 'JSON inválido' }, 400);
   }
 
+  const email = String(data.email ?? '').trim();
+  const nombre = String(data.nombre ?? data.name ?? '').trim();
+  if (!nombre || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return json({ error: 'Nombre y email válidos son obligatorios' }, 400);
+  }
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    console.error('GMAIL_USER / GMAIL_APP_PASSWORD no configurados');
+    return json({ error: 'Servicio de correo no configurado' }, 500);
+  }
+
+  const safe = {
+    nombre: escapeHtml(nombre),
+    email: escapeHtml(email),
+    empresa: escapeHtml(data.empresa),
+    categoria: escapeHtml(data.categoria),
+    mensaje: escapeHtml(data.mensaje).replace(/\n/g, '<br/>'),
+    origen: escapeHtml(data.origen),
+  };
+
+  // 1. Aviso al equipo: es lo crítico, si falla se informa error.
   try {
-    const data = JSON.parse(req.body);
-    const { email, name } = data;
+    await transporter.sendMail({
+      from: process.env.GMAIL_USER,
+      to: process.env.GMAIL_USER,
+      replyTo: email,
+      subject: `[CONTACTO WEB] ${nombre}${data.empresa ? ' — ' + String(data.empresa).slice(0, 80) : ''}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+          <h2 style="color: #B97333; border-bottom: 2px solid #B97333; padding-bottom: 10px;">Nuevo contacto desde electroloop.cl</h2>
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 4px; margin: 20px 0;">
+            <p><strong>Nombre:</strong> ${safe.nombre}</p>
+            <p><strong>Email:</strong> <a href="mailto:${safe.email}">${safe.email}</a></p>
+            <p><strong>Empresa:</strong> ${safe.empresa || '—'}</p>
+            <p><strong>Tipo:</strong> ${safe.categoria || '—'}</p>
+            <p><strong>Mensaje:</strong><br/>${safe.mensaje || '—'}</p>
+            <p><strong>Página:</strong> ${safe.origen || '—'}</p>
+            <p><strong>Fecha:</strong> ${new Date().toLocaleString('es-CL', { timeZone: 'America/Santiago' })}</p>
+          </div>
+          <p>Responde directamente a este correo para contactar al cliente.</p>
+        </div>
+      `,
+    });
+  } catch (err) {
+    console.error('Error enviando aviso al equipo:', err);
+    return json({ error: 'No se pudo enviar el aviso' }, 500);
+  }
 
-    console.log('🔍 send-autoresponse called with:', { email, name });
-    console.log('📧 GMAIL_USER env:', process.env.GMAIL_USER ? '✅ Configurado' : '❌ NO configurado');
-    console.log('🔑 GMAIL_APP_PASSWORD env:', process.env.GMAIL_APP_PASSWORD ? '✅ Configurado' : '❌ NO configurado');
-
-    if (!email || !name) {
-      console.error('❌ Missing email or name:', { email, name });
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Email and name required' }),
-      };
-    }
-
-    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      console.error('❌ Gmail environment variables NOT configured');
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Email service not configured' }),
-      };
-    }
-
-    // 1. AUTORESPONSE TO USER
+  // 2. Autorespuesta al cliente: si falla, el contacto ya quedó avisado.
+  try {
     const userMailOptions = {
       from: process.env.GMAIL_USER,
       to: email,
@@ -54,7 +95,7 @@ export default async (req, context) => {
           <!-- Content -->
           <div style="background: #f8fafc; padding: 40px; border-radius: 0 0 8px 8px;">
             <p style="color: #1E293B; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
-              Hola <strong>${name}</strong>,
+              Hola <strong>${safe.nombre}</strong>,
             </p>
 
             <p style="color: #64748B; font-size: 15px; line-height: 1.7; margin: 0 0 20px 0;">
@@ -78,7 +119,7 @@ export default async (req, context) => {
             </ul>
 
             <p style="color: #64748B; font-size: 15px; line-height: 1.7; margin: 20px 0 30px 0;">
-              Si tienes dudas mientras tanto, puedes escribirnos a <strong>contacto@electroloop.cl</strong> o contactar por WhatsApp.
+              Si tienes dudas mientras tanto, puedes escribirnos a <strong>contacto@electroloop.cl</strong>.
             </p>
           </div>
 
@@ -99,54 +140,10 @@ export default async (req, context) => {
         </div>
       `,
     };
-
     await transporter.sendMail(userMailOptions);
-
-    // 2. NOTIFICATION TO ADMIN
-    const adminMailOptions = {
-      from: process.env.GMAIL_USER,
-      to: process.env.GMAIL_USER,
-      subject: `📋 [CONTACTO] Nueva solicitud - ${name}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-          <h2 style="color: #FB923C; border-bottom: 2px solid #FB923C; padding-bottom: 10px;">
-            Nueva Solicitud de Contacto
-          </h2>
-
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 4px; margin: 20px 0;">
-            <p><strong>Nombre:</strong> ${name}</p>
-            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-            <p><strong>Fecha de Solicitud:</strong> ${new Date().toLocaleString('es-CL')}</p>
-          </div>
-
-          <p>
-            <strong>⏱️ Acción requerida:</strong> Contacta al cliente a través del email arriba para seguimiento personalizado.
-          </p>
-
-          <p style="color: #999; font-size: 12px; margin-top: 30px;">
-            Este es un mensaje automático del sistema de contacto de ElectroLoop.
-          </p>
-        </div>
-      `,
-    };
-
-    await transporter.sendMail(adminMailOptions);
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        success: true,
-        message: 'Autoresponse email sent successfully'
-      }),
-    };
   } catch (err) {
-    console.error('Autoresponse Email Error:', err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        error: 'Error sending autoresponse email',
-        details: err.message
-      }),
-    };
+    console.error('Error enviando autorespuesta:', err);
   }
+
+  return json({ success: true }, 200);
 };

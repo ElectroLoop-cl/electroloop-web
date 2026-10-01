@@ -1,48 +1,48 @@
-﻿---
+---
 import BlueprintLayout from '../layouts/BlueprintLayout.astro';
 import FooterV2 from '../components/v2/FooterV2.astro';
 
 const obligaciones = [
   { num: '01', title: 'Inscribirse como productor', desc: 'Registro en el sistema del Ministerio del Medio Ambiente antes de comercializar productos en Chile.' },
-  { num: '02', title: 'Cumplir metas anuales de recolecciÃ³n', desc: 'El DS 8/2021 fija metas porcentuales crecientes. En 2026 son significativamente mayores que en aÃ±os anteriores.' },
+  { num: '02', title: 'Cumplir metas anuales de recolección', desc: 'El DS 8/2021 fija metas porcentuales crecientes. En 2026 son significativamente mayores que en años anteriores.' },
   { num: '03', title: 'Contratar gestores RAEE autorizados', desc: 'Los RAEE recolectados deben entregarse exclusivamente a gestores autorizados por la SMA.' },
   { num: '04', title: 'Reportar anualmente al Ministerio', desc: 'Informe anual acreditando cumplimiento de metas, con certificados emitidos por el gestor.' },
-  { num: '05', title: 'Financiar el sistema de gestiÃ³n', desc: 'El productor financia recolecciÃ³n y tratamiento, ya sea individualmente o vÃ­a un SIG colectivo.' },
+  { num: '05', title: 'Financiar el sistema de gestión', desc: 'El productor financia recolección y tratamiento, ya sea individualmente o vía un SIG colectivo.' },
 ];
 
 const categorias = [
-  { tag: 'CAT. 1 â€” AIT', name: 'Aparatos de intercambio de temperatura', items: ['Refrigeradores', 'Aires acondicionados', 'Bombas de calor'] },
-  { tag: 'CAT. 2 â€” PFV', name: 'Paneles fotovoltaicos', items: ['MÃ³dulos solares al fin de su vida Ãºtil', 'CrÃ­tico en el norte minero'] },
-  { tag: 'CAT. 3 â€” AEE', name: 'Resto de aparatos elÃ©ctricos y electrÃ³nicos', items: ['Computadores y smartphones', 'ElectrodomÃ©sticos', 'Herramientas elÃ©ctricas', 'Luminarias'] },
+  { tag: 'CAT. 1 — AIT', name: 'Aparatos de intercambio de temperatura', items: ['Refrigeradores', 'Aires acondicionados', 'Bombas de calor'] },
+  { tag: 'CAT. 2 — PFV', name: 'Paneles fotovoltaicos', items: ['Módulos solares al fin de su vida útil', 'Crítico en el norte minero'] },
+  { tag: 'CAT. 3 — AEE', name: 'Resto de aparatos eléctricos y electrónicos', items: ['Computadores y smartphones', 'Electrodomésticos', 'Herramientas eléctricas', 'Luminarias'] },
 ];
 
 const sanciones = [
-  { code: 'ECO', title: 'Multa hasta 10.000 UTA', desc: 'Equivalente a mÃ¡s de $700 millones de pesos chilenos.' },
-  { code: 'OPS', title: 'Clausura temporal', desc: 'Cierre de instalaciones hasta regularizaciÃ³n.' },
-  { code: 'LEG', title: 'RevocaciÃ³n de permisos', desc: 'PÃ©rdida de permisos de operaciÃ³n vigentes.' },
-  { code: 'REP', title: 'DaÃ±o reputacional', desc: 'PublicaciÃ³n en Registro de Sanciones. Impacto directo en licitaciones y ESG.' },
+  { code: 'ECO', title: 'Multa hasta 10.000 UTA', desc: 'Equivalente a más de $700 millones de pesos chilenos.' },
+  { code: 'OPS', title: 'Clausura temporal', desc: 'Cierre de instalaciones hasta regularización.' },
+  { code: 'LEG', title: 'Revocación de permisos', desc: 'Pérdida de permisos de operación vigentes.' },
+  { code: 'REP', title: 'Daño reputacional', desc: 'Publicación en Registro de Sanciones. Impacto directo en licitaciones y ESG.' },
 ];
 
 const pasos = [
-  { n: '01', title: 'DiagnÃ³stico inicial', desc: 'Identifica quÃ© productos estÃ¡n sujetos a REP y en quÃ© volÃºmenes los introduces al mercado chileno.', seal: '[ SIN COSTO ADICIONAL ]' },
-  { n: '02', title: 'InscripciÃ³n como productor', desc: 'Registro ante el Ministerio del Medio Ambiente en el sistema online habilitado.', seal: '[ OBLIGATORIO ANTES DE COMERCIALIZAR ]' },
-  { n: '03', title: 'Seleccionar gestor integrador', desc: 'Trabaja con ElectroLoop: un solo punto de contacto que coordina todo el proceso con partners certificados.', seal: '[ VÃA PARTNERS CERTIFICADOS ]' },
-  { n: '04', title: 'Implementar recolecciÃ³n', desc: 'Coordinamos retiro en tus instalaciones. Acta de recepciÃ³n firmada el mismo dÃ­a.', seal: '[ TRAZABILIDAD DESDE EL PRIMER KILO ]' },
-  { n: '05', title: 'Reportar al Ministerio', desc: 'Con los certificados que emitimos preparas tu informe anual. Te asistimos en todo el proceso.', seal: '[ CERTIFICADO EN 5 DÃAS HÃBILES ]' },
+  { n: '01', title: 'Diagnóstico inicial', desc: 'Identifica qué productos están sujetos a REP y en qué volúmenes los introduces al mercado chileno.', seal: '[ SIN COSTO ADICIONAL ]' },
+  { n: '02', title: 'Inscripción como productor', desc: 'Registro ante el Ministerio del Medio Ambiente en el sistema online habilitado.', seal: '[ OBLIGATORIO ANTES DE COMERCIALIZAR ]' },
+  { n: '03', title: 'Seleccionar gestor integrador', desc: 'Trabaja con ElectroLoop: un solo punto de contacto que coordina todo el proceso con partners certificados.', seal: '[ VÍA PARTNERS CERTIFICADOS ]' },
+  { n: '04', title: 'Implementar recolección', desc: 'Coordinamos retiro en tus instalaciones. Acta de recepción firmada el mismo día.', seal: '[ TRAZABILIDAD DESDE EL PRIMER KILO ]' },
+  { n: '05', title: 'Reportar al Ministerio', desc: 'Con los certificados que emitimos preparas tu informe anual. Te asistimos en todo el proceso.', seal: '[ CERTIFICADO EN 5 DÍAS HÁBILES ]' },
 ];
 
 const faqs = [
-  { q: 'Â¿CuÃ¡ndo entrÃ³ en vigor la Ley REP para RAEE?', a: 'El DS 8/2021 para aparatos elÃ©ctricos y electrÃ³nicos entrÃ³ en vigor en 2023 para los primeros productores obligados. Las metas se incrementan aÃ±o a aÃ±o hasta 2030.' },
-  { q: 'Â¿QuÃ© pasa si soy una PYME pequeÃ±a?', a: 'La Ley REP aplica segÃºn el volumen que introduces al mercado. Las empresas pequeÃ±as tienen metas menores, pero la obligaciÃ³n existe si superas los umbrales del reglamento.' },
-  { q: 'Â¿Puedo cumplir de forma individual o debo unirme a un SIG?', a: 'Ambas opciones son vÃ¡lidas: contrato directo con un gestor integrador como ElectroLoop, o sumarte a un Sistema Integrado de GestiÃ³n (SIG) colectivo.' },
-  { q: 'Â¿CuÃ¡nto cuesta cumplir con la Ley REP?', a: 'Depende del volumen y tipo de equipos. Ofrecemos cotizaciones sin costo. El cumplimiento es significativamente mÃ¡s barato que el riesgo de una sanciÃ³n.' },
-  { q: 'Â¿ElectroLoop entrega los documentos para el reporte anual?', a: 'SÃ­. Emitimos certificados y reportes necesarios: toneladas valorizadas, tipo de material, destino final. VÃ¡lidos para auditorÃ­a REP e informes ESG.' },
+  { q: '¿Cuándo entró en vigor la Ley REP para RAEE?', a: 'El DS 8/2021 para aparatos eléctricos y electrónicos entró en vigor en 2023 para los primeros productores obligados. Las metas se incrementan año a año hasta 2030.' },
+  { q: '¿Qué pasa si soy una PYME pequeña?', a: 'La Ley REP aplica según el volumen que introduces al mercado. Las empresas pequeñas tienen metas menores, pero la obligación existe si superas los umbrales del reglamento.' },
+  { q: '¿Puedo cumplir de forma individual o debo unirme a un SIG?', a: 'Ambas opciones son válidas: contrato directo con un gestor integrador como ElectroLoop, o sumarte a un Sistema Integrado de Gestión (SIG) colectivo.' },
+  { q: '¿Cuánto cuesta cumplir con la Ley REP?', a: 'Depende del volumen y tipo de equipos. Ofrecemos cotizaciones sin costo. El cumplimiento es significativamente más barato que el riesgo de una sanción.' },
+  { q: '¿ElectroLoop entrega los documentos para el reporte anual?', a: 'Sí. Emitimos certificados y reportes necesarios: toneladas valorizadas, tipo de material, destino final. Válidos para auditoría REP e informes ESG.' },
 ];
 ---
 
 <BlueprintLayout
-  title="Ley REP Chile Empresas: GuÃ­a Completa de Cumplimiento RAEE | ElectroLoop"
-  description="Todo lo que tu empresa necesita saber sobre la Ley REP Chile (NÂ° 20.920). Obligaciones, plazos, multas y cÃ³mo cumplir con la gestiÃ³n de residuos electrÃ³nicos."
+  title="Ley REP Chile Empresas: Guía Completa de Cumplimiento RAEE | ElectroLoop"
+  description="Todo lo que tu empresa necesita saber sobre la Ley REP Chile (N° 20.920). Obligaciones, plazos, multas y cómo cumplir con la gestión de residuos electrónicos."
 >
 
   <!-- HERO -->
@@ -50,57 +50,57 @@ const faqs = [
     <nav class="lr-breadcrumb v2-mono v2-mono--steel">
       <a href="/">INICIO</a><span aria-hidden="true"> / </span><span>LEY REP CHILE EMPRESAS</span>
     </nav>
-    <p class="lr-eyebrow v2-mono v2-mono--copper">[ GUÃA COMPLETA 2026 Â· LEY NÂ° 20.920 ]</p>
+    <p class="lr-eyebrow v2-mono v2-mono--copper">[ GUÍA COMPLETA 2026 · LEY N° 20.920 ]</p>
     <h1 class="lr-h1">
-      <span class="lr-h1-outline">GUÃA</span><br />
+      <span class="lr-h1-outline">GUÍA</span><br />
       <span class="lr-h1-solid">LEY REP</span><br />
       <span class="lr-h1-thin">PARA EMPRESAS</span>
     </h1>
     <p class="lr-lead">
-      Obligaciones, plazos, multas y cÃ³mo cumplir con la gestiÃ³n de residuos
-      electrÃ³nicos bajo la Ley NÂ° 20.920 y el DS 8/2021.
+      Obligaciones, plazos, multas y cómo cumplir con la gestión de residuos
+      electrónicos bajo la Ley N° 20.920 y el DS 8/2021.
     </p>
-    <nav class="lr-indice" aria-label="Ãndice de contenidos">
-      <span class="lr-indice-label v2-mono v2-mono--steel">[ EN ESTA GUÃA ]</span>
+    <nav class="lr-indice" aria-label="Índice de contenidos">
+      <span class="lr-indice-label v2-mono v2-mono--steel">[ EN ESTA GUÍA ]</span>
       <ol class="lr-indice-list v2-mono">
-        <li><a href="#que-es">QuÃ© es la Ley REP</a></li>
-        <li><a href="#quienes">A quÃ© empresas aplica</a></li>
+        <li><a href="#que-es">Qué es la Ley REP</a></li>
+        <li><a href="#quienes">A qué empresas aplica</a></li>
         <li><a href="#obligaciones">Obligaciones concretas</a></li>
         <li><a href="#multas">Multas y sanciones</a></li>
-        <li><a href="#como-cumplir">CÃ³mo cumplir paso a paso</a></li>
+        <li><a href="#como-cumplir">Cómo cumplir paso a paso</a></li>
         <li><a href="#faq">Preguntas frecuentes</a></li>
       </ol>
     </nav>
   </section>
 
-  <!-- QUÃ‰ ES -->
-  <section class="lr-section v2-light" id="que-es" data-section="QuÃ© es" data-index="02">
+  <!-- QUÉ ES -->
+  <section class="lr-section v2-light" id="que-es" data-section="Qué es" data-index="02">
     <header class="v2-sechead">
       <span class="sh-idx">02</span>
-      <h2 class="sh-name">Â¿QuÃ© es la Ley REP Chile?</h2>
+      <h2 class="sh-name">¿Qué es la Ley REP Chile?</h2>
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
     <div class="lr-two-col">
       <div class="lr-col-main">
-        <p class="lr-text">La <strong>Ley REP</strong> (Responsabilidad Extendida del Productor), Ley NÂ° 20.920, establece que fabricantes e importadores de ciertos productos son responsables de gestionar correctamente esos productos al final de su vida Ãºtil.</p>
-        <p class="lr-text">Si tu empresa fabrica, importa o vende aparatos elÃ©ctricos y electrÃ³nicos en Chile, la ley te hace responsable de que esos equipos sean reciclados o valorizados â€” no enviados al basural.</p>
-        <p class="lr-text">Promulgada en <strong>2016</strong>, el reglamento para RAEE (DS 8/2021) entrÃ³ en vigor en <strong>2023</strong> para los primeros productores obligados.</p>
+        <p class="lr-text">La <strong>Ley REP</strong> (Responsabilidad Extendida del Productor), Ley N° 20.920, establece que fabricantes e importadores de ciertos productos son responsables de gestionar correctamente esos productos al final de su vida útil.</p>
+        <p class="lr-text">Si tu empresa fabrica, importa o vende aparatos eléctricos y electrónicos en Chile, la ley te hace responsable de que esos equipos sean reciclados o valorizados — no enviados al basural.</p>
+        <p class="lr-text">Promulgada en <strong>2016</strong>, el reglamento para RAEE (DS 8/2021) entró en vigor en <strong>2023</strong> para los primeros productores obligados.</p>
       </div>
       <aside class="lr-col-aside">
         <span class="lr-aside-head v2-mono v2-mono--steel">[ DATO CLAVE ]</span>
-        <p class="lr-aside-text">Chile es uno de los primeros paÃ­ses de LatinoamÃ©rica en implementar una Ley REP para residuos electrÃ³nicos, alineada con las mejores prÃ¡cticas de la UE en economÃ­a circular.</p>
+        <p class="lr-aside-text">Chile es uno de los primeros países de Latinoamérica en implementar una Ley REP para residuos electrónicos, alineada con las mejores prácticas de la UE en economía circular.</p>
       </aside>
     </div>
   </section>
 
-  <!-- QUIÃ‰NES -->
-  <section class="lr-section" id="quienes" data-section="A quiÃ©nes aplica" data-index="03">
+  <!-- QUIÉNES -->
+  <section class="lr-section" id="quienes" data-section="A quiénes aplica" data-index="03">
     <header class="v2-sechead">
       <span class="sh-idx">03</span>
-      <h2 class="sh-name">Â¿A QuÃ© Empresas Aplica?</h2>
+      <h2 class="sh-name">¿A Qué Empresas Aplica?</h2>
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
-    <p class="lr-intro">La ley aplica a los <strong>productores</strong>: fabricantes, importadores, marcas propias y vendedores por comercio electrÃ³nico que introducen AEE al mercado chileno. Tres categorÃ­as reguladas:</p>
+    <p class="lr-intro">La ley aplica a los <strong>productores</strong>: fabricantes, importadores, marcas propias y vendedores por comercio electrónico que introducen AEE al mercado chileno. Tres categorías reguladas:</p>
     <div class="lr-cat-grid">
       {categorias.map((c) => (
         <div class="lr-cat-card">
@@ -110,7 +110,7 @@ const faqs = [
         </div>
       ))}
     </div>
-    <p class="lr-nota v2-mono v2-mono--steel">[ AUNQUE NO SEAS PRODUCTOR: TIENES OBLIGACIÃ“N DE ENTREGAR TUS RAEE A UN GESTOR AUTORIZADO â€” NO DESECHARLOS EN BASURA COMÃšN ]</p>
+    <p class="lr-nota v2-mono v2-mono--steel">[ AUNQUE NO SEAS PRODUCTOR: TIENES OBLIGACIÓN DE ENTREGAR TUS RAEE A UN GESTOR AUTORIZADO — NO DESECHARLOS EN BASURA COMÚN ]</p>
   </section>
 
   <!-- OBLIGACIONES -->
@@ -152,11 +152,11 @@ const faqs = [
     </ul>
   </section>
 
-  <!-- CÃ“MO CUMPLIR -->
-  <section class="lr-section v2-light" id="como-cumplir" data-section="CÃ³mo cumplir" data-index="06">
+  <!-- CÓMO CUMPLIR -->
+  <section class="lr-section v2-light" id="como-cumplir" data-section="Cómo cumplir" data-index="06">
     <header class="v2-sechead">
       <span class="sh-idx">06</span>
-      <h2 class="sh-name">CÃ³mo Cumplir Paso a Paso</h2>
+      <h2 class="sh-name">Cómo Cumplir Paso a Paso</h2>
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
     <ol class="lr-steps" role="list">
@@ -175,23 +175,23 @@ const faqs = [
 
   <!-- CTA -->
   <section class="lr-section lr-cta-section" id="contacto-cta" data-section="Consultar" data-index="07">
-    <p class="lr-cta-eyebrow v2-mono v2-mono--copper">[ Â¿TU EMPRESA NECESITA CUMPLIR CON LA LEY REP? ]</p>
+    <p class="lr-cta-eyebrow v2-mono v2-mono--copper">[ ¿TU EMPRESA NECESITA CUMPLIR CON LA LEY REP? ]</p>
     <h2 class="lr-cta-title">
-      CuÃ©ntanos tu situaciÃ³n.<br />
-      Te explicamos quÃ© necesitas hacer.
+      Cuéntanos tu situación.<br />
+      Te explicamos qué necesitas hacer.
     </h2>
     <a href="/#contacto" class="lr-cta-btn v2-mono">
-      HABLAR CON UN ESPECIALISTA <span aria-hidden="true">â†’</span>
+      HABLAR CON UN ESPECIALISTA <span aria-hidden="true">→</span>
       <i class="v2-drawline" aria-hidden="true"></i>
     </a>
-    <p class="lr-honest v2-mono v2-mono--steel">[ INICIO OPERATIVO AGOSTO 2026 Â· SERVICIO VÃA PARTNERS CERTIFICADOS ]</p>
+    <p class="lr-honest v2-mono v2-mono--steel">[ SERVICIO VÍA PARTNERS CERTIFICADOS ]</p>
   </section>
 
   <!-- FAQ -->
   <section class="lr-section v2-light" id="faq" data-section="FAQ" data-index="08">
     <header class="v2-sechead">
       <span class="sh-idx">08</span>
-      <h2 class="sh-name">Preguntas Frecuentes â€” Ley REP</h2>
+      <h2 class="sh-name">Preguntas Frecuentes — Ley REP</h2>
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
     <dl class="lr-faq">
@@ -209,15 +209,15 @@ const faqs = [
   <script type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: 'Ley REP Chile Empresas: GuÃ­a Completa de Cumplimiento RAEE 2026',
-    description: 'Obligaciones, plazos, multas y cÃ³mo cumplir con la gestiÃ³n de residuos electrÃ³nicos bajo la Ley NÂ° 20.920.',
+    headline: 'Ley REP Chile Empresas: Guía Completa de Cumplimiento RAEE 2026',
+    description: 'Obligaciones, plazos, multas y cómo cumplir con la gestión de residuos electrónicos bajo la Ley N° 20.920.',
     author: { '@type': 'Organization', name: 'ElectroLoop', url: 'https://electroloop.cl' },
     publisher: { '@type': 'Organization', name: 'ElectroLoop', logo: { '@type': 'ImageObject', url: 'https://electroloop.cl/favicon.png' } },
     datePublished: '2026-04-15',
     dateModified: '2026-06-17',
     mainEntityOfPage: 'https://electroloop.cl/ley-rep-chile-empresas',
     inLanguage: 'es-CL',
-    about: { '@type': 'Thing', name: 'Ley REP Chile', description: 'Ley NÂ° 20.920 de Responsabilidad Extendida del Productor' },
+    about: { '@type': 'Thing', name: 'Ley REP Chile', description: 'Ley N° 20.920 de Responsabilidad Extendida del Productor' },
   })} />
 
 </BlueprintLayout>
@@ -260,7 +260,7 @@ const faqs = [
   .lr-aside-head { font-size: 0.58rem; }
   .lr-aside-text { font-size: 0.9rem; font-weight: 300; line-height: 1.7; color: var(--steel-ink, #5d6267); margin: 0; }
 
-  /* CATEGORÃAS */
+  /* CATEGORÍAS */
   .lr-cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: rgba(11,27,50,0.12); border: 1px solid rgba(11,27,50,0.12); }
   .lr-cat-card { background: var(--abyssal); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 10px; }
   .lr-cat-tag { font-size: 0.6rem; }

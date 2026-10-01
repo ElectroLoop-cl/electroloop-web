@@ -27,7 +27,7 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap
-Sitemap: https://electroloop.cl/sitemap.xml
+Sitemap: https://electroloop.cl/sitemap-index.xml
 
 # Disallow admin or private paths (none currently, placeholder)
 # Disallow: /admin/

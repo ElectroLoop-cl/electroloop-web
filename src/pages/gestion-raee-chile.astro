@@ -1,87 +1,87 @@
-﻿---
+---
 import BlueprintLayout from '../layouts/BlueprintLayout.astro';
 import FooterV2 from '../components/v2/FooterV2.astro';
 
 const materiales = {
-  peligrosos: ['Plomo en soldaduras', 'Mercurio en pantallas', 'Cadmio en baterÃ­as', 'ArsÃ©nico en semiconductores', 'Retardantes de llama bromados'],
-  recuperables: ['Cobre en circuitos', 'Oro y plata en conectores', 'Aluminio en carcasas', 'Paladio en tarjetas', 'PlÃ¡sticos de ingenierÃ­a'],
+  peligrosos: ['Plomo en soldaduras', 'Mercurio en pantallas', 'Cadmio en baterías', 'Arsénico en semiconductores', 'Retardantes de llama bromados'],
+  recuperables: ['Cobre en circuitos', 'Oro y plata en conectores', 'Aluminio en carcasas', 'Paladio en tarjetas', 'Plásticos de ingeniería'],
 };
 
 const ciclo = [
-  { n: '01', code: 'RET', title: 'RecolecciÃ³n y logÃ­stica', desc: 'Coordinamos el retiro en tus instalaciones con partners logÃ­sticos certificados. Manifiestos de transporte y acta de recepciÃ³n inmediata.', seal: '[ VÃA PARTNERS CERTIFICADOS ]' },
-  { n: '02', code: 'PES', title: 'RecepciÃ³n y pesaje', desc: 'Cada RAEE es registrado, pesado y fotografiado. Trazabilidad desde el primer kilo.', seal: '[ TRAZABILIDAD COMPLETA ]' },
-  { n: '03', code: 'DAT', title: 'DestrucciÃ³n certificada de datos', desc: 'Borrado seguro o destrucciÃ³n fÃ­sica del soporte. Certificado individual por nÃºmero de serie y mÃ©todo.', seal: '[ CERTIFICADO POR DISPOSITIVO ]' },
-  { n: '04', code: 'DES', title: 'Desmantelamiento y clasificaciÃ³n', desc: 'SeparaciÃ³n de componentes por tipo de material: metales, plÃ¡sticos, vidrio y materiales peligrosos.', seal: '[ GESTORES AUTORIZADOS SMA ]' },
-  { n: '05', code: 'VAL', title: 'ValorizaciÃ³n de materiales', desc: 'RecuperaciÃ³n de metales preciosos y materiales reciclables que regresan al ciclo productivo como materia prima secundaria.', seal: '[ ECONOMÃA CIRCULAR ]' },
-  { n: '06', code: 'CDF', title: 'CertificaciÃ³n y reporterÃ­a', desc: 'Certificados de valorizaciÃ³n y reportes auditables para cumplimiento REP e informes ESG.', seal: '[ EN 5 DÃAS HÃBILES ]' },
+  { n: '01', code: 'RET', title: 'Recolección y logística', desc: 'Coordinamos el retiro en tus instalaciones con partners logísticos certificados. Manifiestos de transporte y acta de recepción inmediata.', seal: '[ VÍA PARTNERS CERTIFICADOS ]' },
+  { n: '02', code: 'PES', title: 'Recepción y pesaje', desc: 'Cada RAEE es registrado, pesado y fotografiado. Trazabilidad desde el primer kilo.', seal: '[ TRAZABILIDAD COMPLETA ]' },
+  { n: '03', code: 'DAT', title: 'Destrucción certificada de datos', desc: 'Borrado seguro o destrucción física del soporte. Certificado individual por número de serie y método.', seal: '[ CERTIFICADO POR DISPOSITIVO ]' },
+  { n: '04', code: 'DES', title: 'Desmantelamiento y clasificación', desc: 'Separación de componentes por tipo de material: metales, plásticos, vidrio y materiales peligrosos.', seal: '[ GESTORES AUTORIZADOS SMA ]' },
+  { n: '05', code: 'VAL', title: 'Valorización de materiales', desc: 'Recuperación de metales preciosos y materiales reciclables que regresan al ciclo productivo como materia prima secundaria.', seal: '[ ECONOMÍA CIRCULAR ]' },
+  { n: '06', code: 'CDF', title: 'Certificación y reportería', desc: 'Certificados de valorización y reportes auditables para cumplimiento REP e informes ESG.', seal: '[ EN 5 DÍAS HÁBILES ]' },
 ];
 
 const diferenciadores = [
-  { tag: 'INT', title: 'Integrador especializado', desc: 'ElectroLoop gestiona todo el ciclo: un solo punto de contacto que coordina partners certificados, logÃ­stica, trazabilidad y certificaciÃ³n.' },
-  { tag: 'TRZ', title: 'Trazabilidad que puedes auditar', desc: 'Seguimiento digital de cada componente. Reportes descargables listos para tu auditorÃ­a REP o informe ESG.' },
-  { tag: 'DAT', title: 'DestrucciÃ³n de datos certificada', desc: 'Certificado individual por dispositivo con nÃºmero de serie y mÃ©todo. VÃ¡lido para auditorÃ­as de cumplimiento normativo.' },
-  { tag: 'REP', title: 'GestiÃ³n REP integral', desc: 'RecolecciÃ³n, certificados y reporterÃ­a para el Ministerio. Todo en un solo proveedor, sin costo de coordinaciÃ³n.' },
+  { tag: 'INT', title: 'Integrador especializado', desc: 'ElectroLoop gestiona todo el ciclo: un solo punto de contacto que coordina partners certificados, logística, trazabilidad y certificación.' },
+  { tag: 'TRZ', title: 'Trazabilidad que puedes auditar', desc: 'Seguimiento digital de cada componente. Reportes descargables listos para tu auditoría REP o informe ESG.' },
+  { tag: 'DAT', title: 'Destrucción de datos certificada', desc: 'Certificado individual por dispositivo con número de serie y método. Válido para auditorías de cumplimiento normativo.' },
+  { tag: 'REP', title: 'Gestión REP integral', desc: 'Recolección, certificados y reportería para el Ministerio. Todo en un solo proveedor, sin costo de coordinación.' },
 ];
 
 const marco = [
-  { org: 'Ley NÂ° 20.920 â€” REP', desc: 'Marco legal que obliga a productores a financiar la gestiÃ³n de sus RAEE al final de su vida Ãºtil.' },
-  { org: 'DS 8/2021 â€” Reglamento RAEE', desc: 'Fija metas anuales de recolecciÃ³n y valorizaciÃ³n por categorÃ­a (AIT, PFV, AEE).' },
-  { org: 'Registro de Gestores â€” MMA', desc: 'Solo gestores inscritos en el Ministerio del Medio Ambiente pueden emitir certificados vÃ¡lidos.' },
-  { org: 'Decreto 148 â€” Residuos Peligrosos', desc: 'Regula el manejo, transporte y disposiciÃ³n de los materiales peligrosos contenidos en los RAEE.' },
+  { org: 'Ley N° 20.920 — REP', desc: 'Marco legal que obliga a productores a financiar la gestión de sus RAEE al final de su vida útil.' },
+  { org: 'DS 8/2021 — Reglamento RAEE', desc: 'Fija metas anuales de recolección y valorización por categoría (AIT, PFV, AEE).' },
+  { org: 'Registro de Gestores — MMA', desc: 'Solo gestores inscritos en el Ministerio del Medio Ambiente pueden emitir certificados válidos.' },
+  { org: 'Decreto 148 — Residuos Peligrosos', desc: 'Regula el manejo, transporte y disposición de los materiales peligrosos contenidos en los RAEE.' },
 ];
 
 const faqs = [
-  { q: 'Â¿CÃ³mo verifico si un gestor RAEE estÃ¡ autorizado?', a: 'En el Registro PÃºblico de Gestores del Ministerio del Medio Ambiente. ElectroLoop opera con partners que cuentan con las autorizaciones vigentes. Exige siempre el nÃºmero de registro antes de contratar.' },
-  { q: 'Â¿CuÃ¡l es la diferencia entre ElectroLoop y un chatarrero?', a: 'Un chatarrero no cuenta con autorizaciones legales, no emite certificados vÃ¡lidos ante la SMA y no garantiza disposiciÃ³n correcta de materiales peligrosos. Usarlo no te exime de responsabilidad bajo la Ley REP.' },
-  { q: 'Â¿CuÃ¡ntos equipos mÃ­nimos necesito para un retiro?', a: 'No hay mÃ­nimo estricto, pero el servicio es mÃ¡s eficiente desde 10 equipos. Para volÃºmenes menores podemos orientarte hacia puntos de recolecciÃ³n o agendar retiro compartido.' },
-  { q: 'Â¿La gestiÃ³n RAEE aplica solo a computadores?', a: 'Aplica a todos los AEE: smartphones, televisores, impresoras, servidores, baterÃ­as, luminarias y equipos industriales.' },
-  { q: 'Â¿El certificado sirve para mi reporte ESG?', a: 'SÃ­. Incluye kilogramos valorizados por tipo de material, destino final y data para reportes de sostenibilidad. Compatible con los principales estÃ¡ndares ESG y con el informe anual REP.' },
+  { q: '¿Cómo verifico si un gestor RAEE está autorizado?', a: 'En el Registro Público de Gestores del Ministerio del Medio Ambiente. ElectroLoop opera con partners que cuentan con las autorizaciones vigentes. Exige siempre el número de registro antes de contratar.' },
+  { q: '¿Cuál es la diferencia entre ElectroLoop y un chatarrero?', a: 'Un chatarrero no cuenta con autorizaciones legales, no emite certificados válidos ante la SMA y no garantiza disposición correcta de materiales peligrosos. Usarlo no te exime de responsabilidad bajo la Ley REP.' },
+  { q: '¿Cuántos equipos mínimos necesito para un retiro?', a: 'No hay mínimo estricto, pero el servicio es más eficiente desde 10 equipos. Para volúmenes menores podemos orientarte hacia puntos de recolección o agendar retiro compartido.' },
+  { q: '¿La gestión RAEE aplica solo a computadores?', a: 'Aplica a todos los AEE: smartphones, televisores, impresoras, servidores, baterías, luminarias y equipos industriales.' },
+  { q: '¿El certificado sirve para mi reporte ESG?', a: 'Sí. Incluye kilogramos valorizados por tipo de material, destino final y data para reportes de sostenibilidad. Compatible con los principales estándares ESG y con el informe anual REP.' },
 ];
 ---
 
 <BlueprintLayout
-  title="GestiÃ³n RAEE Chile â€” Integrador de Residuos ElectrÃ³nicos | ElectroLoop"
-  description="ElectroLoop gestiona tus RAEE de principio a fin, coordinando partners certificados. RecolecciÃ³n, trazabilidad, destrucciÃ³n de datos y certificado de disposiciÃ³n final para Ley REP."
+  title="Gestión RAEE Chile — Integrador de Residuos Electrónicos | ElectroLoop"
+  description="ElectroLoop gestiona tus RAEE de principio a fin, coordinando partners certificados. Recolección, trazabilidad, destrucción de datos y certificado de disposición final para Ley REP."
 >
 
   <!-- HERO -->
   <section class="gr-hero v2-section" id="inicio" data-section="Inicio" data-index="01">
     <nav class="gr-breadcrumb v2-mono v2-mono--steel">
-      <a href="/">INICIO</a><span aria-hidden="true"> / </span><span>GESTIÃ“N RAEE CHILE</span>
+      <a href="/">INICIO</a><span aria-hidden="true"> / </span><span>GESTIÓN RAEE CHILE</span>
     </nav>
-    <p class="gr-eyebrow v2-mono v2-mono--copper">[ INTEGRADOR RAEE Â· MACROZONA NORTE CHILE ]</p>
+    <p class="gr-eyebrow v2-mono v2-mono--copper">[ INTEGRADOR RAEE · MACROZONA NORTE CHILE ]</p>
     <h1 class="gr-h1">
-      <span class="gr-h1-outline">GESTIÃ“N</span><br />
+      <span class="gr-h1-outline">GESTIÓN</span><br />
       <span class="gr-h1-solid">RAEE</span><br />
       <span class="gr-h1-thin">EN CHILE</span>
     </h1>
     <p class="gr-lead">
       Un solo punto de contacto que gestiona todo el ciclo de vida de tus residuos
-      electrÃ³nicos: recolecciÃ³n, trazabilidad, destrucciÃ³n de datos y certificado de
-      disposiciÃ³n final.
+      electrónicos: recolección, trazabilidad, destrucción de datos y certificado de
+      disposición final.
     </p>
     <div class="gr-ctas">
       <a href="/#contacto" class="gr-cta-primary v2-mono">
-        SOLICITAR GESTIÃ“N <span aria-hidden="true">â†’</span>
+        SOLICITAR GESTIÓN <span aria-hidden="true">→</span>
         <i class="v2-drawline" aria-hidden="true"></i>
       </a>
-      <a href="/ley-rep-chile-empresas" class="gr-cta-secondary v2-mono">
-        VER GUÃA LEY REP <span aria-hidden="true">â†—</span>
+      <a href="/ley-rep-chile-empresas/" class="gr-cta-secondary v2-mono">
+        VER GUÍA LEY REP <span aria-hidden="true">↗</span>
       </a>
     </div>
-    <p class="gr-honest v2-mono v2-mono--steel">[ INICIO OPERATIVO AGOSTO 2026 Â· SERVICIO VÃA PARTNERS CERTIFICADOS ]</p>
+    <p class="gr-honest v2-mono v2-mono--steel">[ SERVICIO VÍA PARTNERS CERTIFICADOS ]</p>
   </section>
 
-  <!-- QUÃ‰ SON LOS RAEE -->
-  <section class="gr-section v2-light" id="que-son" data-section="QuÃ© son los RAEE" data-index="02">
+  <!-- QUÉ SON LOS RAEE -->
+  <section class="gr-section v2-light" id="que-son" data-section="Qué son los RAEE" data-index="02">
     <header class="v2-sechead">
       <span class="sh-idx">02</span>
-      <h2 class="sh-name">Â¿QuÃ© son los RAEE y por quÃ© necesitan gestiÃ³n especializada?</h2>
+      <h2 class="sh-name">¿Qué son los RAEE y por qué necesitan gestión especializada?</h2>
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
     <p class="gr-intro">
-      Los <strong>RAEE</strong> (Residuos de Aparatos ElÃ©ctricos y ElectrÃ³nicos) son equipos al
-      final de su vida Ãºtil. A diferencia de la basura comÃºn, contienen materiales peligrosos
+      Los <strong>RAEE</strong> (Residuos de Aparatos Eléctricos y Electrónicos) son equipos al
+      final de su vida útil. A diferencia de la basura común, contienen materiales peligrosos
       que contaminan suelos y aguas, y materiales valiosos que pueden volver al ciclo productivo.
     </p>
     <div class="gr-mat-grid">
@@ -94,14 +94,14 @@ const faqs = [
         <ul class="gr-mat-list">{materiales.recuperables.map(m => <li>{m}</li>)}</ul>
       </div>
     </div>
-    <p class="gr-nota v2-mono v2-mono--steel">[ LEY REP NÂ° 20.920: LA GESTIÃ“N DE RAEE DEBE SER REALIZADA EXCLUSIVAMENTE POR GESTORES AUTORIZADOS POR LA SMA ]</p>
+    <p class="gr-nota v2-mono v2-mono--steel">[ LEY REP N° 20.920: LA GESTIÓN DE RAEE DEBE SER REALIZADA EXCLUSIVAMENTE POR GESTORES AUTORIZADOS POR LA SMA ]</p>
   </section>
 
-  <!-- CICLO DE GESTIÃ“N -->
-  <section class="gr-section" id="ciclo" data-section="Ciclo de gestiÃ³n" data-index="03">
+  <!-- CICLO DE GESTIÓN -->
+  <section class="gr-section" id="ciclo" data-section="Ciclo de gestión" data-index="03">
     <header class="v2-sechead">
       <span class="sh-idx">03</span>
-      <h2 class="sh-name">El Ciclo Completo de GestiÃ³n</h2>
+      <h2 class="sh-name">El Ciclo Completo de Gestión</h2>
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
     <ol class="gr-steps" role="list">
@@ -121,14 +121,14 @@ const faqs = [
     </ol>
   </section>
 
-  <!-- POR QUÃ‰ ELECTROLOOP -->
-  <section class="gr-section v2-light" id="por-que" data-section="Por quÃ© ElectroLoop" data-index="04">
+  <!-- POR QUÉ ELECTROLOOP -->
+  <section class="gr-section v2-light" id="por-que" data-section="Por qué ElectroLoop" data-index="04">
     <header class="v2-sechead">
       <span class="sh-idx">04</span>
-      <h2 class="sh-name">Por QuÃ© Elegir ElectroLoop</h2>
+      <h2 class="sh-name">Por Qué Elegir ElectroLoop</h2>
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
-    <p class="gr-intro">No todos los gestores RAEE son iguales. ElectroLoop se especializa exclusivamente en residuos electrÃ³nicos y actÃºa como integrador de todo el proceso:</p>
+    <p class="gr-intro">No todos los gestores RAEE son iguales. ElectroLoop se especializa exclusivamente en residuos electrónicos y actúa como integrador de todo el proceso:</p>
     <ul class="gr-dif-grid" role="list">
       {diferenciadores.map((d) => (
         <li class="gr-dif-cell">
@@ -148,7 +148,7 @@ const faqs = [
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
     <p class="gr-intro">
-      La cadena de gestiÃ³n RAEE en Chile estÃ¡ regulada por mÃºltiples normativas. ElectroLoop
+      La cadena de gestión RAEE en Chile está regulada por múltiples normativas. ElectroLoop
       coordina con partners que operan bajo todas estas autorizaciones:
     </p>
     <ul class="gr-marco-list" role="list">
@@ -159,23 +159,23 @@ const faqs = [
         </li>
       ))}
     </ul>
-    <p class="gr-marco-honest v2-mono v2-mono--steel">[ ELECTROLOOP OPERA COMO INTEGRADOR DESDE AGO 2026 Â· PARTNERS CON AUTORIZACIONES VIGENTES ]</p>
+    <p class="gr-marco-honest v2-mono v2-mono--steel">[ ELECTROLOOP OPERA COMO INTEGRADOR · PARTNERS CON AUTORIZACIONES VIGENTES ]</p>
   </section>
 
   <!-- CTA -->
   <section class="gr-section gr-cta-section" id="contacto-cta" data-section="Cotizar" data-index="06">
-    <p class="gr-cta-eyebrow v2-mono v2-mono--copper">[ Â¿BUSCAS GESTIÃ“N RAEE EN CHILE? ]</p>
+    <p class="gr-cta-eyebrow v2-mono v2-mono--copper">[ ¿BUSCAS GESTIÓN RAEE EN CHILE? ]</p>
     <h2 class="gr-cta-title">
-      CuÃ©ntanos quÃ© equipos tienes.<br />
+      Cuéntanos qué equipos tienes.<br />
       Te respondemos en menos de 24 horas.
     </h2>
     <div class="gr-cta-btns">
       <a href="/#contacto" class="gr-cta-primary v2-mono">
-        SOLICITAR COTIZACIÃ“N <span aria-hidden="true">â†’</span>
+        SOLICITAR COTIZACIÓN <span aria-hidden="true">→</span>
         <i class="v2-drawline" aria-hidden="true"></i>
       </a>
-      <a href="/ley-rep-chile-empresas" class="gr-cta-secondary v2-mono">
-        VER GUÃA LEY REP <span aria-hidden="true">â†—</span>
+      <a href="/ley-rep-chile-empresas/" class="gr-cta-secondary v2-mono">
+        VER GUÍA LEY REP <span aria-hidden="true">↗</span>
       </a>
     </div>
   </section>
@@ -184,7 +184,7 @@ const faqs = [
   <section class="gr-section v2-light" id="faq" data-section="FAQ" data-index="07">
     <header class="v2-sechead">
       <span class="sh-idx">07</span>
-      <h2 class="sh-name">Preguntas Frecuentes sobre GestiÃ³n RAEE</h2>
+      <h2 class="sh-name">Preguntas Frecuentes sobre Gestión RAEE</h2>
       <i class="v2-drawline" aria-hidden="true"></i>
     </header>
     <dl class="gr-faq">
@@ -202,11 +202,11 @@ const faqs = [
   <script type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'GestiÃ³n RAEE Chile â€” Integrador de Residuos ElectrÃ³nicos',
-    description: 'ElectroLoop gestiona el ciclo completo de residuos electrÃ³nicos en Chile coordinando partners certificados. RecolecciÃ³n, trazabilidad, destrucciÃ³n de datos y certificado de disposiciÃ³n final.',
+    name: 'Gestión RAEE Chile — Integrador de Residuos Electrónicos',
+    description: 'ElectroLoop gestiona el ciclo completo de residuos electrónicos en Chile coordinando partners certificados. Recolección, trazabilidad, destrucción de datos y certificado de disposición final.',
     provider: { '@type': 'Organization', name: 'ElectroLoop', url: 'https://electroloop.cl' },
     areaServed: 'Macrozona Norte de Chile',
-    serviceType: 'GestiÃ³n RAEE Chile Ley REP',
+    serviceType: 'Gestión RAEE Chile Ley REP',
     url: 'https://electroloop.cl/gestion-raee-chile',
   })} />
 

@@ -71,16 +71,15 @@
         ENVIAR PRE-REGISTRO <span class="arrow">→</span>
         <i class="v2-drawline" aria-hidden="true"></i>
       </button>
+      <p class="ct-status v2-mono" role="status" aria-live="polite" hidden></p>
     </form>
 
     <!-- Datos duros de la empresa -->
     <aside class="ct-data v2-mono" aria-label="Datos de la empresa">
-      <span class="d-row">COQUIMBO — CHILE</span>
-      <span class="d-row">[ 29°57′S 71°20′W ]</span>
+      <span class="d-row">CHILE</span>
       <i class="d-sep" aria-hidden="true"></i>
       <span class="d-row">COBERTURA: MACROZONA NORTE</span>
       <i class="d-sep" aria-hidden="true"></i>
-      <span class="d-row d-copper">[ INICIO OPERATIVO: AGO 2026 ]</span>
       <span class="d-row">contacto@electroloop.cl</span>
     </aside>
   </div>
@@ -212,8 +211,70 @@
   .d-sep { height: 1px; background: rgba(11, 27, 50, 0.18); margin: 8px 0; }
   .d-copper { color: var(--copper-ink, var(--copper)); font-weight: 700; }
 
+  .ct-status {
+    margin: 20px 0 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+    color: var(--abyssal);
+  }
+  .ct-status.is-error { color: #b42318; }
+
   @media (max-width: 767px) {
     .ct-form, .ct-data { grid-column: 1 / 13; }
     .ct-fields { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  // Envía el pre-registro a Netlify Forms y avisa al equipo por correo.
+  // Sin JavaScript el formulario sigue funcionando con el POST nativo.
+  const form = document.querySelector<HTMLFormElement>('form[name="contacto-v2"]');
+  const status = form?.querySelector<HTMLParagraphElement>('.ct-status');
+  const submit = form?.querySelector<HTMLButtonElement>('.ct-submit');
+
+  const show = (msg: string, isError = false) => {
+    if (!status) return;
+    status.textContent = msg;
+    status.classList.toggle('is-error', isError);
+    status.hidden = false;
+  };
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (submit) submit.disabled = true;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+      });
+      if (!res.ok) throw new Error(`Netlify Forms ${res.status}`);
+
+      // El contacto ya quedó guardado; el aviso por correo no debe bloquear al usuario.
+      fetch('/.netlify/functions/send-autoresponse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: data.get('nombre'),
+          email: data.get('email'),
+          empresa: data.get('empresa'),
+          categoria: data.get('categoria'),
+          mensaje: data.get('mensaje'),
+          origen: location.pathname,
+        }),
+      }).catch((err) => console.warn('Aviso por correo falló:', err));
+
+      form.reset();
+      show('[ RECIBIDO ] Gracias. Te contactaremos dentro de 1 día hábil. Revisa tu correo.');
+      window.posthog?.capture?.('contacto_enviado', { categoria: data.get('categoria') });
+    } catch (err) {
+      console.error('Error enviando formulario:', err);
+      show('No pudimos enviar el formulario. Escríbenos a contacto@electroloop.cl', true);
+    } finally {
+      if (submit) submit.disabled = false;
+    }
+  });
+</script>

@@ -12,7 +12,7 @@ export interface Props {
 
 const {
   title = 'Gestión RAEE integral con partners certificados | ElectroLoop',
-  description = 'ElectroLoop: gestor RAEE integrador con red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos. Inicio operativo agosto 2026. Pre-registro de clientes ancla abierto.',
+  description = 'ElectroLoop: gestor RAEE integrador con red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos. Pre-registro de clientes ancla abierto.',
   lang = 'es',
   ogImage = '/og-image.jpg',
 } = Astro.props;
@@ -36,7 +36,7 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
   <title>{title}</title>
   <meta name="title" content={title} />
   <meta name="description" content={description} />
-  <meta name="keywords" content="gestión RAEE Chile, partners certificados, reciclaje electrónico empresas, Ley REP, residuos electrónicos, gestor RAEE, economía circular, pre-operativo 2026" />
+  <meta name="keywords" content="gestión RAEE Chile, partners certificados, reciclaje electrónico empresas, Ley REP, residuos electrónicos, gestor RAEE, economía circular" />
   <meta name="author" content="ElectroLoop SpA" />
   <meta name="robots" content="index, follow" />
 
@@ -95,7 +95,7 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
     "@id": `${siteUrl}/#organization`,
     "name": "ElectroLoop SpA",
     "legalName": "ElectroLoop SpA",
-    "description": "Gestor RAEE integrador con red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos. Inicio operativo agosto 2026.",
+    "description": "Gestor RAEE integrador con red de partners certificados. Recolección, tratamiento y valorización de residuos electrónicos.",
     "url": siteUrl,
     "logo": {
       "@type": "ImageObject",
@@ -104,13 +104,8 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
       "height": 512
     },
     "email": "contacto@electroloop.cl",
-    "telephone": "+56223456789",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "La Serena",
-      "addressLocality": "La Serena",
-      "addressRegion": "Región de Coquimbo",
-      "postalCode": "1700000",
       "addressCountry": "CL"
     },
     "geo": {
@@ -138,16 +133,11 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
     "description": "Gestor RAEE integrador con partners certificados. Gestión integral de residuos electrónicos con red de especialistas. Cumplimiento Ley REP N° 20.920.",
     "url": siteUrl,
     "email": "contacto@electroloop.cl",
-    "telephone": "+56223456789",
     "priceRange": "$$",
     "currenciesAccepted": "CLP",
     "paymentAccepted": "Transferencia bancaria, Cheque",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "La Serena",
-      "addressLocality": "La Serena",
-      "addressRegion": "Región de Coquimbo",
-      "postalCode": "1700000",
       "addressCountry": "CL"
     },
     "geo": {
@@ -232,7 +222,7 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
         "name": "¿Qué es un gestor RAEE en Chile?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Un gestor RAEE es una empresa que recolecta, transporta, trata y valoriza residuos de aparatos eléctricos y electrónicos (RAEE) de manera legal y segura bajo la Ley REP N° 20.920 de Chile. ElectroLoop coordina la gestión integral a través de una red de gestores certificados, con inicio operativo propio agosto 2026."
+          "text": "Un gestor RAEE es una empresa que recolecta, transporta, trata y valoriza residuos de aparatos eléctricos y electrónicos (RAEE) de manera legal y segura bajo la Ley REP N° 20.920 de Chile. ElectroLoop coordina la gestión integral a través de una red de gestores certificados."
         }
       },
       {

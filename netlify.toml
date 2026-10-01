@@ -49,6 +49,48 @@
   [headers.values]
     Cache-Control = "public, max-age=3600"
 
+
+# Páginas internas (firmas, brochure, presentación): accesibles pero fuera de Google
+[[headers]]
+  for = "/brochure.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/presentacion.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/email-signature.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/email-signature-nicolas.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/firma-nicolas.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/firma-preview.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/firma-preview-simple.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/e/satisfaccion/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
 # Performance headers
 [[headers]]
   for = "/*"
