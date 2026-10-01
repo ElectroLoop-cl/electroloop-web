@@ -3,6 +3,14 @@ import Layout from '../../layouts/Layout.astro';
 
 const articulos = [
   {
+    slug: "sistemas-de-gestion-raee-traee-wee-chile",
+    titulo: "Sistemas de gestión RAEE: TRAEE, Wee Chile y qué debe decidir tu empresa antes de 2028",
+    resumen: "Los productores de aparatos eléctricos, electrónicos y pilas deben elegir entre un sistema de gestión individual o colectivo. Qué son TRAEE y Wee Chile, el tamaño del desafío y los pasos a seguir.",
+    fecha: "30 de septiembre de 2026",
+    categoria: "Mercado REP",
+    lectura: "6 min"
+  },
+  {
     slug: "multas-ley-rep-raee-incumplimiento",
     titulo: "Multas Ley REP: ¿qué pasa si tu empresa no cumple las metas RAEE?",
     resumen: "La SMA tiene facultades para multar, clausurar e inhabilitar a empresas que no cumplan sus obligaciones bajo la Ley REP. Conoce los tipos de infracción, sus consecuencias y cómo evitarlas.",
@@ -39,7 +47,7 @@ const articulos = [
 
 <Layout
   title="Noticias sobre RAEE y Ley REP en Chile | ElectroLoop"
-  description="Últimas noticias sobre residuos electrónicos, Ley REP y regulación RAEE en Chile. Mantente informado con ElectroLoop, gestor RAEE autorizado."
+  description="Últimas noticias sobre residuos electrónicos, Ley REP y regulación RAEE en Chile. Mantente informado con ElectroLoop, gestor RAEE integrador."
 >
 
   <div style="background: #f8f9fa; min-height: 100vh; position: relative; z-index: 10;"><header style="background: #0a1628; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
@@ -74,7 +82,7 @@ const articulos = [
     <div style="display: flex; flex-direction: column; gap: 24px;">
       {articulos.map(art => (
         <a
-          href={`/noticias/${art.slug}`}
+          href={`/noticias/${art.slug}/`}
           style="display: block; background: #f9fafc; border: 1px solid #e8ecf0; border-radius: 16px; padding: 32px; text-decoration: none; color: inherit; transition: box-shadow 0.2s;"
           onmouseover="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.08)'"
           onmouseout="this.style.boxShadow='none'"
@@ -104,7 +112,7 @@ const articulos = [
   <footer style="background: #0a1628; color: #aaa; text-align: center; padding: 32px 24px; font-size: 14px;">
     <p style="margin: 0 0 8px;">
       <a href="/" style="color: white; text-decoration: none; font-weight: 600;">ElectroLoop SpA</a>
-      — Gestor RAEE Autorizado Chile
+      — Gestor RAEE integrador
     </p>
     <p style="margin: 0;">
       <a href="/" style="color: #B97333; text-decoration: none;">← Volver al sitio principal</a>
