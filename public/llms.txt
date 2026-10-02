@@ -8,7 +8,7 @@ Tagline: "Cerramos el loop. Recursos infinitos."
 - Coordinación integral de gestión RAEE: recolección, desmantelamiento, valorización y retorno al mercado de materiales (Cu, Au, Ag, Pd, Al, Fe, plásticos de ingeniería).
 - Cumplimiento de la Ley REP (N° 20.920) y del Decreto Supremo N°22 de 2025, con primera meta exigible en 2028.
 - Trazabilidad documentada de cada kilo, cerrando con certificado de disposición final.
-- Cobertura: macrozona norte de Chile.
+- Cobertura: nacional (Chile).
 
 ## Estado del negocio (importante para precisión)
 - ElectroLoop es PRE-OPERATIVO: aún no opera planta propia. Hoy actúa como integrador con partners certificados.
