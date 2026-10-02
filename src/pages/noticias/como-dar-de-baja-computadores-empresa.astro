@@ -1,0 +1,242 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const faqs = [
+  {
+    q: '¿Basta con formatear el disco antes de entregar un computador?',
+    a: 'No. Un formateo rápido solo borra el índice de archivos: los datos siguen en el disco y se recuperan con herramientas gratuitas. Para equipos que salen de la empresa se necesita un borrado seguro que sobrescriba o purgue todo el soporte, o la destrucción física del disco, con un certificado que lo acredite.',
+  },
+  {
+    q: '¿El retiro de computadores en desuso es gratis?',
+    a: 'Depende del volumen, del tipo de equipos y de la ubicación. Los equipos con valor de recuperación pueden compensar parte del costo, mientras que monitores antiguos, impresoras o equipos sin componentes valiosos suelen tener un costo de tratamiento. Lo importante es comparar cotizaciones que incluyan el borrado certificado y los certificados de disposición final, no solo el flete.',
+  },
+  {
+    q: '¿Qué certificados debo pedir al dar de baja equipos?',
+    a: 'Como mínimo, un certificado de destrucción o borrado de datos que identifique cada equipo por número de serie y el método usado, y un certificado de disposición final o valorización emitido por un gestor autorizado. Ambos sirven como respaldo ante auditorías, la Ley REP y la nueva ley de datos personales.',
+  },
+  {
+    q: '¿También aplica a celulares, tablets, servidores e impresoras?',
+    a: 'Sí. Cualquier equipo que almacene información debe pasar por borrado seguro: celulares, tablets, servidores, discos externos, pendrives e incluso impresoras multifuncionales, que guardan copias de documentos escaneados en su memoria interna.',
+  },
+  {
+    q: '¿Puedo regalar o vender los computadores antiguos de la empresa?',
+    a: 'Sí, reutilizar es la mejor opción ambiental, pero solo después de un borrado seguro certificado y de desvincular el equipo de las cuentas corporativas. Entregar equipos sin borrar expone datos de clientes y trabajadores, y desde diciembre de 2026 eso puede significar sanciones bajo la Ley 21.719.',
+  },
+];
+---
+
+<Layout
+  title="Cómo dar de baja computadores de una empresa: borrado de datos y certificado RAEE | ElectroLoop"
+  description="Guía paso a paso para dar de baja computadores y equipos de tu empresa en Chile: inventario, borrado seguro de datos, retiro con gestor autorizado y certificados RAEE."
+>
+
+  <div style="background: #f8f9fa; min-height: 100vh; position: relative; z-index: 10;"><header style="background: #0a1628; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+      <img src="/logo-dark.png" alt="ElectroLoop" style="height: 36px;" />
+    </a>
+    <a href="/#contacto" style="background: #B97333; color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+      Contactar
+    </a>
+  </header>
+
+  <main style="max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; font-family: Arial, Helvetica, sans-serif; color: #1a1a2e; line-height: 1.8;">
+
+    <!-- Breadcrumb -->
+    <nav style="font-size: 13px; color: #666; margin-bottom: 32px;">
+      <a href="/" style="color: #B97333; text-decoration: none;">Inicio</a>
+      <span style="margin: 0 8px;">›</span>
+      <a href="/noticias/" style="color: #B97333; text-decoration: none;">Noticias</a>
+      <span style="margin: 0 8px;">›</span>
+      <span>Dar de baja computadores</span>
+    </nav>
+
+    <!-- Categoría y meta -->
+    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+      <span style="background: #e8f5e9; color: #1b5e20; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+        Guía práctica
+      </span>
+      <span style="color: #999; font-size: 13px;">2 de octubre de 2026</span>
+      <span style="color: #999; font-size: 13px;">· 7 min lectura</span>
+    </div>
+
+    <!-- Título -->
+    <h1 style="font-size: clamp(26px, 4vw, 38px); font-weight: 800; color: #0a1628; margin: 0 0 24px; line-height: 1.25;">
+      Cómo dar de baja los computadores de tu empresa: retiro, borrado de datos y certificado RAEE
+    </h1>
+
+    <!-- Bajada -->
+    <p style="font-size: 19px; color: #444; margin: 0 0 40px; line-height: 1.7; border-left: 4px solid #B97333; padding-left: 20px;">
+      Renovar notebooks, desarmar una bodega llena de equipos viejos o cerrar una oficina obliga a responder la misma pregunta: ¿qué hacemos con los computadores que ya no usamos? Hacerlo mal expone datos de clientes y trabajadores, y deja a la empresa sin respaldo ante la Ley REP y la nueva ley de datos personales.
+    </p>
+
+    <!-- Autor -->
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid #e8ecf0;">
+      <div style="background: #B97333; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px; flex-shrink: 0;">
+        EL
+      </div>
+      <div>
+        <p style="margin: 0; font-weight: 600; color: #0a1628; font-size: 14px;">Equipo ElectroLoop</p>
+        <p style="margin: 0; color: #888; font-size: 13px;">Gestor RAEE integrador — Especialistas en Ley REP Chile</p>
+      </div>
+    </div>
+
+    <!-- Contenido -->
+    <article>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 0 0 16px;">Por qué ya no basta con guardarlos en una bodega</h2>
+
+      <p>Hay dos razones por las que dar de baja equipos dejó de ser un trámite menor:</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0 32px;">
+        {[
+          { t: 'Datos personales: Ley 21.719', d: 'Desde el 1 de diciembre de 2026 rige la nueva ley de protección de datos personales, con una agencia fiscalizadora propia y multas de hasta 20.000 UTM. Un disco con datos de clientes o trabajadores que termina en manos de terceros es una filtración.' },
+          { t: 'Residuos electrónicos: Ley REP', d: 'Los computadores son aparatos eléctricos y electrónicos, un producto prioritario de la Ley REP N° 20.920. Quien genera esos residuos debe entregarlos a un gestor autorizado, no a la basura ni al comercio informal.' },
+        ].map(item => (
+          <div style="background: #f9fafc; border-radius: 10px; padding: 24px; border-top: 4px solid #B97333;">
+            <p style="font-weight: 700; color: #0a1628; margin: 0 0 8px; font-size: 17px;">{item.t}</p>
+            <p style="color: #555; margin: 0; font-size: 15px; line-height: 1.7;">{item.d}</p>
+          </div>
+        ))}
+      </div>
+
+      <div style="background: #fff8e1; border-left: 4px solid #f9a825; border-radius: 8px; padding: 24px 28px; margin: 32px 0;">
+        <p style="font-weight: 700; color: #5d3b00; margin: 0 0 8px;">Formatear no es borrar</p>
+        <p style="margin: 0; color: #333;">Un formateo rápido o "restablecer de fábrica" deja los datos en el disco y se recuperan con programas gratuitos. Para equipos que salen de la empresa se necesita un borrado seguro que sobrescriba o purgue todo el soporte, o la destrucción física del disco.</p>
+      </div>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Paso a paso para dar de baja equipos</h2>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0;">
+        {[
+          { n: '1', t: 'Haz un inventario por número de serie', d: 'Registra tipo de equipo, marca, modelo, número de serie y si tiene almacenamiento (disco duro, SSD, memoria interna). Ese listado es la base de todos los certificados posteriores.' },
+          { n: '2', t: 'Separa lo que se puede reutilizar', d: 'Equipos funcionales pueden donarse, venderse o reasignarse, siempre después del borrado seguro. Lo que no tiene uso pasa a ser residuo electrónico (RAEE).' },
+          { n: '3', t: 'Respalda y desvincula', d: 'Respalda la información que la empresa deba conservar, quita los equipos de la administración remota (MDM), cierra cuentas corporativas y desactiva bloqueos como Apple ID, Google o el cifrado BitLocker para que el equipo pueda borrarse.' },
+          { n: '4', t: 'Borra de forma segura o destruye el disco', d: 'Usa un método reconocido, como los niveles "limpiar", "purgar" o "destruir" de la norma NIST SP 800-88. Los discos dañados que no se pueden borrar deben destruirse físicamente.' },
+          { n: '5', t: 'Coordina el retiro con un gestor autorizado', d: 'El traslado debe quedar documentado con guía de despacho o manifiesto, indicando cantidad y peso. Evita entregar equipos a recolectores informales o chatarreros.' },
+          { n: '6', t: 'Exige los certificados', d: 'Certificado de borrado o destrucción por número de serie y certificado de disposición final o valorización. Sin papeles no hay forma de demostrar que la empresa cumplió.' },
+          { n: '7', t: 'Cierra la baja contable', d: 'Con el inventario y los certificados, tu área contable puede emitir el acta de baja de los activos fijos. Revisa con tu contador cómo registrarla.' },
+        ].map(item => (
+          <div style="display: flex; gap: 16px; background: #f9fafc; border-radius: 10px; padding: 20px;">
+            <div style="background: #B97333; color: white; font-weight: 800; border-radius: 8px; min-width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px;">
+              {item.n}
+            </div>
+            <div>
+              <p style="font-weight: 700; color: #0a1628; margin: 0 0 4px;">{item.t}</p>
+              <p style="color: #555; margin: 0; font-size: 14px;">{item.d}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Qué certificados pedir y para qué sirven</h2>
+
+      <div style="overflow-x: auto; margin: 20px 0 32px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px; background: white; border-radius: 10px; overflow: hidden;">
+          <thead>
+            <tr style="background: #0a1628; color: white; text-align: left;">
+              <th style="padding: 14px 16px;">Documento</th>
+              <th style="padding: 14px 16px;">Qué acredita</th>
+              <th style="padding: 14px 16px;">Te protege ante</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Certificado de borrado o destrucción de datos', 'Que cada equipo, identificado por serie, fue borrado o destruido y con qué método', 'Ley 21.719, auditorías de seguridad, clientes'],
+              ['Guía de despacho o manifiesto de transporte', 'Qué salió de tus instalaciones, cuándo y hacia quién', 'Trazabilidad, inventario, auditorías internas'],
+              ['Certificado de disposición final o valorización', 'Que los residuos llegaron a un gestor autorizado y fueron tratados', 'Ley REP, informes ESG, fiscalización ambiental'],
+              ['Acta de baja de activo fijo', 'La salida contable de los equipos', 'Contabilidad y revisiones tributarias'],
+            ].map(([doc, que, ante]) => (
+              <tr style="border-bottom: 1px solid #e8ecf0;">
+                <td style="padding: 14px 16px; font-weight: 700; color: #0a1628;">{doc}</td>
+                <td style="padding: 14px 16px; color: #444;">{que}</td>
+                <td style="padding: 14px 16px; color: #444;">{ante}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Lo que conviene evitar</h2>
+
+      <ul style="padding-left: 24px; margin: 16px 0 32px; color: #333;">
+        <li style="margin-bottom: 12px;"><strong>Botar equipos a la basura o al punto limpio municipal</strong> si son de la empresa: los puntos limpios están pensados para hogares y no entregan certificados.</li>
+        <li style="margin-bottom: 12px;"><strong>Venderlos a recolectores informales</strong>: no hay trazabilidad y los discos pueden terminar revendidos con datos.</li>
+        <li style="margin-bottom: 12px;"><strong>Regalarlos sin borrado certificado</strong>, aunque sea a trabajadores o a una fundación.</li>
+        <li style="margin-bottom: 0;"><strong>Acumularlos indefinidamente en bodega</strong>: pierden valor de recuperación, ocupan espacio y siguen guardando información sensible.</li>
+      </ul>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Preguntas frecuentes</h2>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0 32px;">
+        {faqs.map(f => (
+          <details style="background: #f9fafc; border-radius: 10px; padding: 18px 22px;">
+            <summary style="font-weight: 700; color: #0a1628; cursor: pointer;">{f.q}</summary>
+            <p style="color: #555; margin: 12px 0 0; font-size: 15px;">{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div style="background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0 0; color: white;">
+        <h3 style="font-size: 22px; font-weight: 800; margin: 0 0 12px;">¿Tienes equipos que dar de baja?</h3>
+        <p style="opacity: 0.9; margin: 0 0 28px; max-width: 480px; margin-left: auto; margin-right: auto; font-size: 16px;">
+          ElectroLoop coordina el retiro en tus instalaciones, la destrucción certificada de datos por número de serie y el certificado de disposición final, con partners certificados y cobertura nacional.
+        </p>
+        <a href="/#contacto" style="background: #B97333; color: white; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-block;">
+          Cotizar el retiro →
+        </a>
+      </div>
+
+      <p style="font-size: 13px; color: #888; margin: 40px 0 0;">
+        Referencias: Ley N° 20.920 (Ley REP); Ley N° 21.719 sobre protección de datos personales; NIST SP 800-88, guía de saneamiento de soportes de almacenamiento. Esta guía es informativa y no reemplaza la asesoría legal o contable de tu empresa.
+      </p>
+
+    </article>
+
+    <!-- Links relacionados -->
+    <div style="margin-top: 56px; padding-top: 40px; border-top: 1px solid #e8ecf0;">
+      <p style="font-weight: 700; color: #0a1628; margin: 0 0 16px;">Artículos relacionados:</p>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="/reciclaje-electronico-empresas-chile/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ Reciclaje electrónico para empresas: retiro y certificado</a>
+        <a href="/noticias/que-residuos-electronicos-gestionar-ley-rep/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ ¿Qué residuos electrónicos debe gestionar tu empresa según la Ley REP?</a>
+        <a href="/noticias/sistemas-de-gestion-raee-traee-wee-chile/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ Sistemas de gestión RAEE: TRAEE, Wee Chile y qué decidir antes de 2028</a>
+        <a href="/gestion-raee-chile/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ ¿Qué es la gestión RAEE y cómo funciona en Chile?</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer style="background: #0a1628; color: #aaa; text-align: center; padding: 32px 24px; font-size: 14px;">
+    <p style="margin: 0 0 8px;">
+      <a href="/" style="color: white; text-decoration: none; font-weight: 600;">ElectroLoop SpA</a>
+      — Gestor RAEE integrador
+    </p>
+    <p style="margin: 0;">
+      <a href="/noticias/" style="color: #B97333; text-decoration: none;">← Volver a noticias</a>
+    </p>
+  </footer>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Cómo dar de baja los computadores de tu empresa: retiro, borrado de datos y certificado RAEE",
+        "description": "Guía paso a paso para dar de baja computadores y equipos de tu empresa en Chile: inventario, borrado seguro de datos, retiro con gestor autorizado y certificados RAEE.",
+        "author": { "@type": "Organization", "name": "ElectroLoop SpA", "url": "https://electroloop.cl" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "ElectroLoop SpA",
+          "logo": { "@type": "ImageObject", "url": "https://electroloop.cl/favicon.png" }
+        },
+        "datePublished": "2026-10-02",
+        "dateModified": "2026-10-02",
+        "mainEntityOfPage": "https://electroloop.cl/noticias/como-dar-de-baja-computadores-empresa/",
+        "inLanguage": "es-CL",
+        "articleSection": "Guía práctica",
+        "keywords": "dar de baja computadores empresa, retiro de residuos electrónicos, borrado seguro de datos, certificado RAEE, reciclaje de computadores empresas, destrucción de discos duros, Ley 21.719"
+      }
+    ]
+  })} />
+
+</div>
+</Layout>
