@@ -1,7 +1,5 @@
 ---
 import '../styles/global.css';
-import esTranslations from '../i18n/es.json';
-import enTranslations from '../i18n/en.json';
 
 export interface Props {
   title?: string;
@@ -260,13 +258,6 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
     ]
   })} />
 
-  <!-- Translations injected as window globals -->
-  <script define:vars={{ esTranslations, enTranslations }}>
-    window.__i18n = {
-      es: esTranslations,
-      en: enTranslations,
-    };
-  </script>
 </head>
 
 <body class="font-sans text-deep-blue">
