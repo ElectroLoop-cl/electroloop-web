@@ -229,7 +229,7 @@ const faqs = [
   }
 
   /* HERO */
-  .lr-hero { background: var(--abyssal); color: var(--ceramic); min-height: 85vh; display: flex; flex-direction: column; justify-content: center; }
+  .lr-hero { background: var(--abyssal); color: var(--ceramic); min-height: 85vh; display: flex; flex-direction: column; justify-content: center; /* la barra superior es fija (~95px): el contenido parte bajo ella */ padding-top: max(clamp(88px, 14vh, 180px), 136px); }
   .lr-breadcrumb { font-size: 0.6rem; letter-spacing: 0.12em; margin-bottom: clamp(32px, 5vh, 56px); }
   .lr-breadcrumb a { color: var(--steel); text-decoration: none; }
   .lr-breadcrumb a:hover { color: var(--copper); }
