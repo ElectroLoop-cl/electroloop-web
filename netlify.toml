@@ -100,4 +100,4 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
-    Link = "</fonts/fonts.css>; rel=preload; as=style, </favicon.png>; rel=preload; as=image"
+    Link = "</favicon.png>; rel=preload; as=image"
