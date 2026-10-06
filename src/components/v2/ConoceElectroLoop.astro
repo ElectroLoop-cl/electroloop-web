@@ -1,0 +1,99 @@
+---
+/**
+ * ELECTROLOOP v2 — Franja "Conoce ElectroLoop" para páginas interiores.
+ * Quien llega desde Google a una página de servicio pasa con un clic a la
+ * experiencia completa de la portada.
+ */
+const enlaces = [
+  { idx: '02', name: 'Minería urbana', href: '/#manifiesto' },
+  { idx: '03', name: 'El proceso', href: '/#proceso' },
+  { idx: '04', name: 'Materiales', href: '/#materiales' },
+  { idx: '06', name: 'Trazabilidad', href: '/#trazabilidad' },
+];
+---
+
+<section class="v2-section conoce" data-section="Conoce ElectroLoop" data-index="→">
+  <p class="conoce-eyebrow v2-mono v2-mono--copper">[ CONOCE ELECTROLOOP ]</p>
+  <h2 class="conoce-title">
+    Cerramos el loop.<br />
+    <strong>Recursos infinitos.</strong>
+  </h2>
+  <p class="conoce-lead">
+    Mira cómo convertimos residuos electrónicos en materia prima: minería urbana, el proceso
+    paso a paso y la trazabilidad documental de cada kilo.
+  </p>
+  <ul class="conoce-links" role="list">
+    {enlaces.map((e) => (
+      <li>
+        <a href={e.href} class="v2-mono" data-cursor="[ IR ]">
+          <span class="ci-idx">{e.idx}</span> {e.name.toUpperCase()}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <a href="/" class="conoce-cta v2-mono" data-magnetic data-cursor="[ IR ]">
+    VER EL SITIO COMPLETO <span class="arrow" aria-hidden="true">→</span>
+    <i class="v2-drawline" aria-hidden="true"></i>
+  </a>
+</section>
+
+<style>
+  .conoce {
+    background: var(--abyssal-deep);
+    color: var(--ceramic);
+    border-top: 1px solid rgba(142, 146, 151, 0.18);
+  }
+  .conoce-eyebrow { font-size: 0.65rem; margin: 0 0 20px; }
+  .conoce-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.05;
+    margin: 0 0 24px;
+  }
+  .conoce-title strong { font-weight: 800; color: var(--copper); }
+  .conoce-lead {
+    max-width: 56ch;
+    font-weight: 300;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.65;
+    color: rgba(244, 244, 244, 0.85);
+    margin: 0 0 36px;
+  }
+  .conoce-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 44px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+  }
+  .conoce-links a {
+    color: var(--steel);
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    transition: color 0.3s var(--ease-blueprint);
+  }
+  .conoce-links a:hover,
+  .conoce-links a:focus-visible { color: var(--copper); }
+  .ci-idx { color: var(--copper); margin-right: 6px; }
+  .conoce-cta {
+    position: relative;
+    display: inline-block;
+    color: var(--ceramic);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    padding: 16px 0;
+  }
+  .conoce-cta .v2-drawline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--copper);
+  }
+</style>

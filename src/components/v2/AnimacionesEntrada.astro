@@ -1,0 +1,63 @@
+---
+/**
+ * ELECTROLOOP v2 — Animaciones de entrada para páginas interiores.
+ * El hero (primera sección de <main>) entra al cargar; las demás secciones,
+ * al aparecer en pantalla. Va al inicio del hero para ocultarlo antes del
+ * primer pintado; si el script no corre, el contenido aparece igual a los 2,5 s.
+ */
+---
+
+<script is:inline>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('anim-entrada');
+    setTimeout(function () { document.documentElement.classList.remove('anim-entrada'); }, 2500);
+  }
+</script>
+
+<style is:global>
+  .anim-entrada main > section:first-of-type > :not(canvas) { opacity: 0; }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function run() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const hero = document.querySelector<HTMLElement>('main > section:first-of-type');
+    if (hero) {
+      const h1 = hero.querySelector('h1');
+      const lines = h1 ? Array.from(h1.children).filter((el) => el.tagName === 'SPAN') : [];
+      const items = Array.from(hero.children).filter((el) => !['CANVAS', 'SCRIPT', 'STYLE'].includes(el.tagName) && el !== h1);
+
+      gsap.set(items, { opacity: 0, y: 18 });
+      gsap.set(lines, { opacity: 0, yPercent: 45 });
+      if (h1) gsap.set(h1, { opacity: 1 });
+      document.documentElement.classList.remove('anim-entrada');
+
+      gsap.timeline({ defaults: { ease: 'expo.out' } })
+        .to(lines, { opacity: 1, yPercent: 0, duration: 1.1, stagger: 0.12 }, 0)
+        .to(items, { opacity: 1, y: 0, duration: 0.9, stagger: 0.07 }, 0.15);
+    }
+
+    document.querySelectorAll<HTMLElement>('main > section:not(:first-of-type)').forEach((sec) => {
+      gsap.from(Array.from(sec.children).filter((el) => !['SCRIPT', 'STYLE'].includes(el.tagName)), {
+        opacity: 0,
+        y: 28,
+        duration: 0.9,
+        ease: 'expo.out',
+        stagger: 0.08,
+        scrollTrigger: { trigger: sec, start: 'top 82%', once: true },
+      });
+    });
+  }
+
+  if ((window as any).__v2Revealed) {
+    run();
+  } else {
+    document.addEventListener('v2:reveal', run, { once: true });
+  }
+</script>

@@ -1,6 +1,9 @@
 ---
 import BlueprintLayout from '../layouts/BlueprintLayout.astro';
 import FooterV2 from '../components/v2/FooterV2.astro';
+import FondoParticulas from '../components/v2/FondoParticulas.astro';
+import AnimacionesEntrada from '../components/v2/AnimacionesEntrada.astro';
+import ConoceElectroLoop from '../components/v2/ConoceElectroLoop.astro';
 
 const materiales = {
   peligrosos: ['Plomo en soldaduras', 'Mercurio en pantallas', 'Cadmio en baterías', 'Arsénico en semiconductores', 'Retardantes de llama bromados'],
@@ -40,12 +43,15 @@ const faqs = [
 ---
 
 <BlueprintLayout
+  preloader={false}
   title="Gestión RAEE Chile — Integrador de Residuos Electrónicos | ElectroLoop"
   description="ElectroLoop gestiona tus RAEE de principio a fin, coordinando partners certificados. Recolección, trazabilidad, destrucción de datos y certificado de disposición final para Ley REP."
 >
 
   <!-- HERO -->
   <section class="gr-hero v2-section" id="inicio" data-section="Inicio" data-index="01">
+    <AnimacionesEntrada />
+    <FondoParticulas />
     <nav class="gr-breadcrumb v2-mono v2-mono--steel">
       <a href="/">INICIO</a><span aria-hidden="true"> / </span><span>GESTIÓN RAEE CHILE</span>
     </nav>
@@ -197,6 +203,8 @@ const faqs = [
     </dl>
   </section>
 
+  <ConoceElectroLoop />
+
   <FooterV2 />
 
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -304,4 +312,8 @@ const faqs = [
   @media (prefers-reduced-motion: reduce) {
     .gr-cta-secondary, .gr-breadcrumb a { transition: none; }
   }
+
+  /* Fondo de partículas: el contenido del hero va por encima del canvas */
+  .gr-hero { overflow: hidden; }
+  .gr-hero > :global(:not(canvas)) { position: relative; z-index: 1; }
 </style>
