@@ -1,6 +1,9 @@
 ---
 import BlueprintLayout from '../layouts/BlueprintLayout.astro';
 import FooterV2 from '../components/v2/FooterV2.astro';
+import FondoParticulas from '../components/v2/FondoParticulas.astro';
+import AnimacionesEntrada from '../components/v2/AnimacionesEntrada.astro';
+import ConoceElectroLoop from '../components/v2/ConoceElectroLoop.astro';
 
 const equipos = [
   'Computadores y laptops', 'Monitores y pantallas', 'Teléfonos y tablets',
@@ -75,12 +78,15 @@ const faqs = [
 ---
 
 <BlueprintLayout
+  preloader={false}
   title="Reciclaje Electrónico para Empresas en Chile | Retiro + Certificado | ElectroLoop"
   description="Retiro de equipos electrónicos en tus instalaciones, destrucción certificada de datos y certificado de disposición final. Cumplimiento Ley REP para empresas en todo Chile. Solicita cotización gratuita."
 >
 
   <!-- HERO -->
   <section class="re-hero v2-section" id="inicio" data-section="Inicio" data-index="01">
+    <AnimacionesEntrada />
+    <FondoParticulas />
     <nav class="re-breadcrumb v2-mono v2-mono--steel">
       <a href="/">INICIO</a>
       <span aria-hidden="true"> / </span>
@@ -236,6 +242,8 @@ const faqs = [
       ))}
     </dl>
   </section>
+
+  <ConoceElectroLoop />
 
   <FooterV2 />
 
@@ -613,4 +621,14 @@ const faqs = [
     .re-equipo-cell,
     .re-sector-tag { transition: none; }
   }
+
+  /* Móvil: "ELECTRÓNICO" no cabía con el mínimo de 3.5rem y se cortaba en el borde */
+  @media (max-width: 480px) {
+    .re-h1-outline,
+    .re-h1-solid { font-size: 10vw; }
+  }
+
+  /* Fondo de partículas: el contenido del hero va por encima del canvas */
+  .re-hero { overflow: hidden; }
+  .re-hero > :global(:not(canvas)) { position: relative; z-index: 1; }
 </style>

@@ -10,11 +10,14 @@ import '../styles/v2/blueprint.css';
 export interface Props {
   title?: string;
   description?: string;
+  /** Pantalla de carga de la portada. Las páginas a las que se llega desde Google la omiten. */
+  preloader?: boolean;
 }
 
 const {
   title = 'Gestión RAEE y Reciclaje Electrónico para Empresas | ElectroLoop',
   description = 'Retiro de residuos electrónicos para empresas, destrucción certificada de datos y certificados para la Ley REP. Gestor RAEE integrador con partners certificados en Chile.',
+  preloader = true,
 } = Astro.props;
 
 const siteUrl = 'https://electroloop.cl';
@@ -144,6 +147,7 @@ const sections = [
 
 <body class="v2-body">
   <!-- Preloader: contador + loop que se traza (solo primera visita) -->
+  {preloader && (
   <div id="v2-preloader" class="v2-preloader" role="status" aria-label="Cargando">
     <div class="v2-preloader-inner">
       <svg class="v2-preloader-logo" viewBox="0 0 120 120" aria-hidden="true">
@@ -155,6 +159,7 @@ const sections = [
       </div>
     </div>
   </div>
+  )}
 
   <!-- Chrome del documento -->
   <div class="v2-grain" aria-hidden="true"></div>

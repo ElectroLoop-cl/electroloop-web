@@ -1,6 +1,9 @@
 ---
 import BlueprintLayout from '../layouts/BlueprintLayout.astro';
 import FooterV2 from '../components/v2/FooterV2.astro';
+import FondoParticulas from '../components/v2/FondoParticulas.astro';
+import AnimacionesEntrada from '../components/v2/AnimacionesEntrada.astro';
+import ConoceElectroLoop from '../components/v2/ConoceElectroLoop.astro';
 
 const obligaciones = [
   { num: '01', title: 'Inscribirse como productor', desc: 'Registro en el sistema del Ministerio del Medio Ambiente antes de comercializar productos en Chile.' },
@@ -41,12 +44,15 @@ const faqs = [
 ---
 
 <BlueprintLayout
+  preloader={false}
   title="Ley REP Chile Empresas: Guía Completa de Cumplimiento RAEE | ElectroLoop"
   description="Todo lo que tu empresa necesita saber sobre la Ley REP Chile (N° 20.920). Obligaciones, plazos, multas y cómo cumplir con la gestión de residuos electrónicos."
 >
 
   <!-- HERO -->
   <section class="lr-hero v2-section" id="inicio" data-section="Inicio" data-index="01">
+    <AnimacionesEntrada />
+    <FondoParticulas />
     <nav class="lr-breadcrumb v2-mono v2-mono--steel">
       <a href="/">INICIO</a><span aria-hidden="true"> / </span><span>LEY REP CHILE EMPRESAS</span>
     </nav>
@@ -204,6 +210,8 @@ const faqs = [
     </dl>
   </section>
 
+  <ConoceElectroLoop />
+
   <FooterV2 />
 
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -321,5 +329,9 @@ const faqs = [
   @media (prefers-reduced-motion: reduce) {
     .lr-indice-list a, .lr-breadcrumb a, .lr-cta-btn { transition: none; }
   }
+
+  /* Fondo de partículas: el contenido del hero va por encima del canvas */
+  .lr-hero { overflow: hidden; }
+  .lr-hero > :global(:not(canvas)) { position: relative; z-index: 1; }
 </style>
 
