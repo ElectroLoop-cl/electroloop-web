@@ -294,6 +294,8 @@ const faqs = [
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* la barra superior es fija (~95px): el contenido parte bajo ella */
+    padding-top: max(clamp(88px, 14vh, 180px), 136px);
   }
 
   .re-breadcrumb {
