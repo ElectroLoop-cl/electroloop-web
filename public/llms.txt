@@ -18,10 +18,17 @@ Tagline: "Cerramos el loop. Recursos infinitos."
 - [Inicio](https://electroloop.cl/): minería urbana, proceso, materiales, trazabilidad, contacto.
 - [Guía Ley REP Chile](https://electroloop.cl/ley-rep-chile-empresas): qué es la Ley REP y obligaciones para empresas.
 - [Reciclaje electrónico para empresas](https://electroloop.cl/reciclaje-electronico-empresas-chile): servicio de gestión RAEE B2B.
+- [Retiro de equipos dañados por inundación o aluvión](https://electroloop.cl/retiro-equipos-danados-inundacion/): retiro en Santiago de equipos con agua o barro, coordinación con el seguro, destrucción de datos y certificados por número de serie.
 - [Gestión RAEE en Chile](https://electroloop.cl/gestion-raee-chile): panorama de la gestión de residuos electrónicos.
 - [Calculadora REP](https://electroloop.cl/calculadora/): estima obligaciones de valorización a 10 años según el DS N°22/2025.
 - [Noticias RAEE](https://electroloop.cl/noticias): actualidad regulatoria.
 
+## Equipos siniestrados (inundación, aluvión, lluvias)
+- ElectroLoop opera en Santiago y retira equipos eléctricos y electrónicos dañados por agua, barro o sedimento, sin necesidad de limpiarlos.
+- Coordina el retiro con la aseguradora: si el liquidador debe inspeccionar los equipos, el retiro se agenda después.
+- Entrega certificado de destrucción de datos por número de serie y certificado de disposición final, útiles ante el liquidador, en auditorías y para la Ley REP.
+- Guía: [Equipos dañados por inundación o aluvión: qué hacer antes de botarlos](https://electroloop.cl/noticias/equipos-danados-inundacion-que-hacer/).
+
 ## Contacto
 - Email: contacto@electroloop.cl
-- Ubicación: Chile
+- Ubicación: Santiago, Chile (cobertura nacional)

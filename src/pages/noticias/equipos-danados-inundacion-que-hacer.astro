@@ -1,0 +1,199 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const faqs = [
+  {
+    q: '¿Puedo botar los equipos dañados antes de que pase el liquidador?',
+    a: 'No es recomendable. El liquidador del seguro puede pedir inspeccionar los equipos dañados para evaluar la pérdida. Fotografíalos, haz un inventario por número de serie y consulta a tu aseguradora antes de deshacerte de ellos.',
+  },
+  {
+    q: '¿Sirve secar un computador mojado y volver a encenderlo?',
+    a: 'Es riesgoso. El agua y el barro dejan residuos conductores y corrosión que pueden causar cortocircuitos, y las baterías de litio dañadas pueden recalentarse. Encenderlo también puede impedir recuperar los datos. Lo prudente es que lo evalúe un técnico o el liquidador.',
+  },
+  {
+    q: '¿Se pueden recuperar los datos de un disco que estuvo bajo el agua?',
+    a: 'A veces sí, en laboratorios especializados de recuperación, sobre todo si el equipo no se encendió después de mojarse. Si la información es importante, separa esos discos antes de entregar los equipos.',
+  },
+  {
+    q: '¿Qué certificados debo pedir al dar de baja equipos siniestrados?',
+    a: 'Un certificado de destrucción de datos que identifique cada equipo por número de serie, y un certificado de disposición final emitido por un gestor autorizado. Sirven ante el liquidador, en auditorías y para la Ley REP.',
+  },
+];
+---
+
+<Layout
+  title="Equipos dañados por inundación o aluvión: qué hacer antes de botarlos | ElectroLoop"
+  description="Tras las lluvias y el aluvión en Santiago: cómo manejar computadores y equipos dañados por agua o barro. Seguro, datos, seguridad eléctrica y Ley REP, paso a paso."
+>
+
+  <div style="background: #f8f9fa; min-height: 100vh; position: relative; z-index: 10;"><header style="background: #0a1628; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+      <img src="/logo-dark.png" alt="ElectroLoop" style="height: 36px;" />
+    </a>
+    <a href="/#contacto" style="background: #B97333; color: white; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+      Contactar
+    </a>
+  </header>
+
+  <main style="max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; font-family: Arial, Helvetica, sans-serif; color: #1a1a2e; line-height: 1.8;">
+
+    <!-- Breadcrumb -->
+    <nav style="font-size: 13px; color: #666; margin-bottom: 32px;">
+      <a href="/" style="color: #B97333; text-decoration: none;">Inicio</a>
+      <span style="margin: 0 8px;">›</span>
+      <a href="/noticias/" style="color: #B97333; text-decoration: none;">Noticias</a>
+      <span style="margin: 0 8px;">›</span>
+      <span>Equipos dañados por inundación</span>
+    </nav>
+
+    <!-- Categoría y meta -->
+    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+      <span style="background: #fff0f0; color: #c0392b; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+        Emergencia
+      </span>
+      <span style="color: #999; font-size: 13px;">9 de octubre de 2026</span>
+      <span style="color: #999; font-size: 13px;">· 6 min lectura</span>
+    </div>
+
+    <!-- Título -->
+    <h1 style="font-size: clamp(26px, 4vw, 38px); font-weight: 800; color: #0a1628; margin: 0 0 24px; line-height: 1.25;">
+      Equipos dañados por inundación o aluvión: qué hacer antes de botarlos
+    </h1>
+
+    <!-- Bajada -->
+    <p style="font-size: 19px; color: #444; margin: 0 0 40px; line-height: 1.7; border-left: 4px solid #B97333; padding-left: 20px;">
+      Las lluvias del 8 de octubre y el aluvión en Las Condes dejaron clínicas, centros educacionales, oficinas y comercios con equipos bajo el agua o cubiertos de barro. Lo que se haga con ellos en los próximos días define si el seguro responde, si los datos quedan protegidos y si la empresa cumple la Ley REP.
+    </p>
+
+    <!-- Autor -->
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid #e8ecf0;">
+      <div style="background: #B97333; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px; flex-shrink: 0;">
+        EL
+      </div>
+      <div>
+        <p style="margin: 0; font-weight: 600; color: #0a1628; font-size: 14px;">Equipo ElectroLoop</p>
+        <p style="margin: 0; color: #888; font-size: 13px;">Gestor RAEE integrador — Especialistas en Ley REP Chile</p>
+      </div>
+    </div>
+
+    <!-- Contenido -->
+    <article>
+
+      <div style="background: #fff3f3; border-left: 4px solid #c0392b; border-radius: 8px; padding: 24px 28px; margin: 0 0 32px;">
+        <p style="font-weight: 700; color: #7b1a1a; margin: 0 0 8px;">Primero, la seguridad</p>
+        <p style="margin: 0; color: #333;">No enciendas ni conectes equipos que estuvieron bajo el agua o con barro, y corta la energía de las zonas afectadas antes de manipularlos. El riesgo de cortocircuito y de recalentamiento de baterías de litio dañadas es real.</p>
+      </div>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 0 0 16px;">Paso a paso para los equipos afectados</h2>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0;">
+        {[
+          { n: '1', t: 'Documenta antes de mover nada', d: 'Fotografía y graba los equipos en el lugar donde quedaron, con la marca de agua o barro visible. Es la evidencia principal del reclamo al seguro.' },
+          { n: '2', t: 'Avisa a tu aseguradora', d: 'Haz la denuncia del siniestro lo antes posible y pregunta si el liquidador va a inspeccionar los equipos. En general no conviene desechar ni reparar nada antes de esa visita.' },
+          { n: '3', t: 'Haz un inventario por número de serie', d: 'Tipo, marca, modelo, número de serie y ubicación de cada equipo. Ese listado sirve para el seguro, para la baja contable y para los certificados de destrucción.' },
+          { n: '4', t: 'Separa los equipos que guardan datos', d: 'Computadores, servidores, discos, celulares y multifuncionales contienen información de clientes, pacientes o trabajadores. Si necesitas recuperarla, apártalos para un laboratorio especializado; si no, deben destruirse con certificado.' },
+          { n: '5', t: 'Decide qué se repara y qué se da de baja', d: 'Con la evaluación del liquidador o de un técnico, separa lo recuperable de lo que se da de pérdida. Lo que se da de baja es residuo electrónico (RAEE) y no puede ir a la basura común.' },
+          { n: '6', t: 'Retira con un gestor autorizado y exige certificados', d: 'Pide un certificado de destrucción por número de serie y un certificado de disposición final. Con ellos cierras el reclamo, respaldas la baja de los activos y cumples la Ley REP.' },
+        ].map(item => (
+          <div style="display: flex; gap: 16px; background: #f9fafc; border-radius: 10px; padding: 20px;">
+            <div style="background: #B97333; color: white; font-weight: 800; border-radius: 8px; min-width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px;">
+              {item.n}
+            </div>
+            <div>
+              <p style="font-weight: 700; color: #0a1628; margin: 0 0 4px;">{item.t}</p>
+              <p style="color: #555; margin: 0; font-size: 14px;">{item.d}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Clínicas y centros de salud: los datos de pacientes</h2>
+
+      <p>En una clínica, un disco dañado no es solo un activo perdido: puede contener fichas clínicas, exámenes e imágenes de pacientes, que son datos sensibles. Además, desde el <strong>1 de diciembre de 2026</strong> rige la nueva ley de protección de datos personales (Ley 21.719), con una agencia fiscalizadora propia. Un equipo siniestrado que termina en manos de terceros sin destruir sus datos es una filtración.</p>
+
+      <p>Por eso conviene que la destrucción de los soportes quede documentada equipo por equipo, con número de serie, método y fecha.</p>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Lo que conviene evitar</h2>
+
+      <ul style="padding-left: 24px; margin: 16px 0 32px; color: #333;">
+        <li style="margin-bottom: 12px;"><strong>Botar los equipos con los escombros</strong>: se pierde la evidencia para el seguro y se incumple la Ley REP.</li>
+        <li style="margin-bottom: 12px;"><strong>Entregarlos a recolectores informales</strong>: no hay trazabilidad y los discos pueden terminar revendidos con información.</li>
+        <li style="margin-bottom: 12px;"><strong>Encenderlos "para ver si funcionan"</strong>: riesgo eléctrico y menos posibilidades de recuperar los datos.</li>
+        <li style="margin-bottom: 0;"><strong>Dejarlos en bodega con humedad</strong>: la corrosión avanza y el barro seco complica cualquier evaluación posterior.</li>
+      </ul>
+
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Preguntas frecuentes</h2>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0 32px;">
+        {faqs.map(f => (
+          <details style="background: #f9fafc; border-radius: 10px; padding: 18px 22px;">
+            <summary style="font-weight: 700; color: #0a1628; cursor: pointer;">{f.q}</summary>
+            <p style="color: #555; margin: 12px 0 0; font-size: 15px;">{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div style="background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 100%); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0 0; color: white;">
+        <h3 style="font-size: 22px; font-weight: 800; margin: 0 0 12px;">¿Tu empresa tiene equipos dañados por agua o barro?</h3>
+        <p style="opacity: 0.9; margin: 0 0 28px; max-width: 480px; margin-left: auto; margin-right: auto; font-size: 16px;">
+          Operamos en Santiago: retiramos los equipos en tus instalaciones, coordinamos con tu seguro, destruimos los datos y entregamos certificados por número de serie.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="/retiro-equipos-danados-inundacion/" style="background: #B97333; color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-block;">
+            Ver el servicio de retiro →
+          </a>
+          <a href="/#contacto" style="background: transparent; color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-block; border: 1px solid rgba(255,255,255,0.5);">
+            Solicitar retiro
+          </a>
+        </div>
+      </div>
+
+      <p style="font-size: 13px; color: #888; margin: 40px 0 0;">
+        Esta guía es informativa. Las condiciones de cada seguro varían: confirma con tu aseguradora o liquidador antes de deshacerte de equipos siniestrados.
+      </p>
+
+    </article>
+
+    <!-- Links relacionados -->
+    <div style="margin-top: 56px; padding-top: 40px; border-top: 1px solid #e8ecf0;">
+      <p style="font-weight: 700; color: #0a1628; margin: 0 0 16px;">Artículos relacionados:</p>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="/retiro-equipos-danados-inundacion/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ Retiro de equipos dañados por inundación o aluvión en Santiago</a>
+        <a href="/noticias/como-dar-de-baja-computadores-empresa/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ Cómo dar de baja los computadores de tu empresa</a>
+        <a href="/reciclaje-electronico-empresas-chile/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ Reciclaje electrónico para empresas: retiro y certificado</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer style="background: #0a1628; color: #aaa; text-align: center; padding: 32px 24px; font-size: 14px;">
+    <p style="margin: 0 0 8px;">
+      <a href="/" style="color: white; text-decoration: none; font-weight: 600;">ElectroLoop SpA</a>
+      — Gestor RAEE integrador
+    </p>
+    <p style="margin: 0;">
+      <a href="/noticias/" style="color: #B97333; text-decoration: none;">← Volver a noticias</a>
+    </p>
+  </footer>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Equipos dañados por inundación o aluvión: qué hacer antes de botarlos",
+    "description": "Cómo manejar computadores y equipos dañados por agua o barro tras las lluvias y el aluvión en Santiago: seguro, datos, seguridad eléctrica y Ley REP.",
+    "author": { "@type": "Organization", "name": "ElectroLoop SpA", "url": "https://electroloop.cl" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ElectroLoop SpA",
+      "logo": { "@type": "ImageObject", "url": "https://electroloop.cl/favicon.png" }
+    },
+    "datePublished": "2026-10-09",
+    "dateModified": "2026-10-09",
+    "mainEntityOfPage": "https://electroloop.cl/noticias/equipos-danados-inundacion-que-hacer/",
+    "inLanguage": "es-CL",
+    "articleSection": "Emergencia",
+    "keywords": "equipos dañados inundación, aluvión Las Condes equipos, computador mojado qué hacer, seguro equipos dañados, retiro equipos siniestrados Santiago, destrucción de datos discos mojados"
+  })} />
+
+</div>
+</Layout>
