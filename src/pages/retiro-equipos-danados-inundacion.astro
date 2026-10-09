@@ -1,0 +1,632 @@
+---
+/**
+ * Retiro de equipos dañados por inundación, aluvión o lluvia.
+ * Reutiliza los estilos (prefijo re-) de reciclaje-electronico-empresas-chile.
+ */
+import BlueprintLayout from '../layouts/BlueprintLayout.astro';
+import FooterV2 from '../components/v2/FooterV2.astro';
+import FondoParticulas from '../components/v2/FondoParticulas.astro';
+import AnimacionesEntrada from '../components/v2/AnimacionesEntrada.astro';
+import ConoceElectroLoop from '../components/v2/ConoceElectroLoop.astro';
+
+const cuidados = [
+  { code: 'OFF', title: 'No encender equipos mojados', desc: 'Un equipo con agua o barro puede hacer cortocircuito, y las baterías de litio dañadas pueden recalentarse. Encenderlo además reduce las opciones de recuperar los datos.' },
+  { code: 'SEG', title: 'Avisar al seguro antes de botar', desc: 'El liquidador puede pedir ver los equipos dañados. Fotografía todo, no deseches ni repares nada y coordina con tu aseguradora antes del retiro.' },
+  { code: 'INV', title: 'Inventario por número de serie', desc: 'Registra tipo, marca, modelo y número de serie de cada equipo. Es la base del reclamo al seguro y de los certificados de destrucción.' },
+  { code: 'DAT', title: 'Separar lo que guarda datos', desc: 'Discos, servidores, notebooks, celulares y multifuncionales guardan información de clientes, pacientes y trabajadores. Requieren borrado o destrucción certificada.' },
+];
+
+const equipos = [
+  'Computadores y notebooks', 'Servidores, racks y networking', 'Monitores y pantallas',
+  'Impresoras y multifuncionales', 'UPS y baterías', 'Teléfonos y tablets',
+  'Equipos audiovisuales', 'Climatización y electrodomésticos', 'Luminarias',
+  'Cables y periféricos', 'Equipos de laboratorio', 'Equipamiento clínico (consultar)',
+];
+
+const pasos = [
+  {
+    n: '01', title: 'Escríbenos',
+    desc: 'Cuéntanos qué equipos tienes, en qué estado y dónde están. Respondemos en menos de 24 horas.',
+    seal: '[ RESPUESTA EN 24H ]',
+  },
+  {
+    n: '02', title: 'Coordinamos con tu seguro',
+    desc: 'Si el liquidador necesita inspeccionar los equipos, agendamos el retiro después de su visita. Te ayudamos a dejar el inventario listo.',
+    seal: '[ SIN APURAR EL RECLAMO ]',
+  },
+  {
+    n: '03', title: 'Retiro en Santiago',
+    desc: 'Retiramos en tus instalaciones, con agua, barro o sedimento incluidos. Acta de recepción firmada con el detalle de lo retirado.',
+    seal: '[ OPERAMOS EN SANTIAGO ]',
+  },
+  {
+    n: '04', title: 'Destrucción de datos y tratamiento',
+    desc: 'Borrado seguro o destrucción física de cada soporte, y tratamiento de los equipos por gestores autorizados.',
+    seal: '[ VÍA PARTNERS CERTIFICADOS ]',
+  },
+  {
+    n: '05', title: 'Certificados para el seguro y la Ley REP',
+    desc: 'Certificado de destrucción por número de serie y certificado de disposición final: respaldo ante el liquidador, auditorías y la Ley REP.',
+    seal: '[ CERTIFICADO EN 5 DÍAS HÁBILES ]',
+  },
+];
+
+const sectores = [
+  'Clínicas y centros de salud', 'Universidades e institutos', 'Colegios',
+  'Oficinas y empresas', 'Comercio y retail', 'Edificios y administraciones',
+  'Laboratorios', 'Servicios públicos',
+];
+
+const faqs = [
+  {
+    q: '¿Retiran equipos con barro o que estuvieron bajo el agua?',
+    a: 'Sí. Retiramos equipos eléctricos y electrónicos dañados por agua, barro o sedimento, en el estado en que quedaron. No necesitas limpiarlos antes del retiro.',
+  },
+  {
+    q: '¿El certificado me sirve para el seguro?',
+    a: 'Entregamos un certificado de destrucción con el número de serie de cada equipo y un certificado de disposición final. Sirven para acreditar ante el liquidador que los equipos dados de pérdida fueron destruidos. Cada aseguradora tiene sus requisitos: compártenos lo que te piden y lo incluimos.',
+  },
+  {
+    q: '¿Puedo botar los equipos antes de que pase el liquidador?',
+    a: 'No es recomendable. El liquidador puede pedir inspeccionar los equipos dañados. Fotografíalos, haz el inventario y consulta a tu aseguradora antes de deshacerte de ellos; coordinamos el retiro después de la inspección.',
+  },
+  {
+    q: '¿Se pueden recuperar los datos de un disco mojado?',
+    a: 'A veces sí, en laboratorios especializados, sobre todo si el equipo no se encendió después de mojarse. Si necesitas la información, separa esos discos antes del retiro. Si no, los destruimos con certificado por número de serie.',
+  },
+  {
+    q: '¿Atienden en Santiago?',
+    a: 'Sí. Operamos en Santiago y retiramos en Las Condes, Lo Barnechea, Vitacura y toda la Región Metropolitana. También tenemos cobertura nacional con partners certificados.',
+  },
+  {
+    q: '¿Cuánto cuesta el retiro?',
+    a: 'Depende del volumen, del tipo de equipos y de la ubicación. Escríbenos con una estimación de lo que tienes y te enviamos una cotización sin compromiso.',
+  },
+];
+---
+
+<BlueprintLayout
+  preloader={false}
+  title="Retiro de Equipos Dañados por Inundación o Aluvión en Santiago | ElectroLoop"
+  description="¿Tu empresa tuvo equipos dañados por agua o barro? Retiro en Santiago, destrucción certificada de datos y certificados por número de serie para el seguro y la Ley REP."
+>
+
+  <!-- HERO -->
+  <section class="re-hero v2-section" id="inicio" data-section="Inicio" data-index="01">
+    <AnimacionesEntrada />
+    <FondoParticulas />
+    <nav class="re-breadcrumb v2-mono v2-mono--steel">
+      <a href="/">INICIO</a>
+      <span aria-hidden="true"> / </span>
+      <span>EQUIPOS DAÑADOS POR INUNDACIÓN</span>
+    </nav>
+
+    <p class="re-eyebrow v2-mono v2-mono--copper">[ RETIRO EN SANTIAGO · EQUIPOS CON AGUA O BARRO ]</p>
+
+    <h1 class="re-h1">
+      <span class="re-h1-outline">EQUIPOS</span><br />
+      <span class="re-h1-solid">DAÑADOS</span><br />
+      <span class="re-h1-thin">POR INUNDACIÓN O ALUVIÓN</span>
+    </h1>
+
+    <p class="re-lead">
+      Retiramos computadores, servidores y equipos electrónicos dañados por agua o barro
+      desde tus instalaciones en Santiago. Destruimos los datos y entregamos certificados
+      por número de serie para tu seguro y la Ley REP.
+    </p>
+
+    <div class="re-ctas">
+      <a href="/#contacto" class="re-cta-primary v2-mono">
+        SOLICITAR RETIRO <span aria-hidden="true">→</span>
+        <i class="v2-drawline" aria-hidden="true"></i>
+      </a>
+      <a href="#antes" class="re-cta-secondary v2-mono">
+        QUÉ HACER ANTES DE BOTARLOS <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+
+    <p class="re-honest v2-mono v2-mono--steel">
+      [ SERVICIO VÍA PARTNERS CERTIFICADOS ]
+    </p>
+  </section>
+
+  <!-- ANTES DE BOTAR -->
+  <section class="re-section v2-light" id="antes" data-section="Antes de botar" data-index="02">
+    <header class="v2-sechead">
+      <span class="sh-idx">02</span>
+      <h2 class="sh-name">Antes de Botar o Reparar: 4 Cuidados</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <p class="re-intro">
+      Lo que hagas en los primeros días define si el seguro responde y si los datos de tu
+      empresa quedan protegidos:
+    </p>
+
+    <ul class="re-riesgo-grid" role="list">
+      {cuidados.map((r) => (
+        <li class="re-riesgo-cell">
+          <span class="re-riesgo-code v2-mono v2-mono--copper">[ {r.code} ]</span>
+          <h3 class="re-riesgo-title">{r.title}</h3>
+          <p class="re-riesgo-desc">{r.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="re-section" id="como-funciona" data-section="Proceso" data-index="03">
+    <header class="v2-sechead">
+      <span class="sh-idx">03</span>
+      <h2 class="sh-name">Cómo Funciona</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <ol class="re-steps" role="list">
+      {pasos.map((p, i) => (
+        <li class={`re-step${i === pasos.length - 1 ? ' re-step--final' : ''}`}>
+          <span class="re-step-n v2-mono">{p.n}</span>
+          <div class="re-step-body">
+            <h3 class="re-step-title">{p.title}</h3>
+            <p class="re-step-desc">{p.desc}</p>
+            <span class="re-step-seal v2-mono v2-mono--copper">{p.seal}</span>
+          </div>
+          {i < pasos.length - 1 && <span class="re-step-line" aria-hidden="true"></span>}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- QUÉ RETIRAMOS -->
+  <section class="re-section v2-light" id="equipos" data-section="Equipos" data-index="04">
+    <header class="v2-sechead">
+      <span class="sh-idx">04</span>
+      <h2 class="sh-name">¿Qué Equipos Retiramos?</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <p class="re-intro">
+      Cualquier aparato eléctrico o electrónico dañado, con agua, barro o sedimento:
+    </p>
+
+    <ul class="re-equipo-grid" role="list">
+      {equipos.map((e) => (
+        <li class="re-equipo-cell v2-mono">
+          <span class="re-tick" aria-hidden="true">—</span>
+          {e}
+        </li>
+      ))}
+    </ul>
+
+    <div class="re-nota v2-mono v2-mono--steel">
+      [ NO NECESITAS LIMPIARLOS: LOS RETIRAMOS EN EL ESTADO EN QUE QUEDARON ]
+    </div>
+  </section>
+
+
+  <!-- PARA QUIÉN -->
+  <section class="re-section" id="sectores" data-section="Para quién" data-index="05">
+    <header class="v2-sechead">
+      <span class="sh-idx">05</span>
+      <h2 class="sh-name">Para Quién</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <p class="re-intro re-intro--light">
+      Instituciones y empresas con equipos afectados por lluvias, inundaciones o aluviones:
+    </p>
+
+    <ul class="re-sectores" role="list">
+      {sectores.map((s) => (
+        <li class="re-sector-tag v2-mono">{s}</li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- CTA -->
+  <section class="re-section re-cta-section" id="contacto-cta" data-section="Retiro" data-index="06">
+    <p class="re-cta-eyebrow v2-mono v2-mono--copper">[ ¿TUS EQUIPOS QUEDARON CON AGUA O BARRO? ]</p>
+    <h2 class="re-cta-title">
+      Cuéntanos qué tienes y dónde.<br />
+      Coordinamos el retiro.
+    </h2>
+    <a href="/#contacto" class="re-cta-primary v2-mono" style="font-size:0.85rem; padding:18px 0;">
+      SOLICITAR RETIRO <span aria-hidden="true">→</span>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </a>
+  </section>
+
+  <!-- FAQ -->
+  <section class="re-section v2-light" id="faq" data-section="FAQ" data-index="07">
+    <header class="v2-sechead">
+      <span class="sh-idx">07</span>
+      <h2 class="sh-name">Preguntas Frecuentes</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <dl class="re-faq">
+      {faqs.map((f) => (
+        <div class="re-faq-item">
+          <dt class="re-faq-q">{f.q}</dt>
+          <dd class="re-faq-a">{f.a}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <p class="re-intro" style="margin-top:32px;">
+      Guía completa:
+      <a href="/noticias/equipos-danados-inundacion-que-hacer/" style="color:var(--copper);">
+        equipos dañados por inundación o aluvión, qué hacer antes de botarlos →
+      </a>
+    </p>
+  </section>
+
+  <ConoceElectroLoop />
+
+  <FooterV2 />
+
+  <!-- Schema.org: Service -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Retiro de equipos electrónicos dañados por inundación o aluvión',
+    description: 'Retiro en Santiago de equipos eléctricos y electrónicos dañados por agua o barro, destrucción certificada de datos y certificados por número de serie para seguros y la Ley REP.',
+    provider: {
+      '@type': 'Organization',
+      name: 'ElectroLoop SpA',
+      url: 'https://electroloop.cl',
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Santiago', containedInPlace: { '@type': 'Country', name: 'Chile' } },
+      { '@type': 'Country', name: 'Chile' },
+    ],
+    serviceType: 'Retiro de RAEE siniestrados',
+    url: 'https://electroloop.cl/retiro-equipos-danados-inundacion/',
+  })} />
+</BlueprintLayout>
+
+<style>
+  /* ───────────── TOKENS ───────────── */
+  .re-hero,
+  .re-section {
+    padding: clamp(64px, 10vh, 120px) var(--margin-edge) clamp(64px, 10vh, 120px) var(--margin-bind);
+  }
+
+  /* ───────────── HERO ───────────── */
+  .re-hero {
+    background: var(--abyssal);
+    color: var(--ceramic);
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* la barra superior es fija (~95px): el contenido parte bajo ella */
+    padding-top: max(clamp(88px, 14vh, 180px), 136px);
+  }
+
+  .re-breadcrumb {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    margin-bottom: clamp(32px, 5vh, 56px);
+  }
+  .re-breadcrumb a {
+    color: var(--steel);
+    text-decoration: none;
+  }
+  .re-breadcrumb a:hover { color: var(--copper); }
+
+  .re-eyebrow {
+    font-size: 0.65rem;
+    margin-bottom: 24px;
+  }
+
+  .re-h1 {
+    font-family: var(--font-display);
+    line-height: 0.92;
+    margin: 0 0 clamp(28px, 4vh, 48px);
+  }
+  .re-h1-outline {
+    font-size: clamp(3.5rem, 11vw, 10rem);
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ceramic);
+    display: block;
+    letter-spacing: -0.02em;
+  }
+  .re-h1-solid {
+    font-size: clamp(3.5rem, 11vw, 10rem);
+    font-weight: 800;
+    color: var(--copper);
+    display: block;
+    letter-spacing: -0.02em;
+  }
+  .re-h1-thin {
+    font-size: clamp(1.6rem, 4.5vw, 4.5rem);
+    font-weight: 300;
+    color: var(--ceramic);
+    display: block;
+    letter-spacing: 0.08em;
+    margin-top: 8px;
+  }
+
+  .re-lead {
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    font-weight: 300;
+    line-height: 1.65;
+    max-width: 52ch;
+    color: rgba(244, 244, 244, 0.85);
+    margin: 0 0 clamp(32px, 5vh, 48px);
+  }
+
+  .re-ctas {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: clamp(32px, 5vh, 48px);
+  }
+
+  .re-cta-primary {
+    position: relative;
+    text-decoration: none;
+    color: var(--ceramic);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    padding: 16px 0;
+  }
+  .re-cta-primary:hover { color: var(--copper); }
+  .re-cta-primary .v2-drawline { bottom: 6px; left: 0; right: 0; position: absolute; }
+
+  .re-cta-secondary {
+    text-decoration: none;
+    color: var(--steel);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    transition: color 0.3s;
+  }
+  .re-cta-secondary:hover { color: var(--ceramic); }
+
+  .re-honest {
+    font-size: 0.58rem;
+    margin: 0;
+  }
+
+  /* ───────────── SECCIONES GENERALES ───────────── */
+  .re-section { position: relative; }
+
+  .re-intro {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--abyssal);
+    max-width: 64ch;
+    margin: 0 0 clamp(36px, 5vh, 56px);
+  }
+  .re-intro strong { font-weight: 800; }
+  .re-intro--light { color: var(--ceramic); }
+
+  .re-nota {
+    font-size: 0.58rem;
+    margin-top: clamp(28px, 4vh, 48px);
+  }
+
+  /* ───────────── EQUIPOS ───────────── */
+  .re-equipo-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(11, 27, 50, 0.18);
+    border-left: 1px solid rgba(11, 27, 50, 0.18);
+  }
+
+  .re-equipo-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--abyssal);
+    border-right: 1px solid rgba(11, 27, 50, 0.18);
+    border-bottom: 1px solid rgba(11, 27, 50, 0.18);
+    transition: background 0.3s;
+  }
+  .re-equipo-cell:hover { background: rgba(143, 87, 34, 0.06); }
+
+  .re-tick {
+    color: var(--copper-ink, var(--copper));
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ───────────── PASOS ───────────── */
+  .re-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .re-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 24px;
+    padding: clamp(28px, 4vh, 48px) 0;
+    border-bottom: 1px solid rgba(142, 146, 151, 0.2);
+  }
+  .re-step--final { border-bottom: none; }
+
+  .re-step-n {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(184, 115, 51, 0.25);
+    align-self: start;
+    padding-top: 4px;
+  }
+
+  .re-step-body { padding-right: var(--margin-edge); }
+
+  .re-step-title {
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    font-weight: 700;
+    color: var(--ceramic);
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .re-step-desc {
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    font-weight: 300;
+    color: var(--steel);
+    line-height: 1.7;
+    margin: 0 0 16px;
+    max-width: 60ch;
+  }
+
+  .re-step-seal { font-size: 0.58rem; }
+
+  /* ───────────── RIESGOS ───────────── */
+  .re-riesgo-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: rgba(11, 27, 50, 0.15);
+    border: 1px solid rgba(11, 27, 50, 0.15);
+  }
+
+  .re-riesgo-cell {
+    background: var(--ceramic);
+    padding: clamp(24px, 3vw, 36px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .re-riesgo-code { font-size: 0.6rem; }
+
+  .re-riesgo-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--abyssal);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .re-riesgo-desc {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--steel-ink, #5d6267);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ───────────── SECTORES ───────────── */
+  .re-sectores {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .re-sector-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--steel);
+    padding: 10px 20px;
+    border: 1px solid rgba(142, 146, 151, 0.3);
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .re-sector-tag:hover { border-color: var(--copper); color: var(--copper); }
+
+  /* ───────────── CTA SECTION ───────────── */
+  .re-cta-section {
+    background: var(--abyssal);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(20px, 3vh, 32px);
+  }
+
+  .re-cta-eyebrow { font-size: 0.62rem; margin: 0; }
+
+  .re-cta-title {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--ceramic);
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* ───────────── FAQ ───────────── */
+  .re-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(11, 27, 50, 0.18);
+  }
+
+  .re-faq-item {
+    padding: clamp(24px, 3.5vh, 40px) 0;
+    border-bottom: 1px solid rgba(11, 27, 50, 0.18);
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 24px;
+  }
+
+  .re-faq-q {
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    font-weight: 700;
+    color: var(--abyssal);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .re-faq-a {
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    font-weight: 300;
+    color: var(--steel-ink, #5d6267);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ───────────── RESPONSIVE ───────────── */
+  @media (max-width: 860px) {
+    .re-faq-item { grid-template-columns: 1fr; gap: 12px; }
+    .re-step { grid-template-columns: 56px 1fr; }
+    .re-step-body { padding-right: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .re-equipo-grid { grid-template-columns: 1fr 1fr; }
+    .re-riesgo-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .re-equipo-cell,
+    .re-sector-tag { transition: none; }
+  }
+
+  /* Móvil: "ELECTRÓNICO" no cabía con el mínimo de 3.5rem y se cortaba en el borde */
+  @media (max-width: 480px) {
+    .re-h1-outline,
+    .re-h1-solid { font-size: 10vw; }
+  }
+
+  /* Fondo de partículas: el contenido del hero va por encima del canvas */
+  .re-hero { overflow: hidden; }
+  .re-hero > :global(:not(canvas)) { position: relative; z-index: 1; }
+</style>
