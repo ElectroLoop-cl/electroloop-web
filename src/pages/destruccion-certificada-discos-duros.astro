@@ -1,0 +1,651 @@
+---
+/**
+ * Destrucción certificada de discos duros y soportes de datos.
+ * Reutiliza los estilos (prefijo re-) de reciclaje-electronico-empresas-chile.
+ */
+import BlueprintLayout from '../layouts/BlueprintLayout.astro';
+import FooterV2 from '../components/v2/FooterV2.astro';
+import FondoParticulas from '../components/v2/FondoParticulas.astro';
+import AnimacionesEntrada from '../components/v2/AnimacionesEntrada.astro';
+import ConoceElectroLoop from '../components/v2/ConoceElectroLoop.astro';
+
+const razones = [
+  {
+    "code": "LEY",
+    "title": "Ley 21.719",
+    "desc": "Desde el 1 de diciembre de 2026 rige la nueva ley de datos personales, con agencia fiscalizadora y multas de hasta 20.000 UTM."
+  },
+  {
+    "code": "FUG",
+    "title": "Filtraciones",
+    "desc": "Discos revendidos o regalados sin borrado exponen datos de clientes, pacientes y trabajadores."
+  },
+  {
+    "code": "AUD",
+    "title": "Auditorías",
+    "desc": "Normas de seguridad e informes de cumplimiento piden evidencia de cómo se eliminó cada soporte."
+  },
+  {
+    "code": "REP",
+    "title": "Ley REP",
+    "desc": "Después de la destrucción, los restos deben ir a un gestor autorizado, con certificado de disposición final."
+  }
+];
+const pasos = [
+  {
+    "n": "01",
+    "title": "Inventario",
+    "desc": "Nos envías el listado de discos y equipos, o lo levantamos contigo en el retiro.",
+    "seal": "[ POR NÚMERO DE SERIE ]"
+  },
+  {
+    "n": "02",
+    "title": "Retiro con cadena de custodia",
+    "desc": "Retiramos los soportes con acta firmada y trazabilidad hasta su destrucción.",
+    "seal": "[ CADENA DE CUSTODIA ]"
+  },
+  {
+    "n": "03",
+    "title": "Borrado seguro o destrucción física",
+    "desc": "Según el soporte y lo que necesites: sobrescritura certificada o destrucción física del disco.",
+    "seal": "[ MÉTODO SEGÚN NIST 800-88 ]"
+  },
+  {
+    "n": "04",
+    "title": "Certificado por número de serie",
+    "desc": "Un registro por soporte con número de serie, método y fecha.",
+    "seal": "[ CERTIFICADO INDIVIDUAL ]"
+  },
+  {
+    "n": "05",
+    "title": "Disposición final",
+    "desc": "Los restos van a gestores autorizados y recibes el certificado de disposición final.",
+    "seal": "[ VÍA PARTNERS CERTIFICADOS ]"
+  }
+];
+const lista = [
+  "Discos duros (HDD)",
+  "Discos sólidos (SSD)",
+  "Servidores y storage",
+  "Notebooks completos",
+  "Celulares y tablets",
+  "Pendrives y memorias",
+  "Cintas de respaldo",
+  "Discos externos",
+  "Multifuncionales con disco",
+  "Tarjetas de memoria",
+  "Equipos de red",
+  "CD y DVD"
+];
+const sectores = [
+  "Clínicas y salud",
+  "Bancos y financieras",
+  "Estudios jurídicos",
+  "Seguros",
+  "Educación",
+  "Servicios públicos",
+  "Tecnología",
+  "Recursos humanos"
+];
+const faqs = [
+  {
+    "q": "¿Formatear un disco borra la información?",
+    "a": "No. El formateo rápido solo borra el índice de archivos; los datos siguen en el disco y se recuperan con programas gratuitos. Se necesita borrado seguro certificado o destrucción física."
+  },
+  {
+    "q": "¿Qué incluye el certificado?",
+    "a": "Un registro por soporte con número de serie, método de borrado o destrucción y fecha, más el certificado de disposición final de los restos."
+  },
+  {
+    "q": "¿Sirve para la Ley 21.719 de datos personales?",
+    "a": "El certificado documenta que los soportes se eliminaron de forma segura, una evidencia útil para demostrar el cuidado de los datos. La forma de cumplir la ley depende de cada organización."
+  },
+  {
+    "q": "¿Destruyen discos de equipos que siguen en uso?",
+    "a": "Sí. Podemos retirar solo los discos y devolverte los equipos, o retirar el equipo completo si se da de baja."
+  },
+  {
+    "q": "¿Dónde operan?",
+    "a": "Operamos en Santiago y tenemos cobertura nacional con partners certificados."
+  }
+];
+---
+
+<BlueprintLayout
+  preloader={false}
+  title="Destrucción Certificada de Discos Duros | Empresas"
+  description="Destrucción o borrado seguro de discos duros, SSD y soportes de datos de tu empresa, con certificado por número de serie. Retiro en Santiago y cobertura nacional."
+>
+
+  <!-- HERO -->
+  <section class="re-hero v2-section" id="inicio" data-section="Inicio" data-index="01">
+    <AnimacionesEntrada />
+    <FondoParticulas />
+    <nav class="re-breadcrumb v2-mono v2-mono--steel">
+      <a href="/">INICIO</a>
+      <span aria-hidden="true"> / </span>
+      <span>DESTRUCCIÓN DE DISCOS DUROS</span>
+    </nav>
+
+    <p class="re-eyebrow v2-mono v2-mono--copper">[ DESTRUCCIÓN DE DATOS · CERTIFICADO POR SERIE ]</p>
+
+    <h1 class="re-h1">
+      <span class="re-h1-outline">DESTRUCCIÓN</span><br />
+      <span class="re-h1-solid">DE DISCOS</span><br />
+      <span class="re-h1-thin">CERTIFICADA PARA EMPRESAS</span>
+    </h1>
+
+    <p class="re-lead">
+      Destruimos o borramos de forma segura los discos duros, SSD y soportes de datos de tu empresa, y entregamos un certificado por cada número de serie. Retiro en Santiago y cobertura nacional.
+    </p>
+
+    <div class="re-ctas">
+      <a href="/#contacto" class="re-cta-primary v2-mono">
+        COTIZAR DESTRUCCIÓN <span aria-hidden="true">→</span>
+        <i class="v2-drawline" aria-hidden="true"></i>
+      </a>
+      <a href="#como-funciona" class="re-cta-secondary v2-mono">
+        VER CÓMO FUNCIONA <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+
+    <p class="re-honest v2-mono v2-mono--steel">
+      [ SERVICIO VÍA PARTNERS CERTIFICADOS ]
+    </p>
+  </section>
+
+  <!-- POR QUÉ -->
+  <section class="re-section v2-light" id="por-que" data-section="Por qué" data-index="02">
+    <header class="v2-sechead">
+      <span class="sh-idx">02</span>
+      <h2 class="sh-name">Por Qué No Basta con Formatear</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <p class="re-intro">Un disco formateado conserva la información y se recupera con programas gratuitos. Lo que está en juego:</p>
+
+    <ul class="re-riesgo-grid" role="list">
+      {razones.map((r) => (
+        <li class="re-riesgo-cell">
+          <span class="re-riesgo-code v2-mono v2-mono--copper">[ {r.code} ]</span>
+          <h3 class="re-riesgo-title">{r.title}</h3>
+          <p class="re-riesgo-desc">{r.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="re-section" id="como-funciona" data-section="Proceso" data-index="03">
+    <header class="v2-sechead">
+      <span class="sh-idx">03</span>
+      <h2 class="sh-name">Cómo Funciona</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <ol class="re-steps" role="list">
+      {pasos.map((p, i) => (
+        <li class={`re-step${i === pasos.length - 1 ? ' re-step--final' : ''}`}>
+          <span class="re-step-n v2-mono">{p.n}</span>
+          <div class="re-step-body">
+            <h3 class="re-step-title">{p.title}</h3>
+            <p class="re-step-desc">{p.desc}</p>
+            <span class="re-step-seal v2-mono v2-mono--copper">{p.seal}</span>
+          </div>
+          {i < pasos.length - 1 && <span class="re-step-line" aria-hidden="true"></span>}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- LISTA -->
+  <section class="re-section v2-light" id="equipos" data-section="Equipos" data-index="04">
+    <header class="v2-sechead">
+      <span class="sh-idx">04</span>
+      <h2 class="sh-name">¿Qué Soportes Destruimos?</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <p class="re-intro">Cualquier medio que guarde información de tu empresa:</p>
+
+    <ul class="re-equipo-grid" role="list">
+      {lista.map((e) => (
+        <li class="re-equipo-cell v2-mono">
+          <span class="re-tick" aria-hidden="true">—</span>
+          {e}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- PARA QUIÉN -->
+  <section class="re-section" id="sectores" data-section="Para quién" data-index="05">
+    <header class="v2-sechead">
+      <span class="sh-idx">05</span>
+      <h2 class="sh-name">Para Quién</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <p class="re-intro re-intro--light">Organizaciones que manejan datos sensibles:</p>
+
+    <ul class="re-sectores" role="list">
+      {sectores.map((s) => (
+        <li class="re-sector-tag v2-mono">{s}</li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- CTA -->
+  <section class="re-section re-cta-section" id="contacto-cta" data-section="Cotizar" data-index="06">
+    <p class="re-cta-eyebrow v2-mono v2-mono--copper">[ ¿TIENES DISCOS O EQUIPOS CON DATOS? ]</p>
+    <h2 class="re-cta-title">
+      Cuéntanos cuántos soportes tienes.<br />
+      Te cotizamos la destrucción.
+    </h2>
+    <a href="/#contacto" class="re-cta-primary v2-mono" style="font-size:0.85rem; padding:18px 0;">
+      COTIZAR DESTRUCCIÓN <span aria-hidden="true">→</span>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </a>
+  </section>
+
+  <!-- FAQ -->
+  <section class="re-section v2-light" id="faq" data-section="FAQ" data-index="07">
+    <header class="v2-sechead">
+      <span class="sh-idx">07</span>
+      <h2 class="sh-name">Preguntas Frecuentes</h2>
+      <i class="v2-drawline" aria-hidden="true"></i>
+    </header>
+
+    <dl class="re-faq">
+      {faqs.map((f) => (
+        <div class="re-faq-item">
+          <dt class="re-faq-q">{f.q}</dt>
+          <dd class="re-faq-a">{f.a}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <p class="re-intro" style="margin-top:32px;">
+      También te puede servir: <a href="/noticias/como-dar-de-baja-computadores-empresa/" style="color:var(--copper);">cómo dar de baja los computadores de tu empresa →</a>
+    </p>
+  </section>
+
+  <ConoceElectroLoop />
+
+  <FooterV2 />
+
+  <!-- Schema.org: Service -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Destrucción certificada de discos duros y soportes de datos",
+  "description": "Destrucción o borrado seguro de discos duros, SSD y soportes de datos de tu empresa, con certificado por número de serie. Retiro en Santiago y cobertura nacional.",
+  "provider": {
+    "@type": "Organization",
+    "name": "ElectroLoop SpA",
+    "url": "https://electroloop.cl"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Santiago",
+      "containedInPlace": {
+        "@type": "Country",
+        "name": "Chile"
+      }
+    },
+    {
+      "@type": "Country",
+      "name": "Chile"
+    }
+  ],
+  "serviceType": "Destrucción de datos certificada",
+  "url": "https://electroloop.cl/destruccion-certificada-discos-duros/"
+})} />
+</BlueprintLayout>
+
+<style>
+  /* ───────────── TOKENS ───────────── */
+  .re-hero,
+  .re-section {
+    padding: clamp(64px, 10vh, 120px) var(--margin-edge) clamp(64px, 10vh, 120px) var(--margin-bind);
+  }
+
+  /* ───────────── HERO ───────────── */
+  .re-hero {
+    background: var(--abyssal);
+    color: var(--ceramic);
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* la barra superior es fija (~95px): el contenido parte bajo ella */
+    padding-top: max(clamp(88px, 14vh, 180px), 136px);
+  }
+
+  .re-breadcrumb {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    margin-bottom: clamp(32px, 5vh, 56px);
+  }
+  .re-breadcrumb a {
+    color: var(--steel);
+    text-decoration: none;
+  }
+  .re-breadcrumb a:hover { color: var(--copper); }
+
+  .re-eyebrow {
+    font-size: 0.65rem;
+    margin-bottom: 24px;
+  }
+
+  .re-h1 {
+    font-family: var(--font-display);
+    line-height: 0.92;
+    margin: 0 0 clamp(28px, 4vh, 48px);
+  }
+  .re-h1-outline {
+    font-size: clamp(3.5rem, 11vw, 10rem);
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ceramic);
+    display: block;
+    letter-spacing: -0.02em;
+  }
+  .re-h1-solid {
+    font-size: clamp(3.5rem, 11vw, 10rem);
+    font-weight: 800;
+    color: var(--copper);
+    display: block;
+    letter-spacing: -0.02em;
+  }
+  .re-h1-thin {
+    font-size: clamp(1.6rem, 4.5vw, 4.5rem);
+    font-weight: 300;
+    color: var(--ceramic);
+    display: block;
+    letter-spacing: 0.08em;
+    margin-top: 8px;
+  }
+
+  .re-lead {
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    font-weight: 300;
+    line-height: 1.65;
+    max-width: 52ch;
+    color: rgba(244, 244, 244, 0.85);
+    margin: 0 0 clamp(32px, 5vh, 48px);
+  }
+
+  .re-ctas {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: clamp(32px, 5vh, 48px);
+  }
+
+  .re-cta-primary {
+    position: relative;
+    text-decoration: none;
+    color: var(--ceramic);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    padding: 16px 0;
+  }
+  .re-cta-primary:hover { color: var(--copper); }
+  .re-cta-primary .v2-drawline { bottom: 6px; left: 0; right: 0; position: absolute; }
+
+  .re-cta-secondary {
+    text-decoration: none;
+    color: var(--steel);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    transition: color 0.3s;
+  }
+  .re-cta-secondary:hover { color: var(--ceramic); }
+
+  .re-honest {
+    font-size: 0.58rem;
+    margin: 0;
+  }
+
+  /* ───────────── SECCIONES GENERALES ───────────── */
+  .re-section { position: relative; }
+
+  .re-intro {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--abyssal);
+    max-width: 64ch;
+    margin: 0 0 clamp(36px, 5vh, 56px);
+  }
+  .re-intro strong { font-weight: 800; }
+  .re-intro--light { color: var(--ceramic); }
+
+  .re-nota {
+    font-size: 0.58rem;
+    margin-top: clamp(28px, 4vh, 48px);
+  }
+
+  /* ───────────── EQUIPOS ───────────── */
+  .re-equipo-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(11, 27, 50, 0.18);
+    border-left: 1px solid rgba(11, 27, 50, 0.18);
+  }
+
+  .re-equipo-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--abyssal);
+    border-right: 1px solid rgba(11, 27, 50, 0.18);
+    border-bottom: 1px solid rgba(11, 27, 50, 0.18);
+    transition: background 0.3s;
+  }
+  .re-equipo-cell:hover { background: rgba(143, 87, 34, 0.06); }
+
+  .re-tick {
+    color: var(--copper-ink, var(--copper));
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ───────────── PASOS ───────────── */
+  .re-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .re-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 24px;
+    padding: clamp(28px, 4vh, 48px) 0;
+    border-bottom: 1px solid rgba(142, 146, 151, 0.2);
+  }
+  .re-step--final { border-bottom: none; }
+
+  .re-step-n {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(184, 115, 51, 0.25);
+    align-self: start;
+    padding-top: 4px;
+  }
+
+  .re-step-body { padding-right: var(--margin-edge); }
+
+  .re-step-title {
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    font-weight: 700;
+    color: var(--ceramic);
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .re-step-desc {
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    font-weight: 300;
+    color: var(--steel);
+    line-height: 1.7;
+    margin: 0 0 16px;
+    max-width: 60ch;
+  }
+
+  .re-step-seal { font-size: 0.58rem; }
+
+  /* ───────────── RIESGOS ───────────── */
+  .re-riesgo-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: rgba(11, 27, 50, 0.15);
+    border: 1px solid rgba(11, 27, 50, 0.15);
+  }
+
+  .re-riesgo-cell {
+    background: var(--ceramic);
+    padding: clamp(24px, 3vw, 36px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .re-riesgo-code { font-size: 0.6rem; }
+
+  .re-riesgo-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--abyssal);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .re-riesgo-desc {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--steel-ink, #5d6267);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ───────────── SECTORES ───────────── */
+  .re-sectores {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .re-sector-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--steel);
+    padding: 10px 20px;
+    border: 1px solid rgba(142, 146, 151, 0.3);
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .re-sector-tag:hover { border-color: var(--copper); color: var(--copper); }
+
+  /* ───────────── CTA SECTION ───────────── */
+  .re-cta-section {
+    background: var(--abyssal);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(20px, 3vh, 32px);
+  }
+
+  .re-cta-eyebrow { font-size: 0.62rem; margin: 0; }
+
+  .re-cta-title {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--ceramic);
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* ───────────── FAQ ───────────── */
+  .re-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(11, 27, 50, 0.18);
+  }
+
+  .re-faq-item {
+    padding: clamp(24px, 3.5vh, 40px) 0;
+    border-bottom: 1px solid rgba(11, 27, 50, 0.18);
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 24px;
+  }
+
+  .re-faq-q {
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    font-weight: 700;
+    color: var(--abyssal);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .re-faq-a {
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    font-weight: 300;
+    color: var(--steel-ink, #5d6267);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ───────────── RESPONSIVE ───────────── */
+  @media (max-width: 860px) {
+    .re-faq-item { grid-template-columns: 1fr; gap: 12px; }
+    .re-step { grid-template-columns: 56px 1fr; }
+    .re-step-body { padding-right: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .re-equipo-grid { grid-template-columns: 1fr 1fr; }
+    .re-riesgo-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .re-equipo-cell,
+    .re-sector-tag { transition: none; }
+  }
+
+  /* Móvil: "ELECTRÓNICO" no cabía con el mínimo de 3.5rem y se cortaba en el borde */
+  @media (max-width: 480px) {
+    .re-h1-outline,
+    .re-h1-solid { font-size: 10vw; }
+  }
+
+  /* Fondo de partículas: el contenido del hero va por encima del canvas */
+  .re-hero { overflow: hidden; }
+  .re-hero > :global(:not(canvas)) { position: relative; z-index: 1; }
+</style>
