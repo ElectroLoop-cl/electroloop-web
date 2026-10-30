@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout
-  title="¿Qué residuos electrónicos debe gestionar tu empresa según la Ley REP? | ElectroLoop"
-  description="La Ley REP N°20.920 define exactamente qué equipos electrónicos debes reciclar. Conoce las 6 categorías RAEE, qué productos incluyen y qué obligaciones tiene tu empresa en Chile."
+  title="Qué residuos electrónicos debe gestionar tu empresa (Ley REP)"
+  description="Las categorías del DS N°22: intercambio de temperatura, paneles fotovoltaicos, otros aparatos eléctricos y electrónicos y pilas. Qué incluye cada una y qué debe hacer tu empresa."
 >
 
   <div style="background: #f8f9fa; min-height: 100vh; position: relative; z-index: 10;"><header style="background: #0a1628; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
@@ -43,7 +43,7 @@ import Layout from '../../layouts/Layout.astro';
 
     <!-- Bajada -->
     <p style="font-size: 19px; color: #444; margin: 0 0 40px; line-height: 1.7; border-left: 4px solid #B97333; padding-left: 20px;">
-      La Ley REP N° 20.920 y su decreto reglamentario DS N°22 definen con precisión qué equipos están sujetos a obligaciones de reciclaje. Aquí te explicamos las 6 categorías oficiales, qué productos incluyen y qué debe hacer tu empresa con ellos.
+      La Ley REP N° 20.920 y su decreto reglamentario DS N°22 definen con precisión qué equipos están sujetos a obligaciones de reciclaje. Aquí te explicamos sus categorías, qué productos incluyen y qué debe hacer tu empresa con ellos.
     </p>
 
     <!-- Autor -->
@@ -75,47 +75,35 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </div>
 
-      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Las 6 categorías RAEE que define la ley</h2>
+      <h2 style="font-size: 24px; font-weight: 700; color: #0a1628; margin: 40px 0 16px;">Las categorías que define el DS N°22</h2>
 
-      <p>El DS N°22 establece seis categorías de aparatos eléctricos y electrónicos sujetos a la Ley REP. Estas son:</p>
+      <p>El DS N°22 agrupa los aparatos eléctricos y electrónicos en tres categorías, y fija además metas para las pilas. Cada categoría tiene sus propias metas de recolección y valorización:</p>
 
       <div style="display: flex; flex-direction: column; gap: 20px; margin: 24px 0 40px;">
         {[
           {
-            num: "1",
-            titulo: "Equipos de intercambio de temperatura",
-            ejemplos: "Refrigeradores, congeladores, enfriadores de agua, aires acondicionados, bombas de calor, equipos de climatización.",
-            nota: "Incluye tanto uso doméstico como industrial y comercial."
+            num: "AIT",
+            titulo: "Aparatos de intercambio de temperatura",
+            ejemplos: "Refrigeradores, congeladores, aires acondicionados, bombas de calor y equipos de climatización.",
+            nota: "Tienen una meta específica, además de la meta general."
           },
           {
-            num: "2",
-            titulo: "Pantallas y monitores",
-            ejemplos: "Televisores, monitores de computador, pantallas para señalética digital, marcos digitales, tablets (en su componente de pantalla).",
-            nota: "Aplica a cualquier pantalla mayor a 100 cm²."
+            num: "PFV",
+            titulo: "Paneles fotovoltaicos",
+            ejemplos: "Módulos solares al final de su vida útil, en instalaciones residenciales, comerciales e industriales.",
+            nota: "Tienen una meta propia, separada de la meta general."
           },
           {
-            num: "3",
-            titulo: "Lámparas y luminarias",
-            ejemplos: "Lámparas LED, tubos fluorescentes, lámparas de descarga de gas, lámparas de bajo consumo.",
-            nota: "No incluye luminarias de incandescencia convencional fuera de catálogo."
+            num: "AEE",
+            titulo: "Otros aparatos eléctricos y electrónicos",
+            ejemplos: "Computadores, notebooks, servidores, monitores, televisores, impresoras, teléfonos, equipos de red, UPS, luminarias y electrodomésticos.",
+            nota: "Es la categoría más amplia y la que más afecta a oficinas y empresas de servicios."
           },
           {
-            num: "4",
-            titulo: "Equipos grandes",
-            ejemplos: "Lavadoras, secadoras, lavavajillas, estufas eléctricas, hornos de gran formato, equipos de cocina industriales.",
-            nota: "Se consideran 'grandes' los equipos con alguna dimensión exterior mayor a 50 cm."
-          },
-          {
-            num: "5",
-            titulo: "Equipos pequeños",
-            ejemplos: "Computadores, laptops, tablets, teléfonos móviles, impresoras, cámaras fotográficas, calculadoras, relojes inteligentes, electrodomésticos de pequeño formato.",
-            nota: "Es la categoría más amplia. Si tiene enchufe o batería y cabe en una caja de 50 cm, probablemente está aquí."
-          },
-          {
-            num: "6",
-            titulo: "Equipos de TI y telecomunicaciones",
-            ejemplos: "Servidores, routers, switches, módems, equipos de red, centrales telefónicas, UPS, sistemas de almacenamiento.",
-            nota: "Muy relevante para empresas con datacenters o infraestructura IT propia."
+            num: "PIL",
+            titulo: "Pilas",
+            ejemplos: "Pilas y baterías portátiles, incluidas las de equipos electrónicos.",
+            nota: "Cuentan, junto con AIT y otros AEE, para la meta general."
           }
         ].map(item => (
           <div style="border: 1px solid #e8ecf0; border-radius: 12px; overflow: hidden;">
@@ -188,7 +176,7 @@ import Layout from '../../layouts/Layout.astro';
       <p style="font-weight: 700; color: #0a1628; margin: 0 0 16px;">Artículos relacionados:</p>
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <a href="/noticias/multas-ley-rep-raee-incumplimiento" style="color: #B97333; text-decoration: none; font-size: 15px;">→ Multas Ley REP: ¿qué pasa si tu empresa no cumple?</a>
-        <a href="/noticias/ds22-decreto-raee-diario-oficial" style="color: #B97333; text-decoration: none; font-size: 15px;">→ DS N°22 publicado: arranca el reloj para empresas</a>
+        <a href="/noticias/ds22-decreto-raee-diario-oficial/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ DS N°22 publicado: arranca el reloj para empresas</a>
         <a href="/reciclaje-electronico-empresas-chile/" style="color: #B97333; text-decoration: none; font-size: 15px;">→ Reciclaje electrónico para empresas en Chile</a>
       </div>
     </div>
@@ -209,7 +197,7 @@ import Layout from '../../layouts/Layout.astro';
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     "headline": "¿Qué residuos electrónicos debe gestionar tu empresa según la Ley REP?",
-    "description": "La Ley REP N°20.920 define 6 categorías de RAEE con obligaciones de reciclaje. Conoce qué equipos incluyen y qué debe hacer tu empresa.",
+    "description": "Las categorías del DS N°22 para aparatos eléctricos, electrónicos y pilas: qué incluye cada una y qué debe hacer tu empresa.",
     "author": {
       "@type": "Organization",
       "name": "ElectroLoop SpA",
