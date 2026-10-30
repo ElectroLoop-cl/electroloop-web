@@ -18,10 +18,12 @@ Tagline: "Cerramos el loop. Recursos infinitos."
 - [Inicio](https://electroloop.cl/): minería urbana, proceso, materiales, trazabilidad, contacto.
 - [Guía Ley REP Chile](https://electroloop.cl/ley-rep-chile-empresas): qué es la Ley REP y obligaciones para empresas.
 - [Reciclaje electrónico para empresas](https://electroloop.cl/reciclaje-electronico-empresas-chile): servicio de gestión RAEE B2B.
+- [Retiro de equipos electrónicos en Santiago](https://electroloop.cl/retiro-equipos-electronicos-santiago/): retiro B2B en la Región Metropolitana con acta, destrucción de datos y certificados.
+- [Destrucción certificada de discos duros](https://electroloop.cl/destruccion-certificada-discos-duros/): borrado seguro o destrucción física de HDD, SSD y soportes, con certificado por número de serie.
 - [Gestión RAEE en Chile](https://electroloop.cl/gestion-raee-chile): panorama de la gestión de residuos electrónicos.
 - [Calculadora REP](https://electroloop.cl/calculadora/): estima obligaciones de valorización a 10 años según el DS N°22/2025.
 - [Noticias RAEE](https://electroloop.cl/noticias): actualidad regulatoria.
 
 ## Contacto
 - Email: contacto@electroloop.cl
-- Ubicación: Chile
+- Ubicación: Badajoz 100, Of. 1014, Las Condes, Santiago, Chile (cobertura nacional)
