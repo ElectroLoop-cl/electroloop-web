@@ -11,7 +11,7 @@ Tagline: "Cerramos el loop. Recursos infinitos."
 - Cobertura: nacional (Chile).
 
 ## Modelo de operación (importante para precisión)
-- ElectroLoop está operando en todo Chile como integrador: coordina el servicio con partners certificados y no tiene planta propia.
+- ElectroLoop está operando en todo Chile como integrador: coordina el servicio con partners que cuentan con todas las autorizaciones y no tiene planta propia.
 - No se deben atribuir cifras de clientes, plantas ni volúmenes gestionados que no estén publicadas en este sitio.
 
 ## Páginas
@@ -26,5 +26,6 @@ Tagline: "Cerramos el loop. Recursos infinitos."
 - [Noticias RAEE](https://electroloop.cl/noticias): actualidad regulatoria.
 
 ## Contacto
+- Razón social: ElectroLoop SpA. RUT 78.501.218-6.
 - Email: contacto@electroloop.cl
 - Ubicación: Badajoz 100, Of. 1014, Las Condes, Santiago, Chile (cobertura nacional)
