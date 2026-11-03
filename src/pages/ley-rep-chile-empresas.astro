@@ -7,10 +7,10 @@ import ConoceElectroLoop from '../components/v2/ConoceElectroLoop.astro';
 
 const obligaciones = [
   { num: '01', title: 'Inscribirse como productor', desc: 'Registro en el sistema del Ministerio del Medio Ambiente antes de comercializar productos en Chile.' },
-  { num: '02', title: 'Cumplir metas anuales de recolección', desc: 'El DS 8/2021 fija metas porcentuales crecientes. En 2026 son significativamente mayores que en años anteriores.' },
+  { num: '02', title: 'Cumplir metas anuales de recolección', desc: 'El DS 22/2025 fija metas crecientes, exigibles desde mayo de 2028: la general parte en 3 % y llega a 45 % el décimo año.' },
   { num: '03', title: 'Contratar gestores RAEE autorizados', desc: 'Los RAEE recolectados deben entregarse exclusivamente a gestores autorizados por la SMA.' },
   { num: '04', title: 'Reportar anualmente al Ministerio', desc: 'Informe anual acreditando cumplimiento de metas, con certificados emitidos por el gestor.' },
-  { num: '05', title: 'Financiar el sistema de gestión', desc: 'El productor financia recolección y tratamiento, ya sea individualmente o vía un SIG colectivo.' },
+  { num: '05', title: 'Financiar el sistema de gestión', desc: 'El productor financia recolección y tratamiento, ya sea mediante un sistema de gestión individual o colectivo.' },
 ];
 
 const categorias = [
@@ -31,13 +31,13 @@ const pasos = [
   { n: '02', title: 'Inscripción como productor', desc: 'Registro ante el Ministerio del Medio Ambiente en el sistema online habilitado.', seal: '[ OBLIGATORIO ANTES DE COMERCIALIZAR ]' },
   { n: '03', title: 'Seleccionar gestor integrador', desc: 'Trabaja con ElectroLoop: un solo punto de contacto que coordina todo el proceso con partners certificados.', seal: '[ VÍA PARTNERS CERTIFICADOS ]' },
   { n: '04', title: 'Implementar recolección', desc: 'Coordinamos retiro en tus instalaciones. Acta de recepción firmada el mismo día.', seal: '[ TRAZABILIDAD DESDE EL PRIMER KILO ]' },
-  { n: '05', title: 'Reportar al Ministerio', desc: 'Con los certificados que emitimos preparas tu informe anual. Te asistimos en todo el proceso.', seal: '[ CERTIFICADO EN 5 DÍAS HÁBILES ]' },
+  { n: '05', title: 'Reportar al Ministerio', desc: 'Con los certificados que te entregamos preparas tu informe anual. Te asistimos en todo el proceso.', seal: '[ CERTIFICADO EN 5 DÍAS HÁBILES ]' },
 ];
 
 const faqs = [
-  { q: '¿Cuándo entró en vigor la Ley REP para RAEE?', a: 'El DS 8/2021 para aparatos eléctricos y electrónicos entró en vigor en 2023 para los primeros productores obligados. Las metas se incrementan año a año hasta 2030.' },
-  { q: '¿Qué pasa si soy una PYME pequeña?', a: 'La Ley REP aplica según el volumen que introduces al mercado. Las empresas pequeñas tienen metas menores, pero la obligación existe si superas los umbrales del reglamento.' },
-  { q: '¿Puedo cumplir de forma individual o debo unirme a un SIG?', a: 'Ambas opciones son válidas: contrato directo con un gestor integrador como ElectroLoop, o sumarte a un Sistema Integrado de Gestión (SIG) colectivo.' },
+  { q: '¿Desde cuándo rigen las metas para RAEE?', a: 'El DS 22/2025 se publicó en el Diario Oficial el 7 de mayo de 2026. Sus metas de recolección y valorización son exigibles desde mayo de 2028 y aumentan durante diez años.' },
+  { q: '¿Qué pasa si soy una PYME pequeña?', a: 'Las obligaciones dependen de lo que introduces al mercado y de lo que establecen la ley y el decreto para tu caso. Revisa tu situación con la calculadora o escríbenos.' },
+  { q: '¿Puedo cumplir de forma individual o debo unirme a un sistema colectivo?', a: 'La ley permite cumplir mediante un sistema de gestión individual o uno colectivo. ElectroLoop coordina la recolección, la valorización y los certificados con partners que cuentan con todas las autorizaciones.' },
   { q: '¿Cuánto cuesta cumplir con la Ley REP?', a: 'Depende del volumen y tipo de equipos. Ofrecemos cotizaciones sin costo. El cumplimiento es significativamente más barato que el riesgo de una sanción.' },
   { q: '¿ElectroLoop entrega los documentos para el reporte anual?', a: 'Sí. Emitimos certificados y reportes necesarios: toneladas valorizadas, tipo de material, destino final. Válidos para auditoría REP e informes ESG.' },
 ];
@@ -64,7 +64,7 @@ const faqs = [
     </h1>
     <p class="lr-lead">
       Obligaciones, plazos, multas y cómo cumplir con la gestión de residuos
-      electrónicos bajo la Ley N° 20.920 y el DS 8/2021.
+      electrónicos bajo la Ley N° 20.920 y el DS 22/2025.
     </p>
     <nav class="lr-indice" aria-label="Índice de contenidos">
       <span class="lr-indice-label v2-mono v2-mono--steel">[ EN ESTA GUÍA ]</span>
@@ -90,7 +90,7 @@ const faqs = [
       <div class="lr-col-main">
         <p class="lr-text">La <strong>Ley REP</strong> (Responsabilidad Extendida del Productor), Ley N° 20.920, establece que fabricantes e importadores de ciertos productos son responsables de gestionar correctamente esos productos al final de su vida útil.</p>
         <p class="lr-text">Si tu empresa fabrica, importa o vende aparatos eléctricos y electrónicos en Chile, la ley te hace responsable de que esos equipos sean reciclados o valorizados — no enviados al basural.</p>
-        <p class="lr-text">Promulgada en <strong>2016</strong>, el reglamento para RAEE (DS 8/2021) entró en vigor en <strong>2023</strong> para los primeros productores obligados.</p>
+        <p class="lr-text">Promulgada en <strong>2016</strong>. Para pilas y aparatos eléctricos y electrónicos, el <strong>DS 22/2025</strong> se publicó en mayo de 2026 y sus metas son exigibles desde <strong>mayo de 2028</strong>.</p>
       </div>
       <aside class="lr-col-aside">
         <span class="lr-aside-head v2-mono v2-mono--steel">[ DATO CLAVE ]</span>
@@ -190,7 +190,7 @@ const faqs = [
       HABLAR CON UN ESPECIALISTA <span aria-hidden="true">→</span>
       <i class="v2-drawline" aria-hidden="true"></i>
     </a>
-    <p class="lr-honest v2-mono v2-mono--steel">[ SERVICIO VÍA PARTNERS CERTIFICADOS ]</p>
+    <p class="lr-honest v2-mono v2-mono--steel">[ VÍA PARTNERS CON TODAS LAS AUTORIZACIONES ]</p>
   </section>
 
   <!-- FAQ -->
