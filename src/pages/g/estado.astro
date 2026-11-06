@@ -1,0 +1,231 @@
+---
+/**
+ * Guía de retiro digital — vista de estado (solo lectura).
+ * Reemplaza el "Documento de recolección y disposición final de RAEE" en
+ * papel: muestra partes, cadena de custodia (hitos A/B/C) con fotos, hora y
+ * ubicación, y alertas de diferencias. Se comparte con el generador.
+ * Oculta: noindex, sin enlaces internos, fuera del sitemap.
+ */
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía de retiro | ElectroLoop</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+</head>
+<body>
+  <main class="hoja">
+    <p id="cargando" class="nota">Cargando la guía…</p>
+    <div id="error" class="hidden aviso aviso-rojo"></div>
+
+    <article id="doc" class="hidden">
+      <header class="cabecera">
+        <div>
+          <div class="marca">ELECTRO<span>LOOP</span></div>
+          <h1>Documento de recolección y<br /><span>disposición final de RAEE</span></h1>
+          <p class="sub">Trazabilidad punto a punto · Generador → Transportista → Destino final</p>
+        </div>
+        <div class="folio">
+          <span class="mono">GUÍA DE RETIRO · LEY REP N° 20.920</span>
+          <strong id="folio" class="mono"></strong>
+          <span id="estado" class="chip"></span>
+        </div>
+      </header>
+
+      <div id="alerta" class="hidden aviso aviso-rojo"></div>
+
+      <section class="datos4" id="datos"></section>
+
+      <h2><span class="num">01</span> Partes intervinientes</h2>
+      <section class="partes" id="partes"></section>
+
+      <h2><span class="num">02</span> Cadena de custodia</h2>
+      <section class="hitos" id="hitos"></section>
+
+      <section class="declaracion">
+        <p><b>Declaración.</b> Cada parte, al registrar su hito, aceptó la siguiente declaración: el generador, que los equipos se
+        encuentran fuera de uso y son entregados para su valorización y disposición final; el transportista, recibir la carga
+        conforme en cantidad y estado y entregarla íntegramente en el destino final indicado, sin desvíos ni entrega a terceros;
+        el destinatario final, recibir la carga para su tratamiento. Fecha, hora y ubicación de cada registro son automáticas.</p>
+        <p id="alcance"></p>
+      </section>
+
+      <footer class="pie">
+        <span>Recursos Infinitos · Minería Urbana de Precisión</span>
+        <span>contacto@electroloop.cl · electroloop.cl · Electroloop SpA · RUT 78.501.218-6</span>
+      </footer>
+
+      <div class="acciones no-print">
+        <button id="imprimir" class="boton">Imprimir / guardar PDF</button>
+        <button id="actualizar" class="boton boton-sec">Actualizar</button>
+      </div>
+    </article>
+  </main>
+
+  <style is:global>
+    @font-face { font-family: 'Montserrat'; font-weight: 100 900; font-display: swap; src: url('/fonts/v2/montserrat-latin-var.woff2') format('woff2'); }
+    @font-face { font-family: 'Roboto Mono'; font-weight: 100 700; font-display: swap; src: url('/fonts/v2/roboto-mono-latin-var.woff2') format('woff2'); }
+    :root { --abyssal: #0B1B32; --copper: #B87333; --copper-ink: #8F5722; --steel: #5d6267; --ceramic: #F4F4F4; --rojo: #A23B3B; }
+    body { margin: 0; background: #e9eaec; color: var(--abyssal); font-family: 'Montserrat', Inter, Arial, sans-serif; font-size: 14px; }
+    .mono { font-family: 'Roboto Mono', 'Courier New', monospace; }
+    .hidden { display: none !important; }
+    .hoja { max-width: 860px; margin: 0 auto; padding: 16px; }
+    article { background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 16px rgba(11,27,50,.12); }
+    .cabecera { background: var(--abyssal); color: var(--ceramic); padding: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+    .marca { font-weight: 800; letter-spacing: .02em; }
+    .marca span, h1 span { color: var(--copper); }
+    h1 { font-size: 1.35rem; line-height: 1.2; margin: 8px 0 4px; }
+    .sub { margin: 0; font-size: 11px; color: #b9bcc0; }
+    .folio { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+    .folio span.mono { font-size: 9px; color: var(--copper); letter-spacing: .08em; }
+    .folio strong { font-size: 1rem; }
+    .chip { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #33445e; }
+    .chip.ok { background: var(--copper); color: #fff; }
+    .chip.mal { background: var(--rojo); color: #fff; }
+    .aviso { margin: 12px 16px 0; padding: 10px 12px; border-radius: 4px; font-size: 13px; }
+    .aviso-rojo { background: #fbecec; border-left: 3px solid var(--rojo); color: var(--rojo); font-weight: 600; }
+    .nota { color: var(--steel); }
+    h2 { font-size: .95rem; margin: 22px 16px 10px; display: flex; align-items: center; gap: 8px; }
+    .num { background: var(--copper); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 3px; }
+    .datos4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 16px 16px 0; }
+    .dato { border: 1px solid #e3e4e6; border-radius: 4px; padding: 8px 10px; }
+    .dato small, .parte small, .campo-h small { display: block; font-size: 9px; color: var(--copper-ink); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+    .dato b { display: block; font-size: 13px; }
+    .dato span { font-size: 11px; color: var(--steel); }
+    .partes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 16px; }
+    .parte { border: 1px solid #e3e4e6; border-radius: 4px; padding: 10px; }
+    .parte h3 { margin: 0 0 6px; font-size: 10px; letter-spacing: .08em; color: var(--copper-ink); }
+    .parte p { margin: 0 0 5px; font-size: 12px; }
+    .hitos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 16px; }
+    .hito { border: 1px solid #e3e4e6; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
+    .hito-h { background: var(--abyssal); color: var(--ceramic); padding: 8px 10px; }
+    .hito-h small { font-size: 9px; color: var(--copper); letter-spacing: .08em; }
+    .hito-h b { display: block; font-size: 13px; }
+    .hito-b { padding: 10px; font-size: 12px; flex: 1; }
+    .hito.pendiente .hito-b { color: var(--steel); font-style: italic; }
+    .campo-h { margin-bottom: 6px; }
+    .grande { font-size: 1.15rem; font-weight: 800; color: var(--copper-ink); }
+    .fotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 8px; }
+    .fotos a { display: block; aspect-ratio: 1; background: #eee; }
+    .fotos img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .declaracion { margin: 18px 16px 0; font-size: 11px; color: var(--steel); line-height: 1.5; }
+    .pie { margin-top: 16px; background: var(--abyssal); color: #b9bcc0; font-size: 10px; padding: 10px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
+    .acciones { display: flex; gap: 8px; padding: 14px 16px; background: #fff; }
+    .boton { background: var(--copper); color: #fff; border: 0; border-radius: 6px; padding: 10px 14px; font-weight: 700; font-family: inherit; cursor: pointer; }
+    .boton-sec { background: #fff; color: var(--abyssal); border: 1px solid #c9ccd0; }
+    @media (max-width: 720px) {
+      .datos4 { grid-template-columns: repeat(2, 1fr); }
+      .partes, .hitos { grid-template-columns: 1fr; }
+      .folio { align-items: flex-start; text-align: left; }
+    }
+    @media print {
+      body { background: #fff; }
+      .hoja { padding: 0; max-width: none; }
+      article { box-shadow: none; }
+      .no-print { display: none !important; }
+      .cabecera, .hito-h, .pie, .num, .chip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .hito { break-inside: avoid; }
+    }
+  </style>
+
+  <script>
+    import { parametros, consultar, esc } from '../../lib/guias';
+
+    const $ = (id: string) => document.getElementById(id)!;
+    const { folio, k } = parametros();
+
+    const p = (t: string, v: unknown) => (v || v === 0 ? `<div class="campo-h"><small>${esc(t)}</small>${esc(v)}</div>` : '');
+    const linea = (t: string, v: unknown) => (v ? `<p><small>${esc(t)}</small>${esc(v)}</p>` : '');
+
+    function hitoHtml(letra: string, titulo: string, rol: string, h: any) {
+      const cab = `<div class="hito-h"><small>HITO ${letra}</small><b>${esc(titulo)}</b></div>`;
+      if (!h) return `<div class="hito pendiente">${cab}<div class="hito-b">Pendiente de registro.</div></div>`;
+      const cantidad = { generador: 'Equipos entregados', transportista: 'Equipos cargados', planta: 'Equipos recibidos' }[rol] as string;
+      const persona = rol === 'transportista' ? 'Conductor' : rol === 'planta' ? 'Recibe' : 'Entrega';
+      const mapa = h.ubicacion
+        ? `<div class="campo-h"><small>Ubicación</small><a href="https://maps.google.com/?q=${h.ubicacion.lat},${h.ubicacion.lng}" target="_blank" rel="noopener noreferrer">Ver en mapa</a> (±${esc(h.ubicacion.precision_m)} m)</div>`
+        : '';
+      const fotos = (h.fotos || []).filter(Boolean).map((u: string, i: number) =>
+        `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer"><img src="${esc(u)}" alt="Foto ${i + 1} hito ${letra}" loading="lazy"></a>`).join('');
+      return `<div class="hito">${cab}<div class="hito-b">
+        ${p('Fecha y hora', h.registrado)}
+        <div class="campo-h"><small>${cantidad}</small><span class="grande">${esc(h.cantidad)}</span>${rol === 'planta' && h.peso_kg ? ` <span class="grande">· ${esc(String(h.peso_kg).replace('.', ','))} kg</span>` : ''}</div>
+        ${p('Empresa', [h.empresa, h.rut_empresa].filter(Boolean).join(' · '))}
+        ${p(persona, [h.nombre, h.rut_persona].filter(Boolean).join(' · '))}
+        ${p('Cargo', h.cargo)}
+        ${p('Patente', h.patente)}
+        ${p('Observaciones', h.observaciones)}
+        ${mapa}
+        ${fotos ? `<div class="fotos">${fotos}</div>` : ''}
+      </div></div>`;
+    }
+
+    async function cargar() {
+      if (!folio || !k) {
+        $('cargando').classList.add('hidden');
+        $('error').textContent = 'El link está incompleto. Revisa que lo hayas copiado entero.';
+        $('error').classList.remove('hidden');
+        return;
+      }
+      let r;
+      try { r = await consultar('estado', folio, k); } catch (e) { r = { ok: false, error: (e as Error).message }; }
+      $('cargando').classList.add('hidden');
+      if (!r.ok) {
+        $('error').textContent = r.error;
+        $('error').classList.remove('hidden');
+        return;
+      }
+      const op = r.operacion;
+      const h = r.hitos || {};
+      document.title = `Guía ${op.folio} | ElectroLoop`;
+      $('folio').textContent = `N° ${op.folio}`;
+      const chip = $('estado');
+      chip.textContent = op.estado || 'Programada';
+      chip.className = 'chip' + (op.estado === 'Completa' ? ' ok' : /diferencias/i.test(op.estado) ? ' mal' : '');
+
+      if (op.alerta) { $('alerta').textContent = op.alerta; $('alerta').classList.remove('hidden'); }
+      else $('alerta').classList.add('hidden');
+
+      const pesoReal = h.planta?.peso_kg ? `${String(h.planta.peso_kg).replace('.', ',')} kg reales` : '';
+      $('datos').innerHTML = [
+        ['Fecha del retiro', h.generador?.registrado?.slice(0, 10) || op.fecha_programada, `Programado: ${op.fecha_programada}${op.hora_programada ? ' · ' + op.hora_programada : ''}`],
+        ['Tipo de residuo', op.tipo_residuo, op.descripcion],
+        ['Cantidad declarada', op.cantidad_declarada !== '' ? `${op.cantidad_declarada} equipos` : '—', 'Confirmar en terreno'],
+        ['Peso', pesoReal || (op.peso_estimado_kg ? `${op.peso_estimado_kg} kg est.` : '—'), pesoReal && op.peso_estimado_kg ? `Estimado: ${op.peso_estimado_kg} kg` : 'Peso real: en recepción'],
+      ].map(([t, b, s]) => `<div class="dato"><small>${esc(t)}</small><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
+
+      const g = op.generador, t = op.transportista, pl = op.planta;
+      const tra = h.transportista;
+      $('partes').innerHTML = `
+        <div class="parte"><h3>GENERADOR DEL RESIDUO</h3>
+          ${linea('Razón social', g.razon_social)}${linea('RUT', g.rut)}${linea('Sitio de retiro', [g.sitio, g.direccion, g.comuna].filter(Boolean).join(', '))}${linea('Contacto', g.contacto)}
+        </div>
+        <div class="parte"><h3>TRANSPORTISTA</h3>
+          ${linea('Razón social', tra?.empresa || t.razon_social || 'Por registrar')}${linea('RUT empresa', tra?.rut_empresa || t.rut)}
+          ${linea('Conductor', tra ? `${tra.nombre} · ${tra.rut_persona}` : '')}${linea('Patente', tra?.patente)}
+          ${linea('Coordinado por', `${op.empresa.razon_social} · RUT ${op.empresa.rut}`)}
+        </div>
+        <div class="parte"><h3>DESTINATARIO FINAL</h3>
+          ${linea('Gestor', pl.razon_social)}${linea('RUT', pl.rut)}${linea('Dirección', [pl.direccion, pl.comuna].filter(Boolean).join(', '))}${linea('Contacto', pl.contacto)}${linea('Horario de recepción', pl.horario)}
+        </div>`;
+
+      $('hitos').innerHTML =
+        hitoHtml('A', 'Entrega en origen', 'generador', h.generador) +
+        hitoHtml('B', 'Retiro y transporte', 'transportista', h.transportista) +
+        hitoHtml('C', 'Recepción en destino', 'planta', h.planta);
+
+      $('alcance').innerHTML = op.alcance ? `<b>Alcance:</b> ${esc(op.alcance)}` : '';
+      $('doc').classList.remove('hidden');
+    }
+
+    $('imprimir').addEventListener('click', () => window.print());
+    $('actualizar').addEventListener('click', () => { $('cargando').classList.remove('hidden'); cargar(); });
+    cargar();
+  </script>
+</body>
+</html>

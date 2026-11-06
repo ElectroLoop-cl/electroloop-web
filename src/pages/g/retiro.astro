@@ -1,0 +1,363 @@
+---
+/**
+ * Guía de retiro digital — formulario por rol (generador / transportista / planta).
+ * Página oculta: sin enlaces internos, fuera del sitemap y noindex. Se llega
+ * con el link que ElectroLoop genera desde la planilla (?folio=...&k=token).
+ * El token decide qué hito se completa; ver apps-script/guias-retiro.gs.
+ */
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía de retiro | ElectroLoop</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#0B1B32" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+</head>
+<body class="min-h-screen bg-deep-blue text-ceramic">
+  <div class="max-w-xl mx-auto px-4 py-8 sm:py-12">
+    <header class="mb-6">
+      <div class="flex items-center justify-between gap-3">
+        <span class="text-xl font-bold tracking-tight"><span>ELECTRO</span><span class="text-copper">LOOP</span></span>
+        <span id="folio" class="mono text-xs text-steel"></span>
+      </div>
+      <h1 class="mt-4 text-2xl font-bold leading-tight">Guía de retiro digital</h1>
+      <p class="text-steel text-sm">Trazabilidad punto a punto · Generador → Transportista → Destino final</p>
+    </header>
+
+    <!-- Estados -->
+    <p id="cargando" class="text-steel text-sm">Cargando la operación…</p>
+    <div id="error-carga" class="hidden caja border-[#A23B3B]">
+      <p class="font-semibold">No pudimos abrir esta guía</p>
+      <p id="error-carga-texto" class="text-steel text-sm mt-1"></p>
+      <p class="text-steel text-sm mt-3">Escríbenos a <a class="text-copper underline" href="mailto:contacto@electroloop.cl">contacto@electroloop.cl</a>.</p>
+    </div>
+
+    <!-- Resumen de la operación -->
+    <section id="resumen" class="hidden caja">
+      <span id="hito-badge" class="mono text-[11px] text-copper tracking-wider"></span>
+      <h2 id="hito-titulo" class="text-lg font-bold mt-1"></h2>
+      <dl id="resumen-datos" class="mt-3 grid grid-cols-1 gap-2 text-sm"></dl>
+    </section>
+
+    <!-- Hito ya registrado -->
+    <section id="ya-registrado" class="hidden caja mt-4">
+      <p class="font-semibold">Este hito ya está registrado ✓</p>
+      <p id="ya-registrado-texto" class="text-steel text-sm mt-1"></p>
+      <a id="ya-registrado-link" class="boton mt-4 inline-block" href="#">Ver la guía completa</a>
+    </section>
+
+    <!-- Formulario -->
+    <form id="form" class="hidden mt-4 space-y-4" novalidate>
+      <fieldset class="caja space-y-3">
+        <legend class="leyenda">1. Tu empresa</legend>
+        <div>
+          <label class="etiqueta" for="empresa">Razón social</label>
+          <input class="campo" id="empresa" name="empresa" autocomplete="organization" required />
+        </div>
+        <div>
+          <label class="etiqueta" for="rut_empresa">RUT de la empresa <span data-opcional class="text-steel">(opcional)</span></label>
+          <input class="campo" id="rut_empresa" name="rut_empresa" inputmode="text" placeholder="12.345.678-9" />
+        </div>
+      </fieldset>
+
+      <fieldset class="caja space-y-3">
+        <legend class="leyenda" id="leyenda-persona">2. Quién registra</legend>
+        <div>
+          <label class="etiqueta" for="nombre" id="etiqueta-nombre">Nombre completo</label>
+          <input class="campo" id="nombre" name="nombre" autocomplete="name" required />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="etiqueta" for="rut_persona" id="etiqueta-rut">RUT</label>
+            <input class="campo" id="rut_persona" name="rut_persona" placeholder="12.345.678-9" required />
+          </div>
+          <div data-solo="generador planta">
+            <label class="etiqueta" for="cargo">Cargo</label>
+            <input class="campo" id="cargo" name="cargo" autocomplete="organization-title" />
+          </div>
+          <div data-solo="transportista">
+            <label class="etiqueta" for="patente">Patente</label>
+            <input class="campo uppercase" id="patente" name="patente" placeholder="AB CD 12" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="caja space-y-3">
+        <legend class="leyenda">3. La carga</legend>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="etiqueta" for="cantidad" id="etiqueta-cantidad">N° de equipos</label>
+            <input class="campo text-lg" id="cantidad" name="cantidad" type="number" inputmode="numeric" min="0" step="1" required />
+          </div>
+          <div data-solo="planta">
+            <label class="etiqueta" for="peso_kg">Peso total en balanza (kg)</label>
+            <input class="campo text-lg" id="peso_kg" name="peso_kg" type="number" inputmode="decimal" min="0" step="0.1" />
+          </div>
+        </div>
+        <p id="ayuda-cantidad" class="text-steel text-xs"></p>
+      </fieldset>
+
+      <fieldset class="caja space-y-3">
+        <legend class="leyenda">4. Foto de respaldo</legend>
+        <p class="text-sm"><span id="foto-pedida" class="font-semibold text-copper"></span> <span class="text-steel">— 1 obligatoria, hasta 3.</span></p>
+        <div id="fotos" class="grid grid-cols-3 gap-2"></div>
+        <input id="input-foto" type="file" accept="image/*" class="hidden" />
+      </fieldset>
+
+      <fieldset class="caja space-y-3">
+        <legend class="leyenda">5. Observaciones <span class="text-steel font-normal">(opcional)</span></legend>
+        <textarea class="campo" id="observaciones" name="observaciones" rows="2" maxlength="1000" placeholder="Equipos dañados, faltantes, demoras, etc."></textarea>
+      </fieldset>
+
+      <label class="caja flex gap-3 items-start cursor-pointer">
+        <input id="acepta" type="checkbox" class="mt-1 h-5 w-5 accent-[#B87333] shrink-0" />
+        <span class="text-sm" id="declaracion"></span>
+      </label>
+
+      <p id="form-error" class="hidden text-sm font-semibold" style="color:#E07A5F"></p>
+
+      <button id="enviar" type="submit" class="boton w-full text-base py-4">Registrar mi parte</button>
+      <p class="text-steel text-xs text-center">Se registran automáticamente la fecha, la hora y, si lo autorizas, tu ubicación.</p>
+    </form>
+
+    <!-- Éxito -->
+    <section id="exito" class="hidden caja mt-4 text-center">
+      <div class="mx-auto mb-3 w-12 h-12 rounded-full border border-copper flex items-center justify-center text-copper text-2xl">✓</div>
+      <p class="text-lg font-bold">Registro guardado</p>
+      <p id="exito-texto" class="text-steel text-sm mt-1"></p>
+      <a id="exito-link" class="boton mt-4 inline-block" href="#">Ver la guía completa</a>
+    </section>
+
+    <footer class="mt-10 text-[11px] text-steel mono leading-relaxed">
+      Electroloop SpA · RUT 78.501.218-6 · contacto@electroloop.cl · electroloop.cl<br />
+      Minería Urbana de Precisión
+    </footer>
+  </div>
+
+  <style is:global>
+    @font-face { font-family: 'Montserrat'; font-weight: 100 900; font-display: swap; src: url('/fonts/v2/montserrat-latin-var.woff2') format('woff2'); }
+    @font-face { font-family: 'Roboto Mono'; font-weight: 100 700; font-display: swap; src: url('/fonts/v2/roboto-mono-latin-var.woff2') format('woff2'); }
+    body { font-family: 'Montserrat', Inter, Arial, sans-serif; }
+    .mono { font-family: 'Roboto Mono', 'Courier New', monospace; }
+    .caja { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 16px; }
+    .leyenda { font-weight: 700; font-size: 0.95rem; padding: 0 4px; }
+    .etiqueta { display: block; font-size: 0.78rem; color: #b9bcc0; margin-bottom: 4px; }
+    .campo { width: 100%; background: #0B1B32; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 10px 12px; color: #F4F4F4; font-size: 16px; }
+    .campo:focus { outline: none; border-color: #B87333; }
+    .campo.invalido { border-color: #E07A5F; }
+    .boton { background: #B87333; color: #fff; font-weight: 700; border-radius: 8px; padding: 12px 18px; text-align: center; }
+    .boton:disabled { opacity: .6; }
+    .foto-slot { aspect-ratio: 1; border: 1px dashed rgba(255,255,255,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11px; color: #b9bcc0; position: relative; overflow: hidden; background: rgba(11,27,50,.5); }
+    .foto-slot img { width: 100%; height: 100%; object-fit: cover; }
+    .foto-slot .quitar { position: absolute; top: 4px; right: 4px; background: rgba(11,27,50,.85); color: #fff; border-radius: 999px; width: 26px; height: 26px; font-size: 14px; line-height: 26px; }
+    .foto-slot.obligatoria { border-color: #B87333; color: #F4F4F4; }
+    dt { color: #b9bcc0; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .04em; }
+    dd { margin: 0 0 4px; }
+  </style>
+
+  <script>
+    import { parametros, consultar, enviarHito, rutValido, formatoRut, comprimirFoto, ubicacion, esc } from '../../lib/guias';
+
+    const DECLARACION: Record<string, string> = {
+      generador: 'Declaro que los equipos entregados se encuentran fuera de uso y son entregados a la empresa transportista para su valorización y disposición final en el destino indicado.',
+      transportista: 'Declaro recibir la carga conforme en cantidad y estado, y me obligo a entregarla íntegramente en el destino final indicado, sin desvíos ni entrega a terceros.',
+      planta: 'Declaro recibir la carga en el destino final para su tratamiento y valorización, con la cantidad y el peso indicados.',
+    };
+    const AYUDA: Record<string, string> = {
+      generador: 'Cuenta los equipos que entregas al transportista.',
+      transportista: 'Cuenta los equipos que subes al vehículo.',
+      planta: 'Cuenta los equipos recibidos e indica el peso total según la balanza.',
+    };
+    const NOMBRE: Record<string, [string, string, string]> = {
+      generador: ['2. Quién entrega', 'Nombre de quien entrega', 'RUT'],
+      transportista: ['2. Conductor y vehículo', 'Nombre del conductor', 'RUT del conductor'],
+      planta: ['2. Quién recibe', 'Nombre de quien recibe', 'RUT'],
+    };
+    const CANTIDAD: Record<string, string> = { generador: 'N° de equipos entregados', transportista: 'N° de equipos cargados', planta: 'N° de equipos recibidos' };
+
+    const $ = (id: string) => document.getElementById(id)!;
+    const { folio, k } = parametros();
+    let rol = '';
+    const fotos: { base64: string; mime: string; tomada: string }[] = [];
+
+    function mostrar(id: string) { $(id).classList.remove('hidden'); }
+    function ocultar(id: string) { $(id).classList.add('hidden'); }
+    function fila(t: string, v: unknown) { return v ? `<div><dt>${esc(t)}</dt><dd>${esc(v)}</dd></div>` : ''; }
+
+    function pintarFotos() {
+      const cont = $('fotos');
+      cont.innerHTML = '';
+      for (let i = 0; i < 3; i++) {
+        const f = fotos[i];
+        const slot = document.createElement('button');
+        slot.type = 'button';
+        slot.className = 'foto-slot' + (i === 0 && !f ? ' obligatoria' : '');
+        if (f) {
+          slot.innerHTML = `<img src="${f.base64}" alt="Foto ${i + 1}"><span class="quitar" aria-label="Quitar foto">✕</span>`;
+          slot.onclick = () => { fotos.splice(i, 1); pintarFotos(); };
+        } else if (i === fotos.length) {
+          slot.innerHTML = i === 0 ? '📷<br>Tomar o elegir foto' : '+ Otra foto';
+          slot.onclick = () => ($('input-foto') as HTMLInputElement).click();
+        } else {
+          slot.disabled = true;
+          slot.style.opacity = '.35';
+        }
+        cont.appendChild(slot);
+      }
+    }
+
+    ($('input-foto') as HTMLInputElement).addEventListener('change', async (ev) => {
+      const input = ev.target as HTMLInputElement;
+      const archivo = input.files?.[0];
+      input.value = '';
+      if (!archivo || fotos.length >= 3) return;
+      try {
+        const base64 = await comprimirFoto(archivo);
+        fotos.push({ base64, mime: 'image/jpeg', tomada: archivo.lastModified ? new Date(archivo.lastModified).toISOString() : '' });
+        pintarFotos();
+      } catch {
+        alert('No pudimos leer esa foto. Prueba con otra.');
+      }
+    });
+
+    function error(msg: string) {
+      const e = $('form-error');
+      e.textContent = msg;
+      e.classList.remove('hidden');
+      e.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    async function iniciar() {
+      $('folio').textContent = folio;
+      if (!folio || !k) {
+        ocultar('cargando');
+        $('error-carga-texto').textContent = 'El link está incompleto. Revisa que lo hayas copiado entero.';
+        mostrar('error-carga');
+        return;
+      }
+      let r;
+      try {
+        r = await consultar('op', folio, k);
+      } catch (e) {
+        r = { ok: false, error: (e as Error).message + '. Revisa tu conexión y recarga la página.' };
+      }
+      ocultar('cargando');
+      if (!r.ok) {
+        $('error-carga-texto').textContent = r.error;
+        mostrar('error-carga');
+        return;
+      }
+
+      rol = r.rol;
+      const op = r.operacion;
+      $('hito-badge').textContent = `HITO ${r.hito} · ${rol.toUpperCase()}`;
+      $('hito-titulo').textContent = r.titulo;
+      const cuando = op.fecha_programada + (op.hora_programada ? ` · ${op.hora_programada}` : '');
+      $('resumen-datos').innerHTML =
+        fila('Fecha programada', cuando) +
+        fila('Generador', op.generador.razon_social) +
+        fila('Lugar de retiro', [op.generador.sitio, op.generador.direccion, op.generador.comuna].filter(Boolean).join(', ')) +
+        fila('Destino final', [op.planta.razon_social, op.planta.direccion, op.planta.comuna].filter(Boolean).join(', ')) +
+        fila('Residuo', [op.tipo_residuo, op.descripcion].filter(Boolean).join(' — ')) +
+        fila('Cantidad declarada', op.cantidad_declarada !== '' ? `${op.cantidad_declarada} equipos (confirmar en terreno)` : '');
+      mostrar('resumen');
+
+      if (r.registrado) {
+        $('ya-registrado-texto').textContent = `Registrado el ${r.registrado.registrado} por ${r.registrado.nombre} (${r.registrado.empresa}).`;
+        ($('ya-registrado-link') as HTMLAnchorElement).href = r.estado_url.replace('https://electroloop.cl', '');
+        mostrar('ya-registrado');
+        return;
+      }
+
+      // Ajustes por rol
+      document.querySelectorAll<HTMLElement>('[data-solo]').forEach((el) => {
+        el.hidden = !el.dataset.solo!.split(' ').includes(rol);
+      });
+      const [leyenda, etNombre, etRut] = NOMBRE[rol];
+      $('leyenda-persona').textContent = leyenda;
+      $('etiqueta-nombre').textContent = etNombre;
+      $('etiqueta-rut').textContent = etRut;
+      $('etiqueta-cantidad').textContent = CANTIDAD[rol];
+      $('ayuda-cantidad').textContent = AYUDA[rol];
+      $('foto-pedida').textContent = r.foto;
+      $('declaracion').textContent = DECLARACION[rol];
+      if (rol === 'transportista') document.querySelector('[data-opcional]')!.remove();
+
+      const propia = rol === 'generador' ? op.generador : rol === 'transportista' ? op.transportista : op.planta;
+      ($('empresa') as HTMLInputElement).value = propia.razon_social || '';
+      ($('rut_empresa') as HTMLInputElement).value = propia.rut || '';
+
+      pintarFotos();
+      mostrar('form');
+      ($('exito-link') as HTMLAnchorElement).href = r.estado_url.replace('https://electroloop.cl', '');
+    }
+
+    for (const id of ['rut_persona', 'rut_empresa']) {
+      $(id).addEventListener('blur', (e) => {
+        const el = e.target as HTMLInputElement;
+        if (el.value.trim()) el.value = formatoRut(el.value);
+      });
+    }
+
+    $('form').addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      $('form-error').classList.add('hidden');
+      document.querySelectorAll('.invalido').forEach((el) => el.classList.remove('invalido'));
+      const v = (id: string) => ($(id) as HTMLInputElement).value.trim();
+      const malos: string[] = [];
+      const marcar = (id: string, txt: string) => { $(id).classList.add('invalido'); malos.push(txt); };
+
+      if (!v('empresa')) marcar('empresa', 'razón social');
+      if (rol === 'transportista' && !rutValido(v('rut_empresa'))) marcar('rut_empresa', 'RUT de la empresa');
+      if (rol !== 'transportista' && v('rut_empresa') && !rutValido(v('rut_empresa'))) marcar('rut_empresa', 'RUT de la empresa');
+      if (!v('nombre')) marcar('nombre', 'nombre');
+      if (!rutValido(v('rut_persona'))) marcar('rut_persona', 'RUT (revisa el dígito verificador)');
+      if (rol === 'transportista' && !v('patente')) marcar('patente', 'patente');
+      const cant = v('cantidad');
+      if (cant === '' || !/^\d+$/.test(cant)) marcar('cantidad', 'n° de equipos');
+      if (rol === 'planta' && !(Number(v('peso_kg').replace(',', '.')) > 0)) marcar('peso_kg', 'peso en kg');
+      if (!fotos.length) malos.push('al menos una foto');
+      if (!($('acepta') as HTMLInputElement).checked) malos.push('aceptar la declaración');
+      if (malos.length) return error('Falta completar: ' + malos.join(', ') + '.');
+
+      const boton = $('enviar') as HTMLButtonElement;
+      boton.disabled = true;
+      boton.textContent = 'Obteniendo ubicación…';
+      const pos = await ubicacion();
+      boton.textContent = 'Subiendo fotos…';
+
+      const payload = {
+        accion: 'hito', folio, k,
+        navegador: navigator.userAgent,
+        datos: {
+          empresa: v('empresa'), rut_empresa: v('rut_empresa'), nombre: v('nombre'), rut_persona: v('rut_persona'),
+          cargo: v('cargo'), patente: v('patente').toUpperCase(), cantidad: Number(cant),
+          peso_kg: rol === 'planta' ? v('peso_kg').replace(',', '.') : '',
+          observaciones: v('observaciones'), acepta: true, ubicacion: pos,
+        },
+        fotos,
+      };
+
+      try {
+        const r = await enviarHito(payload);
+        if (!r.ok) throw new Error(r.error || 'No se pudo registrar.');
+        ocultar('form');
+        $('exito-texto').textContent = `Registrado el ${r.registrado}. Estado de la operación: ${r.estado}.`;
+        mostrar('exito');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) {
+        boton.disabled = false;
+        boton.textContent = 'Reintentar';
+        error((e as Error).message + ' Tus datos y fotos siguen aquí: vuelve a intentar cuando tengas señal.');
+      }
+    });
+
+    iniciar();
+  </script>
+</body>
+</html>

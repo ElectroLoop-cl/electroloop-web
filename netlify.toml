@@ -11,6 +11,14 @@
 # ETAPA 3.3: Performance Optimization Headers
 # ──────────────────────────────────────────
 
+# Guías de retiro digitales: páginas privadas por link (token en la URL).
+[[headers]]
+  for = "/g/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Referrer-Policy = "no-referrer"
+    Cache-Control = "no-store"
+
 # Cache assets (images, fonts, CSS, JS)
 [[headers]]
   for = "/_astro/*"
