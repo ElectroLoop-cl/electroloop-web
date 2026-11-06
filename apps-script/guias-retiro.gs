@@ -378,12 +378,48 @@ function doGet(e) {
   }
 }
 
+// Campos que el asistente puede enviar al crear. Nunca tokens ni carpeta: esos los genera crearOperacion.
+const CAMPOS_CREAR = [
+  'folio', 'fecha_programada', 'hora_programada',
+  'gen_razon_social', 'gen_rut', 'gen_sitio', 'gen_direccion', 'gen_comuna', 'gen_contacto', 'gen_fono', 'gen_email',
+  'tipo_residuo', 'descripcion', 'cantidad_declarada', 'peso_estimado_kg',
+  'tra_razon_social', 'tra_rut',
+  'pla_razon_social', 'pla_rut', 'pla_direccion', 'pla_comuna', 'pla_contacto', 'pla_fono', 'pla_horario', 'notas',
+];
+
+function claveCrearValida(recibida) {
+  const esperada = PropertiesService.getScriptProperties().getProperty('CREAR_CLAVE') || '';
+  if (esperada.length < 32 || typeof recibida !== 'string' || recibida.length !== esperada.length) return false;
+  let dif = 0;
+  for (let i = 0; i < esperada.length; i += 1) dif |= esperada.charCodeAt(i) ^ recibida.charCodeAt(i);
+  return dif === 0;
+}
+
+// Una vez, en el editor: crea la clave para que Sofía pueda crear operaciones. No la muestra:
+// se copia desde Configuración del proyecto → Propiedades del script a la propiedad GUIAS_CLAVE de Sofía.
+function crearClaveAsistente() {
+  const props = PropertiesService.getScriptProperties();
+  if (props.getProperty('CREAR_CLAVE')) return;
+  props.setProperty('CREAR_CLAVE', Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, ''));
+}
+
 function doPost(e) {
   let body;
   try {
     body = JSON.parse(e.postData.contents);
   } catch (err) {
     return json({ ok: false, error: 'Solicitud mal formada' });
+  }
+  // Crear operación desde el asistente (Sofía). Exige la clave de Propiedades del script CREAR_CLAVE.
+  if (body.accion === 'crear') {
+    if (!claveCrearValida(body.clave)) return json({ ok: false, error: 'No autorizado' });
+    try {
+      const d = {};
+      CAMPOS_CREAR.forEach(function (c) { if (body.datos && body.datos[c] !== undefined && body.datos[c] !== null) d[c] = String(body.datos[c]).trim(); });
+      return json(Object.assign({ ok: true }, crearOperacion(d)));
+    } catch (err) {
+      return json({ ok: false, error: err.message });
+    }
   }
   if (body.accion !== 'hito') return json({ ok: false, error: 'Acción desconocida' });
 
