@@ -10,7 +10,8 @@ export default defineConfig({
         !page.includes('/test-motion') &&
         !page.includes('/v2') &&
         !page.includes('/404') &&
-        !page.includes('/e/satisfaccion'),
+        !page.includes('/e/satisfaccion') &&
+        !page.includes('/g/'),
     }),
   ],
   site: 'https://electroloop.cl',
