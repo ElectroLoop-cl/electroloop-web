@@ -83,6 +83,18 @@ function configurarPlanilla() {
   );
 }
 
+/**
+ * Ejecutar una vez desde el editor (botón Ejecutar) para conceder los
+ * permisos que usa la aplicación web: planilla, Drive (fotos) y correo
+ * (avisos). Deja la carpeta de fotos ubicada y muestra el resultado en el registro.
+ */
+function autorizar() {
+  Object.keys(COLUMNAS).forEach(hoja);
+  const carpeta = carpetaRaiz();
+  const correo = Session.getEffectiveUser().getEmail();
+  console.log('OK · carpeta de fotos: ' + carpeta.getName() + ' · avisos a: ' + (NOTIFICAR_A || correo) + ' · cupo de correos hoy: ' + MailApp.getRemainingDailyQuota());
+}
+
 function hoja(nombre) {
   const ss = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(PropertiesService.getScriptProperties().getProperty('SHEET_ID'));
   let sh = ss.getSheetByName(nombre);
@@ -107,7 +119,20 @@ function carpetaRaiz() {
   if (id) {
     try { return DriveApp.getFolderById(id); } catch (e) { /* se recrea abajo */ }
   }
-  const carpeta = DriveApp.createFolder(CARPETA_FOTOS);
+  // La carpeta de fotos vive junto a la planilla (p. ej. en la unidad compartida).
+  let padre = null;
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const padres = DriveApp.getFileById(ss.getId()).getParents();
+    if (padres.hasNext()) padre = padres.next();
+  } catch (e) { /* sin padre accesible: se usa Mi unidad */ }
+  let carpeta = null;
+  if (padre) {
+    const existentes = padre.getFoldersByName(CARPETA_FOTOS);
+    carpeta = existentes.hasNext() ? existentes.next() : padre.createFolder(CARPETA_FOTOS);
+  } else {
+    carpeta = DriveApp.createFolder(CARPETA_FOTOS);
+  }
   props.setProperty('CARPETA_RAIZ', carpeta.getId());
   return carpeta;
 }

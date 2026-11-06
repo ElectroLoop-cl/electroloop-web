@@ -151,7 +151,7 @@
         ? `<div class="campo-h"><small>Ubicación</small><a href="https://maps.google.com/?q=${h.ubicacion.lat},${h.ubicacion.lng}" target="_blank" rel="noopener noreferrer">Ver en mapa</a> (±${esc(h.ubicacion.precision_m)} m)</div>`
         : '';
       const fotos = (h.fotos || []).filter(Boolean).map((u: string, i: number) =>
-        `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer"><img src="${esc(u)}" alt="Foto ${i + 1} hito ${letra}" loading="lazy"></a>`).join('');
+        `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer"><img src="${esc(u)}" alt="Foto ${i + 1} hito ${letra}"></a>`).join('');
       return `<div class="hito">${cab}<div class="hito-b">
         ${p('Fecha y hora', h.registrado)}
         <div class="campo-h"><small>${cantidad}</small><span class="grande">${esc(h.cantidad)}</span>${rol === 'planta' && h.peso_kg ? ` <span class="grande">· ${esc(String(h.peso_kg).replace('.', ','))} kg</span>` : ''}</div>

@@ -5,7 +5,9 @@
  * "ElectroLoop — Guías de retiro" (apps-script/guias-retiro.gs). No es un
  * secreto: cada lectura y escritura exige el token de la operación.
  */
-const URL_PRODUCCION = '';
+// Planilla "ElectroLoop — Guías de retiro" (unidad compartida Electroloop V2 → Plataforma Operaciones).
+const URL_PRODUCCION =
+  'https://script.google.com/macros/s/AKfycbz9hZVPCzPmEf2DS57PnCpabhLhLNQXa9Q1g9hYPhyaQcLcZsnqDL6ikWzcTkkqAQIVgA/exec';
 // PUBLIC_GUIAS_URL permite apuntar a un simulador local al probar.
 export const GUIAS_URL: string = import.meta.env.PUBLIC_GUIAS_URL || URL_PRODUCCION;
 
