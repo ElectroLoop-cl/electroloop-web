@@ -25,6 +25,14 @@ Tagline: "Cerramos el loop. Recursos infinitos."
 - [Metas del DS N°22 por año](https://electroloop.cl/noticias/metas-ds-22-aparatos-electronicos-pilas/): tabla a 10 años para pilas, aparatos eléctricos y electrónicos.
 - [Noticias RAEE](https://electroloop.cl/noticias): actualidad regulatoria.
 
+## Preguntas frecuentes
+- ¿Qué hace ElectroLoop? Retira equipos eléctricos y electrónicos de empresas, destruye los datos con certificado por número de serie y gestiona su valorización con partners que cuentan con todas las autorizaciones. Entrega acta de retiro, certificado de destrucción y certificado de disposición final.
+- ¿Dónde opera? En todo Chile, con oficina en Santiago (Las Condes).
+- ¿Tiene planta propia? No. Es un integrador: coordina el servicio con partners autorizados.
+- ¿Cuánto cuesta? Depende del volumen, el tipo de equipos y la ubicación; se cotiza caso a caso en contacto@electroloop.cl.
+- ¿Cuándo son exigibles las metas del DS N°22 para pilas y AEE? Desde mayo de 2028: la meta general parte en 3 % y llega a 45 % el décimo año.
+- ¿Cuánto tarda el certificado? El acta se firma el día del retiro y el certificado de disposición final llega en máximo 5 días hábiles.
+
 ## Contacto
 - Razón social: ElectroLoop SpA. RUT 78.501.218-6.
 - Email: contacto@electroloop.cl
