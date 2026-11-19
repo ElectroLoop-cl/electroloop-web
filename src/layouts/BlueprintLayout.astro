@@ -34,12 +34,26 @@ const schema = {
       legalName: 'ElectroLoop SpA',
       taxID: '78.501.218-6',
       description:
-        'Gestor integrador de residuos de aparatos eléctricos y electrónicos (RAEE) bajo Ley REP en Chile, con red de partners certificados.',
+        'Gestor integrador de residuos de aparatos eléctricos y electrónicos (RAEE) bajo la Ley REP. Opera en todo Chile, con oficina en Santiago, y coordina retiro, destrucción certificada de datos, valorización y certificados con partners que cuentan con todas las autorizaciones.',
       url: siteUrl,
       logo: `${siteUrl}/logo-dark.png`,
       email: 'contacto@electroloop.cl',
       slogan: 'Cerramos el loop. Recursos infinitos.',
-      areaServed: ['Chile'],
+      areaServed: [{ '@type': 'Country', name: 'Chile' }],
+      knowsAbout: ['Ley REP', 'DS N°22/2025', 'RAEE', 'destrucción de datos', 'reciclaje electrónico', 'Ley 21.719'],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Servicios ElectroLoop',
+        itemListElement: [
+          ['Retiro de equipos electrónicos para empresas', '/retiro-equipos-electronicos-santiago/'],
+          ['Destrucción certificada de discos duros', '/destruccion-certificada-discos-duros/'],
+          ['Reciclaje electrónico para empresas con certificado', '/reciclaje-electronico-empresas-chile/'],
+          ['Gestión RAEE y cumplimiento Ley REP', '/gestion-raee-chile/'],
+        ].map(([name, path]) => ({
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name, url: `${siteUrl}${path}`, areaServed: { '@type': 'Country', name: 'Chile' } },
+        })),
+      },
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Badajoz 100, Of. 1014',
@@ -52,10 +66,12 @@ const schema = {
       '@type': 'LocalBusiness',
       '@id': `${siteUrl}/#localbusiness`,
       name: 'ElectroLoop',
-      image: `${siteUrl}/logo-dark.png`,
+      image: `${siteUrl}/og-image.jpg`,
       url: siteUrl,
       email: 'contacto@electroloop.cl',
       priceRange: '$$',
+      parentOrganization: { '@id': `${siteUrl}/#organization` },
+      areaServed: [{ '@type': 'Country', name: 'Chile' }],
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Badajoz 100, Of. 1014',
@@ -138,7 +154,9 @@ const sections = [
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
-  <meta property="og:image" content={`${siteUrl}/logo-dark.png`} />
+  <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
